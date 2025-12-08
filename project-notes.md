@@ -25,3 +25,6 @@ Tech stack
 - Typescript
 - BetterAuth if add admin
 - Neon + Drizzle
+
+Quiz
+- Have a question, each one having a score for each university
