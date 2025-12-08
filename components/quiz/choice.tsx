@@ -1,6 +1,3 @@
-"use client";
-import { useState } from "react";
-
 import { Button } from "../ui/button";
 
 export default function Choice({
@@ -18,13 +15,6 @@ export default function Choice({
   setSelectedChoice: (choice: string) => void;
   selectedChoice: string | null;
 }) {
-  const [score, setScore] = useState<{
-    admu: number;
-    dlsu: number;
-    up: number;
-    ust: number;
-  }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
-
   return (
     <>
       {choices.map((choice) => (
