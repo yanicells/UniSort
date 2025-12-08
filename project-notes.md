@@ -15,4 +15,13 @@ Project Features
     - Share results on social media
 - About universities 
     - Have like a comment ish UI for student testimonials, from reddit, fb, etc.
-    - Maybe in the future make into actual CRUD app for students to sign up and leave reviews
+    - Maybe in the future make into actual CRUD app for students to leave reviews or like a freedom wall
+
+Possible Features
+- add admin for the CRUD app
+
+Tech stack
+- Next.js
+- Typescript
+- BetterAuth if add admin
+- Neon + Drizzle
