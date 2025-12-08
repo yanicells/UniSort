@@ -16,6 +16,8 @@ Project Features
 - About universities 
     - Have like a comment ish UI for student testimonials, from reddit, fb, etc.
     - Maybe in the future make into actual CRUD app for students to leave reviews or like a freedom wall
+- General Freedom Wall
+    - Make it have clickable buttons to toggle which universities you can view, and add dropdown for date, likes, comments, etc.
 
 Possible Features
 - add admin for the CRUD app
