@@ -5,9 +5,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Question from "@/components/quiz/question";
 import Choice from "@/components/quiz/choice";
+import Results from "./results";
 
 export default function QuizView() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [quizCompleted, setQuizCompleted] = useState(false);
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [selectionMessage, setSelectionMessage] = useState("");
   const [score, setScore] = useState<{
@@ -33,10 +35,15 @@ export default function QuizView() {
             ust: prevScore.ust + selectedChoiceData.ust,
           };
         }
+        return prevScore;
       });
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedChoice(null);
       setSelectionMessage("");
+      if (currentQuestionIndex < questions.questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        setQuizCompleted(true);
+      }
     } else {
       setSelectionMessage("Please select an answer before proceeding.");
     }
@@ -44,17 +51,28 @@ export default function QuizView() {
 
   return (
     <div>
-      <Question
-        question={questions.questions[currentQuestionIndex].question}
-      ></Question>
-      <Choice
-        selectedChoice={selectedChoice}
-        setSelectedChoice={setSelectedChoice}
-        choices={questions.questions[currentQuestionIndex].choices}
-      ></Choice>
-      <Button onClick={handleNext}>Next</Button>
-      <p>{selectionMessage}</p>
-      <p>Score: ADMU {score.admu}, DLSU {score.dlsu}, UP {score.up}, UST {score.ust}</p>
+      {!quizCompleted ? (
+        <div>
+          <Question
+            question={questions.questions[currentQuestionIndex].question}
+          ></Question>
+          <Choice
+            selectedChoice={selectedChoice}
+            setSelectedChoice={setSelectedChoice}
+            choices={questions.questions[currentQuestionIndex].choices}
+          ></Choice>
+          <Button onClick={handleNext}>Next</Button>
+          <p>{selectionMessage}</p>
+          <p>
+            Score: ADMU {score.admu}, DLSU {score.dlsu}, UP {score.up}, UST{" "}
+            {score.ust}
+          </p>
+        </div>
+      ) : (
+        <div>
+          <Results score={score}></Results>
+        </div>
+      )}
     </div>
   );
 }
