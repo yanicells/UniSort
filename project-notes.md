@@ -47,6 +47,8 @@ Tasks
 - Add uni specific freedom walls
 - Maybe allow pictures in posts
 - Markdown support
+- Vercel analytics
+- Pagination and filters
 
 Title: What actually makes Ateneo different from the other Big 4?
 
