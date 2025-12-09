@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { posts } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export async function createPost(data: {
   content: string;
@@ -17,6 +17,11 @@ export async function createPost(data: {
     .returning();
 
   return newPost;
+}
+
+export async function getPostById(id: string) {
+  const post = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
+  return post[0];
 }
 
 export async function getPosts() {

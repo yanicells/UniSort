@@ -1,5 +1,6 @@
 import { getPosts } from "@/lib/dal/queries";
 import { Post } from "./post";
+import Link from "next/link";
 
 export default async function Wall() {
   const posts = await getPosts();
@@ -14,6 +15,7 @@ export default async function Wall() {
           </p>
         ) : (
           posts.map((post) => (
+            <Link key={post.id} href={`/freedom-wall/${post.id}`}>
             <Post
               key={post.id}
               id={post.id}
@@ -22,6 +24,7 @@ export default async function Wall() {
               reactions={post.reactions}
               createdAt={post.createdAt}
             />
+            </Link>
           ))
         )}
       </div>
