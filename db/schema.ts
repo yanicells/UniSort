@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, integer, jsonb, uuid } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -93,9 +93,37 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
+export const posts = pgTable("post", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  content: text("content").notNull(),
+  parentId: uuid("parent_id"),
+  tags: text("tags").array().notNull().default(["general"]),
+  reactions: jsonb("reactions")
+    .$type<{
+      like: number;
+      love: number;
+      haha: number;
+      wow: number;
+      sad: number;
+      angry: number;
+    }>()
+    .notNull()
+    .default({ like: 0, love: 0, haha: 0, wow: 0, sad: 0, angry: 0 }),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+});
+
+export const postsRelations = relations(posts, ({ one, many }) => ({
+  parent: one(posts, {
+    fields: [posts.parentId],
+    references: [posts.id],
+  }),
+  replies: many(posts),
+}));
+
 export const schema = {
   user,
   session,
   account,
   verification,
+  posts,
 };
