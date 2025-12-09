@@ -24,6 +24,15 @@ export async function getPostById(id: string) {
   return post[0];
 }
 
+export async function getPostComments(parentId: string) {
+  const comments = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.parentId, parentId))
+    .orderBy(desc(posts.createdAt));
+  return comments;
+}
+
 export async function getPosts() {
   const allPosts = await db.select().from(posts).orderBy(desc(posts.createdAt));
   return allPosts;
