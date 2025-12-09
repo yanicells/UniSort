@@ -1,7 +1,6 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostById } from "@/lib/dal/queries";
-import { Post } from "@/components/freedom-wall/post";
+import SinglePostView from "@/components/freedom-wall/post-view";
 
 export default async function PostPage({
   params,
@@ -17,23 +16,7 @@ export default async function PostPage({
 
   return (
     <main className="min-h-screen p-8 max-w-3xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Post</h1>
-        <Link
-          href="/freedom-wall"
-          className="text-sm text-blue-600 hover:underline"
-        >
-          Back to wall
-        </Link>
-      </div>
-
-      <Post
-        id={post.id}
-        content={post.content}
-        tags={post.tags}
-        reactions={post.reactions}
-        createdAt={post.createdAt}
-      />
+      <SinglePostView post={post} />
     </main>
   );
 }
