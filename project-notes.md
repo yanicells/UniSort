@@ -44,3 +44,4 @@ Tasks
 - Home page
 - Proper dashboard/sidebar
 - SEO optimization
+- Add uni specific freedom walls
