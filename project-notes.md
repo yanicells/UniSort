@@ -30,3 +30,17 @@ Tech stack
 
 Quiz
 - Have a question, each one having a score for each university
+
+Tasks
+- Make reactions work
+- Admin actions (deleted flag)
+- Improve quiz
+    - Post on reddit, fb
+    - AI to do research
+    - Results with graph, statistics, shareable
+- Uni page
+    - Testimonials 
+    - Curated info, things that matter to the student life
+- Home page
+- Proper dashboard/sidebar
+- SEO optimization
