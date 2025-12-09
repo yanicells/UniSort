@@ -1,7 +1,30 @@
-export default function Wall() {
+import { getPosts } from "@/lib/dal/queries";
+import { Post } from "./post";
+
+export default async function Wall() {
+  const posts = await getPosts();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <p className="mt-4 text-lg text-gray-600">Wall Component</p>
+    <main className="min-h-screen p-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8">Freedom Wall</h1>
+      <div className="space-y-4">
+        {posts.length === 0 ? (
+          <p className="text-center text-gray-500 py-12">
+            No posts yet. Be the first to post!
+          </p>
+        ) : (
+          posts.map((post) => (
+            <Post
+              key={post.id}
+              id={post.id}
+              content={post.content}
+              tags={post.tags}
+              reactions={post.reactions}
+              createdAt={post.createdAt}
+            />
+          ))
+        )}
+      </div>
     </main>
   );
 }
