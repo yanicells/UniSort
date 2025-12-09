@@ -45,3 +45,17 @@ Tasks
 - Proper dashboard/sidebar
 - SEO optimization
 - Add uni specific freedom walls
+- Maybe allow pictures in posts
+
+Title: What actually makes Ateneo different from the other Big 4?
+
+What genuinely sets Ateneo apart from UP/DLSU/UST in your experience? What kind of student thrives there vs. who struggles? What's the day-to-day vibe like – the orgs, social life, academics, campus culture?
+
+Any "only in Ateneo" moments or things that surprised you would be super helpful too.
+
+Looking for honest, nuanced takes. I'm working on a personality quiz that matches people to one of the Big 4 unis, and I want it to feel real and personal. Thanks!
+
+DLSU-D: 1B6HWQ16 | https://www.facebook.com/profile.php?id=61559785568940
+DLSU: YYNED2KT | https://www.facebook.com/archerfreedomwall
+ADMU: LDW8EKTE | https://www.facebook.com/ADMUFW
+UP: 1QB1WBHO | https://www.facebook.com/updilimanFW
