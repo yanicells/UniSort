@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { createPostAction } from "@/lib/actions/post-actions";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   content: z.string().min(1, "Post cannot be empty").max(2000),
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 
 export function PostForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,12 +32,17 @@ export function PostForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // TODO: server action to create post
-  }
-
   const tagOptions = ["general", "admu", "dlsu", "up", "ust"];
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    const result = await createPostAction(data);
+    if (result.success) {
+      form.reset();
+      router.push("/freedom-wall");
+    } else {
+      console.error(result.error);
+    }
+  }
 
   return (
     <Form {...form}>
