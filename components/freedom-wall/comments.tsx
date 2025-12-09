@@ -50,6 +50,7 @@ export default async function PostComments({ parentId }: CommentProps) {
                 </div>
               ) : null}
             </div>
+            <div></div>
           </li>
         ))}
       </ul>

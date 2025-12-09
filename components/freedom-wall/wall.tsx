@@ -14,18 +14,21 @@ export default async function Wall() {
             No posts yet. Be the first to post!
           </p>
         ) : (
-          posts.map((post) => (
-            <Link key={post.id} href={`/freedom-wall/${post.id}`}>
-            <Post
-              key={post.id}
-              id={post.id}
-              content={post.content}
-              tags={post.tags}
-              reactions={post.reactions}
-              createdAt={post.createdAt}
-            />
-            </Link>
-          ))
+          posts.map(
+            (post) =>
+              post.parentId === null && (
+                <Link key={post.id} href={`/freedom-wall/${post.id}`}>
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    content={post.content}
+                    tags={post.tags}
+                    reactions={post.reactions}
+                    createdAt={post.createdAt}
+                  />
+                </Link>
+              )
+          )
         )}
       </div>
     </main>
