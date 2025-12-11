@@ -31,7 +31,7 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
             src={comment.imageUrl}
             alt="Comment image"
             className="w-full max-h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-            onClick={() => window.open(comment.imageUrl, "_blank")}
+            onClick={() => window.open(comment.imageUrl!, "_blank")}
           />
         </div>
       )}

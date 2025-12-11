@@ -42,8 +42,6 @@ Tasks
 - Home page
 - Proper dashboard/sidebar
 - SEO optimization
-- Add uni specific freedom walls
-- Maybe allow pictures in posts
 - Markdown support
 - Vercel analytics
 - Pagination/Loading only when needed and filters
@@ -53,6 +51,9 @@ For AI prompt
 - Ask help for UI, page by page, as specific as possible, with colors, fonts, themes, layout, etc.
 - Brainstorm UI libraries to use, and install ahead of time, and add in the prompt that we installed them already
 - Ask for SEO optimization strategies for Next.js websites
+
+Future possibilities
+- Add uni specific freedom walls
 
 Title: What actually makes Ateneo different from the other Big 4?
 
