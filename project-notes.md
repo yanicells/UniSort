@@ -32,7 +32,6 @@ Quiz
 - Have a question, each one having a score for each university
 
 Tasks
-- Admin actions (deleted flag) add the sessions check, fix the github thing
 - Improve quiz
     - Post on reddit, fb
     - AI to do research
