@@ -75,3 +75,10 @@ export async function addReaction(postId: string, reaction: string) {
   return result;
 }
 
+export async function deletePost(postId: string) {
+  const result = await db
+    .update(posts)
+    .set({ isDeleted: true })
+    .where(eq(posts.id, postId));
+  return result;
+}
