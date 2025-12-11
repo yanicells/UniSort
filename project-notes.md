@@ -49,6 +49,11 @@ Tasks
 - Pagination/Loading only when needed and filters
 - Make each post (the modal thing not link to the single post)
 
+For AI prompt
+- Ask help for UI, page by page, as specific as possible, with colors, fonts, themes, layout, etc.
+- Brainstorm UI libraries to use, and install ahead of time, and add in the prompt that we installed them already
+- Ask for SEO optimization strategies for Next.js websites
+
 Title: What actually makes Ateneo different from the other Big 4?
 
 What genuinely sets Ateneo apart from UP/DLSU/UST in your experience? What kind of student thrives there vs. who struggles? What's the day-to-day vibe like – the orgs, social life, academics, campus culture?

@@ -122,6 +122,7 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
 }));
 
 export const quizResults = pgTable("quiz_results", {
+  name: text("name").notNull(),
   id: uuid("id").defaultRandom().primaryKey(),
   topMatch: text("top_match", {
     enum: ["admu", "dlsu", "up", "ust"],
@@ -136,7 +137,6 @@ export const quizResults = pgTable("quiz_results", {
     .notNull(),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 });
-
 
 export const schema = {
   user,

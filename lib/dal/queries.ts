@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { posts } from "@/db/schema";
+import { posts, quizResults } from "@/db/schema";
 import { desc, eq, and, isNull } from "drizzle-orm";
 
 export async function createPost(data: {
@@ -80,5 +80,27 @@ export async function deletePost(postId: string) {
     .update(posts)
     .set({ isDeleted: true })
     .where(eq(posts.id, postId));
+  return result;
+}
+
+export async function saveQuizResult(data: {
+  name: string;
+  topMatch: "admu" | "dlsu" | "up" | "ust";
+  scores: {
+    admu: number;
+    dlsu: number;
+    up: number;
+    ust: number;
+  };
+}) {
+  const [result] = await db
+    .insert(quizResults)
+    .values({
+      name: data.name,
+      topMatch: data.topMatch,
+      scores: data.scores,
+    })
+    .returning();
+
   return result;
 }
