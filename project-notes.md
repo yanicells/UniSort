@@ -32,7 +32,7 @@ Quiz
 - Have a question, each one having a score for each university
 
 Tasks
-- Admin actions (deleted flag)
+- Admin actions (deleted flag) add the sessions check, fix the github thing
 - Improve quiz
     - Post on reddit, fb
     - AI to do research
@@ -47,7 +47,7 @@ Tasks
 - Maybe allow pictures in posts
 - Markdown support
 - Vercel analytics
-- Pagination and filters
+- Pagination/Loading only when needed and filters
 - Make each post (the modal thing not link to the single post)
 
 Title: What actually makes Ateneo different from the other Big 4?
