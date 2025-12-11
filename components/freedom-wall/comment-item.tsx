@@ -47,7 +47,10 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
           {Object.entries(comment.reactions).map(
             ([reaction, count]) =>
               count > 0 && (
-                <span key={reaction} className="flex items-center gap-1 text-xs">
+                <span
+                  key={reaction}
+                  className="flex items-center gap-1 text-xs"
+                >
                   <span>{getReactionEmoji(reaction)}</span>
                   <span className="text-gray-600">{count}</span>
                 </span>

@@ -1,3 +1,5 @@
+import AdminPosts from "@/components/admin/admin-posts";
+
 export default function AdminPage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -5,6 +7,7 @@ export default function AdminPage() {
       <p className="mt-4 text-lg text-gray-600">
         Admin Page
       </p>
+      <AdminPosts />
     </main>
   );
 }

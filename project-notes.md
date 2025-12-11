@@ -32,7 +32,6 @@ Quiz
 - Have a question, each one having a score for each university
 
 Tasks
-- Make reactions work
 - Admin actions (deleted flag)
 - Improve quiz
     - Post on reddit, fb

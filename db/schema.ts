@@ -110,6 +110,7 @@ export const posts = pgTable("post", {
     .notNull()
     .default({ like: 0, love: 0, haha: 0, wow: 0, sad: 0, angry: 0 }),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  isDeleted: boolean("is_deleted").default(false).notNull(),
 });
 
 export const postsRelations = relations(posts, ({ one, many }) => ({

@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { posts } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, and, isNull } from "drizzle-orm";
 
 export async function createPost(data: {
   content: string;
@@ -20,7 +20,11 @@ export async function createPost(data: {
 }
 
 export async function getPostById(id: string) {
-  const post = await db.select().from(posts).where(eq(posts.id, id)).limit(1);
+  const post = await db
+    .select()
+    .from(posts)
+    .where(and(eq(posts.id, id), eq(posts.isDeleted, false)))
+    .limit(1);
   return post[0];
 }
 
@@ -28,13 +32,17 @@ export async function getPostComments(parentId: string) {
   const comments = await db
     .select()
     .from(posts)
-    .where(eq(posts.parentId, parentId))
+    .where(and(eq(posts.parentId, parentId), eq(posts.isDeleted, false)))
     .orderBy(desc(posts.createdAt));
   return comments;
 }
 
 export async function getPosts() {
-  const allPosts = await db.select().from(posts).orderBy(desc(posts.createdAt));
+  const allPosts = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.isDeleted, false))
+    .orderBy(desc(posts.createdAt));
   return allPosts;
 }
 
@@ -66,3 +74,4 @@ export async function addReaction(postId: string, reaction: string) {
 
   return result;
 }
+
