@@ -6,6 +6,7 @@ export async function createPost(data: {
   content: string;
   tags: string[];
   parentId?: string | null;
+  imageUrl?: string;
 }) {
   const [newPost] = await db
     .insert(posts)
@@ -13,6 +14,7 @@ export async function createPost(data: {
       content: data.content,
       tags: data.tags,
       parentId: data.parentId || null,
+      imageUrl: data.imageUrl || null,
     })
     .returning();
 

@@ -8,6 +8,7 @@ interface PostProps {
   id: string;
   content: string;
   tags: string[];
+  imageUrl?: string | null;
   reactions: {
     like: number;
     love: number;
@@ -19,7 +20,14 @@ interface PostProps {
   createdAt: Date;
 }
 
-export function Post({ id, content, tags, reactions, createdAt }: PostProps) {
+export function Post({
+  id,
+  content,
+  tags,
+  imageUrl,
+  reactions,
+  createdAt,
+}: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
 
   return (
@@ -38,6 +46,18 @@ export function Post({ id, content, tags, reactions, createdAt }: PostProps) {
 
       {/* Content */}
       <p className="text-gray-800 whitespace-pre-wrap">{content}</p>
+
+      {/* Image */}
+      {imageUrl && (
+        <div className="w-full">
+          <img
+            src={imageUrl}
+            alt="Post image"
+            className="w-full max-h-96 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+            onClick={() => window.open(imageUrl, "_blank")}
+          />
+        </div>
+      )}
 
       {/* Footer */}
       <div className="flex items-center justify-between text-sm text-gray-500 pt-2 border-t">

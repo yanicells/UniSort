@@ -23,6 +23,19 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
   return (
     <article className="border rounded-lg p-3 bg-white shadow-sm">
       <p className="text-gray-800 whitespace-pre-wrap">{comment.content}</p>
+
+      {/* Image */}
+      {comment.imageUrl && (
+        <div className="mt-2 w-full">
+          <img
+            src={comment.imageUrl}
+            alt="Comment image"
+            className="w-full max-h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+            onClick={() => window.open(comment.imageUrl, "_blank")}
+          />
+        </div>
+      )}
+
       <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
         <span>{formatDistanceToNow(createdAt, { addSuffix: true })}</span>
         <div className="flex items-center gap-2">

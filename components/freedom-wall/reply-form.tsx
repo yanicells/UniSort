@@ -15,10 +15,14 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { createPostAction } from "@/lib/actions/post-actions";
+import { UploadButton } from "@/lib/uploadthing";
+import { useState } from "react";
+import { X } from "lucide-react";
 
 const formSchema = z.object({
   content: z.string().min(1, "Reply cannot be empty").max(2000),
   tags: z.array(z.string()).min(1, "Select at least one tag"),
+  imageUrl: z.string().optional(),
 });
 
 interface ReplyModalProps {
@@ -27,25 +31,37 @@ interface ReplyModalProps {
 }
 
 export function ReplyModal({ parentId, onClose }: ReplyModalProps) {
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
       tags: ["general"],
+      imageUrl: undefined,
     },
   });
 
   const tagOptions = ["general", "admu", "dlsu", "up", "ust"];
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    const result = await createPostAction({ ...data, parentId });
+    const result = await createPostAction({
+      ...data,
+      parentId,
+      imageUrl: uploadedImage || undefined,
+    });
     if (result.success) {
       form.reset();
+      setUploadedImage(null);
       onClose();
     } else {
       console.error(result.error);
     }
   }
+
+  const removeImage = () => {
+    setUploadedImage(null);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
@@ -120,6 +136,45 @@ export function ReplyModal({ parentId, onClose }: ReplyModalProps) {
                 </FormItem>
               )}
             />
+
+            <div className="space-y-2">
+              <FormLabel>Image (optional)</FormLabel>
+              {uploadedImage && (
+                <div className="w-full relative group">
+                  <img
+                    src={uploadedImage}
+                    alt="Upload preview"
+                    className="w-full max-h-64 object-cover rounded"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              )}
+              {!uploadedImage && (
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    if (res && res[0]) {
+                      setUploadedImage(res[0].url);
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                  appearance={{
+                    button:
+                      "bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg cursor-pointer",
+                    container: "w-full",
+                    allowedContent: "text-gray-600 text-sm",
+                  }}
+                />
+              )}
+            </div>
 
             <div className="flex justify-end gap-2">
               <Button type="button" variant="ghost" onClick={onClose}>

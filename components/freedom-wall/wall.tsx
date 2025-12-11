@@ -25,6 +25,7 @@ export default async function Wall() {
                     tags={post.tags}
                     reactions={post.reactions}
                     createdAt={post.createdAt}
+                    imageUrl={post.imageUrl}
                   />
                 </Link>
               )

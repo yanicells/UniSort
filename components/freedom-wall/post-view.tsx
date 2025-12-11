@@ -19,6 +19,7 @@ type PostViewProps = {
     angry: number;
   } | null;
   createdAt: string | Date;
+  imageUrl?: string | null;
 };
 
 export default function SinglePostView({ post }: { post: PostViewProps }) {
@@ -77,6 +78,7 @@ export default function SinglePostView({ post }: { post: PostViewProps }) {
         tags={post.tags}
         reactions={reactions}
         createdAt={createdAt}
+        imageUrl={post.imageUrl}
       />
 
       {showReply && (

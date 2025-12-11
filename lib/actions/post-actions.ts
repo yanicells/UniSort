@@ -8,6 +8,7 @@ export async function createPostAction(data: {
   content: string;
   tags: string[];
   parentId?: string | null;
+  imageUrl?: string;
 }) {
   try {
     const newPost = await createPostQuery(data);

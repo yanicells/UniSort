@@ -11,4 +11,5 @@ export type PostComment = {
     angry: number;
   };
   createdAt: Date | string;
+  imageUrl?: string | null;
 };
