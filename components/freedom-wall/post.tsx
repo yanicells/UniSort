@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
+import { ReactionModal } from "./reaction-modal";
 
 interface PostProps {
   id: string;
@@ -16,6 +20,8 @@ interface PostProps {
 }
 
 export function Post({ id, content, tags, reactions, createdAt }: PostProps) {
+  const [showReactionModal, setShowReactionModal] = useState(false);
+
   return (
     <div className="border rounded-lg p-4 space-y-3 bg-white shadow-sm hover:shadow-md transition-shadow">
       {/* Tags */}
@@ -38,18 +44,35 @@ export function Post({ id, content, tags, reactions, createdAt }: PostProps) {
         <span>{formatDistanceToNow(createdAt, { addSuffix: true })}</span>
 
         {/* Reactions */}
-        <div className="flex gap-3">
-          {Object.entries(reactions).map(
-            ([reaction, count]) =>
-              count > 0 && (
-                <span key={reaction} className="flex items-center gap-1">
-                  <span className="text-gray-600">
-                    {getReactionEmoji(reaction)}
+        <div className="flex items-center gap-3">
+          <div className="flex gap-3">
+            {Object.entries(reactions).map(
+              ([reaction, count]) =>
+                count > 0 && (
+                  <span key={reaction} className="flex items-center gap-1">
+                    <span className="text-gray-600">
+                      {getReactionEmoji(reaction)}
+                    </span>
+                    <span className="text-xs">{count}</span>
                   </span>
-                  <span className="text-xs">{count}</span>
-                </span>
-              )
-          )}
+                )
+            )}
+          </div>
+          <div className="relative">
+            <button
+              onClick={() => setShowReactionModal(true)}
+              className="text-gray-400 hover:text-gray-600 transition-colors text-sm"
+              title="Add reaction"
+            >
+              😊
+            </button>
+            {showReactionModal && (
+              <ReactionModal
+                postId={id}
+                onClose={() => setShowReactionModal(false)}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

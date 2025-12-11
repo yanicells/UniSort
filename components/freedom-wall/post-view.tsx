@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Post } from "./post";
 import { ReplyModal } from "./reply-form";
+import { ReactionModal } from "./reaction-modal";
 
 type PostViewProps = {
   id: string;
@@ -22,6 +23,7 @@ type PostViewProps = {
 
 export default function SinglePostView({ post }: { post: PostViewProps }) {
   const [showReply, setShowReply] = useState(false);
+  const [showReactionModal, setShowReactionModal] = useState(false);
 
   const reactions = post.reactions ?? {
     like: 0,
@@ -44,12 +46,29 @@ export default function SinglePostView({ post }: { post: PostViewProps }) {
         >
           Back to wall
         </Link>
-        <button
-          className="text-sm text-blue-600 hover:underline"
-          onClick={() => setShowReply(true)}
-        >
-          Reply
-        </button>
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <button
+              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+              onClick={() => setShowReactionModal(true)}
+              title="Add reaction"
+            >
+              😊
+            </button>
+            {showReactionModal && (
+              <ReactionModal
+                postId={post.id}
+                onClose={() => setShowReactionModal(false)}
+              />
+            )}
+          </div>
+          <button
+            className="text-sm text-blue-600 hover:underline"
+            onClick={() => setShowReply(true)}
+          >
+            Reply
+          </button>
+        </div>
       </div>
 
       <Post

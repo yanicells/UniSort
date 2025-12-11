@@ -49,6 +49,7 @@ Tasks
 - Markdown support
 - Vercel analytics
 - Pagination and filters
+- Make each post (the modal thing not link to the single post)
 
 Title: What actually makes Ateneo different from the other Big 4?
 

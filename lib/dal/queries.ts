@@ -37,3 +37,32 @@ export async function getPosts() {
   const allPosts = await db.select().from(posts).orderBy(desc(posts.createdAt));
   return allPosts;
 }
+
+export async function addReaction(postId: string, reaction: string) {
+  const post = await getPostById(postId);
+  if (!post) {
+    throw new Error("Post not found");
+  }
+
+  const currentReactions = post.reactions || {
+    like: 0,
+    love: 0,
+    haha: 0,
+    wow: 0,
+    sad: 0,
+    angry: 0,
+  };
+
+  const updatedReactions = {
+    ...currentReactions,
+    [reaction]:
+      (currentReactions[reaction as keyof typeof currentReactions] || 0) + 1,
+  };
+
+  const result = await db
+    .update(posts)
+    .set({ reactions: updatedReactions })
+    .where(eq(posts.id, postId));
+
+  return result;
+}
