@@ -157,19 +157,16 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
               <RechartsPrimitive.Bar
                 dataKey="admu"
                 fill="var(--color-admu)"
-                radius={[4, 4, 0, 0]}
                 stackId="a"
               />
               <RechartsPrimitive.Bar
                 dataKey="dlsu"
                 fill="var(--color-dlsu)"
-                radius={[4, 4, 0, 0]}
                 stackId="a"
               />
               <RechartsPrimitive.Bar
                 dataKey="up"
                 fill="var(--color-up)"
-                radius={[4, 4, 0, 0]}
                 stackId="a"
               />
               <RechartsPrimitive.Bar
