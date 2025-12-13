@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ReactionModal } from "./reaction-modal";
+import { PostContent } from "./PostContent";
 
 interface PostProps {
   id: string;
@@ -45,7 +46,7 @@ export function Post({
       </div>
 
       {/* Content */}
-      <p className="text-gray-800 whitespace-pre-wrap">{content}</p>
+      <PostContent content={content} />
 
       {/* Image */}
       {imageUrl && (

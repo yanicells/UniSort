@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ReplyModal } from "./reply-form";
 import { ReactionModal } from "./reaction-modal";
 import { PostComment } from "./comment-types";
+import { PostContent } from "./PostContent";
 
 type CommentItemProps = {
   comment: PostComment;
@@ -22,7 +23,7 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
 
   return (
     <article className="border rounded-lg p-3 bg-white shadow-sm">
-      <p className="text-gray-800 whitespace-pre-wrap">{comment.content}</p>
+      <PostContent content={comment.content} />
 
       {/* Image */}
       {comment.imageUrl && (

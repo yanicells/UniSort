@@ -12,16 +12,38 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { TiptapEditor } from "@/components/editor/TiptapEditor";
 import { createPostAction } from "@/lib/actions/post-actions";
 import { useRouter } from "next/navigation";
 import { UploadButton } from "@/lib/uploadthing";
 import { useState } from "react";
 import { X } from "lucide-react";
 
+// Helper to strip HTML tags for validation
+const stripHtml = (html: string): string => {
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+};
+
 const formSchema = z.object({
-  content: z.string().min(1, "Post cannot be empty").max(2000),
+  content: z
+    .string()
+    .refine(
+      (val) => {
+        const textContent = stripHtml(val).trim();
+        return textContent.length >= 1;
+      },
+      { message: "Post cannot be empty" }
+    )
+    .refine(
+      (val) => {
+        const textContent = stripHtml(val);
+        return textContent.length <= 2000;
+      },
+      { message: "Post must be less than 2000 characters" }
+    ),
   tags: z.array(z.string()).min(1, "Select at least one tag"),
   imageUrl: z.string().optional(),
 });
@@ -69,9 +91,10 @@ export function PostForm() {
             <FormItem>
               <FormLabel>Post</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Write your post (markdown supported)..."
-                  {...field}
+                <TiptapEditor
+                  content={field.value}
+                  onChange={field.onChange}
+                  placeholder="Write your post with rich formatting..."
                 />
               </FormControl>
               <FormMessage />

@@ -14,13 +14,36 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { TiptapEditor } from "@/components/editor/TiptapEditor";
 import { createPostAction } from "@/lib/actions/post-actions";
 import { UploadButton } from "@/lib/uploadthing";
 import { useState } from "react";
 import { X } from "lucide-react";
 
+// Helper to strip HTML tags for validation
+const stripHtml = (html: string): string => {
+  const tmp = document.createElement("div");
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+};
+
 const formSchema = z.object({
-  content: z.string().min(1, "Reply cannot be empty").max(2000),
+  content: z
+    .string()
+    .refine(
+      (val) => {
+        const textContent = stripHtml(val).trim();
+        return textContent.length >= 1;
+      },
+      { message: "Reply cannot be empty" }
+    )
+    .refine(
+      (val) => {
+        const textContent = stripHtml(val);
+        return textContent.length <= 2000;
+      },
+      { message: "Reply must be less than 2000 characters" }
+    ),
   tags: z.array(z.string()).min(1, "Select at least one tag"),
   imageUrl: z.string().optional(),
 });
@@ -86,7 +109,11 @@ export function ReplyModal({ parentId, onClose }: ReplyModalProps) {
                 <FormItem>
                   <FormLabel>Reply</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write your reply..." {...field} />
+                    <TiptapEditor
+                      content={field.value}
+                      onChange={field.onChange}
+                      placeholder="Write your reply with rich formatting..."
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
