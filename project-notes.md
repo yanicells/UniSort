@@ -42,10 +42,11 @@ Tasks
 - Home page
 - Proper dashboard/sidebar
 - SEO optimization
-- Markdown support
 - Vercel analytics
 - Pagination/Loading only when needed and filters
 - Make each post (the modal thing not link to the single post)
+- Freedom wall
+    - Filters for universities, date, likes, comments
 
 For AI prompt
 - Ask help for UI, page by page, as specific as possible, with colors, fonts, themes, layout, etc.

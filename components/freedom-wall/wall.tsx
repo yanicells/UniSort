@@ -1,9 +1,15 @@
+"use client";
+
 import { getPosts } from "@/lib/dal/queries";
 import { Post } from "./post";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default async function Wall() {
-  const posts = await getPosts();
+interface WallProps {
+  posts: Awaited<ReturnType<typeof getPosts>>;
+}
+
+export default function Wall({ posts }: WallProps) {
+  const router = useRouter();
 
   return (
     <main className="min-h-screen p-8 max-w-4xl mx-auto">
@@ -17,17 +23,16 @@ export default async function Wall() {
           posts.map(
             (post) =>
               post.parentId === null && (
-                <Link key={post.id} href={`/freedom-wall/${post.id}`}>
-                  <Post
-                    key={post.id}
-                    id={post.id}
-                    content={post.content}
-                    tags={post.tags}
-                    reactions={post.reactions}
-                    createdAt={post.createdAt}
-                    imageUrl={post.imageUrl}
-                  />
-                </Link>
+                <Post
+                  key={post.id}
+                  id={post.id}
+                  content={post.content}
+                  tags={post.tags}
+                  reactions={post.reactions}
+                  createdAt={post.createdAt}
+                  imageUrl={post.imageUrl}
+                  onClick={() => router.push(`/freedom-wall/${post.id}`)}
+                />
               )
           )
         )}

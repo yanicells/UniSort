@@ -42,7 +42,11 @@ export function ReactionModal({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
-  const handleReactionClick = async (reaction: ReactionType) => {
+  const handleReactionClick = async (
+    e: React.MouseEvent,
+    reaction: ReactionType
+  ) => {
+    e.stopPropagation();
     setIsLoading(true);
     try {
       await handleAddReaction(postId, reaction);
@@ -56,6 +60,7 @@ export function ReactionModal({
   return (
     <div
       ref={modalRef}
+      onClick={(e) => e.stopPropagation()}
       className={`absolute z-50 bg-white rounded-full shadow-lg p-2 flex gap-1 ${
         position === "top" ? "bottom-full mb-2" : "top-full mt-2"
       }`}
@@ -63,7 +68,7 @@ export function ReactionModal({
       {REACTIONS.map((reaction) => (
         <button
           key={reaction.type}
-          onClick={() => handleReactionClick(reaction.type)}
+          onClick={(e) => handleReactionClick(e, reaction.type)}
           disabled={isLoading}
           className="text-xl hover:scale-125 transition-transform hover:drop-shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           title={reaction.type}

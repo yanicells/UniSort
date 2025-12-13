@@ -19,6 +19,7 @@ interface PostProps {
     angry: number;
   };
   createdAt: Date;
+  onClick?: () => void;
 }
 
 export function Post({
@@ -28,11 +29,17 @@ export function Post({
   imageUrl,
   reactions,
   createdAt,
+  onClick,
 }: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
 
   return (
-    <div className="border rounded-lg p-4 space-y-3 bg-white shadow-sm hover:shadow-md transition-shadow">
+    <div
+      className={`border rounded-lg p-4 space-y-3 bg-white shadow-sm hover:shadow-md transition-shadow ${
+        onClick ? "cursor-pointer" : ""
+      }`}
+      onClick={onClick}
+    >
       {/* Tags */}
       <div className="flex gap-2">
         {tags.map((tag) => (
@@ -55,7 +62,10 @@ export function Post({
             src={imageUrl}
             alt="Post image"
             className="w-full max-h-96 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-            onClick={() => window.open(imageUrl, "_blank")}
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(imageUrl, "_blank");
+            }}
           />
         </div>
       )}
@@ -81,7 +91,10 @@ export function Post({
           </div>
           <div className="relative">
             <button
-              onClick={() => setShowReactionModal(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowReactionModal(true);
+              }}
               className="text-gray-400 hover:text-gray-600 transition-colors text-sm"
               title="Add reaction"
             >
