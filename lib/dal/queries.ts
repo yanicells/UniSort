@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { posts, quizResults } from "@/db/schema";
-import { desc, eq, and, isNull } from "drizzle-orm";
+import { desc, eq, and, count, sql } from "drizzle-orm";
 
 export async function createPost(data: {
   content: string;
@@ -105,4 +105,73 @@ export async function saveQuizResult(data: {
     .returning();
 
   return result;
+}
+
+export async function getOverallResultsDistribution(): Promise<
+  { uni: string; count: number }[]
+> {
+  const results = await db
+    .select({
+      uni: quizResults.topMatch,
+      count: count(),
+    })
+    .from(quizResults)
+    .groupBy(quizResults.topMatch);
+
+  return results.map((row) => ({
+    uni: row.uni,
+    count: Number(row.count),
+  }));
+}
+
+export async function getDailyResultsCounts(
+  days: number,
+  filterUni?: "admu" | "dlsu" | "up" | "ust" | "all"
+): Promise<
+  { date: string; admu: number; dlsu: number; up: number; ust: number }[]
+> {
+  const whereConditions = [
+    sql`${quizResults.createdAt} >= NOW() - INTERVAL '${sql.raw(
+      days.toString()
+    )} days'`,
+  ];
+
+  // Add filter condition if a specific university is selected
+  if (filterUni && filterUni !== "all") {
+    whereConditions.push(eq(quizResults.topMatch, filterUni));
+  }
+
+  const results = await db
+    .select({
+      date: sql<string>`DATE(${quizResults.createdAt})`.as("date"),
+      topMatch: quizResults.topMatch,
+      count: count(),
+    })
+    .from(quizResults)
+    .where(and(...whereConditions))
+    .groupBy(sql`DATE(${quizResults.createdAt})`, quizResults.topMatch)
+    .orderBy(sql`DATE(${quizResults.createdAt})`);
+
+  // Transform the results into the desired format
+  const dateMap = new Map<
+    string,
+    { date: string; admu: number; dlsu: number; up: number; ust: number }
+  >();
+
+  for (const row of results) {
+    const dateKey = row.date;
+    if (!dateMap.has(dateKey)) {
+      dateMap.set(dateKey, {
+        date: dateKey,
+        admu: 0,
+        dlsu: 0,
+        up: 0,
+        ust: 0,
+      });
+    }
+    const entry = dateMap.get(dateKey)!;
+    entry[row.topMatch as "admu" | "dlsu" | "up" | "ust"] = Number(row.count);
+  }
+
+  return Array.from(dateMap.values());
 }

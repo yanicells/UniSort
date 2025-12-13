@@ -67,3 +67,5 @@ DLSU-D: 1B6HWQ16 | https://www.facebook.com/profile.php?id=61559785568940
 DLSU: YYNED2KT | https://www.facebook.com/archerfreedomwall
 ADMU: LDW8EKTE | https://www.facebook.com/ADMUFW
 UP: 1QB1WBHO | https://www.facebook.com/updilimanFW
+
+i want you to create a prompt. basically to help you understand the codebase right now. because my code right now is just functionality first. no design whatsoever, so it looks very shit. and lots of things are not yet implemented. basically i know you know most of what is happening but there are details that are not there yet. basically create a prompt so that you are able to be up to speed. so that, we can brainstorm what needs to be done, what UI changes we should make, basically transform this workin version into one that looks nice and ready for production.
