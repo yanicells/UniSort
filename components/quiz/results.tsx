@@ -26,13 +26,16 @@ export default function Results({
   name: string;
 }) {
   const totalScore = score.admu + score.dlsu + score.up + score.ust;
-  
-  const percentages = useMemo(() => ({
-    admu: Math.round((score.admu / totalScore) * 100),
-    dlsu: Math.round((score.dlsu / totalScore) * 100),
-    up: Math.round((score.up / totalScore) * 100),
-    ust: Math.round((score.ust / totalScore) * 100),
-  }), [score, totalScore]);
+
+  const percentages = useMemo(
+    () => ({
+      admu: Math.round((score.admu / totalScore) * 100),
+      dlsu: Math.round((score.dlsu / totalScore) * 100),
+      up: Math.round((score.up / totalScore) * 100),
+      ust: Math.round((score.ust / totalScore) * 100),
+    }),
+    [score, totalScore]
+  );
 
   const sortedScores = useMemo(() => {
     return [
@@ -45,7 +48,8 @@ export default function Results({
 
   const topMatch = sortedScores[0];
   const topUni = topMatch.uni.toUpperCase();
-  const recommendedUniversity = uniFullNames[topMatch.uni as keyof typeof uniFullNames];
+  const recommendedUniversity =
+    uniFullNames[topMatch.uni as keyof typeof uniFullNames];
 
   const getResultMessage = () => {
     const topPercentage = topMatch.percentage;
@@ -65,7 +69,7 @@ export default function Results({
 
   const getUniDescription = (uni: string, percentage: number, rank: number) => {
     if (rank === 0) return null; // Top match already has description above
-    
+
     if (percentage >= 30) {
       return `With ${percentage}%, ${uni.toUpperCase()} is also a strong match for you. You share many values with this university.`;
     } else if (percentage >= 20) {
@@ -90,7 +94,10 @@ export default function Results({
           {greeting}
         </h2>
         <div className="space-y-2">
-          <p className="text-2xl font-semibold" style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}>
+          <p
+            className="text-2xl font-semibold"
+            style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
+          >
             Your top match is {topUni} at {topMatch.percentage}%
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -118,7 +125,9 @@ export default function Results({
             return (
               <div key={item.uni} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="font-semibold">{item.uni.toUpperCase()}</span>
+                  <span className="font-semibold">
+                    {item.uni.toUpperCase()}
+                  </span>
                   <span className="text-muted-foreground">
                     {item.score} points ({item.percentage}%)
                   </span>
@@ -148,26 +157,34 @@ export default function Results({
         <CardContent className="space-y-4">
           {sortedScores.slice(1).map((item, index) => {
             const uniKey = item.uni as keyof typeof uniColors;
-            const description = getUniDescription(item.uni, item.percentage, index + 1);
-            
+            const description = getUniDescription(
+              item.uni,
+              item.percentage,
+              index + 1
+            );
+
             return (
-              <div key={item.uni} className="flex gap-4 p-4 rounded-lg border bg-card">
-                <div 
+              <div
+                key={item.uni}
+                className="flex gap-4 p-4 rounded-lg border bg-card"
+              >
+                <div
                   className="w-2 rounded-full flex-shrink-0"
                   style={{ backgroundColor: uniColors[uniKey] }}
                 />
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h4 className="font-semibold" style={{ color: uniColors[uniKey] }}>
+                    <h4
+                      className="font-semibold"
+                      style={{ color: uniColors[uniKey] }}
+                    >
                       {item.uni.toUpperCase()}
                     </h4>
                     <span className="text-sm text-muted-foreground">
                       ({item.percentage}%)
                     </span>
                   </div>
-                  <p className="text-sm text-muted-foreground">
-                    {description}
-                  </p>
+                  <p className="text-sm text-muted-foreground">{description}</p>
                 </div>
               </div>
             );
@@ -178,7 +195,8 @@ export default function Results({
       {/* Share or Retake Section */}
       <div className="text-center space-y-4 pb-8">
         <p className="text-sm text-muted-foreground">
-          These results are based on your responses to the personality and preference quiz.
+          These results are based on your responses to the personality and
+          preference quiz.
         </p>
       </div>
     </div>

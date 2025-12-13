@@ -35,7 +35,7 @@ Tasks
 - Improve quiz
     - Post on reddit, fb
     - AI to do research
-    - Results with graph, statistics, shareable
+    - Shareable results
 - Uni page
     - Testimonials 
     - Curated info, things that matter to the student life
