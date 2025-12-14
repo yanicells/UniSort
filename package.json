@@ -27,7 +27,7 @@
     "drizzle-orm": "^0.45.0",
     "isomorphic-dompurify": "^2.34.0",
     "lucide-react": "^0.561.0",
-    "next": "16.0.7",
+    "next": "16.0.10",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.68.0",
