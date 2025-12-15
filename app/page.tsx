@@ -124,7 +124,6 @@ export default async function Home() {
                     reactions={post.reactions}
                     createdAt={new Date(post.createdAt)}
                     imageUrl={post.imageUrl}
-                    commentCount={post.commentCount}
                   />
                 </Link>
               ))
