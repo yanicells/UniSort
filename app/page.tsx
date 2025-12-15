@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { getQuizSummary, getRecentPosts } from "@/lib/dal/queries";
-import { PostContent } from "@/components/freedom-wall/PostContent";
+import { Post } from "@/components/freedom-wall/post";
 
 export default async function Home() {
   const [quizSummary, recentPosts] = await Promise.all([
@@ -95,26 +95,19 @@ export default async function Home() {
           </div>
           <div className="space-y-4">
             {recentPosts.length === 0 ? (
-              <p className="text-foreground/50">No posts yet. Be the first to share!</p>
+              <p className="text-foreground/50 text-center">No posts yet. Be the first to share!</p>
             ) : (
               recentPosts.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/freedom-wall/${post.id}`}
-                  className="card block hover:no-underline"
-                >
-                  <div className="flex flex-wrap items-center gap-2 text-sm text-foreground/60 mb-3">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-background-subtle px-3 py-1 text-xs font-medium"
-                      >
-                        {tag.toUpperCase()}
-                      </span>
-                    ))}
-                    <span>• {new Date(post.createdAt).toLocaleDateString()}</span>
-                  </div>
-                  <PostContent content={post.content} />
+                <Link key={post.id} href={`/freedom-wall/${post.id}`} className="block">
+                  <Post
+                    id={post.id}
+                    content={post.content}
+                    tags={post.tags}
+                    reactions={post.reactions}
+                    createdAt={new Date(post.createdAt)}
+                    imageUrl={post.imageUrl}
+                    commentCount={post.commentCount}
+                  />
                 </Link>
               ))
             )}

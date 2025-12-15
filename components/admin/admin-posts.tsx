@@ -1,15 +1,17 @@
 import { getPosts } from "@/lib/dal/queries";
 import { DeletePostButton } from "./delete-post-button";
 import { Container } from "../layout/Container";
-import { PostContent } from "../freedom-wall/PostContent";
+import { Post } from "../freedom-wall/post";
 
 export default async function AdminPosts() {
   const posts = await getPosts();
 
   return (
     <Container className="space-y-6">
-      <div className="max-w-4xl mx-auto space-y-4">
-        <h1 className="text-3xl font-bold">Admin - All Posts</h1>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Admin - All Posts</h1>
+        </div>
         <div className="space-y-4">
           {posts.length === 0 ? (
             <p className="text-center text-foreground/60 py-12">
@@ -17,20 +19,17 @@ export default async function AdminPosts() {
             </p>
           ) : (
             posts.map((post) => (
-              <div key={post.id} className="card space-y-3">
-                <div className="flex items-center gap-2 text-xs text-foreground/60 flex-wrap">
-                  {post.tags.map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-background-subtle px-3 py-1 font-medium"
-                    >
-                      {tag.toUpperCase()}
-                    </span>
-                  ))}
-                  <span>• {new Date(post.createdAt).toLocaleString()}</span>
-                </div>
-                <PostContent content={post.content} />
-                <div className="flex items-center justify-between text-sm text-foreground/70">
+              <div key={post.id} className="relative">
+                <Post
+                  id={post.id}
+                  content={post.content}
+                  tags={post.tags}
+                  reactions={post.reactions}
+                  createdAt={new Date(post.createdAt)}
+                  imageUrl={post.imageUrl}
+                  commentCount={post.commentCount}
+                />
+                <div className="mt-2 flex items-center justify-between text-xs text-foreground/50 px-4">
                   <span>ID: {post.id}</span>
                   <DeletePostButton postId={post.id} />
                 </div>

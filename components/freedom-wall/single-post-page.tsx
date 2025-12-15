@@ -23,9 +23,11 @@ export default async function SinglePostPage({ postId }: SinglePostPageProps) {
   const totalCommentCount = allNestedComments.length;
 
   return (
-    <main className="min-h-screen p-8 max-w-3xl mx-auto space-y-6">
-      <SinglePostView post={post} />
-      <PostComments comments={comments} totalCount={totalCommentCount} />
+    <main className="min-h-screen py-8 px-4">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <SinglePostView post={post} />
+        <PostComments comments={comments} totalCount={totalCommentCount} />
+      </div>
     </main>
   );
 }

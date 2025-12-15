@@ -12,9 +12,9 @@ export default function PostComments({ comments, totalCount }: CommentProps) {
 
   if (!comments.length) {
     return (
-      <section className="space-y-2">
-        <h2 className="text-lg font-semibold">Comments</h2>
-        <p className="text-sm text-gray-500">No comments yet.</p>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold">Comments</h2>
+        <p className="text-sm text-foreground/50">No comments yet. Be the first to reply!</p>
       </section>
     );
   }
@@ -22,15 +22,17 @@ export default function PostComments({ comments, totalCount }: CommentProps) {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Comments</h2>
-        <span className="text-sm text-gray-500">{displayCount}</span>
+        <h2 className="text-xl font-semibold">Comments</h2>
+        <span className="text-sm font-medium text-foreground/60">
+          {displayCount} {displayCount === 1 ? 'comment' : 'comments'}
+        </span>
       </div>
 
-      <ul className="space-y-3">
+      <ul className="space-y-4">
         {comments.map((comment) => (
           <li key={comment.id}>
             <CommentItem comment={comment} />
-            <div className="mt-4 ml-4 pl-4 border-l border-gray-200">
+            <div className="mt-3 ml-6 pl-4 border-l-2 border-border/40 space-y-3">
               <CommentThread parentId={comment.id} />
             </div>
           </li>
