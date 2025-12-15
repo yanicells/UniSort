@@ -25,7 +25,10 @@ export default async function Home() {
             <Link href="/quiz" className="primary-button text-lg px-8 py-4">
               Take the Quiz →
             </Link>
-            <Link href="/freedom-wall" className="secondary-button text-lg px-8 py-4">
+            <Link
+              href="/freedom-wall"
+              className="secondary-button text-lg px-8 py-4"
+            >
               Explore Freedom Wall
             </Link>
           </div>
@@ -44,7 +47,10 @@ export default async function Home() {
                 Answer 10 quick questions to see which university culture fits
                 you best, with instant insights.
               </p>
-              <Link href="/quiz" className="mt-4 inline-flex text-foreground font-medium hover:underline">
+              <Link
+                href="/quiz"
+                className="mt-4 inline-flex text-foreground font-medium hover:underline"
+              >
                 Start the quiz →
               </Link>
             </div>
@@ -62,7 +68,9 @@ export default async function Home() {
               </Link>
             </div>
             <div className="card text-left">
-              <div className="text-2xl font-bold mb-3">📊 University Insights</div>
+              <div className="text-2xl font-bold mb-3">
+                📊 University Insights
+              </div>
               <p className="text-foreground/70">
                 Explore curated overviews, campus culture highlights, and stats
                 to help you decide where you fit.
@@ -80,8 +88,12 @@ export default async function Home() {
         {/* Stats Preview */}
         <section className="text-center space-y-4">
           <div className="card inline-flex flex-col items-center justify-center">
-            <p className="text-5xl font-bold text-foreground">{quizSummary.total}</p>
-            <p className="text-foreground/70">Students have found their match</p>
+            <p className="text-5xl font-bold text-foreground">
+              {quizSummary.total}
+            </p>
+            <p className="text-foreground/70">
+              Students have found their match
+            </p>
           </div>
         </section>
 
@@ -95,10 +107,16 @@ export default async function Home() {
           </div>
           <div className="space-y-4">
             {recentPosts.length === 0 ? (
-              <p className="text-foreground/50 text-center">No posts yet. Be the first to share!</p>
+              <p className="text-foreground/50 text-center">
+                No posts yet. Be the first to share!
+              </p>
             ) : (
               recentPosts.map((post) => (
-                <Link key={post.id} href={`/freedom-wall/${post.id}`} className="block">
+                <Link
+                  key={post.id}
+                  href={`/freedom-wall/${post.id}`}
+                  className="block"
+                >
                   <Post
                     id={post.id}
                     content={post.content}

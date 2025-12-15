@@ -14,7 +14,9 @@ export default function PostComments({ comments, totalCount }: CommentProps) {
     return (
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">Comments</h2>
-        <p className="text-sm text-foreground/50">No comments yet. Be the first to reply!</p>
+        <p className="text-sm text-foreground/50">
+          No comments yet. Be the first to reply!
+        </p>
       </section>
     );
   }
@@ -24,7 +26,7 @@ export default function PostComments({ comments, totalCount }: CommentProps) {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Comments</h2>
         <span className="text-sm font-medium text-foreground/60">
-          {displayCount} {displayCount === 1 ? 'comment' : 'comments'}
+          {displayCount} {displayCount === 1 ? "comment" : "comments"}
         </span>
       </div>
 
