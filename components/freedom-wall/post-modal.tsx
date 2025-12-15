@@ -114,7 +114,6 @@ export function PostModal({
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{isReply ? "Your Reply" : "Your Post"}</FormLabel>
                   <FormControl>
                     <TiptapEditor
                       content={field.value}
@@ -208,12 +207,6 @@ export function PostModal({
             />
 
             <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <FormLabel>Image (optional)</FormLabel>
-                <span className="text-xs text-foreground/60">
-                  JPG, PNG up to 5MB
-                </span>
-              </div>
               <div className="border-2 border-dashed border-border rounded-lg p-4">
                 {uploadedImage ? (
                   <div className="relative">
@@ -231,23 +224,30 @@ export function PostModal({
                     </button>
                   </div>
                 ) : (
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      if (res && res[0]) {
-                        setUploadedImage(res[0].url);
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      alert(`ERROR! ${error.message}`);
-                    }}
-                    appearance={{
-                      button:
-                        "bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2.5 rounded-md cursor-pointer transition-colors",
-                      container: "w-full flex justify-center",
-                      allowedContent: "text-foreground/60 text-xs mt-2",
-                    }}
-                  />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <UploadButton
+                        endpoint="imageUploader"
+                        onClientUploadComplete={(res) => {
+                          if (res && res[0]) {
+                            setUploadedImage(res[0].url);
+                          }
+                        }}
+                        onUploadError={(error: Error) => {
+                          alert(`ERROR! ${error.message}`);
+                        }}
+                        appearance={{
+                          button:
+                            "bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2.5 rounded-md cursor-pointer transition-colors",
+                          container: "flex",
+                          allowedContent: "hidden",
+                        }}
+                      />
+                      <span className="text-sm text-foreground/60">
+                        Image (4MB)
+                      </span>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
