@@ -51,22 +51,26 @@ export function OverallResultsPieChartClient({
   }, [data]);
 
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardHeader>
-        <CardTitle>All Quiz Results Distribution</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">All Quiz Results Distribution</CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-          <RechartsPrimitive.PieChart>
+      <CardContent className="overflow-hidden">
+        <ChartContainer config={chartConfig} className="h-[280px] sm:h-[350px] md:h-[400px] w-full max-w-full">
+          <RechartsPrimitive.PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
             <ChartTooltip
               content={<ChartTooltipContent nameKey="uni" hideLabel />}
             />
-            <ChartLegend content={<ChartLegendContent nameKey="uni" />} />
+            <ChartLegend 
+              content={<ChartLegendContent nameKey="uni" />}
+              wrapperStyle={{ fontSize: '12px' }}
+            />
             <RechartsPrimitive.Pie
               data={chartData}
               dataKey="count"
               nameKey="uni"
-              innerRadius={60}
+              innerRadius="40%"
+              outerRadius="80%"
               strokeWidth={5}
             >
               <RechartsPrimitive.Label
@@ -82,14 +86,14 @@ export function OverallResultsPieChartClient({
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
+                          className="fill-foreground text-xl sm:text-2xl md:text-3xl font-bold"
                         >
                           {totalResults}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          y={(viewBox.cy || 0) + 20}
+                          className="fill-muted-foreground text-xs sm:text-sm"
                         >
                           Total Results
                         </tspan>

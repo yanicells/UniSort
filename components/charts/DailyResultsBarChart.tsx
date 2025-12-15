@@ -82,15 +82,15 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
   const chartTitle = `Daily Results Trends - ${filterLabels[filter]}`;
 
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardHeader>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <CardTitle>{chartTitle}</CardTitle>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <CardTitle className="text-lg sm:text-xl">{chartTitle}</CardTitle>
           <Select
             value={filter}
             onValueChange={(value) => setFilter(value as FilterType)}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="Filter by university" />
             </SelectTrigger>
             <SelectContent>
@@ -103,24 +103,32 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
           </Select>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-hidden">
         {isLoading ? (
-          <div className="flex h-[400px] items-center justify-center">
-            <p className="text-muted-foreground">Loading chart data...</p>
+          <div className="flex h-[250px] sm:h-[350px] md:h-[400px] items-center justify-center">
+            <p className="text-muted-foreground text-sm">Loading chart data...</p>
           </div>
         ) : data.length === 0 ? (
-          <div className="flex h-[400px] items-center justify-center">
-            <p className="text-muted-foreground">No data available</p>
+          <div className="flex h-[250px] sm:h-[350px] md:h-[400px] items-center justify-center">
+            <p className="text-muted-foreground text-sm">No data available</p>
           </div>
         ) : (
-          <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
-            <RechartsPrimitive.BarChart accessibilityLayer data={data}>
+          <ChartContainer config={chartConfig} className="h-[250px] sm:h-[350px] md:h-[400px] w-full max-w-full">
+            <RechartsPrimitive.BarChart 
+              accessibilityLayer 
+              data={data}
+              margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
+            >
               <RechartsPrimitive.CartesianGrid vertical={false} />
               <RechartsPrimitive.XAxis
                 dataKey="date"
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
+                angle={-45}
+                textAnchor="end"
+                height={60}
+                tick={{ fontSize: 12 }}
                 tickFormatter={(value) => {
                   const date = new Date(value);
                   return date.toLocaleDateString("en-US", {
@@ -133,11 +141,8 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
                 tickLine={false}
                 axisLine={false}
                 tickMargin={10}
-                label={{
-                  value: "Number of Results",
-                  angle: -90,
-                  position: "insideLeft",
-                }}
+                tick={{ fontSize: 12 }}
+                width={35}
               />
               <ChartTooltip
                 content={
@@ -153,7 +158,10 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
                   />
                 }
               />
-              <ChartLegend content={<ChartLegendContent />} />
+              <ChartLegend 
+                content={<ChartLegendContent />}
+                wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }}
+              />
               <RechartsPrimitive.Bar
                 dataKey="admu"
                 fill="var(--color-admu)"

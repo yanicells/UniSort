@@ -61,7 +61,7 @@ export function ReactionModal({
     <div
       ref={modalRef}
       onClick={(e) => e.stopPropagation()}
-      className={`absolute left-1/2 -translate-x-1/2 z-50 bg-white rounded-full shadow-lg p-2 flex gap-1 ${
+      className={`absolute right-0 sm:left-1/2 sm:-translate-x-1/2 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 flex gap-1 ${
         position === "top" ? "bottom-full mb-3" : "top-full mt-3"
       }`}
     >

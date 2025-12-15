@@ -48,10 +48,12 @@ function Combobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[190px] justify-between"
+          className="flex-1 min-w-0 sm:flex-none sm:w-[160px] md:w-[190px] justify-between text-xs sm:text-sm"
         >
-          {options.find((opt) => opt.value === value)?.label || placeholder}
-          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <span className="truncate">
+            {options.find((opt) => opt.value === value)?.label || placeholder}
+          </span>
+          <ChevronsUpDownIcon className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[220px] p-0">
@@ -65,7 +67,7 @@ function Combobox({
                   value={opt.value}
                   onSelect={(current) => {
                     onChange(current);
-                    setOpen(false as any);
+                    setOpen(false as boolean);
                   }}
                 >
                   <CheckIcon
@@ -123,10 +125,10 @@ function MultiSelectCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[190px] justify-between"
+          className="flex-1 min-w-0 sm:flex-none sm:w-[160px] md:w-[190px] justify-between text-xs sm:text-sm"
         >
-          {getButtonText()}
-          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <span className="truncate">{getButtonText()}</span>
+          <ChevronsUpDownIcon className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[220px] p-0">
@@ -190,7 +192,7 @@ export function FilterBar({
   ];
 
   return (
-    <div className="flex flex-wrap gap-3 mb-6 border-b border-border pb-4 items-center">
+    <div className="flex flex-nowrap gap-1.5 sm:gap-3 mb-6 border-b border-border pb-3 sm:pb-4 items-center overflow-x-auto">
       <MultiSelectCombobox
         selectedValues={selectedUniversities}
         onChange={(values) => setSelectedUniversities(values as University[])}

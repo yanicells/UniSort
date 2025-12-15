@@ -13,7 +13,7 @@ export default async function StatsPage() {
   const summary = await getQuizSummary();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 space-y-8">
+    <div className="max-w-6xl mx-auto px-4 md:px-8 py-8 space-y-8 overflow-x-hidden">
       <div className="space-y-2">
         <h1 className="text-3xl font-bold">Quiz Statistics</h1>
         <p className="text-foreground/70">
@@ -21,7 +21,7 @@ export default async function StatsPage() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
         <SummaryCard label="Total Quizzes" value={summary.total} />
         <SummaryCard
           label="ADMU Matches"
@@ -37,18 +37,20 @@ export default async function StatsPage() {
         <SummaryCard label="UST Matches" value={summary.ust} color="#FDB71A" />
       </div>
 
-      <div className="card">
+      <div className="card overflow-hidden">
         <h2 className="text-2xl font-semibold mb-4">
           Overall Match Distribution
         </h2>
-        <OverallResultsBarChart />
+        <div className="overflow-hidden">
+          <OverallResultsBarChart />
+        </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 md:gap-6 lg:grid-cols-2 overflow-hidden">
         <Suspense
           fallback={
-            <div className="border rounded-lg p-6 animate-pulse">
-              <div className="h-[400px] bg-muted rounded" />
+            <div className="border rounded-lg p-4 md:p-6 animate-pulse">
+              <div className="h-[300px] md:h-[400px] bg-muted rounded" />
             </div>
           }
         >
@@ -57,8 +59,8 @@ export default async function StatsPage() {
 
         <Suspense
           fallback={
-            <div className="border rounded-lg p-6 animate-pulse">
-              <div className="h-[400px] bg-muted rounded" />
+            <div className="border rounded-lg p-4 md:p-6 animate-pulse">
+              <div className="h-[300px] md:h-[400px] bg-muted rounded" />
             </div>
           }
         >
@@ -68,8 +70,8 @@ export default async function StatsPage() {
 
       <Suspense
         fallback={
-          <div className="border rounded-lg p-6 animate-pulse">
-            <div className="h-[400px] bg-muted rounded" />
+          <div className="border rounded-lg p-4 md:p-6 animate-pulse">
+            <div className="h-[300px] md:h-[400px] bg-muted rounded" />
           </div>
         }
       >
@@ -91,12 +93,12 @@ function SummaryCard({
   return (
     <div className="card">
       <p
-        className="text-3xl font-bold"
+        className="text-2xl sm:text-3xl font-bold"
         style={{ color: color ?? "var(--foreground)" }}
       >
         {value}
       </p>
-      <p className="text-sm text-foreground/70 mt-1">{label}</p>
+      <p className="text-xs sm:text-sm text-foreground/70 mt-1">{label}</p>
     </div>
   );
 }

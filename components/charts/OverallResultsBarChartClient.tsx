@@ -10,7 +10,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  ResponsiveContainer,
   XAxis,
   YAxis,
 } from "recharts";
@@ -34,16 +33,25 @@ export function OverallResultsBarChartClient({
   }));
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-      <ResponsiveContainer width="100%" height={320}>
-        <BarChart data={chartData} barSize={48}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis dataKey="uni" tickLine={false} axisLine={false} />
-          <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
-          <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-          <Bar dataKey="count" radius={[8, 8, 0, 0]} />
-        </BarChart>
-      </ResponsiveContainer>
+    <ChartContainer config={chartConfig} className="h-[250px] sm:h-[300px] w-full max-w-full">
+      <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <XAxis 
+          dataKey="uni" 
+          tickLine={false} 
+          axisLine={false}
+          tick={{ fontSize: 12 }}
+        />
+        <YAxis 
+          allowDecimals={false} 
+          tickLine={false} 
+          axisLine={false}
+          tick={{ fontSize: 12 }}
+          width={35}
+        />
+        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+        <Bar dataKey="count" radius={[8, 8, 0, 0]} />
+      </BarChart>
     </ChartContainer>
   );
 }
