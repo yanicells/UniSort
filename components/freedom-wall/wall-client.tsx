@@ -6,7 +6,7 @@ import { FilterBar } from "./filter-bar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type WallUniversity = "all" | "admu" | "dlsu" | "up" | "ust";
+type WallUniversity = "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
@@ -24,8 +24,9 @@ export function WallClient({ initialPosts }: WallClientProps) {
     initialList.length >= POSTS_PER_PAGE
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedUniversity, setSelectedUniversity] =
-    useState<WallUniversity>("all");
+  const [selectedUniversities, setSelectedUniversities] = useState<
+    WallUniversity[]
+  >([]);
   const [sortBy, setSortBy] = useState<WallSort>("latest");
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -44,17 +45,17 @@ export function WallClient({ initialPosts }: WallClientProps) {
       observer.observe(loadMoreRef.current);
     }
     return () => observer.disconnect();
-  }, [hasMore, isLoading, selectedUniversity, sortBy, timeRange]);
+  }, [hasMore, isLoading, selectedUniversities, sortBy, timeRange]);
 
   const loadMorePosts = async () => {
     setIsLoading(true);
     const params = new URLSearchParams({
       page: page.toString(),
       limit: POSTS_PER_PAGE.toString(),
-      university: selectedUniversity,
       sortBy,
       timeRange,
     });
+    selectedUniversities.forEach((u) => params.append("university", u));
     const res = await fetch(`/api/posts?${params.toString()}`);
     const data = await res.json();
     const newPosts = data.posts || [];
@@ -74,10 +75,10 @@ export function WallClient({ initialPosts }: WallClientProps) {
       const params = new URLSearchParams({
         page: "1",
         limit: POSTS_PER_PAGE.toString(),
-        university: selectedUniversity,
         sortBy,
         timeRange,
       });
+      selectedUniversities.forEach((u) => params.append("university", u));
       const res = await fetch(`/api/posts?${params.toString()}`);
       const data = await res.json();
       setPosts(data.posts || []);
@@ -86,7 +87,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
       setIsLoading(false);
     };
     fetchInitial();
-  }, [selectedUniversity, sortBy, timeRange]);
+  }, [selectedUniversities, sortBy, timeRange]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 py-8">
@@ -98,8 +99,8 @@ export function WallClient({ initialPosts }: WallClientProps) {
       </div>
 
       <FilterBar
-        selectedUniversity={selectedUniversity}
-        setSelectedUniversity={setSelectedUniversity}
+        selectedUniversities={selectedUniversities}
+        setSelectedUniversities={setSelectedUniversities}
         sortBy={sortBy}
         setSortBy={setSortBy}
         timeRange={timeRange}

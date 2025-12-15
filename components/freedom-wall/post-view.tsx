@@ -39,22 +39,28 @@ export default function SinglePostView({ post }: { post: PostViewProps }) {
     post.createdAt instanceof Date ? post.createdAt : new Date(post.createdAt);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex items-center justify-between">
         <Link
           href="/freedom-wall"
           className="text-sm text-blue-600 hover:underline"
         >
-          Back to wall
+          ← Back to wall
         </Link>
         <div className="flex items-center gap-2">
+          <button
+            className="rounded-md border border-border px-3 py-2 text-sm hover:border-foreground/60"
+            onClick={() => setShowReply(true)}
+          >
+            Reply
+          </button>
           <div className="relative">
             <button
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+              className="rounded-md border border-border px-3 py-2 text-sm hover:border-foreground/60"
               onClick={() => setShowReactionModal(true)}
               title="Add reaction"
             >
-              😊
+              😊 React
             </button>
             {showReactionModal && (
               <ReactionModal
@@ -63,12 +69,6 @@ export default function SinglePostView({ post }: { post: PostViewProps }) {
               />
             )}
           </div>
-          <button
-            className="text-sm text-blue-600 hover:underline"
-            onClick={() => setShowReply(true)}
-          >
-            Reply
-          </button>
         </div>
       </div>
 

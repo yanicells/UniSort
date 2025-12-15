@@ -5,8 +5,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = Number(searchParams.get("page") || "1");
   const limit = Number(searchParams.get("limit") || "10");
-  const university = (searchParams.get("university") ||
-    "all") as "all" | "admu" | "dlsu" | "up" | "ust";
+  const universities = searchParams
+    .getAll("university")
+    .filter(Boolean) as ("admu" | "dlsu" | "up" | "ust")[];
   const sortBy = (searchParams.get("sortBy") ||
     "latest") as "latest" | "most-liked" | "most-discussed";
   const timeRange = (searchParams.get("timeRange") ||
@@ -15,7 +16,7 @@ export async function GET(request: Request) {
   const posts = await getWallPosts({
     page,
     limit,
-    university,
+    universities,
     sortBy,
     timeRange,
   });

@@ -83,42 +83,38 @@ export default function QuizView({ name }: { name: string }) {
   return (
     <div className="relative min-h-screen bg-background-subtle">
       {!quizCompleted ? (
-        <div className="max-w-3xl mx-auto px-4 py-12 space-y-6">
-          <div className="space-y-3">
-            <ProgressBar
-              current={currentQuestionIndex + 1}
-              total={questions.questions.length}
-            />
-            <div className="card space-y-4">
-              <div className="text-center space-y-2">
-                <p className="text-sm text-foreground/60">
-                  Question {currentQuestionIndex + 1} of{" "}
-                  {questions.questions.length}
-                </p>
-                <h2 className="text-2xl md:text-3xl font-semibold">
-                  {currentQuestion.question}
-                </h2>
-              </div>
+        <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
+          <ProgressBar
+            current={currentQuestionIndex + 1}
+            total={questions.questions.length}
+          />
 
-              <div className="space-y-3">
-                {currentQuestion.choices.map((choice) => {
-                  const isSelected = selectedChoice === choice.text;
-                  return (
-                    <button
-                      key={choice.text}
-                      className={`w-full text-left p-4 border-2 rounded-lg transition-all ${
-                        isSelected
-                          ? "border-foreground bg-foreground/5"
-                          : "border-border hover:border-foreground/60"
-                      }`}
-                      onClick={() => setSelectedChoice(choice.text)}
-                    >
-                      {choice.text}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          <div className="card space-y-3 text-center py-8">
+            <p className="text-sm text-foreground/60">
+              Question {currentQuestionIndex + 1} of {questions.questions.length}
+            </p>
+            <h2 className="text-2xl md:text-3xl font-semibold leading-tight">
+              {currentQuestion.question}
+            </h2>
+          </div>
+
+          <div className="card p-4 md:p-6 space-y-3">
+            {currentQuestion.choices.map((choice) => {
+              const isSelected = selectedChoice === choice.text;
+              return (
+                <button
+                  key={choice.text}
+                  className={`w-full text-left p-4 border-2 rounded-lg focus:outline-none ${
+                    isSelected
+                      ? "border-foreground bg-foreground/5"
+                      : "border-border hover:border-foreground/60 transition-colors"
+                  }`}
+                  onClick={() => setSelectedChoice(choice.text)}
+                >
+                  {choice.text}
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex justify-between max-w-2xl mx-auto w-full">

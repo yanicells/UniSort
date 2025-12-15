@@ -58,20 +58,20 @@ export async function getRecentPosts(limit = 4) {
   return recent;
 }
 
-type WallUniversity = "all" | "admu" | "dlsu" | "up" | "ust";
+type WallUniversity = "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
 export async function getWallPosts({
   page = 1,
   limit = 10,
-  university = "all",
+  universities = [],
   sortBy = "latest",
   timeRange = "all",
 }: {
   page?: number;
   limit?: number;
-  university?: WallUniversity;
+  universities?: WallUniversity[];
   sortBy?: WallSort;
   timeRange?: WallTime;
 }) {
@@ -79,8 +79,15 @@ export async function getWallPosts({
 
   const conditions = [eq(posts.isDeleted, false), isNull(posts.parentId)];
 
-  if (university !== "all") {
-    conditions.push(sql`${posts.tags} @> ARRAY[${university}]::text[]`);
+  const safeUniversities = universities.filter((u) =>
+    ["admu", "dlsu", "up", "ust"].includes(u)
+  ) as WallUniversity[];
+
+  if (safeUniversities.length > 0) {
+    const arrayLiteral = safeUniversities.map((u) => `'${u}'`).join(",");
+    conditions.push(
+      sql`${posts.tags} && ${sql.raw(`ARRAY[${arrayLiteral}]::text[]`)}`
+    );
   }
 
   if (timeRange === "week") {

@@ -15,14 +15,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
 
-type University = "all" | "admu" | "dlsu" | "up" | "ust";
+type University = "admu" | "dlsu" | "up" | "ust";
 type SortBy = "latest" | "most-liked" | "most-discussed";
 type TimeRange = "all" | "week" | "month";
 
 interface FilterBarProps {
-  selectedUniversity: University;
-  setSelectedUniversity: Dispatch<SetStateAction<University>>;
+  selectedUniversities: University[];
+  setSelectedUniversities: Dispatch<SetStateAction<University[]>>;
   sortBy: SortBy;
   setSortBy: Dispatch<SetStateAction<SortBy>>;
   timeRange: TimeRange;
@@ -87,15 +88,14 @@ function Combobox({
 }
 
 export function FilterBar({
-  selectedUniversity,
-  setSelectedUniversity,
+  selectedUniversities,
+  setSelectedUniversities,
   sortBy,
   setSortBy,
   timeRange,
   setTimeRange,
 }: FilterBarProps) {
   const universityOptions = [
-    { value: "all", label: "All Universities" },
     { value: "admu", label: "ADMU" },
     { value: "dlsu", label: "DLSU" },
     { value: "up", label: "UP" },
@@ -114,14 +114,40 @@ export function FilterBar({
     { value: "month", label: "This Month" },
   ];
 
+  const toggleUniversity = (uni: University) => {
+    setSelectedUniversities((prev) =>
+      prev.includes(uni) ? prev.filter((u) => u !== uni) : [...prev, uni]
+    );
+  };
+
+  const clearUniversities = () => setSelectedUniversities([]);
+
+  const hasSelection = selectedUniversities.length > 0;
+
   return (
     <div className="flex flex-wrap gap-3 mb-6 border-b border-border pb-4 items-center">
-      <Combobox
-        value={selectedUniversity}
-        onChange={(v) => setSelectedUniversity(v as University)}
-        options={universityOptions}
-        placeholder="Filter university"
-      />
+      <div className="flex flex-wrap gap-2">
+        <Button
+          variant={hasSelection ? "outline" : "default"}
+          size="sm"
+          onClick={clearUniversities}
+        >
+          All Universities
+        </Button>
+        {universityOptions.map((opt) => (
+          <label
+            key={opt.value}
+            className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-2 cursor-pointer hover:border-foreground/60"
+          >
+            <Checkbox
+              checked={selectedUniversities.includes(opt.value as University)}
+              onCheckedChange={() => toggleUniversity(opt.value as University)}
+              className="rounded-full"
+            />
+            <span className="text-sm">{opt.label}</span>
+          </label>
+        ))}
+      </div>
       <Combobox
         value={sortBy}
         onChange={(v) => setSortBy(v as SortBy)}

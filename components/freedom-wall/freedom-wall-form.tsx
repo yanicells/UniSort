@@ -83,7 +83,17 @@ export function PostForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="card space-y-6 p-6 shadow-sm"
+      >
+        <div className="space-y-1">
+          <h2 className="text-xl font-semibold">Post details</h2>
+          <p className="text-sm text-foreground/60">
+            Keep it concise and respectful. You can add an optional image.
+          </p>
+        </div>
+
         <FormField
           control={form.control}
           name="content"
@@ -94,7 +104,7 @@ export function PostForm() {
                 <TiptapEditor
                   content={field.value}
                   onChange={field.onChange}
-                  placeholder="Write your post with rich formatting..."
+                  placeholder="Share your story or question..."
                 />
               </FormControl>
               <FormMessage />
@@ -107,40 +117,50 @@ export function PostForm() {
           name="tags"
           render={() => (
             <FormItem>
-              <FormLabel>Tags</FormLabel>
-              {tagOptions.map((tag) => (
-                <FormField
-                  key={tag}
-                  control={form.control}
-                  name="tags"
-                  render={({ field }) => (
-                    <FormItem className="flex items-center space-x-2">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value?.includes(tag)}
-                          onCheckedChange={(checked) => {
-                            return checked
-                              ? field.onChange([...field.value, tag])
-                              : field.onChange(
-                                  field.value?.filter((v) => v !== tag)
-                                );
-                          }}
-                        />
-                      </FormControl>
-                      <FormLabel className="font-normal">
-                        {tag.toUpperCase()}
-                      </FormLabel>
-                    </FormItem>
-                  )}
-                />
-              ))}
+              <FormLabel>Universities</FormLabel>
+              <p className="text-xs text-foreground/60 mb-2">
+                Pick at least one so people know who it’s for.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {tagOptions.map((tag) => (
+                  <FormField
+                    key={tag}
+                    control={form.control}
+                    name="tags"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center space-x-2 rounded-md border border-border px-3 py-2">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value?.includes(tag)}
+                            onCheckedChange={(checked) => {
+                              return checked
+                                ? field.onChange([...field.value, tag])
+                                : field.onChange(
+                                    field.value?.filter((v) => v !== tag)
+                                  );
+                            }}
+                          />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          {tag.toUpperCase()}
+                        </FormLabel>
+                      </FormItem>
+                    )}
+                  />
+                ))}
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
 
         <div className="space-y-2">
-          <FormLabel>Image (optional)</FormLabel>
+          <div className="flex items-center justify-between">
+            <FormLabel>Image (optional)</FormLabel>
+            <span className="text-xs text-foreground/60">
+              JPG, PNG up to 5MB
+            </span>
+          </div>
           {uploadedImage && (
             <div className="w-full relative group">
               <img
@@ -178,7 +198,16 @@ export function PostForm() {
           )}
         </div>
 
-        <Button type="submit">Post</Button>
+        <div className="flex items-center justify-end gap-3">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => router.push("/freedom-wall")}
+          >
+            Cancel
+          </Button>
+          <Button type="submit">Post</Button>
+        </div>
       </form>
     </Form>
   );

@@ -96,26 +96,20 @@ export function Navbar() {
           <div className="text-sm font-semibold text-foreground/70">
             Universities
           </div>
-          <Command>
-            <CommandInput placeholder="Search university..." />
-            <CommandList>
-              <CommandEmpty>No university found.</CommandEmpty>
-              <CommandGroup>
-                {universities.map((u) => (
-                  <CommandItem
-                    key={u.href}
-                    value={u.label}
-                    onSelect={() => {
-                      router.push(u.href);
-                      setMobileOpen(false);
-                    }}
-                  >
-                    {u.label}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
+          <div className="grid grid-cols-2 gap-2">
+            {universities.map((u) => (
+              <button
+                key={u.href}
+                className="w-full rounded-md border border-border px-3 py-2 text-left text-sm hover:border-foreground/60"
+                onClick={() => {
+                  router.push(u.href);
+                  setMobileOpen(false);
+                }}
+              >
+                {u.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -140,26 +134,20 @@ export function Navbar() {
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-48 p-0">
-              <Command>
-                <CommandInput placeholder="Search university..." />
-                <CommandList>
-                  <CommandEmpty>No university found.</CommandEmpty>
-                  <CommandGroup>
-                    {universities.map((u) => (
-                      <CommandItem
-                        key={u.href}
-                        value={u.label}
-                        onSelect={() => {
-                          router.push(u.href);
-                          setUniOpen(false);
-                        }}
-                      >
-                        {u.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
+              <div className="py-2">
+                {universities.map((u) => (
+                  <button
+                    key={u.href}
+                    className="w-full px-3 py-2 text-left text-sm hover:bg-background-subtle"
+                    onClick={() => {
+                      router.push(u.href);
+                      setUniOpen(false);
+                    }}
+                  >
+                    {u.label}
+                  </button>
+                ))}
+              </div>
             </PopoverContent>
           </Popover>
         </nav>
