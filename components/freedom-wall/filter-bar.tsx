@@ -15,7 +15,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Checkbox } from "@/components/ui/checkbox";
 
 type University = "general" | "admu" | "dlsu" | "up" | "ust";
 type SortBy = "latest" | "most-liked" | "most-discussed";
@@ -86,6 +85,82 @@ function Combobox({
   );
 }
 
+function MultiSelectCombobox({
+  selectedValues,
+  onChange,
+  options,
+  placeholder,
+}: {
+  selectedValues: string[];
+  onChange: (values: string[]) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const toggleValue = (value: string) => {
+    if (selectedValues.includes(value)) {
+      onChange(selectedValues.filter((v) => v !== value));
+    } else {
+      onChange([...selectedValues, value]);
+    }
+  };
+
+  const getButtonText = () => {
+    if (selectedValues.length === 0) return placeholder;
+    if (selectedValues.length === 1) {
+      return (
+        options.find((o) => o.value === selectedValues[0])?.label || placeholder
+      );
+    }
+    return `${selectedValues.length} selected`;
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[190px] justify-between"
+        >
+          {getButtonText()}
+          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[220px] p-0">
+        <Command>
+          <CommandList>
+            <CommandEmpty>No option found.</CommandEmpty>
+            <CommandGroup>
+              {options.map((opt) => (
+                <CommandItem
+                  key={opt.value}
+                  value={opt.value}
+                  onSelect={() => toggleValue(opt.value)}
+                >
+                  <div
+                    className={cn(
+                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                      selectedValues.includes(opt.value)
+                        ? "bg-primary text-primary-foreground"
+                        : "opacity-50 [&_svg]:invisible"
+                    )}
+                  >
+                    <CheckIcon className="h-4 w-4" />
+                  </div>
+                  {opt.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 export function FilterBar({
   selectedUniversities,
   setSelectedUniversities,
@@ -95,7 +170,7 @@ export function FilterBar({
   setTimeRange,
 }: FilterBarProps) {
   const universityOptions = [
-    { value: "general", label: "GENERAL" },
+    { value: "general", label: "General" },
     { value: "admu", label: "ADMU" },
     { value: "dlsu", label: "DLSU" },
     { value: "up", label: "UP" },
@@ -114,29 +189,14 @@ export function FilterBar({
     { value: "month", label: "This Month" },
   ];
 
-  const toggleUniversity = (uni: University) => {
-    setSelectedUniversities((prev) =>
-      prev.includes(uni) ? prev.filter((u) => u !== uni) : [...prev, uni]
-    );
-  };
-
   return (
     <div className="flex flex-wrap gap-3 mb-6 border-b border-border pb-4 items-center">
-      <div className="flex flex-wrap gap-2">
-        {universityOptions.map((opt) => (
-          <label
-            key={opt.value}
-            className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-2 cursor-pointer hover:border-foreground/60"
-          >
-            <Checkbox
-              checked={selectedUniversities.includes(opt.value as University)}
-              onCheckedChange={() => toggleUniversity(opt.value as University)}
-              className="rounded-full"
-            />
-            <span className="text-sm">{opt.label}</span>
-          </label>
-        ))}
-      </div>
+      <MultiSelectCombobox
+        selectedValues={selectedUniversities}
+        onChange={(values) => setSelectedUniversities(values as University[])}
+        options={universityOptions}
+        placeholder="Filter by tag"
+      />
       <Combobox
         value={sortBy}
         onChange={(v) => setSortBy(v as SortBy)}
