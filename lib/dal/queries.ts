@@ -39,6 +39,37 @@ export async function getPostComments(parentId: string) {
   return comments;
 }
 
+// Get all nested comments recursively for a post
+export async function getAllNestedComments(postId: string) {
+  const allComments = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.isDeleted, false));
+
+  // Build parent-to-children map
+  const childrenMap = new Map<string, typeof allComments>();
+  allComments.forEach((comment) => {
+    if (comment.parentId) {
+      if (!childrenMap.has(comment.parentId)) {
+        childrenMap.set(comment.parentId, []);
+      }
+      childrenMap.get(comment.parentId)!.push(comment);
+    }
+  });
+
+  // Recursively collect all descendants
+  function collectDescendants(id: string): typeof allComments {
+    const children = childrenMap.get(id) || [];
+    let descendants = [...children];
+    children.forEach((child) => {
+      descendants = descendants.concat(collectDescendants(child.id));
+    });
+    return descendants;
+  }
+
+  return collectDescendants(postId);
+}
+
 export async function getPosts() {
   const allPosts = await db
     .select()
@@ -61,6 +92,38 @@ export async function getRecentPosts(limit = 4) {
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
+
+// Helper function to count all nested comments recursively
+async function getCommentCountForPost(postId: string): Promise<number> {
+  // Get all comments (at any level) that are descendants of this post
+  const allComments = await db
+    .select({ id: posts.id, parentId: posts.parentId })
+    .from(posts)
+    .where(eq(posts.isDeleted, false));
+
+  // Build a map of parent -> children
+  const childrenMap = new Map<string, string[]>();
+  allComments.forEach((comment) => {
+    if (comment.parentId) {
+      if (!childrenMap.has(comment.parentId)) {
+        childrenMap.set(comment.parentId, []);
+      }
+      childrenMap.get(comment.parentId)!.push(comment.id);
+    }
+  });
+
+  // Recursively count all descendants
+  function countDescendants(id: string): number {
+    const children = childrenMap.get(id) || [];
+    let count = children.length;
+    children.forEach((childId) => {
+      count += countDescendants(childId);
+    });
+    return count;
+  }
+
+  return countDescendants(postId);
+}
 
 export async function getWallPosts({
   page = 1,
@@ -107,29 +170,14 @@ export async function getWallPosts({
     COALESCE(( ${posts.reactions} ->> 'angry')::int, 0)
   `;
 
-  const commentCount = sql<number>`
-    (
-      WITH RECURSIVE comment_tree AS (
-        SELECT id, parent_id
-        FROM ${posts}
-        WHERE parent_id = ${posts.id} AND is_deleted = false
-        UNION ALL
-        SELECT p.id, p.parent_id
-        FROM ${posts} p
-        INNER JOIN comment_tree ct ON p.parent_id = ct.id
-        WHERE p.is_deleted = false
-      )
-      SELECT COUNT(*)::int FROM comment_tree
-    )
-  `;
-
   let orderExpression;
   switch (sortBy) {
     case "most-liked":
       orderExpression = desc(reactionsTotal);
       break;
     case "most-discussed":
-      orderExpression = desc(commentCount);
+      // For most-discussed, we'll need to sort after calculating counts
+      orderExpression = desc(posts.createdAt);
       break;
     default:
       orderExpression = desc(posts.createdAt);
@@ -146,15 +194,28 @@ export async function getWallPosts({
       createdAt: posts.createdAt,
       isDeleted: posts.isDeleted,
       reactionsTotal,
-      commentCount,
     })
     .from(posts)
     .where(and(...conditions))
     .orderBy(orderExpression, desc(posts.createdAt))
-    .limit(limit)
+    .limit(sortBy === "most-discussed" ? limit * 3 : limit) // Fetch more for sorting
     .offset(offset);
 
-  return result;
+  // Add comment counts to each post
+  const postsWithCommentCounts = await Promise.all(
+    result.map(async (post) => ({
+      ...post,
+      commentCount: await getCommentCountForPost(post.id),
+    }))
+  );
+
+  // Sort by comment count if needed and limit again
+  if (sortBy === "most-discussed") {
+    postsWithCommentCounts.sort((a, b) => b.commentCount - a.commentCount);
+    return postsWithCommentCounts.slice(0, limit);
+  }
+
+  return postsWithCommentCounts;
 }
 
 export async function addReaction(postId: string, reaction: string) {

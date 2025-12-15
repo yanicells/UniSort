@@ -4,9 +4,12 @@ import { PostComment } from "./comment-types";
 
 type CommentProps = {
   comments: PostComment[];
+  totalCount?: number;
 };
 
-export default function PostComments({ comments }: CommentProps) {
+export default function PostComments({ comments, totalCount }: CommentProps) {
+  const displayCount = totalCount ?? comments.length;
+
   if (!comments.length) {
     return (
       <section className="space-y-2">
@@ -20,7 +23,7 @@ export default function PostComments({ comments }: CommentProps) {
     <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">Comments</h2>
-        <span className="text-sm text-gray-500">{comments.length}</span>
+        <span className="text-sm text-gray-500">{displayCount}</span>
       </div>
 
       <ul className="space-y-3">
