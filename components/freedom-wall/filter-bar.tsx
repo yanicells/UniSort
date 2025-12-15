@@ -17,7 +17,7 @@ import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 
-type University = "admu" | "dlsu" | "up" | "ust";
+type University = "general" | "admu" | "dlsu" | "up" | "ust";
 type SortBy = "latest" | "most-liked" | "most-discussed";
 type TimeRange = "all" | "week" | "month";
 
@@ -57,7 +57,6 @@ function Combobox({
       </PopoverTrigger>
       <PopoverContent className="w-[220px] p-0">
         <Command>
-          <CommandInput placeholder={placeholder} />
           <CommandList>
             <CommandEmpty>No option found.</CommandEmpty>
             <CommandGroup>
@@ -96,6 +95,7 @@ export function FilterBar({
   setTimeRange,
 }: FilterBarProps) {
   const universityOptions = [
+    { value: "general", label: "GENERAL" },
     { value: "admu", label: "ADMU" },
     { value: "dlsu", label: "DLSU" },
     { value: "up", label: "UP" },
@@ -120,20 +120,9 @@ export function FilterBar({
     );
   };
 
-  const clearUniversities = () => setSelectedUniversities([]);
-
-  const hasSelection = selectedUniversities.length > 0;
-
   return (
     <div className="flex flex-wrap gap-3 mb-6 border-b border-border pb-4 items-center">
       <div className="flex flex-wrap gap-2">
-        <Button
-          variant={hasSelection ? "outline" : "default"}
-          size="sm"
-          onClick={clearUniversities}
-        >
-          All Universities
-        </Button>
         {universityOptions.map((opt) => (
           <label
             key={opt.value}
@@ -163,4 +152,3 @@ export function FilterBar({
     </div>
   );
 }
-

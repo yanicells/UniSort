@@ -81,24 +81,25 @@ export default function QuizView({ name }: { name: string }) {
   );
 
   return (
-    <div className="relative min-h-screen bg-background-subtle">
+    <div className="relative">
       {!quizCompleted ? (
-        <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
+        <div className="max-w-4xl mx-auto py-8 space-y-8">
           <ProgressBar
             current={currentQuestionIndex + 1}
             total={questions.questions.length}
           />
 
-          <div className="card space-y-3 text-center py-8">
+          <div className="card-static space-y-3 text-center py-8">
             <p className="text-sm text-foreground/60">
-              Question {currentQuestionIndex + 1} of {questions.questions.length}
+              Question {currentQuestionIndex + 1} of{" "}
+              {questions.questions.length}
             </p>
             <h2 className="text-2xl md:text-3xl font-semibold leading-tight">
               {currentQuestion.question}
             </h2>
           </div>
 
-          <div className="card p-4 md:p-6 space-y-3">
+          <div className="card-static p-4 md:p-6 space-y-3">
             {currentQuestion.choices.map((choice) => {
               const isSelected = selectedChoice === choice.text;
               return (
@@ -139,7 +140,7 @@ export default function QuizView({ name }: { name: string }) {
           )}
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto py-8">
           <Results score={score} name={username} />
         </div>
       )}

@@ -58,7 +58,7 @@ export async function getRecentPosts(limit = 4) {
   return recent;
 }
 
-type WallUniversity = "admu" | "dlsu" | "up" | "ust";
+type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
@@ -80,7 +80,7 @@ export async function getWallPosts({
   const conditions = [eq(posts.isDeleted, false), isNull(posts.parentId)];
 
   const safeUniversities = universities.filter((u) =>
-    ["admu", "dlsu", "up", "ust"].includes(u)
+    ["general", "admu", "dlsu", "up", "ust"].includes(u)
   ) as WallUniversity[];
 
   if (safeUniversities.length > 0) {
@@ -109,9 +109,17 @@ export async function getWallPosts({
 
   const commentCount = sql<number>`
     (
-      SELECT COUNT(*)::int
-      FROM ${posts} AS comments
-      WHERE comments.parent_id = ${posts.id} AND comments.is_deleted = false
+      WITH RECURSIVE comment_tree AS (
+        SELECT id, parent_id
+        FROM ${posts}
+        WHERE parent_id = ${posts.id} AND is_deleted = false
+        UNION ALL
+        SELECT p.id, p.parent_id
+        FROM ${posts} p
+        INNER JOIN comment_tree ct ON p.parent_id = ct.id
+        WHERE p.is_deleted = false
+      )
+      SELECT COUNT(*)::int FROM comment_tree
     )
   `;
 

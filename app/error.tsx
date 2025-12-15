@@ -16,8 +16,7 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <html>
-      <body>
+      <div>
         <Container className="flex flex-col items-center justify-center text-center gap-4">
           <h1 className="text-5xl font-bold">Something went wrong</h1>
           <p className="text-foreground/70">
@@ -32,8 +31,7 @@ export default function GlobalError({
             </Link>
           </div>
         </Container>
-      </body>
-    </html>
+      </div>
   );
 }
 

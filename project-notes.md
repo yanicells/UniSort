@@ -32,7 +32,6 @@ Quiz
 - Have a question, each one having a score for each university
 
 Tasks
-- Add bar graph to the stats page to just show percentages of each uni selected similar to results page.
 - Improve quiz
     - Post on reddit, fb
     - AI to do research
@@ -45,8 +44,6 @@ Tasks
 - SEO optimization
 - Vercel analytics
 - Pagination/Loading only when needed and filters
-- Freedom wall
-    - Filters for universities, date, likes, comments
 
 For AI prompt
 - Ask help for UI, page by page, as specific as possible, with colors, fonts, themes, layout, etc.

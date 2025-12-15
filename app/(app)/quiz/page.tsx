@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function Quiz() {
   return (
-    <Container className="pt-24">
+    <Container>
       <QuizHandler />
     </Container>
   );

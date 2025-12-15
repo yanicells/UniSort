@@ -21,15 +21,26 @@ export default async function StatsPage() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="grid md:grid-cols-5 gap-4">
         <SummaryCard label="Total Quizzes" value={summary.total} />
-        <SummaryCard label="ADMU Matches" value={summary.admu} color="#001196" />
-        <SummaryCard label="DLSU Matches" value={summary.dlsu} color="#00703C" />
+        <SummaryCard
+          label="ADMU Matches"
+          value={summary.admu}
+          color="#001196"
+        />
+        <SummaryCard
+          label="DLSU Matches"
+          value={summary.dlsu}
+          color="#00703C"
+        />
         <SummaryCard label="UP Matches" value={summary.up} color="#7B1113" />
+        <SummaryCard label="UST Matches" value={summary.ust} color="#FDB71A" />
       </div>
 
       <div className="card">
-        <h2 className="text-2xl font-semibold mb-4">Overall Match Distribution</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Overall Match Distribution
+        </h2>
         <OverallResultsBarChart />
       </div>
 

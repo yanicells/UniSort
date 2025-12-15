@@ -12,7 +12,11 @@ UniSort is a Next.js 16 app helping students discover their university fit throu
 
 - `app/(app)/*` - Main app routes (freedom wall, quiz, stats, university pages)
 - `app/(admin)/*` - Admin routes (login, post management) - requires role-based auth
-- `app/api/*` - API routes (auth, stats, uploadthing)
+- `app/api/*` - API routes:
+  - `api/auth/[...all]` - Better Auth catch-all route
+  - `api/posts` - Post data endpoints
+  - `api/stats/daily` - Analytics data
+  - `api/uploadthing` - Image upload handler
 
 ### Data Layer Pattern
 
@@ -30,8 +34,21 @@ import { db } from "@/db/drizzle";
 ### Database Schema (`db/schema.ts`)
 
 - **posts** table: Supports nested comments via self-referencing `parentId`, stores HTML content (from Tiptap), reactions as JSONB, soft-deletes via `isDeleted`
-- **quizResults**: Stores per-university scores and top match
-- Auth tables (user, session, account) managed by Better Auth
+- **quizResults**: Stores per-university scores and top match. Universities enum: `["admu", "dlsu", "up", "ust"]`
+- **Auth tables** (user, session, account, verification): Managed by Better Auth with Drizzle adapter
+- **Important**: User table has `role` field (default: "user", admin: "admin") for access control
+
+### Better Auth Configuration
+
+Better Auth setup in [lib/auth.ts](lib/auth.ts) with critical configurations:
+
+- Uses Drizzle adapter with Neon PostgreSQL
+- GitHub OAuth provider (only auth method)
+- `cookieCache.enabled: false` - **Critical**: Prevents stale session data in production
+- Custom `role` field on user for admin features
+- Next.js cookies plugin for server component auth
+
+**Auth Helpers**: Use [lib/auth-helper.ts](lib/auth-helper.ts) functions (`getCurrentSession()`, `isAdmin()`, `requireAdmin()`) instead of direct auth calls.
 
 ### Rich Text Handling
 
@@ -66,6 +83,10 @@ See `components/freedom-wall/post.tsx` and `reaction-modal.tsx` for reference.
 
 ## Development Workflows
 
+### Package Manager
+
+**Project uses Bun** - all commands use `bun` instead of npm/yarn/pnpm.
+
 ### Database
 
 ```bash
@@ -73,17 +94,23 @@ bun run db:push      # Push schema changes to Neon
 bun run db:studio    # Open Drizzle Studio UI
 ```
 
+See [drizzle.config.ts](drizzle.config.ts) for database configuration. Schema defined in [db/schema.ts](db/schema.ts), migrations output to `./migrations`.
+
 ### Running Dev Server
 
 ```bash
 bun dev              # Start Next.js dev server (port 3000)
+bun build            # Production build
+bun start            # Start production server
+bun lint             # Run ESLint
 ```
 
 ### Environment Variables Required
 
 - `DATABASE_URL` - Neon PostgreSQL connection string
 - `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` - Better Auth GitHub OAuth
-- `UPLOADTHING_TOKEN` - Image upload service
+- `UPLOADTHING_TOKEN` - Image upload service (for freedom wall image uploads)
+- `BETTER_AUTH_SECRET` - Better Auth session encryption key
 
 ## Code Conventions
 
@@ -93,6 +120,12 @@ bun dev              # Start Next.js dev server (port 3000)
 2. **Form Handling**: React Hook Form + Zod schemas, shadcn/ui form components
 3. **Styling**: Tailwind classes, no CSS modules. Use `cn()` utility for conditional classes
 4. **Icons**: Use `lucide-react` package
+5. **University Colors**: CSS variables for each school in [globals.css](app/globals.css):
+   - `--admu-blue: #001196`
+   - `--dlsu-green: #00703c`
+   - `--up-maroon: #7b1113`
+   - `--ust-gold: #fdb71a`
+   - Also available as `--chart-1` through `--chart-4` for Recharts
 
 ### Server Actions
 

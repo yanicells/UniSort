@@ -4,6 +4,7 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ReactionModal } from "./reaction-modal";
 import { PostContent } from "./PostContent";
+import { ImageLightbox } from "./image-lightbox";
 
 interface PostProps {
   id: string;
@@ -19,6 +20,7 @@ interface PostProps {
     angry: number;
   };
   createdAt: Date;
+  commentCount?: number;
   onClick?: () => void;
 }
 
@@ -29,10 +31,11 @@ export function Post({
   imageUrl,
   reactions,
   createdAt,
+  commentCount,
   onClick,
 }: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
-  const [openImage, setOpenImage] = useState<string | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   return (
     <div
@@ -57,14 +60,19 @@ export function Post({
       <PostContent content={content} />
 
       {imageUrl && (
-        <div className="w-full">
+        <div
+          className="w-full"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <img
             src={imageUrl}
             alt="Post image"
             className="w-full max-h-96 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
             onClick={(e) => {
               e.stopPropagation();
-              setOpenImage(imageUrl);
+              setIsLightboxOpen(true);
             }}
           />
         </div>
@@ -80,6 +88,12 @@ export function Post({
                   <span className="text-xs">{count}</span>
                 </span>
               )
+          )}
+          {commentCount !== undefined && commentCount > 0 && (
+            <span className="flex items-center gap-1 text-foreground/60">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+              <span className="text-xs">{commentCount}</span>
+            </span>
           )}
         </div>
         <div className="relative">
@@ -102,20 +116,13 @@ export function Post({
         </div>
       </div>
 
-      {openImage && (
-        <div
-          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenImage(null);
-          }}
-        >
-          <img
-            src={openImage}
-            alt="Post full image"
-            className="max-h-[80vh] max-w-5xl rounded-xl shadow-2xl"
-          />
-        </div>
+      {imageUrl && (
+        <ImageLightbox
+          src={imageUrl}
+          alt="Post image"
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+        />
       )}
     </div>
   );

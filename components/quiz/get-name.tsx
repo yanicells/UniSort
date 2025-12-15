@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Container } from "../layout/Container";
 
 type GetNameProps = {
   onContinue: (name: string) => void;
@@ -11,11 +10,13 @@ export default function GetName({ onContinue }: GetNameProps) {
   const [name, setName] = useState("");
 
   return (
-    <Container className="flex items-center justify-center">
-      <div className="w-full max-w-xl mx-auto px-4">
-        <div className="card space-y-5 text-center py-10">
+    <div className="flex items-center justify-center min-h-[calc(100vh-13rem)]">
+      <div className="w-full max-w-xl mx-auto">
+        <div className="card-static space-y-5 text-center py-10">
           <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl font-bold">Welcome to UniSort</h1>
+            <h1 className="text-4xl md:text-5xl font-bold">
+              Welcome to UniSort
+            </h1>
             <p className="text-lg text-foreground/70">
               Find your perfect university match. Takes about 2 minutes.
             </p>
@@ -42,6 +43,6 @@ export default function GetName({ onContinue }: GetNameProps) {
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

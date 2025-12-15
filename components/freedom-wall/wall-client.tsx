@@ -6,7 +6,7 @@ import { FilterBar } from "./filter-bar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type WallUniversity = "admu" | "dlsu" | "up" | "ust";
+type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
@@ -20,9 +20,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const initialList = initialPosts ?? [];
   const [posts, setPosts] = useState(initialList);
   const [page, setPage] = useState(2); // initial page already loaded
-  const [hasMore, setHasMore] = useState(
-    initialList.length >= POSTS_PER_PAGE
-  );
+  const [hasMore, setHasMore] = useState(initialList.length >= POSTS_PER_PAGE);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUniversities, setSelectedUniversities] = useState<
     WallUniversity[]
@@ -128,17 +126,21 @@ export function WallClient({ initialPosts }: WallClientProps) {
               reactions={post.reactions}
               createdAt={new Date(post.createdAt)}
               imageUrl={post.imageUrl}
+              commentCount={post.commentCount}
               onClick={() => router.push(`/freedom-wall/${post.id}`)}
             />
           ))
         )}
       </div>
 
-      <div ref={loadMoreRef} className="py-8 text-center text-sm text-foreground/60">
-        {isLoading && <div className="animate-pulse">Loading more posts...</div>}
-        {!hasMore && posts.length > 0 && (
-          <p>You've reached the end!</p>
+      <div
+        ref={loadMoreRef}
+        className="py-8 text-center text-sm text-foreground/60"
+      >
+        {isLoading && (
+          <div className="animate-pulse">Loading more posts...</div>
         )}
+        {!hasMore && posts.length > 0 && <p>You've reached the end!</p>}
       </div>
 
       <Link
@@ -151,4 +153,3 @@ export function WallClient({ initialPosts }: WallClientProps) {
     </div>
   );
 }
-

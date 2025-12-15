@@ -6,6 +6,7 @@ import { ReplyModal } from "./reply-form";
 import { ReactionModal } from "./reaction-modal";
 import { PostComment } from "./comment-types";
 import { PostContent } from "./PostContent";
+import { ImageLightbox } from "./image-lightbox";
 
 type CommentItemProps = {
   comment: PostComment;
@@ -15,6 +16,7 @@ type CommentItemProps = {
 export function CommentItem({ comment, canReply = true }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const [showReactionModal, setShowReactionModal] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const createdAt =
     comment.createdAt instanceof Date
@@ -32,7 +34,7 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
             src={comment.imageUrl}
             alt="Comment image"
             className="w-full max-h-64 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-            onClick={() => window.open(comment.imageUrl!, "_blank")}
+            onClick={() => setIsLightboxOpen(true)}
           />
         </div>
       )}
@@ -101,6 +103,14 @@ export function CommentItem({ comment, canReply = true }: CommentItemProps) {
           />
         )}
       </div>
+      {comment.imageUrl && (
+        <ImageLightbox
+          src={comment.imageUrl}
+          alt="Comment image"
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+        />
+      )}
     </article>
   );
 }

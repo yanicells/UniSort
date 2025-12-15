@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Menu, X, ChevronsUpDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -44,21 +44,19 @@ export function Navbar() {
 
   const desktopNav = useMemo(
     () =>
-      navItems.map((item) =>
-        (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
-              isActive(pathname, item.href)
-                ? "border-foreground text-foreground"
-                : "border-transparent text-foreground/80 hover:text-foreground"
-            }`}
-          >
-            {item.label}
-          </Link>
-        )
-      ),
+      navItems.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href}
+          className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+            isActive(pathname, item.href)
+              ? "border-foreground text-foreground"
+              : "border-transparent text-foreground/80 hover:text-foreground"
+          }`}
+        >
+          {item.label}
+        </Link>
+      )),
     [pathname]
   );
 
@@ -77,20 +75,19 @@ export function Navbar() {
         </button>
       </div>
       <div className="space-y-4">
-        {navItems.map((item) =>
-          (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`block rounded-md px-3 py-2 text-base ${
-                isActive(pathname, item.href)
-                  ? "bg-foreground text-white"
-                  : "text-foreground/80 hover:bg-background-subtle"
-              }`}
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
-            </Link>
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`block rounded-md px-3 py-2 text-base ${
+              isActive(pathname, item.href)
+                ? "bg-foreground text-white"
+                : "text-foreground/80 hover:bg-background-subtle"
+            }`}
+            onClick={() => setMobileOpen(false)}
+          >
+            {item.label}
+          </Link>
         ))}
         <div className="space-y-2">
           <div className="text-sm font-semibold text-foreground/70">
@@ -130,7 +127,7 @@ export function Navbar() {
             <PopoverTrigger asChild>
               <button className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors inline-flex items-center gap-1 border-b-2 border-transparent">
                 Universities
-                <ChevronsUpDown className="h-4 w-4" />
+                <ChevronDown className="h-4 w-4" />
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-48 p-0">
@@ -165,4 +162,3 @@ export function Navbar() {
     </header>
   );
 }
-
