@@ -79,6 +79,15 @@ export async function getPosts() {
   return allPosts;
 }
 
+export async function getAllPosts() {
+  const allPosts = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.isDeleted, false))
+    .orderBy(desc(posts.createdAt));
+  return allPosts;
+}
+
 export async function getRecentPosts(limit = 4) {
   const recent = await db
     .select()

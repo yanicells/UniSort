@@ -1,10 +1,10 @@
-import { getPosts } from "@/lib/dal/queries";
+import { getAllPosts } from "@/lib/dal/queries";
 import { DeletePostButton } from "./delete-post-button";
 import { Container } from "../layout/Container";
 import { Post } from "../freedom-wall/post";
 
 export default async function AdminPosts() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
 
   return (
     <Container className="space-y-6">
@@ -27,10 +27,8 @@ export default async function AdminPosts() {
                   reactions={post.reactions}
                   createdAt={new Date(post.createdAt)}
                   imageUrl={post.imageUrl}
-                  commentCount={post.commentCount}
                 />
                 <div className="mt-2 flex items-center justify-between text-xs text-foreground/50 px-4">
-                  <span>ID: {post.id}</span>
                   <DeletePostButton postId={post.id} />
                 </div>
               </div>

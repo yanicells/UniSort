@@ -92,10 +92,6 @@ export default function QuizView({ name }: { name: string }) {
             />
 
             <div className="card-static space-y-3 text-center py-6">
-              <p className="text-sm text-foreground/60">
-                Question {currentQuestionIndex + 1} of{" "}
-                {questions.questions.length}
-              </p>
               <h2 className="text-xl md:text-2xl font-semibold leading-tight px-4">
                 {currentQuestion.question}
               </h2>

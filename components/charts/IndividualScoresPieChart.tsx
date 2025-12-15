@@ -73,11 +73,18 @@ export function IndividualScoresPieChart({
   return (
     <Card className="overflow-hidden">
       <CardHeader>
-        <CardTitle className="text-lg sm:text-xl">Your Score Breakdown</CardTitle>
+        <CardTitle className="text-lg sm:text-xl">
+          Your Score Breakdown
+        </CardTitle>
       </CardHeader>
       <CardContent className="overflow-hidden">
-        <ChartContainer config={chartConfig} className="h-[280px] sm:h-[350px] md:h-[400px] w-full max-w-full">
-          <RechartsPrimitive.PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+        <ChartContainer
+          config={chartConfig}
+          className="h-[280px] sm:h-[350px] md:h-[400px] w-full max-w-full"
+        >
+          <RechartsPrimitive.PieChart
+            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          >
             <ChartTooltip
               content={<ChartTooltipContent nameKey="uni" hideLabel />}
             />

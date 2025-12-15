@@ -106,16 +106,21 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
       <CardContent className="overflow-hidden">
         {isLoading ? (
           <div className="flex h-[250px] sm:h-[350px] md:h-[400px] items-center justify-center">
-            <p className="text-muted-foreground text-sm">Loading chart data...</p>
+            <p className="text-muted-foreground text-sm">
+              Loading chart data...
+            </p>
           </div>
         ) : data.length === 0 ? (
           <div className="flex h-[250px] sm:h-[350px] md:h-[400px] items-center justify-center">
             <p className="text-muted-foreground text-sm">No data available</p>
           </div>
         ) : (
-          <ChartContainer config={chartConfig} className="h-[250px] sm:h-[350px] md:h-[400px] w-full max-w-full">
-            <RechartsPrimitive.BarChart 
-              accessibilityLayer 
+          <ChartContainer
+            config={chartConfig}
+            className="h-[250px] sm:h-[350px] md:h-[400px] w-full max-w-full"
+          >
+            <RechartsPrimitive.BarChart
+              accessibilityLayer
               data={data}
               margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
             >
@@ -158,9 +163,9 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
                   />
                 }
               />
-              <ChartLegend 
+              <ChartLegend
                 content={<ChartLegendContent />}
-                wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }}
+                wrapperStyle={{ fontSize: "11px", paddingTop: "10px" }}
               />
               <RechartsPrimitive.Bar
                 dataKey="admu"
