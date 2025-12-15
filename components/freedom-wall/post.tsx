@@ -32,30 +32,30 @@ export function Post({
   onClick,
 }: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
+  const [openImage, setOpenImage] = useState<string | null>(null);
 
   return (
     <div
-      className={`border rounded-lg p-4 space-y-3 bg-white shadow-sm hover:shadow-md transition-shadow ${
-        onClick ? "cursor-pointer" : ""
-      }`}
+      className={`card space-y-3 ${onClick ? "cursor-pointer" : ""}`}
       onClick={onClick}
     >
-      {/* Tags */}
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2 text-xs text-foreground/60 flex-wrap">
         {tags.map((tag) => (
           <span
             key={tag}
-            className="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full"
+            className={`rounded-full px-3 py-1 font-medium ${
+              tagColorClasses[tag as keyof typeof tagColorClasses] ||
+              "bg-gray-200 text-gray-800"
+            }`}
           >
             {tag.toUpperCase()}
           </span>
         ))}
+        <span>• {formatDistanceToNow(createdAt, { addSuffix: true })}</span>
       </div>
 
-      {/* Content */}
       <PostContent content={content} />
 
-      {/* Image */}
       {imageUrl && (
         <div className="w-full">
           <img
@@ -64,51 +64,59 @@ export function Post({
             className="w-full max-h-96 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
             onClick={(e) => {
               e.stopPropagation();
-              window.open(imageUrl, "_blank");
+              setOpenImage(imageUrl);
             }}
           />
         </div>
       )}
 
-      {/* Footer */}
-      <div className="flex items-center justify-between text-sm text-gray-500 pt-2 border-t">
-        <span>{formatDistanceToNow(createdAt, { addSuffix: true })}</span>
-
-        {/* Reactions */}
+      <div className="flex items-center justify-between text-sm text-foreground/70 pt-2 border-t border-border">
         <div className="flex items-center gap-3">
-          <div className="flex gap-3">
-            {Object.entries(reactions).map(
-              ([reaction, count]) =>
-                count > 0 && (
-                  <span key={reaction} className="flex items-center gap-1">
-                    <span className="text-gray-600">
-                      {getReactionEmoji(reaction)}
-                    </span>
-                    <span className="text-xs">{count}</span>
-                  </span>
-                )
-            )}
-          </div>
-          <div className="relative">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowReactionModal(true);
-              }}
-              className="text-gray-400 hover:text-gray-600 transition-colors text-sm"
-              title="Add reaction"
-            >
-              😊
-            </button>
-            {showReactionModal && (
-              <ReactionModal
-                postId={id}
-                onClose={() => setShowReactionModal(false)}
-              />
-            )}
-          </div>
+          {Object.entries(reactions).map(
+            ([reaction, count]) =>
+              count > 0 && (
+                <span key={reaction} className="flex items-center gap-1">
+                  <span>{getReactionEmoji(reaction)}</span>
+                  <span className="text-xs">{count}</span>
+                </span>
+              )
+          )}
+        </div>
+        <div className="relative">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowReactionModal(true);
+            }}
+            className="rounded-full px-3 py-1 text-sm hover:bg-gray-100 transition"
+            aria-label="React to post"
+          >
+            😊
+          </button>
+          {showReactionModal && (
+            <ReactionModal
+              postId={id}
+              onClose={() => setShowReactionModal(false)}
+            />
+          )}
         </div>
       </div>
+
+      {openImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpenImage(null);
+          }}
+        >
+          <img
+            src={openImage}
+            alt="Post full image"
+            className="max-h-[80vh] max-w-5xl rounded-xl shadow-2xl"
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -124,3 +132,11 @@ function getReactionEmoji(reaction: string): string {
   };
   return emojis[reaction] || "";
 }
+
+const tagColorClasses = {
+  admu: "bg-[var(--admu-blue)] text-white",
+  dlsu: "bg-[var(--dlsu-green)] text-white",
+  up: "bg-[var(--up-maroon)] text-white",
+  ust: "bg-[var(--ust-gold)] text-black",
+  general: "bg-gray-200 text-gray-800",
+};

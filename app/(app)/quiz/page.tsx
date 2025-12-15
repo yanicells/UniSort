@@ -1,11 +1,16 @@
-import QuizHandler from "@/components/quiz/quiz"
+import QuizHandler from "@/components/quiz/quiz";
+import { Container } from "@/components/layout/Container";
 
-export default function Quiz(){
-    return(
-        <main className="flex min-h-screen flex-col items-center justify-center p-24">
-          <h1 className="text-4xl font-bold">Quiz Page</h1>
-          <p className="mt-4 text-lg text-gray-600">Welcome to the Quiz!</p>
-          <QuizHandler />
-        </main>
-    )
+export const metadata = {
+  title: "Take the Quiz - UniSort",
+  description:
+    "Take our 2-minute personality quiz to find your perfect university match among ADMU, DLSU, UP, and UST.",
+};
+
+export default function Quiz() {
+  return (
+    <Container className="pt-24">
+      <QuizHandler />
+    </Container>
+  );
 }

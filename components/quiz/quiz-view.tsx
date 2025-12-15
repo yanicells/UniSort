@@ -1,12 +1,10 @@
 "use client";
 
 import { questions } from "@/lib/quiz/quiz-data";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import Question from "@/components/quiz/question";
-import Choice from "@/components/quiz/choice";
+import { useMemo, useState } from "react";
 import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
+import { ProgressBar } from "./ProgressBar";
 
 export default function QuizView({ name }: { name: string }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -77,39 +75,76 @@ export default function QuizView({ name }: { name: string }) {
     }
   }
 
+  const currentQuestion = useMemo(
+    () => questions.questions[currentQuestionIndex],
+    [currentQuestionIndex]
+  );
+
   return (
-    <div>
-      <p>Welcome, {username}!</p>
+    <div className="relative min-h-screen bg-background-subtle">
       {!quizCompleted ? (
-        <div>
-          <Question
-            question={questions.questions[currentQuestionIndex].question}
-          ></Question>
-          <Choice
-            selectedChoice={selectedChoice}
-            setSelectedChoice={setSelectedChoice}
-            choices={questions.questions[currentQuestionIndex].choices}
-          ></Choice>
-          <div className="flex gap-2">
-            {currentQuestionIndex > 0 && (
-              <Button onClick={handleBack} variant="outline">
-                Back
-              </Button>
-            )}
-            <Button onClick={handleNext}>
-              {currentQuestionIndex === questions.questions.length - 1
-                ? "Finish"
-                : "Next"}
-            </Button>
+        <div className="max-w-3xl mx-auto px-4 py-12 space-y-6">
+          <div className="space-y-3">
+            <ProgressBar
+              current={currentQuestionIndex + 1}
+              total={questions.questions.length}
+            />
+            <div className="card space-y-4">
+              <div className="text-center space-y-2">
+                <p className="text-sm text-foreground/60">
+                  Question {currentQuestionIndex + 1} of{" "}
+                  {questions.questions.length}
+                </p>
+                <h2 className="text-2xl md:text-3xl font-semibold">
+                  {currentQuestion.question}
+                </h2>
+              </div>
+
+              <div className="space-y-3">
+                {currentQuestion.choices.map((choice) => {
+                  const isSelected = selectedChoice === choice.text;
+                  return (
+                    <button
+                      key={choice.text}
+                      className={`w-full text-left p-4 border-2 rounded-lg transition-all ${
+                        isSelected
+                          ? "border-foreground bg-foreground/5"
+                          : "border-border hover:border-foreground/60"
+                      }`}
+                      onClick={() => setSelectedChoice(choice.text)}
+                    >
+                      {choice.text}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          <p>{selectionMessage}</p>
-          <p className="text-sm text-gray-500">
-            Question {currentQuestionIndex + 1} of {questions.questions.length}
-          </p>
+
+          <div className="flex justify-between max-w-2xl mx-auto w-full">
+            <button
+              className="secondary-button"
+              onClick={handleBack}
+              disabled={currentQuestionIndex === 0}
+            >
+              ← Back
+            </button>
+            <button className="primary-button" onClick={handleNext}>
+              {currentQuestionIndex === questions.questions.length - 1
+                ? "Finish →"
+                : "Next →"}
+            </button>
+          </div>
+
+          {selectionMessage && (
+            <p className="text-center text-sm text-red-600">
+              {selectionMessage}
+            </p>
+          )}
         </div>
       ) : (
-        <div>
-          <Results score={score} name={username}></Results>
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <Results score={score} name={username} />
         </div>
       )}
     </div>

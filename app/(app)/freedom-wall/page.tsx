@@ -1,13 +1,16 @@
-import Wall from "@/components/freedom-wall/wall";
-import { getPosts } from "@/lib/dal/queries";
+import { getWallPosts } from "@/lib/dal/queries";
+import { WallClient } from "@/components/freedom-wall/wall-client";
+
+export const metadata = {
+  title: "Freedom Wall - UniSort",
+  description:
+    "Read and share anonymous thoughts about university life at ADMU, DLSU, UP, and UST.",
+};
 
 export default async function FreedomWall() {
-  const posts = await getPosts();
+  const posts = await getWallPosts({ page: 1, limit: 10 });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Freedom Wall</h1>
-      <Wall posts={posts} />
-    </main>
+    <WallClient initialPosts={posts} />
   );
 }

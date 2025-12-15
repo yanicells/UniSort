@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { posts, quizResults } from "@/db/schema";
-import { desc, eq, and, count, sql } from "drizzle-orm";
+import { desc, eq, and, count, sql, gte, isNull } from "drizzle-orm";
 
 export async function createPost(data: {
   content: string;
@@ -43,9 +43,103 @@ export async function getPosts() {
   const allPosts = await db
     .select()
     .from(posts)
-    .where(eq(posts.isDeleted, false))
+    .where(and(eq(posts.isDeleted, false), isNull(posts.parentId)))
     .orderBy(desc(posts.createdAt));
   return allPosts;
+}
+
+export async function getRecentPosts(limit = 4) {
+  const recent = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.isDeleted, false))
+    .orderBy(desc(posts.createdAt))
+    .limit(limit);
+  return recent;
+}
+
+type WallUniversity = "all" | "admu" | "dlsu" | "up" | "ust";
+type WallSort = "latest" | "most-liked" | "most-discussed";
+type WallTime = "all" | "week" | "month";
+
+export async function getWallPosts({
+  page = 1,
+  limit = 10,
+  university = "all",
+  sortBy = "latest",
+  timeRange = "all",
+}: {
+  page?: number;
+  limit?: number;
+  university?: WallUniversity;
+  sortBy?: WallSort;
+  timeRange?: WallTime;
+}) {
+  const offset = (page - 1) * limit;
+
+  const conditions = [eq(posts.isDeleted, false), isNull(posts.parentId)];
+
+  if (university !== "all") {
+    conditions.push(sql`${posts.tags} @> ARRAY[${university}]::text[]`);
+  }
+
+  if (timeRange === "week") {
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    conditions.push(gte(posts.createdAt, weekAgo));
+  } else if (timeRange === "month") {
+    const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    conditions.push(gte(posts.createdAt, monthAgo));
+  }
+
+  const reactionsTotal = sql<number>`
+    COALESCE(( ${posts.reactions} ->> 'like')::int, 0) +
+    COALESCE(( ${posts.reactions} ->> 'love')::int, 0) +
+    COALESCE(( ${posts.reactions} ->> 'haha')::int, 0) +
+    COALESCE(( ${posts.reactions} ->> 'wow')::int, 0) +
+    COALESCE(( ${posts.reactions} ->> 'sad')::int, 0) +
+    COALESCE(( ${posts.reactions} ->> 'angry')::int, 0)
+  `;
+
+  const commentCount = sql<number>`
+    (
+      SELECT COUNT(*)::int
+      FROM ${posts} AS comments
+      WHERE comments.parent_id = ${posts.id} AND comments.is_deleted = false
+    )
+  `;
+
+  let orderExpression;
+  switch (sortBy) {
+    case "most-liked":
+      orderExpression = desc(reactionsTotal);
+      break;
+    case "most-discussed":
+      orderExpression = desc(commentCount);
+      break;
+    default:
+      orderExpression = desc(posts.createdAt);
+  }
+
+  const result = await db
+    .select({
+      id: posts.id,
+      content: posts.content,
+      parentId: posts.parentId,
+      tags: posts.tags,
+      imageUrl: posts.imageUrl,
+      reactions: posts.reactions,
+      createdAt: posts.createdAt,
+      isDeleted: posts.isDeleted,
+      reactionsTotal,
+      commentCount,
+    })
+    .from(posts)
+    .where(and(...conditions))
+    .orderBy(orderExpression, desc(posts.createdAt))
+    .limit(limit)
+    .offset(offset);
+
+  return result;
 }
 
 export async function addReaction(postId: string, reaction: string) {
@@ -105,6 +199,27 @@ export async function saveQuizResult(data: {
     .returning();
 
   return result;
+}
+
+export async function getQuizSummary() {
+  const totals = await db.select({ count: count() }).from(quizResults);
+  const distribution = await getOverallResultsDistribution();
+
+  const totalsByUni = distribution.reduce<Record<string, number>>(
+    (acc, row) => {
+      acc[row.uni] = row.count;
+      return acc;
+    },
+    {}
+  );
+
+  return {
+    total: totals[0]?.count ? Number(totals[0].count) : 0,
+    admu: totalsByUni["admu"] || 0,
+    dlsu: totalsByUni["dlsu"] || 0,
+    up: totalsByUni["up"] || 0,
+    ust: totalsByUni["ust"] || 0,
+  };
 }
 
 export async function getOverallResultsDistribution(): Promise<

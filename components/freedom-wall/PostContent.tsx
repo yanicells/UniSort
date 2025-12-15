@@ -20,13 +20,21 @@ export function PostContent({ content }: PostContentProps) {
       "li",
       "blockquote",
       "hr",
+      "a",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "span",
     ],
-    ALLOWED_ATTR: [],
+    ALLOWED_ATTR: ["href", "target", "rel"],
   });
 
   return (
     <div
-      className="prose prose-sm max-w-none text-gray-800"
+      className="prose prose-sm max-w-none text-foreground"
       dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       style={{
         wordBreak: "break-word",
