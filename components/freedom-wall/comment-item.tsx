@@ -29,11 +29,11 @@ export function CommentItem({
       ? comment.createdAt
       : new Date(comment.createdAt);
 
-  // Calculate sizes based on nesting depth
+  // Calculate sizes based on nesting depth - comments should be smaller than posts
   const textSize =
-    depth === 0 ? "text-sm" : depth === 1 ? "text-xs" : "text-[11px]";
-  const padding = depth === 0 ? "px-3 pt-3 pb-2" : "px-2.5 pt-2.5 pb-2";
-  const footerPadding = depth === 0 ? "px-3 pb-3 pt-2" : "px-2.5 pb-2.5 pt-1.5";
+    depth === 0 ? "text-xs" : depth === 1 ? "text-[11px]" : "text-[10px]";
+  const padding = depth === 0 ? "px-3 pt-2.5 pb-1.5" : "px-2.5 pt-2 pb-1.5";
+  const footerPadding = depth === 0 ? "px-3 pb-2.5 pt-1.5" : "px-2.5 pb-2 pt-1";
 
   return (
     <article
@@ -58,8 +58,10 @@ export function CommentItem({
                   <span
                     key={tag}
                     className={cn(
-                      "inline-flex items-center rounded-full px-2.5 py-0.5 font-medium",
-                      textSize
+                      "inline-flex items-center rounded-full font-medium",
+                      depth === 0
+                        ? "px-2 py-0.5 text-[11px]"
+                        : "px-1.5 py-0 text-[10px]"
                     )}
                     style={{
                       backgroundColor: config.bgColor,
@@ -93,11 +95,14 @@ export function CommentItem({
 
       {/* Image */}
       {comment.imageUrl && (
-        <div className="px-3 pb-2">
+        <div className={cn(depth === 0 ? "px-3 pb-2" : "px-2.5 pb-1.5")}>
           <img
             src={comment.imageUrl}
             alt="Comment image"
-            className="w-full max-h-[300px] object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity border border-border/50"
+            className={cn(
+              "w-full object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity border border-border/50",
+              depth === 0 ? "max-h-[250px]" : "max-h-[200px]"
+            )}
             onClick={() => setIsLightboxOpen(true)}
           />
         </div>
@@ -135,12 +140,14 @@ export function CommentItem({
                 onClick={() => setShowReactionModal(true)}
                 className={cn(
                   "inline-flex items-center gap-1 rounded-full border border-border bg-background font-medium transition-colors hover:bg-accent hover:border-foreground/20",
-                  depth === 0 ? "px-2.5 py-1 text-sm" : "px-2 py-0.5 text-xs"
+                  depth === 0
+                    ? "px-2 py-0.5 text-xs"
+                    : "px-1.5 py-0.5 text-[11px]"
                 )}
                 title="Add reaction"
               >
                 <svg
-                  className={depth === 0 ? "h-3.5 w-3.5" : "h-3 w-3"}
+                  className={depth === 0 ? "h-3 w-3" : "h-2.5 w-2.5"}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -168,11 +175,13 @@ export function CommentItem({
                 onClick={() => setShowReply(true)}
                 className={cn(
                   "inline-flex items-center gap-1 rounded-full border border-border bg-background font-medium transition-colors hover:bg-accent hover:border-foreground/20",
-                  depth === 0 ? "px-2.5 py-1 text-sm" : "px-2 py-0.5 text-xs"
+                  depth === 0
+                    ? "px-2 py-0.5 text-xs"
+                    : "px-1.5 py-0.5 text-[11px]"
                 )}
               >
                 <svg
-                  className={depth === 0 ? "h-3.5 w-3.5" : "h-3 w-3"}
+                  className={depth === 0 ? "h-3 w-3" : "h-2.5 w-2.5"}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
