@@ -1,11 +1,8 @@
 Unisort (quick)
 Post on reddit to improve questions, ask for opinions on my questions
 Have AIs do deep research on it to generate questions and constructs about certain universities and their students, environment
-Could have very simple backend but for storing results
 Can ask AI to help with assets, like headers, etc
 Maybe I can integrate the AI chatbot here, to ask questions about universities, and personalities, etc.
-ENSURE WEBSITE IS SEO
-
 
 Project Features
 - Quiz
@@ -16,20 +13,6 @@ Project Features
 - About universities 
     - Have like a comment ish UI for student testimonials, from reddit, fb, etc.
     - Maybe in the future make into actual CRUD app for students to leave reviews or like a freedom wall
-- General Freedom Wall
-    - Make it have clickable buttons to toggle which universities you can view, and add dropdown for date, likes, comments, etc.
-
-Possible Features
-- add admin for the CRUD app
-
-Tech stack
-- Next.js
-- Typescript
-- BetterAuth if add admin
-- Neon + Drizzle
-
-Quiz
-- Have a question, each one having a score for each university
 
 Tasks
 - Improve quiz
@@ -39,11 +22,14 @@ Tasks
 - Uni page
     - Testimonials 
     - Curated info, things that matter to the student life
-- Home page
-- Proper dashboard/sidebar
 - SEO optimization
 - Vercel analytics
-- Pagination/Loading only when needed and filters
+- Improve fonts and theme (colors)
+- Pages
+    - Specific Uni
+    - Home page
+- Quiz
+    - Research and finalize questions, also improve content
 
 For AI prompt
 - Ask help for UI, page by page, as specific as possible, with colors, fonts, themes, layout, etc.

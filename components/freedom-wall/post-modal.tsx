@@ -140,10 +140,9 @@ export function PostModal({
               name="tags"
               render={() => (
                 <FormItem>
-                  <FormLabel>Tags</FormLabel>
-                  <p className="text-xs text-foreground/60 mb-2">
-                    Select at least one
-                  </p>
+                  <FormLabel>
+                    Tags <span className="text-xs text-foreground/60">(Select at least one)</span>
+                  </FormLabel>
                   <div className="flex flex-wrap gap-2">
                     {tagOptions.map((tag) => (
                       <FormField

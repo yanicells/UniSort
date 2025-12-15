@@ -79,7 +79,9 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
     ust: "UST",
   };
 
-  const chartTitle = `Daily Results Trends - ${filterLabels[filter]}`;
+  const duration = days >= 30 ? 'Monthly' : days >= 7 ? 'Weekly' : 'Daily';
+
+  const chartTitle = `${duration} Results Trends - ${filterLabels[filter]}`;
 
   return (
     <Card className="overflow-hidden">
