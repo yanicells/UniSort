@@ -9,7 +9,7 @@ export function Container({ children, className = "" }: ContainerProps) {
   return (
     <main
       id="main-content"
-      className={`max-w-6xl mx-auto px-4 md:px-8 min-h-screen pt-20 ${className}`}
+      className={`max-w-6xl mx-auto px-4 md:px-8 min-h-screen py-8 ${className}`}
     >
       {children}
     </main>

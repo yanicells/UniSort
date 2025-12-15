@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { QuizContainer } from "./quiz-container";
 
 type GetNameProps = {
   onContinue: (name: string) => void;
@@ -10,14 +11,14 @@ export default function GetName({ onContinue }: GetNameProps) {
   const [name, setName] = useState("");
 
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-13rem)]">
+    <QuizContainer>
       <div className="w-full max-w-xl mx-auto">
-        <div className="card-static space-y-5 text-center py-10">
-          <div className="space-y-2">
-            <h1 className="text-4xl md:text-5xl font-bold">
+        <div className="card-static space-y-6 text-center py-8">
+          <div className="space-y-3">
+            <h1 className="text-3xl md:text-4xl font-bold">
               Welcome to UniSort
             </h1>
-            <p className="text-lg text-foreground/70">
+            <p className="text-base text-foreground/70">
               Find your perfect university match. Takes about 2 minutes.
             </p>
             <p className="text-sm text-foreground/50">
@@ -43,6 +44,6 @@ export default function GetName({ onContinue }: GetNameProps) {
           </div>
         </div>
       </div>
-    </div>
+    </QuizContainer>
   );
 }
