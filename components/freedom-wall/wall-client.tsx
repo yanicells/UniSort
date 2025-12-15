@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PostModal } from "./post-modal";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
@@ -27,23 +27,9 @@ export function WallClient({ initialPosts }: WallClientProps) {
   >([]);
   const [sortBy, setSortBy] = useState<WallSort>("latest");
   const [timeRange, setTimeRange] = useState<WallTime>("all");
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isLoading) {
-          loadMorePosts();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    if (loadMoreRef.current) {
-      observer.observe(loadMoreRef.current);
-    }
-    return () => observer.disconnect();
-  }, [hasMore, isLoading, selectedUniversities, sortBy, timeRange]);
 
   const loadMorePosts = async () => {
     setIsLoading(true);
@@ -58,7 +44,14 @@ export function WallClient({ initialPosts }: WallClientProps) {
     const data = await res.json();
     const newPosts = data.posts || [];
 
-    setPosts((prev) => [...prev, ...newPosts]);
+    setPosts((prev) => {
+      // Prevent duplicates by filtering out posts that already exist
+      const existingIds = new Set(prev.map((p) => p.id));
+      const uniqueNewPosts = newPosts.filter(
+        (p: any) => !existingIds.has(p.id)
+      );
+      return [...prev, ...uniqueNewPosts];
+    });
     setPage((prev) => prev + 1);
     if (newPosts.length < POSTS_PER_PAGE) {
       setHasMore(false);
@@ -66,34 +59,53 @@ export function WallClient({ initialPosts }: WallClientProps) {
     setIsLoading(false);
   };
 
+  const refreshPosts = async () => {
+    setIsLoading(true);
+    const params = new URLSearchParams({
+      page: "1",
+      limit: POSTS_PER_PAGE.toString(),
+      sortBy,
+      timeRange,
+    });
+    selectedUniversities.forEach((u) => params.append("university", u));
+    const res = await fetch(`/api/posts?${params.toString()}`);
+    const data = await res.json();
+    setPosts(data.posts || []);
+    setPage(2);
+    setHasMore((data.posts || []).length >= POSTS_PER_PAGE);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMorePosts();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+    return () => observer.disconnect();
+  }, [hasMore, isLoading, page]);
+
   useEffect(() => {
     // reset and fetch first page on filters change
-    const fetchInitial = async () => {
-      setIsLoading(true);
-      const params = new URLSearchParams({
-        page: "1",
-        limit: POSTS_PER_PAGE.toString(),
-        sortBy,
-        timeRange,
-      });
-      selectedUniversities.forEach((u) => params.append("university", u));
-      const res = await fetch(`/api/posts?${params.toString()}`);
-      const data = await res.json();
-      setPosts(data.posts || []);
-      setPage(2);
-      setHasMore((data.posts || []).length >= POSTS_PER_PAGE);
-      setIsLoading(false);
-    };
-    fetchInitial();
+    refreshPosts();
   }, [selectedUniversities, sortBy, timeRange]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-3xl font-bold">Freedom Wall</h1>
-        <Link href="/create" className="primary-button">
+        <button
+          onClick={() => setShowCreateModal(true)}
+          className="primary-button"
+        >
           + New Post
-        </Link>
+        </button>
       </div>
 
       <FilterBar
@@ -143,13 +155,20 @@ export function WallClient({ initialPosts }: WallClientProps) {
         {!hasMore && posts.length > 0 && <p>You've reached the end!</p>}
       </div>
 
-      <Link
-        href="/create"
+      <button
+        onClick={() => setShowCreateModal(true)}
         className="fixed bottom-8 right-8 w-14 h-14 bg-foreground text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center text-2xl z-40"
         aria-label="Create post"
       >
         +
-      </Link>
+      </button>
+
+      {showCreateModal && (
+        <PostModal
+          onClose={() => setShowCreateModal(false)}
+          onPostCreated={refreshPosts}
+        />
+      )}
     </div>
   );
 }

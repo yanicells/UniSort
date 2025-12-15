@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Post } from "./post";
-import { ReplyModal } from "./reply-form";
+import { PostModal } from "./post-modal";
 import { ReactionModal } from "./reaction-modal";
 
 type PostViewProps = {
@@ -59,7 +59,7 @@ export default function SinglePostView({ post }: { post: PostViewProps }) {
       />
 
       {showReply && (
-        <ReplyModal parentId={post.id} onClose={() => setShowReply(false)} />
+        <PostModal parentId={post.id} onClose={() => setShowReply(false)} />
       )}
     </div>
   );

@@ -2,7 +2,7 @@
 
 import { useState, type ReactElement } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { ReplyModal } from "./reply-form";
+import { PostModal } from "./post-modal";
 import { ReactionModal } from "./reaction-modal";
 import { PostComment } from "./comment-types";
 import { PostContent } from "./PostContent";
@@ -194,7 +194,7 @@ export function CommentItem({
 
       {/* Reply Modal */}
       {showReply && canReply && (
-        <ReplyModal parentId={comment.id} onClose={() => setShowReply(false)} />
+        <PostModal parentId={comment.id} onClose={() => setShowReply(false)} />
       )}
 
       {/* Image Lightbox */}
