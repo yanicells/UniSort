@@ -124,7 +124,8 @@ export default function Results({
         <div className="max-w-2xl mx-auto">
           <IndividualScoresPieChart scores={score} />
         </div>
-        <div className="mt-4 space-y-3">{sortedScores.map((item) => {
+        <div className="mt-4 space-y-3">
+          {sortedScores.map((item) => {
             const uniKey = item.uni as keyof typeof uniColors;
             const maxScore = sortedScores[0].score;
             const widthPercentage = (item.score / maxScore) * 100;
@@ -185,14 +186,18 @@ export default function Results({
         <a
           className="primary-button text-xs md:text-sm py-2"
           href={`/${topMatch.uni}`}
-          style={{ backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors] }}
+          style={{
+            backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
+          }}
         >
           Explore {recommendedUniversity} →
         </a>
         <a className="secondary-button text-xs md:text-sm py-2" href="/admu">
           View All Universities
         </a>
-        <button className="secondary-button text-xs md:text-sm py-2">Share Results 🔗</button>
+        <button className="secondary-button text-xs md:text-sm py-2">
+          Share Results 🔗
+        </button>
         <a className="secondary-button text-xs md:text-sm py-2" href="/quiz">
           Retake Quiz ↻
         </a>

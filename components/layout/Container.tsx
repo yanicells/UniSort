@@ -15,5 +15,3 @@ export function Container({ children, className = "" }: ContainerProps) {
     </main>
   );
 }
-
-
