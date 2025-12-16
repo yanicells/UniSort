@@ -63,3 +63,9 @@ we can assign questions to be like on a scale?
 not necessarily like which one are you gonna do or which one do u like most
 it can be like
 like for example if the question is participating in orgs its like kind of likely, no, sure, ofc something like that and we decide points which uni suits that
+
+quiz questions
+- perferences: how likely are you to...
+- scale: very likely, likely, neutral, unlikely, very unlikely
+- personal: type of person
+- situation: give situation

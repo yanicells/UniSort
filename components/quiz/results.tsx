@@ -91,7 +91,7 @@ export default function Results({
       <section className="text-center space-y-3">
         <h1 className="text-4xl md:text-5xl font-bold">Congratulations! 🎉</h1>
         <p className="text-xl md:text-2xl text-foreground/80">
-          You're a{" "}
+          You&apos;re a{" "}
           <span
             className="font-bold"
             style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
@@ -115,7 +115,7 @@ export default function Results({
         <h3 className="text-xl font-semibold mb-3">Your Personality Fit</h3>
         <p className="text-foreground/80 leading-relaxed">
           {greeting} Based on your answers, your values and preferences align
-          closely with {recommendedUniversity}'s community and campus vibe.
+          closely with {recommendedUniversity}&apos;s community and campus vibe.
         </p>
       </section>
 
