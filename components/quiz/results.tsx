@@ -192,7 +192,7 @@ export default function Results({
         >
           Explore {recommendedUniversity} →
         </a>
-        <a className="secondary-button text-xs md:text-sm py-2" href="/admu">
+        <a className="secondary-button text-xs md:text-sm py-2" href="/big4">
           View All Universities
         </a>
         <button className="secondary-button text-xs md:text-sm py-2">
