@@ -63,3 +63,9 @@ Chibis
 - have chibi/funko pop with graduation theme (proper uniform, toga, etc for each uni)
 - have chibi/funko pop with study theme
 - have chibi/funko pop with party theme
+
+Tasks
+- organize/make similar all content for each indiv pages, so that easier to prompt for frontend design
+- generate chibi/funko pop assets using AI just one design for now for placeholders 
+- revise the home page
+- other frontend improvements
