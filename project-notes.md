@@ -69,3 +69,35 @@ quiz questions
 - scale: very likely, likely, neutral, unlikely, very unlikely
 - personal: type of person
 - situation: give situation
+
+
+tasks:
+final task
+ - have multiple AI models generate quizzes (json) and then i will finalize which ones to have
+ - finalize name of the website
+ - have AI have a set template to have for each uni page
+
+generate chibi and other cute assests using AI to use
+cute ui for uni page
+1 row per feature
+quiz
+stat
+freedom
+then 2x2 grid uni
+cute chibi or funko pop cute poses wearing uni theme or graduation theme sa school
+alternate ang left and right sa per row
+asset left then content right and bali per next row
+add the total student then bar distribution per uni stat sa home page or just the pi chart
+add chat like ui pang testimony or like kanang student comment sa uni page - based on a post from reddit or fb
+add better results na check if pila ka percent this and than (for all uni no matter the result) and based on that certain percent have a different prompt na slight match ba and like ingani na student or chuchu ang that uni
+so congrats
+then short results based on percent sa each uni - maybe divide by 20 percent or 15 percent
+maybe add a big4 separate page for all the big 4 so 5 pages in total
+big4
+1 per uni
+gemeni 3 for frontend design
+sqlpd use background color + font very nice + search similar minimal design theme - the mfwebsite use their font really nice grey ish background instead of white
+and url to use if vercel or yanicells
+have a writing prompt jd with how to write
+proper grammar
+sound more conversational and casual but still formal
