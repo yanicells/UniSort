@@ -46,9 +46,10 @@ export default function Big4Page() {
             The Big 4
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed">
-            The "Big 4" refers to the four most prestigious universities in the
-            Philippines. Each has its own unique culture, academic strengths,
-            and history. Discover which one aligns with your future.
+            The &quot;Big 4&quot; refers to the four most prestigious
+            universities in the Philippines. Each has its own unique culture,
+            academic strengths, and history. Discover which one aligns with your
+            future.
           </p>
         </div>
 
