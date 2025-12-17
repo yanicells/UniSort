@@ -67,5 +67,6 @@ Chibis
 Tasks
 - organize/make similar all content for each indiv pages, so that easier to prompt for frontend design
 - generate chibi/funko pop assets using AI just one design for now for placeholders 
+- generate prompt to improve the design for the big4 page and each of the uni page, consider all sections
 - revise the home page
 - other frontend improvements
