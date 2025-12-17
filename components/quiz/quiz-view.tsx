@@ -6,6 +6,15 @@ import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
 import { ProgressBar } from "./ProgressBar";
 import { QuizContainer } from "./quiz-container";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Info } from "lucide-react";
 
 export default function QuizView({ name }: { name: string }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -91,8 +100,32 @@ export default function QuizView({ name }: { name: string }) {
               total={questions.questions.length}
             />
 
-            <div className="card-static space-y-3 text-center py-6">
-              <h2 className="text-xl md:text-2xl font-semibold leading-tight px-4">
+            <div className="card-static space-y-4 text-center py-8 relative">
+              <div className="absolute right-4 top-4">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-muted"
+                      aria-label="Show rationale"
+                    >
+                      <Info className="w-5 h-5" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Why this question matters</DialogTitle>
+                      <DialogDescription className="pt-4 text-base leading-relaxed">
+                        {currentQuestion.rationale}
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              <h1 className="text-sm uppercase tracking-widest text-muted-foreground font-medium">
+                {currentQuestion.section}
+              </h1>
+              <h2 className="text-2xl md:text-3xl font-bold leading-tight px-4 max-w-3xl mx-auto">
                 {currentQuestion.question}
               </h2>
             </div>
