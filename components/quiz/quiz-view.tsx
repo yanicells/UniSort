@@ -16,7 +16,13 @@ import {
 } from "@/components/ui/dialog";
 import { Info } from "lucide-react";
 
-export default function QuizView({ name }: { name: string }) {
+export default function QuizView({
+  name,
+  onBack,
+}: {
+  name: string;
+  onBack: () => void;
+}) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [answers, setAnswers] = useState<(string | null)[]>(
@@ -30,6 +36,39 @@ export default function QuizView({ name }: { name: string }) {
     up: number;
     ust: number;
   }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
+
+  // Calculate current running score for the chart
+  const currentScore = useMemo(() => {
+    const tempScore = { admu: 0, dlsu: 0, up: 0, ust: 0 };
+    answers.forEach((answer, index) => {
+      if (answer) {
+        const question = questions.questions[index];
+        const choice = question.choices.find((c) => c.text === answer);
+        if (choice) {
+          tempScore.admu += choice.admu;
+          tempScore.dlsu += choice.dlsu;
+          tempScore.up += choice.up;
+          tempScore.ust += choice.ust;
+        }
+      }
+    });
+    return tempScore;
+  }, [answers]);
+
+  const maxScore = Math.max(
+    currentScore.admu,
+    currentScore.dlsu,
+    currentScore.up,
+    currentScore.ust,
+    1
+  );
+
+  const chartData = [
+    { label: "ADMU", value: currentScore.admu, color: "bg-[#001196]" },
+    { label: "DLSU", value: currentScore.dlsu, color: "bg-[#00703c]" },
+    { label: "UP", value: currentScore.up, color: "bg-[#7b1113]" },
+    { label: "UST", value: currentScore.ust, color: "bg-[#fdb71a]" },
+  ];
 
   // Get the current selected choice from answers array
   const selectedChoice = answers[currentQuestionIndex];
@@ -82,6 +121,8 @@ export default function QuizView({ name }: { name: string }) {
   function handleBack() {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
+    } else {
+      onBack();
     }
   }
 
@@ -118,6 +159,34 @@ export default function QuizView({ name }: { name: string }) {
                         {currentQuestion.rationale}
                       </DialogDescription>
                     </DialogHeader>
+                    <div className="mt-6 space-y-3">
+                      <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                        Current Score Distribution
+                      </h4>
+                      <div className="space-y-2">
+                        {chartData.map((item) => (
+                          <div
+                            key={item.label}
+                            className="flex items-center gap-3"
+                          >
+                            <span className="w-10 text-xs font-bold text-muted-foreground">
+                              {item.label}
+                            </span>
+                            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                              <div
+                                className={`h-full ${item.color} transition-all duration-500`}
+                                style={{
+                                  width: `${(item.value / maxScore) * 100}%`,
+                                }}
+                              />
+                            </div>
+                            <span className="w-6 text-xs text-right text-muted-foreground">
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </DialogContent>
                 </Dialog>
               </div>
@@ -136,10 +205,10 @@ export default function QuizView({ name }: { name: string }) {
                 return (
                   <button
                     key={choice.text}
-                    className={`w-full text-left p-3 md:p-4 border-2 rounded-lg focus:outline-none transition-colors ${
+                    className={`w-full text-left p-3 md:p-4 border-2 rounded-lg focus:outline-none transition-all duration-200 ${
                       isSelected
-                        ? "border-foreground bg-foreground/5"
-                        : "border-border hover:border-foreground/60"
+                        ? "border-primary bg-primary/5 ring-1 ring-primary shadow-sm"
+                        : "border-border hover:border-foreground/60 hover:bg-muted/50"
                     }`}
                     onClick={() => setSelectedChoice(choice.text)}
                   >
@@ -150,11 +219,7 @@ export default function QuizView({ name }: { name: string }) {
             </div>
 
             <div className="flex justify-between items-center">
-              <button
-                className="secondary-button"
-                onClick={handleBack}
-                disabled={currentQuestionIndex === 0}
-              >
+              <button className="secondary-button" onClick={handleBack}>
                 ← Back
               </button>
               <button className="primary-button" onClick={handleNext}>

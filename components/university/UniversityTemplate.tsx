@@ -1,4 +1,6 @@
 import { Container } from "../layout/Container";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 interface UniversityTemplateProps {
   name: string;
@@ -28,52 +30,87 @@ export function UniversityTemplate({
   };
 
   return (
-    <div className="min-h-screen">
-      <section className="w-full py-20 md:py-32" style={{ backgroundColor: color }}>
-        <div className="max-w-6xl mx-auto px-4 md:px-8 text-center text-white space-y-3">
-          <h1 className="text-5xl md:text-6xl font-bold">{name}</h1>
-          <p className="text-xl md:text-2xl opacity-90">"{slogan}"</p>
+    <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      {/* Hero Section */}
+      <section className="relative w-full py-24 md:py-32 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{ backgroundColor: color }}
+        />
+        <div className="relative max-w-6xl mx-auto px-4 md:px-8 text-center space-y-6">
+          <h1
+            className="text-5xl md:text-7xl font-bold tracking-tight"
+            style={{ color }}
+          >
+            {name}
+          </h1>
+          <p className="text-2xl md:text-3xl font-medium text-muted-foreground">
+            "{slogan}"
+          </p>
         </div>
       </section>
 
-      <Container className="space-y-16 py-12">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+      <Container className="space-y-12 py-12 -mt-12 relative z-10">
+        {/* Overview Card */}
+        <Card
+          className="border-t-4 shadow-lg"
+          style={{ borderTopColor: color }}
+        >
+          <CardHeader>
+            <CardTitle className="text-2xl" style={{ color }}>
+              Overview
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              {overview}
+            </p>
+          </CardContent>
+        </Card>
 
-        <section id="overview">
-          <h2 className="text-3xl font-bold mb-4" style={{ color }}>
-            Overview
-          </h2>
-          <p className="text-foreground/80 leading-relaxed">{overview}</p>
-        </section>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Culture Card */}
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle className="text-xl" style={{ color }}>
+                Campus Culture
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="leading-relaxed text-muted-foreground">{culture}</p>
+            </CardContent>
+          </Card>
 
-        <section id="culture">
-          <h2 className="text-3xl font-bold mb-4" style={{ color }}>
-            Campus Culture
-          </h2>
-          <p className="text-foreground/80 leading-relaxed">{culture}</p>
-        </section>
+          {/* Student Life Card */}
+          <Card className="h-full">
+            <CardHeader>
+              <CardTitle className="text-xl" style={{ color }}>
+                Student Life
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="leading-relaxed text-muted-foreground">
+                {studentLife}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-        <section id="student-life">
-          <h2 className="text-3xl font-bold mb-4" style={{ color }}>
-            Student Life
-          </h2>
-          <p className="text-foreground/80 leading-relaxed">{studentLife}</p>
-        </section>
-
-        <section className="text-center">
-          <a
-            className="px-8 py-4 text-white rounded-md text-lg font-medium hover:opacity-90"
+        <section className="text-center pt-8">
+          <Link
+            className="inline-block px-8 py-4 text-white rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-md"
             style={{ backgroundColor: color }}
             href="/quiz"
           >
             Take the Quiz to Find Your Match →
-          </a>
+          </Link>
         </section>
       </Container>
     </div>
   );
 }
-
