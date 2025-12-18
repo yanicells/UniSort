@@ -7,7 +7,6 @@ Project Features
     - Share results on social media
 - About universities 
     - Have like a comment ish UI for student testimonials, from reddit, fb, etc.
-    - Maybe in the future make into actual CRUD app for students to leave reviews or like a freedom wall
 
 Tasks
 - Improve quiz
@@ -18,14 +17,6 @@ Tasks
 - SEO optimization
 - Vercel analytics
 - Improve fonts and theme (colors)
-- Pages
-    - Specific Uni
-    - Home page
-- Quiz
-    - Research and finalize questions, also improve content
-
-Future possibilities
-- Add uni specific freedom walls
 
 tasks:
 final task
@@ -33,7 +24,8 @@ final task
  - have AI have a set template to have for each uni page
 
 Frontend
-- gemeni 3 for frontend design
+- maybe just make this magazine/newspaper theme but modern look, with flexible colors and fonts per uni
+gemeni 3 for frontend design
 - sqlpd use background color + font very nice + search similar minimal design theme - the mfwebsite use their font really nice grey ish background instead of white
 - generate chibi and other cute assests using AI to use
 - cute ui for uni page
