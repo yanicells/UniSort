@@ -77,7 +77,7 @@ export default async function Home() {
           </div>
 
           {/* Stats Box */}
-          <div className="lg:col-span-4 bg-slate-100 p-8 flex flex-col justify-center text-center border-t lg:border-t-0">
+          <div className="lg:col-span-4 bg-slate-100 p-8 flex flex-col justify-center text-center border-t lg:border-t-0 gap-6">
             <div className="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <span className="block text-6xl font-black text-orange-600 mb-2">
                 {quizSummary.total}
@@ -87,6 +87,31 @@ export default async function Home() {
               </span>
               <div className="w-full h-1 bg-slate-200 mt-4 overflow-hidden">
                 <div className="w-3/4 h-full bg-black animate-pulse"></div>
+              </div>
+            </div>
+            
+            {/* University Breakdown */}
+            <div className="border-2 border-black p-4 bg-white text-left">
+              <h4 className="font-black uppercase text-xs tracking-widest mb-3 border-b border-slate-300 pb-2">
+                Match Distribution
+              </h4>
+              <div className="space-y-2 text-xs font-mono">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-[#001196]">ADMU</span>
+                  <span className="font-black">{quizSummary.admu}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-[#00703c]">DLSU</span>
+                  <span className="font-black">{quizSummary.dlsu}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-[#7b1113]">UP</span>
+                  <span className="font-black">{quizSummary.up}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-[#fdb71a]">UST</span>
+                  <span className="font-black">{quizSummary.ust}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -141,12 +166,20 @@ export default async function Home() {
                 Explore curated overviews, campus culture highlights, and stats
                 to help you decide where you fit.
               </p>
-              <Link
-                href="/big4"
-                className="text-orange-600 font-bold text-xs uppercase hover:underline"
-              >
-                View stats →
-              </Link>
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/big4"
+                  className="text-orange-600 font-bold text-xs uppercase hover:underline"
+                >
+                  Compare the Big 4 →
+                </Link>
+                <Link
+                  href="/admu"
+                  className="text-orange-600 font-bold text-xs uppercase hover:underline"
+                >
+                  Learn about universities →
+                </Link>
+              </div>
             </div>
           </div>
         </div>

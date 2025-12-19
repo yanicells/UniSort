@@ -17,45 +17,26 @@ export default function Big4Page() {
 
         <div className="max-w-7xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
           {/* Header */}
-          <header className="p-6 md:p-12 text-center border-b-4 border-black bg-purple-900 text-white relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
-            <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-purple-200">
+          <header className="p-6 md:p-12 text-center border-b-4 border-black bg-white text-black">
+            <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-slate-500">
               The University Ecosystem
             </p>
-            <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-2 text-white">
+            <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-2">
               THE BIG FOUR
             </h1>
-            <p className="text-xl md:text-2xl font-serif italic text-purple-100 max-w-2xl mx-auto mt-4">
+            <p className="text-xl md:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
               &ldquo;Gatekeepers of Cultural Capital & Architects of the Social
               Strata&rdquo;
             </p>
 
-            <div className="flex justify-center items-center gap-4 text-xs md:text-sm font-bold border-y border-purple-400/30 py-4 mt-8 max-w-4xl mx-auto font-mono text-purple-200">
+            <div className="flex justify-center items-center gap-4 text-xs md:text-sm font-bold border-y border-slate-300 py-4 mt-8 max-w-4xl mx-auto font-mono text-slate-600">
               <span>EST. VARIOUS</span>
-              <span className="w-1.5 h-1.5 bg-purple-400 rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
               <span>LOC: METRO MANILA</span>
-              <span className="w-1.5 h-1.5 bg-purple-400 rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
               <span>STATUS: ELITE</span>
             </div>
           </header>
-
-          {/* Intro Section */}
-          <div className="p-8 md:p-12 border-b border-slate-200 max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-black uppercase mb-6">Introduction</h2>
-            <p className="text-lg leading-relaxed font-serif text-slate-700">
-              Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four universities
-              in Metro Manila that serve as the primary architects of the
-              Philippine social strata. The University of the Philippines (UP),
-              Ateneo de Manila University (ADMU), De La Salle University (DLSU),
-              and the University of Santo Tomas (UST) are more than just
-              schools; they are gatekeepers of cultural capital and the
-              nation&apos;s premier training grounds for leadership. While their
-              rivalries are most visible during the UAAP season, the true
-              distinctions lie in their &ldquo;hidden curriculums&rdquo;—the
-              unwritten rules of survival and the fundamentally different ways
-              they transform students.
-            </p>
-          </div>
 
           {/* Main Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -277,36 +258,56 @@ export default function Big4Page() {
 
             {/* Right Col - Sidebar Stats */}
             <div className="lg:col-span-4 bg-[#f8f8f8]">
+              {/* What is the Big 4? */}
+              <div className="p-6 border-b border-slate-300">
+                <h3 className="font-black text-lg uppercase mb-4 border-b-2 border-black inline-block pb-1">
+                  What is the Big 4?
+                </h3>
+                <p className="text-sm leading-relaxed font-serif text-slate-700">
+                  Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four universities
+                  in Metro Manila that serve as the primary architects of the
+                  Philippine social strata. The University of the Philippines (UP),
+                  Ateneo de Manila University (ADMU), De La Salle University (DLSU),
+                  and the University of Santo Tomas (UST) are more than just
+                  schools; they are gatekeepers of cultural capital and the
+                  nation&apos;s premier training grounds for leadership. While their
+                  rivalries are most visible during the UAAP season, the true
+                  distinctions lie in their &ldquo;hidden curriculums&rdquo;—the
+                  unwritten rules of survival and the fundamentally different ways
+                  they transform students.
+                </p>
+              </div>
+
               {/* Decision Matrix Widget */}
-              <div className="p-6 border-b border-slate-300 bg-slate-900 text-white">
-                <h3 className="font-black text-xl uppercase mb-4 text-center border-b border-slate-700 pb-2">
+              <div className="p-6 border-b border-slate-300 bg-white">
+                <h3 className="font-black text-lg uppercase mb-4 border-b-2 border-black inline-block pb-1">
                   How to Choose?
                 </h3>
                 <ul className="space-y-4 text-sm font-sans">
                   <li className="flex gap-3">
-                    <span className="text-slate-300">1.</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-600">1.</span>
+                    <span className="text-slate-700">
                       <strong>Financial:</strong> Can you handle 80-90k tuition
                       (ADMU/DLSU) or need free (UP)?
                     </span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-slate-300">2.</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-600">2.</span>
+                    <span className="text-slate-700">
                       <strong>Structure:</strong> Thrive under{" "}
                       <em>cura personalis</em> (ADMU) or chaos (UP)?
                     </span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-slate-300">3.</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-600">3.</span>
+                    <span className="text-slate-700">
                       <strong>Tempo:</strong> Prefer 14-week sprints (DLSU) or
                       volume endurance (UST)?
                     </span>
                   </li>
                   <li className="flex gap-3">
-                    <span className="text-slate-300">4.</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-600">4.</span>
+                    <span className="text-slate-700">
                       <strong>Vibe:</strong> Comfortable in &ldquo;Conyo&rdquo;
                       hegemony or &ldquo;Kanal&rdquo; humor?
                     </span>
