@@ -131,315 +131,315 @@ export const questions = {
       rationale:
         "DLSU's trimestral system is uniquely fast-paced (\"14 weeks of hell\"). ADMU and UST use traditional semesters. UP's pace is self-directed but delays are normalized. The trimester creates constant urgency DLSU students describe as relentless.",
     },
-    {
-      section: "Schedule, Pace & Structure",
-      question: "How do you want your university to challenge you?",
-      choices: [
-        {
-          text: "Through intellectual rigor and critical thinking",
-          admu: 5,
-          dlsu: 2,
-          up: 5,
-          ust: 2,
-        },
-        {
-          text: "Through volume and endurance testing",
-          admu: 2,
-          dlsu: 3,
-          up: 3,
-          ust: 5,
-        },
-        {
-          text: "Through speed and time management demands",
-          admu: 2,
-          dlsu: 5,
-          up: 2,
-          ust: 3,
-        },
-        {
-          text: "Through comprehensive support that pushes me to grow",
-          admu: 5,
-          dlsu: 3,
-          up: 1,
-          ust: 2,
-        },
-      ],
-      rationale:
-        "ADMU and UP emphasize critical thinking (Core Curriculum vs independent analysis). UST focuses on volume and memorization. DLSU demands efficient time management due to trimester pace. ADMU provides supportive challenge; UP and UST test survival abilities.",
-    },
-    {
-      section: "Schedule, Pace & Structure",
-      question: "What is your preferred schedule structure?",
-      choices: [
-        {
-          text: 'Block sections - same classmates for all subjects, 7 AM to 7 PM schedule to build a "trauma bond"',
-          admu: 1,
-          dlsu: 1,
-          up: 0,
-          ust: 5,
-        },
-        {
-          text: "Flexible/independent - I choose my own schedule and classmates, even if unpredictable or lonely",
-          admu: 3,
-          dlsu: 3,
-          up: 5,
-          ust: 0,
-        },
-        {
-          text: "Fast-paced variable schedule requiring elite time management",
-          admu: 2,
-          dlsu: 5,
-          up: 1,
-          ust: 2,
-        },
-        {
-          text: "Structured but balanced - mix of core classes with time for consultations and reflection",
-          admu: 5,
-          dlsu: 4,
-          up: 2,
-          ust: 3,
-        },
-      ],
-      rationale:
-        "UST's 7-7 block sections are defining. UP offers maximum flexibility through CRS. DLSU's trimester demands efficient scheduling. ADMU provides structured balance supporting *cura personalis*.",
-    },
-    {
-      section: "Schedule, Pace & Structure",
-      question:
-        'The thought of graduating "on time" vs potentially being delayed:',
-      choices: [
-        {
-          text: "Graduating on time is essential to me",
-          admu: 4,
-          dlsu: 5,
-          up: 2,
-          ust: 3,
-        },
-        {
-          text: "I'm okay with delays if it means better learning",
-          admu: 3,
-          dlsu: 2,
-          up: 4,
-          ust: 2,
-        },
-        {
-          text: "Delays would cause significant stress",
-          admu: 4,
-          dlsu: 4,
-          up: 1,
-          ust: 4,
-        },
-      ],
-      rationale:
-        'UP normalizes delays due to CRS and academic difficulty (being "delayed" is destigmatized). DLSU\'s trimester structure allows for catch-up. UST has debarment risks but summer terms help. ADMU has good retention support. UP students view delays as badges of survival.',
-    },
-    {
-      section: "Social Environment, Class & Language",
-      question: "What is your preferred style of social interaction and humor?",
-      choices: [
-        {
-          text: '"Conyo" banter with Western-influenced humor and niche interests - it\'s my natural way of speaking',
-          admu: 5,
-          dlsu: 5,
-          up: 1,
-          ust: 1,
-        },
-        {
-          text: '"Chill" and inclusive - I code-switch between conyo and "kanal" (street) humor depending on the crowd',
-          admu: 3,
-          dlsu: 5,
-          up: 3,
-          ust: 5,
-        },
-        {
-          text: '"Kanal," relatable, grounded humor where being "street-smart" is valued over pretense',
-          admu: 1,
-          dlsu: 2,
-          up: 4,
-          ust: 5,
-        },
-        {
-          text: "Intense, ideology-infused debate where social conversations often turn political or philosophical",
-          admu: 2,
-          dlsu: 1,
-          up: 5,
-          ust: 1,
-        },
-      ],
-      rationale:
-        'ADMU and DLSU are centers of "Conyo" culture. DLSU is more inclusive/adaptable. UST prides itself on being "kanal" and relatable. UP views "Conyo" as a "Burgis" marker and prefers politicized discourse.',
-    },
-    {
-      section: "Social Environment, Class & Language",
-      question:
-        "How do you feel about English being the dominant language of instruction and social interaction on campus?",
-      choices: [
-        {
-          text: "I prefer it; it's the language of global opportunity and academic discourse",
-          admu: 5,
-          dlsu: 4,
-          up: 3,
-          ust: 3,
-        },
-        {
-          text: "I'm comfortable with it, but I appreciate a campus where code-switching to Filipino is common and natural",
-          admu: 3,
-          dlsu: 5,
-          up: 5,
-          ust: 4,
-        },
-        {
-          text: "I'm critical of it; it can be an exclusionary barrier and undermines our national language",
-          admu: 1,
-          dlsu: 2,
-          up: 5,
-          ust: 3,
-        },
-        {
-          text: "It doesn't matter to me; I'll adapt to whatever linguistic code helps me fit in and succeed",
-          admu: 4,
-          dlsu: 4,
-          up: 3,
-          ust: 5,
-        },
-      ],
-      rationale:
-        'ADMU has a strong "conyo" English hegemony. DLSU and UP show more fluid code-switching. UP has active discourse about language and elitism. UST students pride themselves on being "social chameleons" who adapt.',
-    },
-    {
-      section: "Social Environment, Class & Language",
-      question:
-        "How comfortable are you with a socially elite or wealthy student environment?",
-      choices: [
-        {
-          text: "Very comfortable - I come from or relate to that background",
-          admu: 5,
-          dlsu: 5,
-          up: 1,
-          ust: 2,
-        },
-        {
-          text: "Uncomfortable - I strongly prefer a grounded, socioeconomically diverse environment",
-          admu: 1,
-          dlsu: 1,
-          up: 5,
-          ust: 5,
-        },
-        {
-          text: "Neutral - I can adapt and find my crowd regardless of dominant class culture",
-          admu: 3,
-          dlsu: 4,
-          up: 4,
-          ust: 4,
-        },
-      ],
-      rationale:
-        'ADMU and DLSU have strong "conyo elite" cultures despite scholarship programs. UP and UST are more socioeconomically diverse and grounded. UP struggles with "burgis invasion." UST is most middle-class. Scholars at ADMU/DLSU report feeling alienated.',
-    },
-    {
-      section: "Social Environment, Class & Language",
-      question:
-        "You come from a provincial public school or a lower-income background. How important is it to find a community of similar students?",
-      choices: [
-        {
-          text: "Crucial: I need a sanctuary or formal support group to navigate potential culture shock",
-          admu: 5,
-          dlsu: 4,
-          up: 3,
-          ust: 3,
-        },
-        {
-          text: 'Important, but I\'m confident I can "code-switch" and adapt to the dominant campus culture',
-          admu: 4,
-          dlsu: 5,
-          up: 4,
-          ust: 4,
-        },
-        {
-          text: "Somewhat important, but the campus is diverse enough that I'll find my people regardless",
-          admu: 3,
-          dlsu: 3,
-          up: 5,
-          ust: 4,
-        },
-        {
-          text: "Not a priority; I expect to be judged solely on my merit and resilience",
-          admu: 2,
-          dlsu: 2,
-          up: 4,
-          ust: 5,
-        },
-      ],
-      rationale:
-        'ADMU has *Ateneo Gabay* for scholars. DLSU scholars report an inclusive vibe but still need to adapt. UP is the most socioeconomically diverse (despite gentrification). UST\'s "trauma bonding" and middle-class melt pot can integrate students through shared struggle.',
-    },
-    {
-      section: "Student Organizations & Networking",
-      question:
-        "The idea of joining organizations through rigorous, sometimes intense application processes:",
-      choices: [
-        {
-          text: "Excites me - I value exclusivity and proving myself",
-          admu: 3,
-          dlsu: 4,
-          up: 5,
-          ust: 4,
-        },
-        {
-          text: "Intimidates me - I prefer easier, more welcoming entry",
-          admu: 4,
-          dlsu: 4,
-          up: 0,
-          ust: 2,
-        },
-        {
-          text: "Doesn't matter much - I may not join organizations",
-          admu: 2,
-          dlsu: 3,
-          up: 2,
-          ust: 2,
-        },
-      ],
-      rationale:
-        'UP has the most intense "apps" processes (psychological pressure, hazing-like elements reported). UST and DLSU also have competitive org applications. ADMU\'s org culture is professional but less brutal. Students avoiding intense org culture should avoid UP.',
-    },
-    {
-      section: "Student Organizations & Networking",
-      question:
-        "What role should student organizations play in your college life?",
-      choices: [
-        {
-          text: "Professional training ground - highly structured, corporate simulation for resume building",
-          admu: 4,
-          dlsu: 5,
-          up: 1,
-          ust: 2,
-        },
-        {
-          text: "Political/advocacy platform - service-oriented, expected to take stands on national issues",
-          admu: 2,
-          dlsu: 1,
-          up: 5,
-          ust: 3,
-        },
-        {
-          text: "Family-like brotherhood/sisterhood - hard to get into, provides lifelong bonds and academic survival support",
-          admu: 1,
-          dlsu: 1,
-          up: 5,
-          ust: 5,
-        },
-        {
-          text: "Social/creative space limited by admin bureaucracy and red tape",
-          admu: 1,
-          dlsu: 2,
-          up: 2,
-          ust: 5,
-        },
-      ],
-      rationale:
-        'DLSU orgs are corporate simulations. UP orgs are highly politicized with intense "apps" creating loyalty. UST orgs provide social bonds but are heavily regulated by OSA. ADMU orgs are professional but less corporate than DLSU. UP and UST both emphasize survival support (old exams, tips).',
-    },
+    // {
+    //   section: "Schedule, Pace & Structure",
+    //   question: "How do you want your university to challenge you?",
+    //   choices: [
+    //     {
+    //       text: "Through intellectual rigor and critical thinking",
+    //       admu: 5,
+    //       dlsu: 2,
+    //       up: 5,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Through volume and endurance testing",
+    //       admu: 2,
+    //       dlsu: 3,
+    //       up: 3,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: "Through speed and time management demands",
+    //       admu: 2,
+    //       dlsu: 5,
+    //       up: 2,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: "Through comprehensive support that pushes me to grow",
+    //       admu: 5,
+    //       dlsu: 3,
+    //       up: 1,
+    //       ust: 2,
+    //     },
+    //   ],
+    //   rationale:
+    //     "ADMU and UP emphasize critical thinking (Core Curriculum vs independent analysis). UST focuses on volume and memorization. DLSU demands efficient time management due to trimester pace. ADMU provides supportive challenge; UP and UST test survival abilities.",
+    // },
+    // {
+    //   section: "Schedule, Pace & Structure",
+    //   question: "What is your preferred schedule structure?",
+    //   choices: [
+    //     {
+    //       text: 'Block sections - same classmates for all subjects, 7 AM to 7 PM schedule to build a "trauma bond"',
+    //       admu: 1,
+    //       dlsu: 1,
+    //       up: 0,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: "Flexible/independent - I choose my own schedule and classmates, even if unpredictable or lonely",
+    //       admu: 3,
+    //       dlsu: 3,
+    //       up: 5,
+    //       ust: 0,
+    //     },
+    //     {
+    //       text: "Fast-paced variable schedule requiring elite time management",
+    //       admu: 2,
+    //       dlsu: 5,
+    //       up: 1,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Structured but balanced - mix of core classes with time for consultations and reflection",
+    //       admu: 5,
+    //       dlsu: 4,
+    //       up: 2,
+    //       ust: 3,
+    //     },
+    //   ],
+    //   rationale:
+    //     "UST's 7-7 block sections are defining. UP offers maximum flexibility through CRS. DLSU's trimester demands efficient scheduling. ADMU provides structured balance supporting *cura personalis*.",
+    // },
+    // {
+    //   section: "Schedule, Pace & Structure",
+    //   question:
+    //     'The thought of graduating "on time" vs potentially being delayed:',
+    //   choices: [
+    //     {
+    //       text: "Graduating on time is essential to me",
+    //       admu: 4,
+    //       dlsu: 5,
+    //       up: 2,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: "I'm okay with delays if it means better learning",
+    //       admu: 3,
+    //       dlsu: 2,
+    //       up: 4,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Delays would cause significant stress",
+    //       admu: 4,
+    //       dlsu: 4,
+    //       up: 1,
+    //       ust: 4,
+    //     },
+    //   ],
+    //   rationale:
+    //     'UP normalizes delays due to CRS and academic difficulty (being "delayed" is destigmatized). DLSU\'s trimester structure allows for catch-up. UST has debarment risks but summer terms help. ADMU has good retention support. UP students view delays as badges of survival.',
+    // },
+    // {
+    //   section: "Social Environment, Class & Language",
+    //   question: "What is your preferred style of social interaction and humor?",
+    //   choices: [
+    //     {
+    //       text: '"Conyo" banter with Western-influenced humor and niche interests - it\'s my natural way of speaking',
+    //       admu: 5,
+    //       dlsu: 5,
+    //       up: 1,
+    //       ust: 1,
+    //     },
+    //     {
+    //       text: '"Chill" and inclusive - I code-switch between conyo and "kanal" (street) humor depending on the crowd',
+    //       admu: 3,
+    //       dlsu: 5,
+    //       up: 3,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: '"Kanal," relatable, grounded humor where being "street-smart" is valued over pretense',
+    //       admu: 1,
+    //       dlsu: 2,
+    //       up: 4,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: "Intense, ideology-infused debate where social conversations often turn political or philosophical",
+    //       admu: 2,
+    //       dlsu: 1,
+    //       up: 5,
+    //       ust: 1,
+    //     },
+    //   ],
+    //   rationale:
+    //     'ADMU and DLSU are centers of "Conyo" culture. DLSU is more inclusive/adaptable. UST prides itself on being "kanal" and relatable. UP views "Conyo" as a "Burgis" marker and prefers politicized discourse.',
+    // },
+    // {
+    //   section: "Social Environment, Class & Language",
+    //   question:
+    //     "How do you feel about English being the dominant language of instruction and social interaction on campus?",
+    //   choices: [
+    //     {
+    //       text: "I prefer it; it's the language of global opportunity and academic discourse",
+    //       admu: 5,
+    //       dlsu: 4,
+    //       up: 3,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: "I'm comfortable with it, but I appreciate a campus where code-switching to Filipino is common and natural",
+    //       admu: 3,
+    //       dlsu: 5,
+    //       up: 5,
+    //       ust: 4,
+    //     },
+    //     {
+    //       text: "I'm critical of it; it can be an exclusionary barrier and undermines our national language",
+    //       admu: 1,
+    //       dlsu: 2,
+    //       up: 5,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: "It doesn't matter to me; I'll adapt to whatever linguistic code helps me fit in and succeed",
+    //       admu: 4,
+    //       dlsu: 4,
+    //       up: 3,
+    //       ust: 5,
+    //     },
+    //   ],
+    //   rationale:
+    //     'ADMU has a strong "conyo" English hegemony. DLSU and UP show more fluid code-switching. UP has active discourse about language and elitism. UST students pride themselves on being "social chameleons" who adapt.',
+    // },
+    // {
+    //   section: "Social Environment, Class & Language",
+    //   question:
+    //     "How comfortable are you with a socially elite or wealthy student environment?",
+    //   choices: [
+    //     {
+    //       text: "Very comfortable - I come from or relate to that background",
+    //       admu: 5,
+    //       dlsu: 5,
+    //       up: 1,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Uncomfortable - I strongly prefer a grounded, socioeconomically diverse environment",
+    //       admu: 1,
+    //       dlsu: 1,
+    //       up: 5,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: "Neutral - I can adapt and find my crowd regardless of dominant class culture",
+    //       admu: 3,
+    //       dlsu: 4,
+    //       up: 4,
+    //       ust: 4,
+    //     },
+    //   ],
+    //   rationale:
+    //     'ADMU and DLSU have strong "conyo elite" cultures despite scholarship programs. UP and UST are more socioeconomically diverse and grounded. UP struggles with "burgis invasion." UST is most middle-class. Scholars at ADMU/DLSU report feeling alienated.',
+    // },
+    // {
+    //   section: "Social Environment, Class & Language",
+    //   question:
+    //     "You come from a provincial public school or a lower-income background. How important is it to find a community of similar students?",
+    //   choices: [
+    //     {
+    //       text: "Crucial: I need a sanctuary or formal support group to navigate potential culture shock",
+    //       admu: 5,
+    //       dlsu: 4,
+    //       up: 3,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: 'Important, but I\'m confident I can "code-switch" and adapt to the dominant campus culture',
+    //       admu: 4,
+    //       dlsu: 5,
+    //       up: 4,
+    //       ust: 4,
+    //     },
+    //     {
+    //       text: "Somewhat important, but the campus is diverse enough that I'll find my people regardless",
+    //       admu: 3,
+    //       dlsu: 3,
+    //       up: 5,
+    //       ust: 4,
+    //     },
+    //     {
+    //       text: "Not a priority; I expect to be judged solely on my merit and resilience",
+    //       admu: 2,
+    //       dlsu: 2,
+    //       up: 4,
+    //       ust: 5,
+    //     },
+    //   ],
+    //   rationale:
+    //     'ADMU has *Ateneo Gabay* for scholars. DLSU scholars report an inclusive vibe but still need to adapt. UP is the most socioeconomically diverse (despite gentrification). UST\'s "trauma bonding" and middle-class melt pot can integrate students through shared struggle.',
+    // },
+    // {
+    //   section: "Student Organizations & Networking",
+    //   question:
+    //     "The idea of joining organizations through rigorous, sometimes intense application processes:",
+    //   choices: [
+    //     {
+    //       text: "Excites me - I value exclusivity and proving myself",
+    //       admu: 3,
+    //       dlsu: 4,
+    //       up: 5,
+    //       ust: 4,
+    //     },
+    //     {
+    //       text: "Intimidates me - I prefer easier, more welcoming entry",
+    //       admu: 4,
+    //       dlsu: 4,
+    //       up: 0,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Doesn't matter much - I may not join organizations",
+    //       admu: 2,
+    //       dlsu: 3,
+    //       up: 2,
+    //       ust: 2,
+    //     },
+    //   ],
+    //   rationale:
+    //     'UP has the most intense "apps" processes (psychological pressure, hazing-like elements reported). UST and DLSU also have competitive org applications. ADMU\'s org culture is professional but less brutal. Students avoiding intense org culture should avoid UP.',
+    // },
+    // {
+    //   section: "Student Organizations & Networking",
+    //   question:
+    //     "What role should student organizations play in your college life?",
+    //   choices: [
+    //     {
+    //       text: "Professional training ground - highly structured, corporate simulation for resume building",
+    //       admu: 4,
+    //       dlsu: 5,
+    //       up: 1,
+    //       ust: 2,
+    //     },
+    //     {
+    //       text: "Political/advocacy platform - service-oriented, expected to take stands on national issues",
+    //       admu: 2,
+    //       dlsu: 1,
+    //       up: 5,
+    //       ust: 3,
+    //     },
+    //     {
+    //       text: "Family-like brotherhood/sisterhood - hard to get into, provides lifelong bonds and academic survival support",
+    //       admu: 1,
+    //       dlsu: 1,
+    //       up: 5,
+    //       ust: 5,
+    //     },
+    //     {
+    //       text: "Social/creative space limited by admin bureaucracy and red tape",
+    //       admu: 1,
+    //       dlsu: 2,
+    //       up: 2,
+    //       ust: 5,
+    //     },
+    //   ],
+    //   rationale:
+    //     'DLSU orgs are corporate simulations. UP orgs are highly politicized with intense "apps" creating loyalty. UST orgs provide social bonds but are heavily regulated by OSA. ADMU orgs are professional but less corporate than DLSU. UP and UST both emphasize survival support (old exams, tips).',
+    // },
     // {
     //   section: "Student Organizations & Networking",
     //   question:

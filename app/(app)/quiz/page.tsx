@@ -21,21 +21,7 @@ export default function Quiz() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto mt-8 bg-white shadow-2xl border border-slate-300 min-h-[600px]">
-        {/* Paper Header */}
-        <header className="p-6 md:p-8 text-center border-b-4 border-black relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-2 bg-slate-800"></div>
-          <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-2 text-slate-500">
-            LIFESTYLE & CULTURE
-          </p>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none mb-2">
-            The Sorting Hat
-          </h1>
-          <p className="font-serif italic text-lg text-slate-600">
-            "Where do you truly belong?"
-          </p>
-        </header>
-
+      <div className="max-w-6xl mx-auto mt-8 bg-white shadow-2xl border border-slate-300 min-h-[600px]">
         <div className="p-6 md:p-8">
           <QuizHandler />
         </div>
