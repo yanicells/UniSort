@@ -72,7 +72,11 @@ export default function SinglePostPage({
               tags={post.tags}
               imageUrl={post.imageUrl}
               reactions={post.reactions}
-              createdAt={post.createdAt}
+              createdAt={
+                typeof post.createdAt === "string"
+                  ? new Date(post.createdAt)
+                  : post.createdAt
+              }
               commentCount={totalCommentCount}
               hideCommentCount={true}
               onReply={() => setShowReplyModal(true)}
