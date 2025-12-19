@@ -5,6 +5,8 @@ import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
 import { useRouter } from "next/navigation";
 import { PostModal } from "./post-modal";
+import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
+import { Filter, PenTool } from "lucide-react";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
@@ -28,6 +30,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [sortBy, setSortBy] = useState<WallSort>("latest");
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
@@ -97,71 +100,123 @@ export function WallClient({ initialPosts }: WallClientProps) {
   }, [selectedUniversities, sortBy, timeRange]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-8 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold">Freedom Wall</h1>
-        <button
-          onClick={() => setShowCreateModal(true)}
-          className="primary-button"
-        >
-          + New Post
-        </button>
-      </div>
-
-      <FilterBar
-        selectedUniversities={selectedUniversities}
-        setSelectedUniversities={setSelectedUniversities}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        timeRange={timeRange}
-        setTimeRange={setTimeRange}
-      />
-
-      <div className="space-y-4">
-        {posts.length === 0 && isLoading ? (
-          <div className="space-y-3">
-            {[...Array(3)].map((_, idx) => (
-              <div key={idx} className="card animate-pulse h-32" />
-            ))}
+    <>
+      <NewspaperMasthead />
+      <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
+        {/* Marquee */}
+        <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">
+          <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
+            CONFESSIONS /// RANTS /// LOVE LETTERS /// LOST & FOUND ///
+            SHOUTOUTS /// ANONYMOUS /// UNCENSORED
           </div>
-        ) : posts.length === 0 ? (
-          <div className="text-center text-foreground/60 py-12">
-            No posts yet. Be the first to share!
+        </div>
+
+        <div className="max-w-4xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
+          {/* Header */}
+          <header className="p-8 text-center border-b-4 border-black bg-pink-50">
+            <h1 className="text-5xl font-black uppercase tracking-tighter mb-2 italic">
+              The Freedom Wall
+            </h1>
+            <p className="font-mono text-xs text-pink-600 font-bold uppercase tracking-widest">
+              Voice of the Students • Anonymous • Unfiltered
+            </p>
+          </header>
+
+          {/* Controls */}
+          <div className="p-6 border-b-2 border-black bg-slate-100 sticky top-[60px] z-40 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div className="flex gap-2 w-full md:w-auto">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition"
+              >
+                <Filter size={14} /> Filter by Campus
+              </button>
+              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition">
+                Sort by:{" "}
+                {sortBy === "latest"
+                  ? "Newest"
+                  : sortBy === "most-liked"
+                  ? "Most Liked"
+                  : "Most Discussed"}
+              </button>
+            </div>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-pink-600 transition shadow-[4px_4px_0px_0px_rgba(255,0,255,1)]"
+            >
+              <PenTool size={14} /> Submit Post
+            </button>
           </div>
-        ) : (
-          posts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              content={post.content}
-              tags={post.tags}
-              reactions={post.reactions}
-              createdAt={new Date(post.createdAt)}
-              imageUrl={post.imageUrl}
-              commentCount={post.commentCount}
-              onClick={() => router.push(`/freedom-wall/${post.id}`)}
-            />
-          ))
-        )}
-      </div>
 
-      <div
-        ref={loadMoreRef}
-        className="py-8 text-center text-sm text-foreground/60"
-      >
-        {isLoading && (
-          <div className="animate-pulse">Loading more posts...</div>
-        )}
-        {!hasMore && posts.length > 0 && <p>You've reached the end!</p>}
-      </div>
+          {/* Filter Bar (Collapsible) */}
+          {showFilters && (
+            <div className="p-6 border-b-2 border-slate-200 bg-slate-50">
+              <FilterBar
+                selectedUniversities={selectedUniversities}
+                setSelectedUniversities={setSelectedUniversities}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                timeRange={timeRange}
+                setTimeRange={setTimeRange}
+              />
+            </div>
+          )}
 
-      <button
-        onClick={() => setShowCreateModal(true)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-foreground text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center text-2xl z-40"
-        aria-label="Create post"
-      >
-        +
-      </button>
+          {/* Posts Feed */}
+          <div className="p-6 space-y-6 bg-slate-50">
+            {posts.length === 0 && isLoading ? (
+              <div className="space-y-6">
+                {[...Array(3)].map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white border-2 border-black p-6 animate-pulse h-48"
+                  />
+                ))}
+              </div>
+            ) : posts.length === 0 ? (
+              <div className="text-center text-slate-500 py-12 font-serif text-lg">
+                No posts yet. Be the first to share!
+              </div>
+            ) : (
+              posts.map((post) => (
+                <Post
+                  key={post.id}
+                  id={post.id}
+                  content={post.content}
+                  tags={post.tags}
+                  reactions={post.reactions}
+                  createdAt={new Date(post.createdAt)}
+                  imageUrl={post.imageUrl}
+                  commentCount={post.commentCount}
+                  onClick={() => router.push(`/freedom-wall/${post.id}`)}
+                />
+              ))
+            )}
+          </div>
+
+          {/* Load More */}
+          <div ref={loadMoreRef} className="p-8 text-center">
+            {isLoading && (
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-400 animate-pulse">
+                Loading more confessions...
+              </div>
+            )}
+            {!hasMore && posts.length > 0 && (
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                You've reached the end!
+              </p>
+            )}
+            {hasMore && !isLoading && (
+              <button
+                onClick={loadMorePosts}
+                className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-black border-b border-transparent hover:border-black transition"
+              >
+                Load More Confessions
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
 
       {showCreateModal && (
         <PostModal
@@ -169,6 +224,6 @@ export function WallClient({ initialPosts }: WallClientProps) {
           onPostCreated={refreshPosts}
         />
       )}
-    </div>
+    </>
   );
 }

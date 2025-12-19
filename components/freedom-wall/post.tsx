@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ReactionModal } from "./reaction-modal";
 import { PostContent } from "./PostContent";
 import { ImageLightbox } from "./image-lightbox";
-import { cn } from "@/lib/utils";
+import { Heart, MessageCircle, MoreHorizontal } from "lucide-react";
 
 interface PostProps {
   id: string;
@@ -40,52 +40,67 @@ export function Post({
   const [showReactionModal, setShowReactionModal] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
+  const totalReactions =
+    reactions.like +
+    reactions.love +
+    reactions.haha +
+    reactions.wow +
+    reactions.sad +
+    reactions.angry;
+
+  // Get top 3 reactions
+  const topReactions = Object.entries(reactions)
+    .filter(([_, count]) => count > 0)
+    .sort(([_, a], [__, b]) => b - a)
+    .slice(0, 3)
+    .map(([type]) => type);
+
   return (
-    <article
-      className={cn(
-        "relative rounded-xl border border-border bg-white shadow-sm transition-all duration-200",
-        "hover:shadow-md hover:-translate-y-0.5",
-        onClick && "cursor-pointer"
-      )}
+    <div
+      className="bg-white border-2 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.15)] transition cursor-pointer"
       onClick={onClick}
     >
-      {/* Header: Tags + Timestamp */}
-      <div className="px-4 pt-4 pb-2">
-        <div className="flex items-center gap-2 text-xs text-foreground/60 flex-wrap">
+      {/* Header */}
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex items-center gap-2 flex-wrap">
           {tags.map((tag) => {
             const config = getTagConfig(tag);
             return (
               <span
                 key={tag}
-                className="inline-flex items-center rounded-full px-3 py-1 font-medium text-xs"
-                style={{
-                  backgroundColor: config.bgColor,
-                  color: config.textColor,
-                }}
+                className="px-2 py-1 text-[10px] font-black uppercase text-white"
+                style={{ backgroundColor: config.bgColor }}
               >
-                {tag.toUpperCase()}
+                #{tag}
               </span>
             );
           })}
-          <span className="text-foreground/50">•</span>
-          <time
-            className="text-foreground/60"
-            dateTime={createdAt.toISOString()}
-          >
-            {formatDistanceToNow(createdAt, { addSuffix: true })}
-          </time>
+          <span className="text-xs font-mono text-slate-400 uppercase">
+            • {formatDistanceToNow(createdAt, { addSuffix: true })}
+          </span>
         </div>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className="text-slate-400 hover:text-black"
+        >
+          <MoreHorizontal size={16} />
+        </button>
       </div>
 
-      {/* Content Body */}
-      <div className="px-4 pb-3">
-        <PostContent content={content} />
+      {/* Content */}
+      <div className="mb-6">
+        <PostContent
+          content={content}
+          className="text-lg leading-relaxed font-serif text-slate-800"
+        />
       </div>
 
       {/* Image */}
       {imageUrl && (
         <div
-          className="px-4 pb-3"
+          className="mb-6"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -93,7 +108,7 @@ export function Post({
           <img
             src={imageUrl}
             alt="Post image"
-            className="w-full max-h-[400px] object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity border border-border/50"
+            className="w-full max-h-[400px] object-cover rounded-lg cursor-pointer hover:opacity-95 transition-opacity border border-slate-200"
             onClick={(e) => {
               e.stopPropagation();
               setIsLightboxOpen(true);
@@ -102,110 +117,70 @@ export function Post({
         </div>
       )}
 
-      {/* Footer: Engagement Bar */}
-      <div className="px-4 pb-3 pt-2 border-t border-border/50">
-        <div className="flex items-center justify-between">
-          {/* Left: Reactions */}
-          <div className="flex items-center gap-3">
-            {Object.entries(reactions).map(
-              ([reaction, count]) =>
-                count > 0 && (
-                  <span
-                    key={reaction}
-                    className="flex items-center gap-1.5 text-sm transition-colors hover:opacity-80"
-                  >
-                    {getReactionIcon(reaction)}
-                    <span className="text-xs font-medium text-foreground/70">
-                      {count}
-                    </span>
-                  </span>
-                )
-            )}
-          </div>
-
-          {/* Right: Comment Count + React Button */}
-          <div className="flex items-center gap-3">
-            {/* Comment Count or Reply Button */}
-            {onReply ? (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onReply();
-                }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent hover:border-foreground/20"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
-                  />
-                </svg>
-                <span className="text-xs text-foreground/70">Reply</span>
-              </button>
-            ) : (
-              <div className="flex items-center gap-1.5 text-foreground/60">
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-                  />
-                </svg>
-                <span className="text-xs font-medium">{commentCount}</span>
-              </div>
-            )}
-
-            {/* React Button */}
-            <div className="relative">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowReactionModal(true);
-                }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent hover:border-foreground/20"
-                aria-label="React to post"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
-                  />
-                </svg>
-                <span className="text-xs text-foreground/70">React</span>
-              </button>
-              {showReactionModal && (
-                <ReactionModal
-                  postId={id}
-                  onClose={() => setShowReactionModal(false)}
-                />
-              )}
-            </div>
-          </div>
+      {/* Footer */}
+      <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+        <div className="flex gap-4">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowReactionModal(true);
+            }}
+            className="flex items-center gap-1.5 text-slate-500 hover:text-pink-600 transition group"
+          >
+            <Heart size={18} className="group-hover:fill-current" />
+            <span className="text-xs font-bold">{totalReactions}</span>
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              if (onReply) onReply();
+            }}
+            className="flex items-center gap-1.5 text-slate-500 hover:text-blue-600 transition group"
+          >
+            <MessageCircle size={18} className="group-hover:fill-current" />
+            <span className="text-xs font-bold">{commentCount}</span>
+          </button>
+        </div>
+        <div className="flex gap-1">
+          {topReactions.includes("haha") && (
+            <span className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center text-xs border border-yellow-300">
+              😂
+            </span>
+          )}
+          {topReactions.includes("love") && (
+            <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs border border-red-300">
+              ❤️
+            </span>
+          )}
+          {topReactions.includes("like") && (
+            <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs border border-blue-300">
+              👍
+            </span>
+          )}
+          {topReactions.includes("wow") && (
+            <span className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs border border-purple-300">
+              😮
+            </span>
+          )}
+          {topReactions.includes("sad") && (
+            <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs border border-slate-300">
+              😢
+            </span>
+          )}
+          {topReactions.includes("angry") && (
+            <span className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-xs border border-orange-300">
+              😠
+            </span>
+          )}
         </div>
       </div>
+
+      {showReactionModal && (
+        <ReactionModal
+          postId={id}
+          onClose={() => setShowReactionModal(false)}
+        />
+      )}
 
       {imageUrl && (
         <ImageLightbox
@@ -215,119 +190,17 @@ export function Post({
           onClose={() => setIsLightboxOpen(false)}
         />
       )}
-    </article>
+    </div>
   );
 }
 
-function getReactionIcon(reaction: string): ReactElement {
-  const icons: Record<string, ReactElement> = {
-    like: (
-      <svg
-        className="h-4 w-4 text-blue-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M7.493 18.75c-.425 0-.82-.236-.975-.632A7.48 7.48 0 016 15.375c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75 2.25 2.25 0 012.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23h-.777zM2.331 10.977a11.969 11.969 0 00-.831 4.398 12 12 0 00.52 3.507c.26.85 1.084 1.368 1.973 1.368H4.9c.445 0 .72-.498.523-.898a8.963 8.963 0 01-.924-3.977c0-1.708.476-3.305 1.302-4.666.245-.403-.028-.959-.5-.959H4.25c-.832 0-1.612.453-1.918 1.227z" />
-      </svg>
-    ),
-    love: (
-      <svg
-        className="h-4 w-4 text-red-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-      </svg>
-    ),
-    haha: (
-      <svg
-        className="h-4 w-4 text-yellow-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm-4.34 7.964a.75.75 0 01-1.061-1.06 5.236 5.236 0 013.73-1.538 5.236 5.236 0 013.695 1.538.75.75 0 11-1.061 1.06 3.736 3.736 0 00-2.639-1.098 3.736 3.736 0 00-2.664 1.098z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-    wow: (
-      <svg
-        className="h-4 w-4 text-yellow-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM8.547 4.505a8.25 8.25 0 1011.672 8.214l-.46-.46a2.252 2.252 0 01-.422-.586l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.211.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.654-.261a2.25 2.25 0 01-1.384-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.279-2.132z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-    sad: (
-      <svg
-        className="h-4 w-4 text-yellow-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-    angry: (
-      <svg
-        className="h-4 w-4 text-red-600"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fillRule="evenodd"
-          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm-4.34 7.964a.75.75 0 01-1.061-1.06 5.236 5.236 0 013.73-1.538 5.236 5.236 0 013.695 1.538.75.75 0 11-1.061 1.06 3.736 3.736 0 00-2.639-1.098 3.736 3.736 0 00-2.664 1.098z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
+function getTagConfig(tag: string): { bgColor: string; textColor: string } {
+  const configs: Record<string, { bgColor: string; textColor: string }> = {
+    admu: { bgColor: "#001196", textColor: "#ffffff" },
+    dlsu: { bgColor: "#00703c", textColor: "#ffffff" },
+    up: { bgColor: "#7b1113", textColor: "#ffffff" },
+    ust: { bgColor: "#fdb71a", textColor: "#000000" },
+    general: { bgColor: "#64748b", textColor: "#ffffff" },
   };
-  return icons[reaction] || icons.like;
-}
-
-interface TagConfig {
-  bgColor: string;
-  textColor: string;
-}
-
-function getTagConfig(tag: string): TagConfig {
-  const configs: Record<string, TagConfig> = {
-    admu: {
-      bgColor: "#001196",
-      textColor: "#ffffff",
-    },
-    dlsu: {
-      bgColor: "#00703c",
-      textColor: "#ffffff",
-    },
-    up: {
-      bgColor: "#7b1113",
-      textColor: "#ffffff",
-    },
-    ust: {
-      bgColor: "#fdb71a",
-      textColor: "#000000",
-    },
-    general: {
-      bgColor: "#6b7280",
-      textColor: "#ffffff",
-    },
-  };
-  return configs[tag] || configs.general;
+  return configs[tag.toLowerCase()] || configs.general;
 }
