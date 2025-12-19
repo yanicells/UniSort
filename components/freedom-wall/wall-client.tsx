@@ -123,44 +123,26 @@ export function WallClient({ initialPosts }: WallClientProps) {
           </header>
 
           {/* Controls */}
-          <div className="p-6 border-b-2 border-black bg-slate-100 sticky top-[60px] z-40 flex flex-col md:flex-row gap-4 justify-between items-center">
-            <div className="flex gap-2 w-full md:w-auto">
+          <div className="p-6 border-b-2 border-black bg-slate-100 sticky top-[60px] z-40">
+            <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
+              <div className="flex flex-wrap gap-2 flex-1">
+                <FilterBar
+                  selectedUniversities={selectedUniversities}
+                  setSelectedUniversities={setSelectedUniversities}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                  timeRange={timeRange}
+                  setTimeRange={setTimeRange}
+                />
+              </div>
               <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition"
+                onClick={() => setShowCreateModal(true)}
+                className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-pink-600 transition shadow-[4px_4px_0px_0px_rgba(255,0,255,1)] whitespace-nowrap"
               >
-                <Filter size={14} /> Filter by Campus
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition">
-                Sort by:{" "}
-                {sortBy === "latest"
-                  ? "Newest"
-                  : sortBy === "most-liked"
-                  ? "Most Liked"
-                  : "Most Discussed"}
+                <PenTool size={14} /> Submit Post
               </button>
             </div>
-            <button
-              onClick={() => setShowCreateModal(true)}
-              className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-pink-600 transition shadow-[4px_4px_0px_0px_rgba(255,0,255,1)]"
-            >
-              <PenTool size={14} /> Submit Post
-            </button>
           </div>
-
-          {/* Filter Bar (Collapsible) */}
-          {showFilters && (
-            <div className="p-6 border-b-2 border-slate-200 bg-slate-50">
-              <FilterBar
-                selectedUniversities={selectedUniversities}
-                setSelectedUniversities={setSelectedUniversities}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                timeRange={timeRange}
-                setTimeRange={setTimeRange}
-              />
-            </div>
-          )}
 
           {/* Posts Feed */}
           <div className="p-6 space-y-6 bg-slate-50">

@@ -44,17 +44,16 @@ function Combobox({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
+        <button
           role="combobox"
           aria-expanded={open}
-          className="flex-1 min-w-0 sm:flex-none sm:w-[160px] md:w-[190px] justify-between text-xs sm:text-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[140px]"
         >
           <span className="truncate">
             {options.find((opt) => opt.value === value)?.label || placeholder}
           </span>
-          <ChevronsUpDownIcon className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 shrink-0 opacity-50" />
-        </Button>
+          <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
+        </button>
       </PopoverTrigger>
       <PopoverContent className="w-[220px] p-0">
         <Command>
@@ -121,15 +120,14 @@ function MultiSelectCombobox({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
+        <button
           role="combobox"
           aria-expanded={open}
-          className="flex-1 min-w-0 sm:flex-none sm:w-[160px] md:w-[190px] justify-between text-xs sm:text-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[140px]"
         >
           <span className="truncate">{getButtonText()}</span>
-          <ChevronsUpDownIcon className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 shrink-0 opacity-50" />
-        </Button>
+          <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
+        </button>
       </PopoverTrigger>
       <PopoverContent className="w-[220px] p-0">
         <Command>
@@ -192,7 +190,7 @@ export function FilterBar({
   ];
 
   return (
-    <div className="flex flex-nowrap gap-1.5 sm:gap-3 mb-6 border-b border-border pb-3 sm:pb-4 items-center overflow-x-auto">
+    <div className="flex flex-wrap gap-2 items-center">
       <MultiSelectCombobox
         selectedValues={selectedUniversities}
         onChange={(values) => setSelectedUniversities(values as University[])}
@@ -203,13 +201,13 @@ export function FilterBar({
         value={sortBy}
         onChange={(v) => setSortBy(v as SortBy)}
         options={sortOptions}
-        placeholder="Sort posts"
+        placeholder="Latest"
       />
       <Combobox
         value={timeRange}
         onChange={(v) => setTimeRange(v as TimeRange)}
         options={timeOptions}
-        placeholder="Time range"
+        placeholder="All Time"
       />
     </div>
   );

@@ -141,36 +141,66 @@ export function Post({
             <span className="text-xs font-bold">{commentCount}</span>
           </button>
         </div>
-        <div className="flex gap-1">
-          {topReactions.includes("haha") && (
-            <span className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center text-xs border border-yellow-300">
-              😂
-            </span>
+        <div className="flex gap-1.5 items-center">
+          {reactions.like > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs border border-blue-300">
+                👍
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.like}
+              </span>
+            </div>
           )}
-          {topReactions.includes("love") && (
-            <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs border border-red-300">
-              ❤️
-            </span>
+          {reactions.love > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs border border-red-300">
+                ❤️
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.love}
+              </span>
+            </div>
           )}
-          {topReactions.includes("like") && (
-            <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs border border-blue-300">
-              👍
-            </span>
+          {reactions.haha > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center text-xs border border-yellow-300">
+                😂
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.haha}
+              </span>
+            </div>
           )}
-          {topReactions.includes("wow") && (
-            <span className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs border border-purple-300">
-              😮
-            </span>
+          {reactions.wow > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs border border-purple-300">
+                😮
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.wow}
+              </span>
+            </div>
           )}
-          {topReactions.includes("sad") && (
-            <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs border border-slate-300">
-              😢
-            </span>
+          {reactions.sad > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs border border-slate-300">
+                😢
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.sad}
+              </span>
+            </div>
           )}
-          {topReactions.includes("angry") && (
-            <span className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-xs border border-orange-300">
-              😠
-            </span>
+          {reactions.angry > 0 && (
+            <div className="flex items-center gap-1">
+              <span className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-xs border border-orange-300">
+                😠
+              </span>
+              <span className="text-xs font-bold text-slate-600">
+                {reactions.angry}
+              </span>
+            </div>
           )}
         </div>
       </div>
