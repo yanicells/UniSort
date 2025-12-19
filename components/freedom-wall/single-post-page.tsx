@@ -5,12 +5,29 @@ import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Post } from "./post";
 import { Comments } from "./comments";
 import { PostModal } from "./post-modal";
+import type { PostComment } from "./comment-types";
+
+type PostData = {
+  id: string;
+  content: string;
+  tags: string[];
+  imageUrl?: string | null;
+  reactions: {
+    like: number;
+    love: number;
+    haha: number;
+    wow: number;
+    sad: number;
+    angry: number;
+  };
+  createdAt: Date | string;
+};
 
 type SinglePostPageProps = {
   postId: string;
-  post: any;
-  comments: any[];
-  allComments: any[];
+  post: PostData;
+  comments: PostComment[];
+  allComments: PostComment[];
   totalCommentCount: number;
 };
 

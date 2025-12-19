@@ -1,19 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
 import { useRouter } from "next/navigation";
 import { PostModal } from "./post-modal";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
-import { Filter, PenTool } from "lucide-react";
+import { PenTool } from "lucide-react";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
+type PostData = {
+  id: string;
+  content: string;
+  tags: string[];
+  reactions: {
+    like: number;
+    love: number;
+    haha: number;
+    wow: number;
+    sad: number;
+    angry: number;
+  };
+  createdAt: Date | string;
+  imageUrl?: string | null;
+  commentCount?: number;
+};
+
 interface WallClientProps {
-  initialPosts: any[];
+  initialPosts: PostData[];
 }
 
 const POSTS_PER_PAGE = 10;
@@ -30,12 +47,11 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [sortBy, setSortBy] = useState<WallSort>("latest");
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
   const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  const loadMorePosts = async () => {
+  const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
     const params = new URLSearchParams({
       page: page.toString(),
@@ -52,7 +68,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
       // Prevent duplicates by filtering out posts that already exist
       const existingIds = new Set(prev.map((p) => p.id));
       const uniqueNewPosts = newPosts.filter(
-        (p: any) => !existingIds.has(p.id)
+        (p: { id: string }) => !existingIds.has(p.id)
       );
       return [...prev, ...uniqueNewPosts];
     });
@@ -61,9 +77,9 @@ export function WallClient({ initialPosts }: WallClientProps) {
       setHasMore(false);
     }
     setIsLoading(false);
-  };
+  }, [page, sortBy, timeRange, selectedUniversities]);
 
-  const refreshPosts = async () => {
+  const refreshPosts = useCallback(async () => {
     setIsLoading(true);
     const params = new URLSearchParams({
       page: "1",
@@ -78,7 +94,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
     setPage(2);
     setHasMore((data.posts || []).length >= POSTS_PER_PAGE);
     setIsLoading(false);
-  };
+  }, [sortBy, timeRange, selectedUniversities]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -93,12 +109,12 @@ export function WallClient({ initialPosts }: WallClientProps) {
       observer.observe(loadMoreRef.current);
     }
     return () => observer.disconnect();
-  }, [hasMore, isLoading, page]);
+  }, [hasMore, isLoading, loadMorePosts]);
 
   useEffect(() => {
     // reset and fetch first page on filters change
     refreshPosts();
-  }, [selectedUniversities, sortBy, timeRange]);
+  }, [refreshPosts]);
 
   return (
     <>
@@ -188,7 +204,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
             )}
             {!hasMore && posts.length > 0 && (
               <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                You've reached the end!
+                You&apos;ve reached the end!
               </p>
             )}
             {hasMore && !isLoading && (

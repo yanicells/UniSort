@@ -10,7 +10,7 @@ export default function QuizHandler() {
   return (
     <div>
       {nameEntered !== "" ? (
-        <QuizView name={nameEntered} onBack={() => setNameEntered("")} />
+        <QuizView name={nameEntered} onBackAction={() => setNameEntered("")} />
       ) : (
         <div>
           <GetName onContinue={setNameEntered} />

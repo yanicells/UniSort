@@ -16,10 +16,10 @@ import { Info, ChevronRight, ChevronLeft } from "lucide-react";
 
 export default function QuizView({
   name,
-  onBack,
+  onBackAction,
 }: {
   name: string;
-  onBack: () => void;
+  onBackAction: () => void;
 }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -120,7 +120,7 @@ export default function QuizView({
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     } else {
-      onBack();
+      onBackAction();
     }
   }
 
@@ -128,8 +128,6 @@ export default function QuizView({
     () => questions.questions[currentQuestionIndex],
     [currentQuestionIndex]
   );
-
-
 
   return (
     <div className="relative bg-white shadow-2xl border-2 md:border-4 border-black p-4 md:p-6 lg:p-8">
@@ -146,7 +144,8 @@ export default function QuizView({
                   className="h-full bg-pink-500 transition-all duration-300"
                   style={{
                     width: `${
-                      ((currentQuestionIndex + 1) / questions.questions.length) *
+                      ((currentQuestionIndex + 1) /
+                        questions.questions.length) *
                       100
                     }%`,
                   }}
@@ -154,7 +153,8 @@ export default function QuizView({
               </div>
               <span className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider sm:tracking-widest">
                 {Math.round(
-                  ((currentQuestionIndex + 1) / questions.questions.length) * 100
+                  ((currentQuestionIndex + 1) / questions.questions.length) *
+                    100
                 )}
                 %
               </span>
