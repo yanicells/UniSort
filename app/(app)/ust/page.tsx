@@ -1,4 +1,6 @@
-import { UniversityTemplate } from "@/components/university/UniversityTemplate";
+import { TabloidLayout } from "@/components/university/TabloidLayout";
+import { universityData } from "@/lib/page-content/university-data";
+import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 
 export const metadata = {
   title: "University of Santo Tomas (UST) - UniSort",
@@ -8,14 +10,9 @@ export const metadata = {
 
 export default function UST() {
   return (
-    <UniversityTemplate
-      name="University of Santo Tomas"
-      code="UST"
-      slogan="Veritas in Caritate"
-      color="var(--ust-gold)"
-      overview="The University of Santo Tomas is Asia's oldest existing university, known for its heritage campus, strong health sciences, and vibrant traditions."
-      culture="Thomasians celebrate faith, artistry, and school spirit, with events like Paskuhan and USTET welcoming thousands."
-      studentLife="Life at España includes tree-lined plazas, iconic Main Building views, and a warm community spirit rooted in tradition."
-    />
+    <>
+      <NewspaperMasthead />
+      <TabloidLayout data={universityData.ust} />
+    </>
   );
 }

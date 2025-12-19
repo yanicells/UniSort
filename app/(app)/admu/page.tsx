@@ -1,4 +1,6 @@
-import { UniversityTemplate } from "@/components/university/UniversityTemplate";
+import { TabloidLayout } from "@/components/university/TabloidLayout";
+import { universityData } from "@/lib/page-content/university-data";
+import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 
 export const metadata = {
   title: "Ateneo de Manila University (ADMU) - UniSort",
@@ -8,14 +10,9 @@ export const metadata = {
 
 export default function ADMU() {
   return (
-    <UniversityTemplate
-      name="Ateneo de Manila University"
-      code="ADMU"
-      slogan="Lux in Domino"
-      color="var(--admu-blue)"
-      overview="Ateneo de Manila University is a premier Jesuit institution known for its strong liberal arts foundation, leadership formation, and vibrant campus life in Loyola Heights."
-      culture="Ateneans value excellence with compassion, balancing rigorous academics with social involvement, arts, and student organizations."
-      studentLife="Expect a green campus, org fairs at the Zen Garden, Blue Eagles pride, and a tight-knit community centered on service and intellectual curiosity."
-    />
+    <>
+      <NewspaperMasthead />
+      <TabloidLayout data={universityData.admu} />
+    </>
   );
 }

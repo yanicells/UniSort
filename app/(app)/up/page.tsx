@@ -1,4 +1,6 @@
-import { UniversityTemplate } from "@/components/university/UniversityTemplate";
+import { TabloidLayout } from "@/components/university/TabloidLayout";
+import { universityData } from "@/lib/page-content/university-data";
+import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 
 export const metadata = {
   title: "University of the Philippines (UP) - UniSort",
@@ -8,14 +10,9 @@ export const metadata = {
 
 export default function UP() {
   return (
-    <UniversityTemplate
-      name="University of the Philippines"
-      code="UP"
-      slogan="Honor and Excellence"
-      color="var(--up-maroon)"
-      overview="The University of the Philippines is the national university celebrated for its academic rigor, critical thinking culture, and service to the nation."
-      culture="Iskolars ng Bayan value academic freedom, activism, and camaraderie, thriving in a diverse, open campus environment."
-      studentLife="UP life means tambays at the Sunken Garden, jeepney rides around campus, Oblation runs, and vibrant org communities across colleges."
-    />
+    <>
+      <NewspaperMasthead />
+      <TabloidLayout data={universityData.up} />
+    </>
   );
 }
