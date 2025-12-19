@@ -21,7 +21,7 @@ export default function Big4Page() {
             <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-slate-500">
               The University Ecosystem
             </p>
-            <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-2">
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
               THE BIG FOUR
             </h1>
             <p className="text-xl md:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
@@ -29,12 +29,34 @@ export default function Big4Page() {
               Strata&rdquo;
             </p>
 
-            <div className="flex justify-center items-center gap-4 text-xs md:text-sm font-bold border-y border-slate-300 py-4 mt-8 max-w-4xl mx-auto font-mono text-slate-600">
-              <span>EST. VARIOUS</span>
+            <div className="flex flex-wrap justify-center items-center gap-3 text-sm md:text-base font-bold border-y border-slate-300 py-4 mt-8 max-w-4xl mx-auto">
+              <Link
+                href="/admu"
+                className="text-[#001196] hover:underline font-black transition"
+              >
+                Blue Eagles
+              </Link>
               <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span>LOC: METRO MANILA</span>
+              <Link
+                href="/dlsu"
+                className="text-[#00703c] hover:underline font-black transition"
+              >
+                Green Archers
+              </Link>
               <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span>STATUS: ELITE</span>
+              <Link
+                href="/up"
+                className="text-[#7b1113] hover:underline font-black transition"
+              >
+                Fighting Maroons
+              </Link>
+              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+              <Link
+                href="/ust"
+                className="text-[#fdb71a] hover:underline font-black transition"
+              >
+                Growling Tigers
+              </Link>
             </div>
           </header>
 
@@ -264,17 +286,18 @@ export default function Big4Page() {
                   What is the Big 4?
                 </h3>
                 <p className="text-sm leading-relaxed font-serif text-slate-700">
-                  Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four universities
-                  in Metro Manila that serve as the primary architects of the
-                  Philippine social strata. The University of the Philippines (UP),
-                  Ateneo de Manila University (ADMU), De La Salle University (DLSU),
-                  and the University of Santo Tomas (UST) are more than just
-                  schools; they are gatekeepers of cultural capital and the
-                  nation&apos;s premier training grounds for leadership. While their
-                  rivalries are most visible during the UAAP season, the true
-                  distinctions lie in their &ldquo;hidden curriculums&rdquo;—the
-                  unwritten rules of survival and the fundamentally different ways
-                  they transform students.
+                  Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four
+                  universities in Metro Manila that serve as the primary
+                  architects of the Philippine social strata. The University of
+                  the Philippines (UP), Ateneo de Manila University (ADMU), De
+                  La Salle University (DLSU), and the University of Santo Tomas
+                  (UST) are more than just schools; they are gatekeepers of
+                  cultural capital and the nation&apos;s premier training
+                  grounds for leadership. While their rivalries are most visible
+                  during the UAAP season, the true distinctions lie in their
+                  &ldquo;hidden curriculums&rdquo;—the unwritten rules of
+                  survival and the fundamentally different ways they transform
+                  students.
                 </p>
               </div>
 

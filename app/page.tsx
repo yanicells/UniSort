@@ -89,28 +89,97 @@ export default async function Home() {
                 <div className="w-3/4 h-full bg-black animate-pulse"></div>
               </div>
             </div>
-            
+
             {/* University Breakdown */}
-            <div className="border-2 border-black p-4 bg-white text-left">
-              <h4 className="font-black uppercase text-xs tracking-widest mb-3 border-b border-slate-300 pb-2">
+            <div className="border-4 border-black p-5 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              <h4 className="font-black uppercase text-sm tracking-widest mb-4 text-center border-b-2 border-black pb-2">
                 Match Distribution
               </h4>
-              <div className="space-y-2 text-xs font-mono">
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-[#001196]">ADMU</span>
-                  <span className="font-black">{quizSummary.admu}</span>
+              <div className="space-y-3">
+                {/* ADMU Bar */}
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="font-black text-xs text-[#001196]">
+                      ADMU
+                    </span>
+                    <span className="font-black text-xs text-[#001196]">
+                      {quizSummary.admu}
+                    </span>
+                  </div>
+                  <div className="h-3 bg-slate-200 border border-slate-300">
+                    <div
+                      className="h-full bg-[#001196] transition-all duration-500"
+                      style={{
+                        width: `${
+                          (quizSummary.admu / quizSummary.total) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-[#00703c]">DLSU</span>
-                  <span className="font-black">{quizSummary.dlsu}</span>
+
+                {/* DLSU Bar */}
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="font-black text-xs text-[#00703c]">
+                      DLSU
+                    </span>
+                    <span className="font-black text-xs text-[#00703c]">
+                      {quizSummary.dlsu}
+                    </span>
+                  </div>
+                  <div className="h-3 bg-slate-200 border border-slate-300">
+                    <div
+                      className="h-full bg-[#00703c] transition-all duration-500"
+                      style={{
+                        width: `${
+                          (quizSummary.dlsu / quizSummary.total) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-[#7b1113]">UP</span>
-                  <span className="font-black">{quizSummary.up}</span>
+
+                {/* UP Bar */}
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="font-black text-xs text-[#7b1113]">
+                      UP
+                    </span>
+                    <span className="font-black text-xs text-[#7b1113]">
+                      {quizSummary.up}
+                    </span>
+                  </div>
+                  <div className="h-3 bg-slate-200 border border-slate-300">
+                    <div
+                      className="h-full bg-[#7b1113] transition-all duration-500"
+                      style={{
+                        width: `${(quizSummary.up / quizSummary.total) * 100}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-[#fdb71a]">UST</span>
-                  <span className="font-black">{quizSummary.ust}</span>
+
+                {/* UST Bar */}
+                <div>
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="font-black text-xs text-[#fdb71a]">
+                      UST
+                    </span>
+                    <span className="font-black text-xs text-[#fdb71a]">
+                      {quizSummary.ust}
+                    </span>
+                  </div>
+                  <div className="h-3 bg-slate-200 border border-slate-300">
+                    <div
+                      className="h-full bg-[#fdb71a] transition-all duration-500"
+                      style={{
+                        width: `${
+                          (quizSummary.ust / quizSummary.total) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
