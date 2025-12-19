@@ -4,8 +4,6 @@ import { questions } from "@/lib/quiz/quiz-data";
 import { useMemo, useState } from "react";
 import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
-import { ProgressBar } from "./ProgressBar";
-import { QuizContainer } from "./quiz-container";
 import {
   Dialog,
   DialogContent,
@@ -14,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Info } from "lucide-react";
+import { Info, ChevronRight, ChevronLeft } from "lucide-react";
 
 export default function QuizView({
   name,
@@ -134,108 +132,149 @@ export default function QuizView({
   return (
     <div className="relative">
       {!quizCompleted ? (
-        <QuizContainer>
-          <div className="space-y-6">
-            <ProgressBar
-              current={currentQuestionIndex + 1}
-              total={questions.questions.length}
-            />
+        <div className="space-y-8">
+          {/* Progress Header */}
+          <div className="flex items-center justify-between border-b-2 border-black pb-2">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest">
+              Question {currentQuestionIndex + 1} of{" "}
+              {questions.questions.length}
+            </span>
+            <div className="flex-1 mx-4 h-2 bg-slate-200">
+              <div
+                className="h-full bg-black transition-all duration-300"
+                style={{
+                  width: `${
+                    ((currentQuestionIndex + 1) / questions.questions.length) *
+                    100
+                  }%`,
+                }}
+              ></div>
+            </div>
+            <span className="font-mono text-xs font-bold uppercase tracking-widest">
+              {Math.round(
+                ((currentQuestionIndex + 1) / questions.questions.length) * 100
+              )}
+              %
+            </span>
+          </div>
 
-            <div className="card-static space-y-4 text-center py-8 relative">
-              <div className="absolute right-4 top-4">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <button
-                      className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-full hover:bg-muted"
-                      aria-label="Show rationale"
-                    >
-                      <Info className="w-5 h-5" />
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Why this question matters</DialogTitle>
-                      <DialogDescription className="pt-4 text-base leading-relaxed">
-                        {currentQuestion.rationale}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="mt-6 space-y-3">
-                      <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                        Current Score Distribution
-                      </h4>
-                      <div className="space-y-2">
-                        {chartData.map((item) => (
-                          <div
-                            key={item.label}
-                            className="flex items-center gap-3"
-                          >
-                            <span className="w-10 text-xs font-bold text-muted-foreground">
-                              {item.label}
-                            </span>
-                            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
-                              <div
-                                className={`h-full ${item.color} transition-all duration-500`}
-                                style={{
-                                  width: `${(item.value / maxScore) * 100}%`,
-                                }}
-                              />
-                            </div>
-                            <span className="w-6 text-xs text-right text-muted-foreground">
-                              {item.value}
-                            </span>
+          <div className="space-y-6 text-center relative">
+            <div className="absolute right-0 top-0">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    className="text-slate-400 hover:text-black transition-colors p-2"
+                    aria-label="Show rationale"
+                  >
+                    <Info className="w-5 h-5" />
+                  </button>
+                </DialogTrigger>
+                <DialogContent className="font-serif border-2 border-black">
+                  <DialogHeader>
+                    <DialogTitle className="font-black uppercase tracking-tight">
+                      Why this matters
+                    </DialogTitle>
+                    <DialogDescription className="pt-4 text-base leading-relaxed font-serif text-slate-800">
+                      {currentQuestion.rationale}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="mt-6 space-y-3">
+                    <h4 className="text-xs font-bold font-sans uppercase tracking-widest border-b border-black pb-1">
+                      Current Alignment
+                    </h4>
+                    <div className="space-y-2">
+                      {chartData.map((item) => (
+                        <div
+                          key={item.label}
+                          className="flex items-center gap-3"
+                        >
+                          <span className="w-10 text-xs font-bold font-mono">
+                            {item.label}
+                          </span>
+                          <div className="flex-1 h-2 bg-slate-100 border border-slate-200 overflow-hidden">
+                            <div
+                              className={`h-full ${item.color} transition-all duration-500`}
+                              style={{
+                                width: `${(item.value / maxScore) * 100}%`,
+                              }}
+                            />
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  </DialogContent>
-                </Dialog>
-              </div>
-
-              <h1 className="text-sm uppercase tracking-widest text-muted-foreground font-medium">
-                {currentQuestion.section}
-              </h1>
-              <h2 className="text-2xl md:text-3xl font-bold leading-tight px-4 max-w-3xl mx-auto">
-                {currentQuestion.question}
-              </h2>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
 
-            <div className="card-static p-4 md:p-5 space-y-3">
-              {currentQuestion.choices.map((choice) => {
-                const isSelected = selectedChoice === choice.text;
-                return (
-                  <button
-                    key={choice.text}
-                    className={`w-full text-left p-3 md:p-4 border-2 rounded-lg focus:outline-none transition-all duration-200 ${
+            <h1 className="text-xs font-bold font-sans uppercase tracking-[0.2em] text-slate-500 border-b border-slate-200 inline-block pb-1">
+              {currentQuestion.section}
+            </h1>
+
+            <h2 className="text-3xl md:text-4xl font-black font-serif leading-tight px-4 max-w-3xl mx-auto py-4">
+              {currentQuestion.question}
+            </h2>
+          </div>
+
+          <div className="grid gap-3 max-w-2xl mx-auto">
+            {currentQuestion.choices.map((choice) => {
+              const isSelected = selectedChoice === choice.text;
+              return (
+                <button
+                  key={choice.text}
+                  className={`w-full text-left p-4 border-2 transition-all duration-200 group flex items-center gap-4 ${
+                    isSelected
+                      ? "border-black bg-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+                      : "border-slate-300 hover:border-black hover:bg-slate-50 text-slate-800"
+                  }`}
+                  onClick={() => setSelectedChoice(choice.text)}
+                >
+                  <div
+                    className={`w-6 h-6 border-2 flex items-center justify-center flex-shrink-0 ${
                       isSelected
-                        ? "border-primary bg-primary/5 ring-1 ring-primary shadow-sm"
-                        : "border-border hover:border-foreground/60 hover:bg-muted/50"
+                        ? "border-white bg-white"
+                        : "border-slate-400 group-hover:border-black"
                     }`}
-                    onClick={() => setSelectedChoice(choice.text)}
+                  >
+                    {isSelected && <div className="w-3 h-3 bg-black"></div>}
+                  </div>
+                  <span
+                    className={`font-serif text-lg ${
+                      isSelected ? "font-bold" : ""
+                    }`}
                   >
                     {choice.text}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex justify-between items-center">
-              <button className="secondary-button" onClick={handleBack}>
-                ← Back
-              </button>
-              <button className="primary-button" onClick={handleNext}>
-                {currentQuestionIndex === questions.questions.length - 1
-                  ? "Finish →"
-                  : "Next →"}
-              </button>
-            </div>
-
-            {selectionMessage && (
-              <p className="text-center text-sm text-red-600">
-                {selectionMessage}
-              </p>
-            )}
+                  </span>
+                </button>
+              );
+            })}
           </div>
-        </QuizContainer>
+
+          <div className="flex justify-between items-center pt-8 border-t-2 border-slate-100">
+            <button
+              className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:underline"
+              onClick={handleBack}
+            >
+              <ChevronLeft className="w-4 h-4" /> Previous
+            </button>
+
+            <button
+              className="bg-black text-white px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-slate-800 transition-colors flex items-center gap-2"
+              onClick={handleNext}
+            >
+              {currentQuestionIndex === questions.questions.length - 1
+                ? "Reveal Destiny"
+                : "Next Question"}{" "}
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          {selectionMessage && (
+            <p className="text-center text-sm font-bold text-red-600 bg-red-50 py-2 border border-red-200">
+              ⚠ {selectionMessage}
+            </p>
+          )}
+        </div>
       ) : (
         <Results score={score} name={username} />
       )}

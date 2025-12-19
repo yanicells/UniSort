@@ -50,7 +50,7 @@ export const universityData: Record<string, UniversityData> = {
   admu: {
     id: "admu",
     name: "Ateneo de Manila",
-    publication: "THE BLUE & WHITE",
+    publication: "THE BLUE EAGLE",
     color: "#0038A8",
     secondary: "#E1E8F5",
     headline: "THE JESUIT PHILOSOPHER-KING",
@@ -60,7 +60,7 @@ export const universityData: Record<string, UniversityData> = {
       "Ateneo de Manila University (ADMU) is a private Jesuit research university in Quezon City, founded in 1859. Known for its liberal arts Core Curriculum emphasizing Philosophy and Theology, ADMU is one of the Philippines' premier institutions with strong programs in humanities, social sciences, and business. The university follows the Jesuit tradition of cura personalis (care for the whole person) in its educational approach.",
     stats: {
       tuition: "₱80k-90k",
-      vibe: "Urban Sanctuary",
+      vibe: "One Big Fight!",
       survival: "Oral Exams",
     },
     marquee:
@@ -160,7 +160,7 @@ export const universityData: Record<string, UniversityData> = {
       "De La Salle University (DLSU) is a private Catholic research university founded in 1911 by the De La Salle Brothers. Located in the heart of Manila along Taft Avenue, it is a premier institution recognized for its excellence in business, engineering, and computer studies. Operating on a distinct trimestral system, DLSU focuses on producing corporate-ready graduates through a blend of pragmatic education and Lasallian values.",
     stats: {
       tuition: "₱90k+",
-      vibe: "Vertical City",
+      vibe: "Animo La Salle!",
       survival: "No Sleep",
     },
     marquee:
@@ -261,7 +261,7 @@ export const universityData: Record<string, UniversityData> = {
   up: {
     id: "up",
     name: "U.P. Diliman",
-    publication: "THE ISKO DAILY",
+    publication: "THE FIGHTING MAROON",
     color: "#7B1113",
     secondary: "#FBE9E7",
     headline: "BASTION OF CRITICAL SURVIVAL",
@@ -270,7 +270,7 @@ export const universityData: Record<string, UniversityData> = {
       "The University of the Philippines Diliman (UPD) is the flagship campus of the national university system, established in 1949 in Quezon City. As a state university offering free undergraduate tuition, UP is renowned for its academic excellence, research output, and deep-seated history of student activism. Its sprawling 493-hectare campus is the largest and most comprehensive in the UP system.",
     stats: {
       tuition: "FREE",
-      vibe: "Open Park",
+      vibe: "UP Fight!",
       survival: "Hunger Games",
     },
     marquee:
@@ -364,7 +364,7 @@ export const universityData: Record<string, UniversityData> = {
   ust: {
     id: "ust",
     name: "U.S.T.",
-    publication: "THE TIGER'S ROAR",
+    publication: "THE GROWLING TIGER",
     color: "#F1C40F",
     secondary: "#FFF9C4",
     headline: "THE TIGER'S DEN",
@@ -373,7 +373,7 @@ export const universityData: Record<string, UniversityData> = {
       "The University of Santo Tomas (UST) is a private, Catholic research university in Manila, founded in 1611, making it the oldest university in Asia. Managed by the Order of Preachers (Dominicans), it is located in the heart of the University Belt. UST is widely recognized for its consistent excellence in health sciences, architecture, and accountancy, maintaining a strong reputation for producing topnotchers in national licensure exams.",
     stats: {
       tuition: "~₱60k",
-      vibe: "Flood & Faith",
+      vibe: "Go USTe!",
       survival: "Resilience",
     },
     marquee:

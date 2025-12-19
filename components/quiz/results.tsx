@@ -1,7 +1,6 @@
 "use client";
 
 import { IndividualScoresPieChart } from "@/components/charts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useMemo } from "react";
 
 const uniColors = {
@@ -87,94 +86,101 @@ export default function Results({
     : `${name}, welcome to ${recommendedUniversity}!`;
 
   return (
-    <div className="space-y-8 max-w-4xl mx-auto px-4 py-6">
-      <section className="text-center space-y-3">
-        <h1 className="text-4xl md:text-5xl font-bold">Congratulations! 🎉</h1>
-        <p className="text-xl md:text-2xl text-foreground/80">
-          You&apos;re a{" "}
+    <div className="space-y-8 max-w-4xl mx-auto py-6">
+      <section className="text-center space-y-4 border-b-4 border-black pb-8">
+        <div className="inline-block bg-black text-white px-4 py-1 font-bold uppercase tracking-widest text-sm mb-2">
+          Breaking News
+        </div>
+        <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
+          It's {topUni}!
+        </h1>
+        <p className="text-xl md:text-2xl font-serif italic text-slate-600 max-w-2xl mx-auto">
+          Analysis confirms a{" "}
           <span
-            className="font-bold"
+            className="font-bold not-italic"
             style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
           >
-            {topMatch.percentage}%
+            {topMatch.percentage}% match
           </span>{" "}
-          match with
-        </p>
-        <h2
-          className="text-3xl md:text-4xl font-bold"
-          style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
-        >
-          {recommendedUniversity}
-        </h2>
-        <p className="text-base text-foreground/70 max-w-2xl mx-auto">
-          {getResultMessage()}
+          with {recommendedUniversity}.
         </p>
       </section>
 
-      <section className="card">
-        <h3 className="text-xl font-semibold mb-3">Your Personality Fit</h3>
-        <p className="text-foreground/80 leading-relaxed">
-          {greeting} Based on your answers, your values and preferences align
-          closely with {recommendedUniversity}&apos;s community and campus vibe.
-        </p>
-      </section>
+      <div className="grid md:grid-cols-2 gap-8">
+        <section className="border-2 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h3 className="font-black uppercase text-xl mb-4 border-b-2 border-black pb-2">
+            Editorial: The Verdict
+          </h3>
+          <div className="prose font-serif text-slate-800 leading-relaxed">
+            <p className="first-letter:text-5xl first-letter:font-black first-letter:float-left first-letter:mr-3 first-letter:mt-[-10px]">
+              {greeting} {getResultMessage()}
+            </p>
+            <p className="mt-4">
+              Based on your answers, your values and preferences align closely
+              with {recommendedUniversity}&apos;s community and campus vibe.
+            </p>
+          </div>
+        </section>
 
-      <section className="card">
-        <h3 className="text-xl font-semibold mb-4">Your Full Results</h3>
-        <div className="max-w-2xl mx-auto">
-          <IndividualScoresPieChart scores={score} />
-        </div>
-        <div className="mt-4 space-y-3">
-          {sortedScores.map((item) => {
-            const uniKey = item.uni as keyof typeof uniColors;
-            const maxScore = sortedScores[0].score;
-            const widthPercentage = (item.score / maxScore) * 100;
+        <section className="border-2 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+          <h3 className="font-black uppercase text-xl mb-4 border-b-2 border-black pb-2">
+            By The Numbers
+          </h3>
+          <div className="max-w-xs mx-auto mb-6">
+            <IndividualScoresPieChart scores={score} />
+          </div>
+          <div className="space-y-3">
+            {sortedScores.map((item) => {
+              const uniKey = item.uni as keyof typeof uniColors;
+              const maxScore = sortedScores[0].score;
+              const widthPercentage = (item.score / maxScore) * 100;
 
-            return (
-              <div key={item.uni} className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-semibold">
-                    {item.uni.toUpperCase()}
-                  </span>
-                  <span className="text-foreground/60">
-                    {item.score} points ({item.percentage}%)
-                  </span>
-                </div>
-                <div className="h-7 w-full bg-muted rounded-md overflow-hidden">
-                  <div
-                    className="h-full flex items-center justify-end px-3 text-white text-sm font-medium transition-all duration-500 ease-out"
-                    style={{
-                      width: `${widthPercentage}%`,
-                      backgroundColor: uniColors[uniKey],
-                    }}
-                  >
-                    {widthPercentage > 15 && `${item.percentage}%`}
+              return (
+                <div key={item.uni} className="space-y-1">
+                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider">
+                    <span>{item.uni}</span>
+                    <span>{item.percentage}%</span>
+                  </div>
+                  <div className="h-4 w-full bg-slate-100 border border-black overflow-hidden">
+                    <div
+                      className="h-full transition-all duration-500 ease-out border-r border-black"
+                      style={{
+                        width: `${widthPercentage}%`,
+                        backgroundColor: uniColors[uniKey],
+                      }}
+                    ></div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+              );
+            })}
+          </div>
+        </section>
+      </div>
 
-      <section className="space-y-3">
-        <h3 className="text-xl font-semibold">Other Matches</h3>
-        <div className="grid md:grid-cols-3 gap-3">
+      <section className="border-t-2 border-black pt-8">
+        <h3 className="font-black uppercase text-2xl mb-6 text-center">
+          Other Headlines
+        </h3>
+        <div className="grid md:grid-cols-3 gap-4">
           {sortedScores.slice(1).map((item) => (
             <div
               key={item.uni}
-              className="card text-center p-3 border border-border shadow-sm hover:shadow-md transition"
+              className="border border-slate-300 p-4 hover:border-black transition-colors bg-white"
             >
-              <p
-                className="text-2xl font-bold"
-                style={{ color: uniColors[item.uni as keyof typeof uniColors] }}
-              >
-                {item.percentage}%
-              </p>
-              <p className="text-foreground/70 mt-1 text-sm">
-                {uniFullNames[item.uni as keyof typeof uniFullNames]}
-              </p>
-              <p className="text-xs text-foreground/60 mt-1">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span
+                  className="text-3xl font-black"
+                  style={{
+                    color: uniColors[item.uni as keyof typeof uniColors],
+                  }}
+                >
+                  {item.percentage}%
+                </span>
+                <span className="font-bold uppercase text-sm text-slate-500">
+                  {item.uni}
+                </span>
+              </div>
+              <p className="text-sm font-serif text-slate-600 leading-snug">
                 {getUniDescription(item.uni, item.percentage, 1)}
               </p>
             </div>
@@ -182,30 +188,29 @@ export default function Results({
         </div>
       </section>
 
-      <section className="flex flex-wrap gap-2 justify-center pb-2">
+      <section className="flex flex-wrap gap-4 justify-center pt-8 pb-4">
         <a
-          className="primary-button text-xs md:text-sm py-2"
+          className="bg-black text-white px-6 py-3 font-bold uppercase tracking-widest text-sm hover:bg-slate-800 transition-colors border-2 border-transparent"
           href={`/${topMatch.uni}`}
-          style={{
-            backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
-          }}
         >
-          Explore {recommendedUniversity} →
+          Read More About {topMatch.uni.toUpperCase()} →
         </a>
-        <a className="secondary-button text-xs md:text-sm py-2" href="/big4">
-          View All Universities
+        <a
+          className="bg-white text-black px-6 py-3 font-bold uppercase tracking-widest text-sm hover:bg-slate-50 transition-colors border-2 border-black"
+          href="/big4"
+        >
+          See All Universities
         </a>
-        <button className="secondary-button text-xs md:text-sm py-2">
-          Share Results 🔗
-        </button>
-        <a className="secondary-button text-xs md:text-sm py-2" href="/quiz">
-          Retake Quiz ↻
+        <a
+          className="text-slate-500 px-6 py-3 font-bold uppercase tracking-widest text-sm hover:text-black transition-colors underline decoration-2 underline-offset-4"
+          href="/quiz"
+        >
+          Retake Quiz
         </a>
       </section>
 
-      <div className="text-center text-xs md:text-sm text-foreground/60 pb-2">
-        These results are based on your responses to the personality and
-        preference quiz.
+      <div className="text-center text-xs font-mono text-slate-400 uppercase tracking-widest border-t border-slate-200 pt-4">
+        UniSort Intelligence Unit • Vol. 1 • Issue 1
       </div>
     </div>
   );

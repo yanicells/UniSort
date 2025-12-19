@@ -96,7 +96,12 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
             <span>SURVIVAL: {data.stats.survival}</span>
             <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
             <span>
-              LOC: {data.id === "admu" || data.id === "up" ? "QC" : "MANILA"}
+              LOC:{" "}
+              {data.id === "admu" || data.id === "up"
+                ? "KYUSI"
+                : data.id == "dlsu"
+                ? "TAFT"
+                : "ESPAÑA"}
             </span>
           </div>
         </header>
