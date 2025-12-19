@@ -59,23 +59,28 @@ export function ReactionModal({
 
   return (
     <div
-      ref={modalRef}
-      onClick={(e) => e.stopPropagation()}
-      className={`absolute right-0 sm:left-1/2 sm:-translate-x-1/2 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg p-2 flex gap-1 ${
-        position === "top" ? "bottom-full mb-3" : "top-full mt-3"
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={onClose}
     >
-      {REACTIONS.map((reaction) => (
-        <button
-          key={reaction.type}
-          onClick={(e) => handleReactionClick(e, reaction.type)}
-          disabled={isLoading}
-          className="text-xl hover:scale-125 transition-transform hover:drop-shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          title={reaction.type}
-        >
-          {reaction.emoji}
-        </button>
-      ))}
+      <div
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-lg p-4"
+      >
+        <div className="flex gap-2">
+          {REACTIONS.map((reaction) => (
+            <button
+              key={reaction.type}
+              onClick={(e) => handleReactionClick(e, reaction.type)}
+              disabled={isLoading}
+              className="text-3xl hover:scale-125 transition-transform hover:drop-shadow-lg disabled:opacity-50 disabled:cursor-not-allowed p-2 hover:bg-slate-100 rounded"
+              title={reaction.type}
+            >
+              {reaction.emoji}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

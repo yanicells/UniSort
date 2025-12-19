@@ -55,11 +55,13 @@ function Combobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0">
-        <Command>
+      <PopoverContent className="w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+        <Command className="border-none">
           <CommandList>
-            <CommandEmpty>No option found.</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">
+              No option found.
+            </CommandEmpty>
+            <CommandGroup className="p-1">
               {options.map((opt) => (
                 <CommandItem
                   key={opt.value}
@@ -68,16 +70,18 @@ function Combobox({
                     onChange(current);
                     setOpen(false as boolean);
                   }}
+                  className="px-3 py-2 text-xs font-bold uppercase cursor-pointer hover:bg-slate-100 data-[selected=true]:bg-slate-100 aria-selected:bg-slate-100"
                 >
                   <CheckIcon
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "mr-2 h-3 w-3",
                       value === opt.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {opt.label}
                 </CommandItem>
               ))}
+              )
             </CommandGroup>
           </CommandList>
         </Command>
@@ -129,23 +133,26 @@ function MultiSelectCombobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0">
-        <Command>
+      <PopoverContent className="w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+        <Command className="border-none">
           <CommandList>
-            <CommandEmpty>No option found.</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">
+              No option found.
+            </CommandEmpty>
+            <CommandGroup className="p-1">
               {options.map((opt) => (
                 <CommandItem
                   key={opt.value}
                   value={opt.value}
                   onSelect={() => toggleValue(opt.value)}
+                  className="px-3 py-2 text-xs font-bold uppercase cursor-pointer hover:bg-slate-100 data-[selected=true]:bg-slate-100 aria-selected:bg-slate-100"
                 >
                   <div
                     className={cn(
-                      "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                      "mr-2 flex h-4 w-4 items-center justify-center border-2 border-black",
                       selectedValues.includes(opt.value)
-                        ? "bg-primary text-primary-foreground"
-                        : "opacity-50 [&_svg]:invisible"
+                        ? "bg-black text-white"
+                        : "bg-white [&_svg]:invisible"
                     )}
                   >
                     <CheckIcon className="h-4 w-4" />
