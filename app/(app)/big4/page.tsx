@@ -43,16 +43,17 @@ export default function Big4Page() {
           <div className="p-8 md:p-12 border-b border-slate-200 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-black uppercase mb-6">Introduction</h2>
             <p className="text-lg leading-relaxed font-serif text-slate-700">
-              Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four universities in
-              Metro Manila that serve as the primary architects of the Philippine
-              social strata. The University of the Philippines (UP), Ateneo de
-              Manila University (ADMU), De La Salle University (DLSU), and the
-              University of Santo Tomas (UST) are more than just schools; they
-              are gatekeepers of cultural capital and the nation&apos;s premier
-              training grounds for leadership. While their rivalries are most
-              visible during the UAAP season, the true distinctions lie in their
-              &ldquo;hidden curriculums&rdquo;—the unwritten rules of survival and the
-              fundamentally different ways they transform students.
+              Welcome to the &ldquo;Big 4&rdquo; ecosystem—the four universities
+              in Metro Manila that serve as the primary architects of the
+              Philippine social strata. The University of the Philippines (UP),
+              Ateneo de Manila University (ADMU), De La Salle University (DLSU),
+              and the University of Santo Tomas (UST) are more than just
+              schools; they are gatekeepers of cultural capital and the
+              nation&apos;s premier training grounds for leadership. While their
+              rivalries are most visible during the UAAP season, the true
+              distinctions lie in their &ldquo;hidden curriculums&rdquo;—the
+              unwritten rules of survival and the fundamentally different ways
+              they transform students.
             </p>
           </div>
 
@@ -83,27 +84,27 @@ export default function Big4Page() {
                     <ul className="grid gap-3 text-sm">
                       <li className="bg-blue-50 p-3 border-l-4 border-blue-800">
                         <strong>ADMU (Reflexive Depth):</strong> Education is
-                        anchored in a Liberal Arts &ldquo;gauntlet&rdquo;. You are
-                        required to take extensive Philosophy and Theology courses
-                        that culminate in oral exams.
+                        anchored in a Liberal Arts &ldquo;gauntlet&rdquo;. You
+                        are required to take extensive Philosophy and Theology
+                        courses that culminate in oral exams.
                       </li>
                       <li className="bg-green-50 p-3 border-l-4 border-green-700">
-                        <strong>DLSU (Trimestral Velocity):</strong> The academic
-                        year is a &ldquo;sprint&rdquo; divided into three 14-week terms.
-                        With zero room for procrastination, the challenge is elite
-                        time management.
+                        <strong>DLSU (Trimestral Velocity):</strong> The
+                        academic year is a &ldquo;sprint&rdquo; divided into
+                        three 14-week terms. With zero room for procrastination,
+                        the challenge is elite time management.
                       </li>
                       <li className="bg-red-50 p-3 border-l-4 border-red-800">
-                        <strong>UP (Independent Survival):</strong> UP prioritizes
-                        &ldquo;filtering&rdquo; over nurturing. You are expected to bridge
-                        vast knowledge gaps through independent study; professors
-                        act as facilitators.
+                        <strong>UP (Independent Survival):</strong> UP
+                        prioritizes &ldquo;filtering&rdquo; over nurturing. You
+                        are expected to bridge vast knowledge gaps through
+                        independent study; professors act as facilitators.
                       </li>
                       <li className="bg-yellow-50 p-3 border-l-4 border-yellow-500">
-                        <strong>UST (Volume & Traditional Pedagogy):</strong> The
-                        approach is volume-heavy and traditional, often involving 7
-                        AM to 7 PM schedules. The curriculum is laser-focused on
-                        licensure exam preparation.
+                        <strong>UST (Volume & Traditional Pedagogy):</strong>{" "}
+                        The approach is volume-heavy and traditional, often
+                        involving 7 AM to 7 PM schedules. The curriculum is
+                        laser-focused on licensure exam preparation.
                       </li>
                     </ul>
                   </div>
@@ -115,7 +116,8 @@ export default function Big4Page() {
                     </h3>
                     <p className="mb-4">
                       Financial accessibility varies wildly, with an increasing
-                      &ldquo;inversion&rdquo; of class demographics across the four schools.
+                      &ldquo;inversion&rdquo; of class demographics across the
+                      four schools.
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-xs font-bold">
                       <div className="p-2 border border-red-200 bg-red-50 text-red-900">
@@ -143,20 +145,22 @@ export default function Big4Page() {
                     </p>
                     <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
                       <li>
-                        <strong>ADMU:</strong> Leads in <em>cura personalis</em>,
-                        offering accessible mental health services.
+                        <strong>ADMU:</strong> Leads in <em>cura personalis</em>
+                        , offering accessible mental health services.
                       </li>
                       <li>
-                        <strong>DLSU:</strong> Provides &ldquo;efficiency as a form of
-                        care&rdquo; with organized systems.
+                        <strong>DLSU:</strong> Provides &ldquo;efficiency as a
+                        form of care&rdquo; with organized systems.
                       </li>
                       <li>
                         <strong>UP:</strong> Characterized by &ldquo;systemic
-                        abandonment&rdquo;. Navigate bureaucratic chaos on your own.
+                        abandonment&rdquo;. Navigate bureaucratic chaos on your
+                        own.
                       </li>
                       <li>
-                        <strong>UST:</strong> Often described as having a repressive
-                        administration (OSA), forcing students to rely on peers.
+                        <strong>UST:</strong> Often described as having a
+                        repressive administration (OSA), forcing students to
+                        rely on peers.
                       </li>
                     </ul>
                   </div>
@@ -180,14 +184,14 @@ export default function Big4Page() {
                       Defining Trait: The Culture of Critical Survival
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll love it if...</strong> you are fiercely
-                      independent, value academic freedom over comfort, and want to
-                      be surrounded by radical diversity.
+                      <strong>You&apos;ll love it if...</strong> you are
+                      fiercely independent, value academic freedom over comfort,
+                      and want to be surrounded by radical diversity.
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll struggle if...</strong> you need efficient
-                      systems, want a guaranteed four-year graduation, or cannot
-                      handle &ldquo;beautiful decay&rdquo;.
+                      <strong>You&apos;ll struggle if...</strong> you need
+                      efficient systems, want a guaranteed four-year graduation,
+                      or cannot handle &ldquo;beautiful decay&rdquo;.
                     </p>
                     <div className="text-xs font-mono text-red-800 bg-red-100 inline-block px-2 py-1 font-bold">
                       Signature Experience: The &ldquo;Prerog&rdquo;
@@ -204,14 +208,15 @@ export default function Big4Page() {
                       Defining Trait: The Jesuit Philosopher-King
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll love it if...</strong> you want holistic
-                      formation, love debating humanities, and value a supportive
-                      &ldquo;bubble&rdquo; environment.
+                      <strong>You&apos;ll love it if...</strong> you want
+                      holistic formation, love debating humanities, and value a
+                      supportive &ldquo;bubble&rdquo; environment.
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll struggle if...</strong> you want a purely
-                      technical education, are a staunch religious skeptic, or feel
-                      alienated by &ldquo;conyo&rdquo; gatekeeping.
+                      <strong>You&apos;ll struggle if...</strong> you want a
+                      purely technical education, are a staunch religious
+                      skeptic, or feel alienated by &ldquo;conyo&rdquo;
+                      gatekeeping.
                     </p>
                     <div className="text-xs font-mono text-blue-800 bg-blue-100 inline-block px-2 py-1 font-bold">
                       Signature Experience: The &ldquo;Orals&rdquo;
@@ -230,7 +235,8 @@ export default function Big4Page() {
                     <p className="text-sm leading-relaxed mb-3">
                       <strong>You&apos;ll love it if...</strong> you want a
                       fast-paced, pragmatic environment, value professional
-                      networking, and enjoy a &ldquo;work hard, play hard&rdquo; lifestyle.
+                      networking, and enjoy a &ldquo;work hard, play hard&rdquo;
+                      lifestyle.
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
                       <strong>You&apos;ll struggle if...</strong> you are a slow
@@ -252,14 +258,14 @@ export default function Big4Page() {
                       Defining Trait: The Resilient Soldier
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll love it if...</strong> you want a grounded
-                      community, thrive in block sections, and want the best food
-                      scene in the Big 4.
+                      <strong>You&apos;ll love it if...</strong> you want a
+                      grounded community, thrive in block sections, and want the
+                      best food scene in the Big 4.
                     </p>
                     <p className="text-sm leading-relaxed mb-3">
-                      <strong>You&apos;ll struggle if...</strong> you hate uniforms,
-                      can&apos;t stand a volume-heavy workload, or value
-                      administrative transparency.
+                      <strong>You&apos;ll struggle if...</strong> you hate
+                      uniforms, can&apos;t stand a volume-heavy workload, or
+                      value administrative transparency.
                     </p>
                     <div className="text-xs font-mono text-yellow-800 bg-yellow-100 inline-block px-2 py-1 font-bold">
                       Signature Experience: Paskuhan
@@ -301,8 +307,8 @@ export default function Big4Page() {
                   <li className="flex gap-3">
                     <span className="text-slate-300">4.</span>
                     <span className="text-slate-300">
-                      <strong>Vibe:</strong> Comfortable in &ldquo;Conyo&rdquo; hegemony
-                      or &ldquo;Kanal&rdquo; humor?
+                      <strong>Vibe:</strong> Comfortable in &ldquo;Conyo&rdquo;
+                      hegemony or &ldquo;Kanal&rdquo; humor?
                     </span>
                   </li>
                 </ul>
@@ -338,8 +344,8 @@ export default function Big4Page() {
                       </span>
                     </div>
                     <p className="text-slate-500 text-xs">
-                      &ldquo;Happy Thursday&rdquo; is legendary, but Engineering/CS have
-                      high academic mortality rates.
+                      &ldquo;Happy Thursday&rdquo; is legendary, but
+                      Engineering/CS have high academic mortality rates.
                     </p>
                   </div>
                   <div className="bg-white p-3 border border-slate-200 shadow-sm">
@@ -352,8 +358,8 @@ export default function Big4Page() {
                       </span>
                     </div>
                     <p className="text-slate-500 text-xs">
-                      Center of radical thought, but facing a &ldquo;Burgis Invasion&rdquo;
-                      (luxury cars in parking lots).
+                      Center of radical thought, but facing a &ldquo;Burgis
+                      Invasion&rdquo; (luxury cars in parking lots).
                     </p>
                   </div>
                   <div className="bg-white p-3 border border-slate-200 shadow-sm">
@@ -393,8 +399,9 @@ export default function Big4Page() {
                       &ldquo;You need to be rich for ADMU/DLSU&rdquo;
                     </strong>
                     <span className="text-slate-600">
-                      Both have ~20% scholar population. Lifestyle costs are high,
-                      but middle-class students &ldquo;code-switch&rdquo; to survive.
+                      Both have ~20% scholar population. Lifestyle costs are
+                      high, but middle-class students &ldquo;code-switch&rdquo;
+                      to survive.
                     </span>
                   </li>
                   <li className="text-xs">
@@ -402,8 +409,8 @@ export default function Big4Page() {
                       &ldquo;UST is apolitical&rdquo;
                     </strong>
                     <span className="text-slate-600">
-                      Students are active but suppressed by admin. Activism focuses
-                      on internal rights and Catholic social teachings.
+                      Students are active but suppressed by admin. Activism
+                      focuses on internal rights and Catholic social teachings.
                     </span>
                   </li>
                 </ul>
@@ -417,9 +424,10 @@ export default function Big4Page() {
               NO WRONG CHOICE.
             </h2>
             <p className="text-sm font-mono opacity-70 max-w-lg mx-auto mb-4">
-              &ldquo;There is no &apos;best&apos; school, only the school that is best for
-              YOU. The Big 4 are all premier institutions, and graduating from any
-              of them carries immense weight in the professional world.&rdquo;
+              &ldquo;There is no &apos;best&apos; school, only the school that
+              is best for YOU. The Big 4 are all premier institutions, and
+              graduating from any of them carries immense weight in the
+              professional world.&rdquo;
             </p>
             <p className="text-lg font-bold text-purple-400">
               Go get &apos;em, Future Isko, Blue Eagle, Archer, or Thomasian.
