@@ -40,19 +40,32 @@ export function DailyResultsBarChartClient({
   days,
 }: DailyResultsBarChartClientProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Daily Results Trends (Past {days} Days)</CardTitle>
+    <Card className="border-none shadow-none">
+      <CardHeader className="p-0">
+        <CardTitle className="sr-only">
+          Daily Results Trends (Past {days} Days)
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[400px] w-full">
-          <RechartsPrimitive.BarChart accessibilityLayer data={data}>
+      <CardContent className="p-0">
+        <ChartContainer
+          config={chartConfig}
+          className="h-[300px] md:h-[400px] w-full min-w-0"
+        >
+          <RechartsPrimitive.BarChart
+            accessibilityLayer
+            data={data}
+            margin={{ top: 10, right: 10, bottom: 10, left: 0 }}
+          >
             <RechartsPrimitive.CartesianGrid vertical={false} />
             <RechartsPrimitive.XAxis
               dataKey="date"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              angle={-45}
+              textAnchor="end"
+              height={60}
+              tick={{ fontSize: 10 }}
               tickFormatter={(value) => {
                 const date = new Date(value);
                 return date.toLocaleDateString("en-US", {
@@ -65,10 +78,13 @@ export function DailyResultsBarChartClient({
               tickLine={false}
               axisLine={false}
               tickMargin={10}
+              tick={{ fontSize: 10 }}
+              width={40}
               label={{
-                value: "Number of Results",
+                value: "Results",
                 angle: -90,
                 position: "insideLeft",
+                style: { fontSize: 10 },
               }}
             />
             <ChartTooltip

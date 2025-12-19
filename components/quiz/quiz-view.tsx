@@ -250,16 +250,16 @@ export default function QuizView({
             })}
           </div>
 
-          <div className="flex justify-between items-center pt-8 border-t-2 border-slate-100">
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 pt-8 border-t-2 border-slate-100">
             <button
-              className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:underline"
+              className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest hover:underline order-2 sm:order-1"
               onClick={handleBack}
             >
               <ChevronLeft className="w-4 h-4" /> Previous
             </button>
 
             <button
-              className="bg-black text-white px-8 py-3 font-bold uppercase tracking-widest text-sm hover:bg-slate-800 transition-colors flex items-center gap-2"
+              className="bg-black text-white px-6 sm:px-8 py-3 font-bold uppercase tracking-widest text-xs sm:text-sm hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 order-1 sm:order-2"
               onClick={handleNext}
             >
               {currentQuestionIndex === questions.questions.length - 1

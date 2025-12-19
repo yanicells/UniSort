@@ -93,24 +93,24 @@ export default function Results({
   return (
     <div className="space-y-12 max-w-5xl mx-auto py-8 px-4">
       {/* Hero Section */}
-      <section className="text-center space-y-6 border-b-8 border-black pb-12">
-        <div className="inline-block bg-black text-white px-6 py-2 font-black uppercase tracking-[0.2em] text-sm md:text-base transform -rotate-2">
+      <section className="text-center space-y-4 md:space-y-6 border-b-4 md:border-b-8 border-black pb-8 md:pb-12">
+        <div className="inline-block bg-black text-white px-4 md:px-6 py-2 font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-xs md:text-sm lg:text-base transform -rotate-2">
           Breaking News
         </div>
         <h1
-          className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4 px-2"
           style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
         >
           CONGRATULATIONS!
         </h1>
-        <h2 className="text-2xl md:text-4xl font-serif italic text-slate-700">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-serif italic text-slate-700 px-4">
           {greeting}
         </h2>
       </section>
 
       {/* Main Story - Winner */}
-      <section className="grid md:grid-cols-12 gap-8 items-start">
-        <div className="md:col-span-7 space-y-6">
+      <section className="grid md:grid-cols-12 gap-6 md:gap-8 items-start">
+        <div className="md:col-span-7 space-y-4 md:space-y-6">
           <div className="relative aspect-[4/3] w-full overflow-hidden">
             <Image
               src={uniImages[topMatch.uni as keyof typeof uniImages]}
@@ -122,20 +122,20 @@ export default function Results({
               MATCH: {topMatch.percentage}%
             </div>
           </div>
-          <div className="prose prose-lg max-w-none font-serif text-slate-800 leading-relaxed">
-            <h3 className="font-sans font-black text-3xl uppercase mb-4 border-b-2 border-black pb-2">
+          <div className="prose prose-sm md:prose-lg max-w-none font-serif text-slate-800 leading-relaxed">
+            <h3 className="font-sans font-black text-xl md:text-2xl lg:text-3xl uppercase mb-3 md:mb-4 border-b-2 border-black pb-2">
               The Verdict
             </h3>
-            <p className="text-lg md:text-xl">
+            <p className="text-base md:text-lg lg:text-xl">
               {getFeedbackText(topMatch.uni, topMatch.percentage, true)}
             </p>
           </div>
         </div>
 
         {/* Sidebar - Stats & Quick Facts */}
-        <div className="md:col-span-5 space-y-8">
+        <div className="md:col-span-5 space-y-6 md:space-y-8">
           <div className="bg-slate-50 border-2 border-black p-4">
-            <h4 className="font-black uppercase text-lg mb-4 border-b-2 border-black pb-2">
+            <h4 className="font-black uppercase text-base md:text-lg mb-3 md:mb-4 border-b-2 border-black pb-2">
               By The Numbers
             </h4>
             <div className="h-[300px] w-full mb-6">
@@ -178,9 +178,9 @@ export default function Results({
       </section>
 
       {/* Other Headlines - Non-Winners */}
-      <section className="border-t-4 border-black pt-12">
-        <div className="flex items-center gap-4 mb-8">
-          <h3 className="font-black uppercase text-4xl tracking-tight">
+      <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12">
+        <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+          <h3 className="font-black uppercase text-2xl md:text-3xl lg:text-4xl tracking-tight">
             In Other News
           </h3>
           <div className="h-1 flex-1 bg-black"></div>
@@ -214,9 +214,9 @@ export default function Results({
       </section>
 
       {/* Action Bar */}
-      <section className="flex flex-wrap gap-4 justify-center pt-12 pb-8 border-t border-slate-200 mt-12">
+      <section className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center pt-8 md:pt-12 pb-6 md:pb-8 border-t border-slate-200 mt-8 md:mt-12">
         <a
-          className="text-white px-8 py-4 font-black uppercase tracking-widest text-sm hover:opacity-90 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+          className="text-center text-white px-6 md:px-8 py-3 md:py-4 font-black uppercase tracking-widest text-xs md:text-sm hover:opacity-90 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
           style={{
             backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
           }}
@@ -225,13 +225,13 @@ export default function Results({
           Explore {topMatch.uni.toUpperCase()} →
         </a>
         <a
-          className="bg-white text-black px-8 py-4 font-black uppercase tracking-widest text-sm border-2 border-black hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+          className="text-center bg-white text-black px-6 md:px-8 py-3 md:py-4 font-black uppercase tracking-widest text-xs md:text-sm border-2 border-black hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
           href="/big4"
         >
           All Universities
         </a>
         <a
-          className="px-8 py-4 font-bold uppercase tracking-widest text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
+          className="text-center px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
           href="/quiz"
         >
           Retake Quiz

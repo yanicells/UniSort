@@ -21,7 +21,7 @@ export default function Quiz() {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-8 min-h-[600px]">
+      <div className="max-w-6xl mx-auto mt-8 min-h-[600px] px-4">
         <div className="">
           <QuizHandler />
         </div>

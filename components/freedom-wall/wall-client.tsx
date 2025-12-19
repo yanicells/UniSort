@@ -124,7 +124,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
           </header>
 
           {/* Controls */}
-          <div className="p-6 border-b-2 border-black bg-slate-100 sticky top-[60px] z-40">
+          <div className="p-6 border-b-2 border-black bg-slate-100">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
               <div className="flex flex-wrap gap-2 flex-1">
                 <FilterBar

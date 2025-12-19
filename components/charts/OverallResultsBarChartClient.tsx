@@ -29,25 +29,25 @@ export function OverallResultsBarChartClient({
   return (
     <ChartContainer
       config={chartConfig}
-      className="h-[250px] sm:h-[300px] w-full max-w-full"
+      className="h-[250px] sm:h-[300px] md:h-[350px] w-full min-w-0"
     >
       <BarChart
         data={chartData}
-        margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+        margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
         <XAxis
           dataKey="uni"
           tickLine={false}
           axisLine={false}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
         />
         <YAxis
           allowDecimals={false}
           tickLine={false}
           axisLine={false}
-          tick={{ fontSize: 12 }}
-          width={35}
+          tick={{ fontSize: 10 }}
+          width={30}
         />
         <ChartTooltip content={<ChartTooltipContent hideLabel />} />
         <Bar dataKey="count" radius={[8, 8, 0, 0]} />

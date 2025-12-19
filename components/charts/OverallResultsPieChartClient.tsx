@@ -51,19 +51,21 @@ export function OverallResultsPieChartClient({
   }, [data]);
 
   return (
-    <Card className="overflow-hidden">
-      <CardHeader>
-        <CardTitle className="text-lg sm:text-xl">
+    <Card className="overflow-hidden border-none shadow-none">
+      <CardHeader className="p-0">
+        <CardTitle className="text-lg sm:text-xl sr-only">
           All Quiz Results Distribution
         </CardTitle>
       </CardHeader>
-      <CardContent className="overflow-hidden">
+      <CardContent className="overflow-hidden p-0">
         <ChartContainer
           config={chartConfig}
-          className="h-[280px] sm:h-[350px] md:h-[400px] w-full max-w-full"
+          className="h-[280px] sm:h-[350px] md:h-[400px] w-full min-w-0"
         >
           <RechartsPrimitive.PieChart
-            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+            margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
+            width={undefined}
+            height={undefined}
           >
             <ChartTooltip
               content={<ChartTooltipContent nameKey="uni" hideLabel />}

@@ -25,19 +25,19 @@ export default async function Home() {
 
       <div className="max-w-6xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
         {/* Newspaper Header */}
-        <header className="p-8 md:p-12 text-center border-b-4 border-black relative overflow-hidden bg-white">
-          <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-6">
-            <span className="font-sans font-bold text-xs tracking-widest uppercase">
+        <header className="p-4 md:p-8 lg:p-12 text-center border-b-4 border-black relative overflow-hidden bg-white">
+          <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-4 md:mb-6">
+            <span className="font-sans font-bold text-[10px] md:text-xs tracking-widest uppercase">
               The Daily Sorting Hat
             </span>
-            <span className="font-sans font-bold text-xs tracking-widest uppercase">
+            <span className="font-sans font-bold text-[10px] md:text-xs tracking-widest uppercase">
               PHP 25.00
             </span>
           </div>
-          <h1 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
             UNI SORT
           </h1>
-          <div className="flex justify-center items-center gap-4 text-xs font-bold border-y border-black py-2 mt-4 max-w-lg mx-auto font-sans">
+          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[10px] md:text-xs font-bold border-y border-black py-2 mt-4 max-w-lg mx-auto font-sans">
             <span>PERSONALITY QUIZ</span>
             <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
             <span>INSIGHTS</span>
@@ -48,54 +48,54 @@ export default async function Home() {
 
         {/* Hero Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 border-b-4 border-black">
-          <div className="lg:col-span-8 p-6 md:p-10 border-r border-slate-300">
-            <h2 className="text-5xl md:text-7xl font-bold leading-none mb-6 italic">
+          <div className="lg:col-span-8 p-4 md:p-6 lg:p-10 border-r border-slate-300">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-none mb-4 md:mb-6 italic">
               Discover Where You Truly Belong
             </h2>
-            <p className="text-xl leading-relaxed font-serif text-slate-600 mb-8 max-w-2xl">
+            <p className="text-base md:text-lg lg:text-xl leading-relaxed font-serif text-slate-600 mb-6 md:mb-8 max-w-2xl">
               Find your perfect university match through our personality-based
               quiz, explore real student stories, and dive into campus culture
               across ADMU, DLSU, UP, and UST.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Link
                 href="/quiz"
-                className="bg-black text-white px-8 py-4 font-bold uppercase tracking-widest hover:bg-orange-600 transition flex items-center justify-center gap-2"
+                className="bg-black text-white px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-orange-600 transition flex items-center justify-center gap-2"
               >
                 Take the Quiz <ArrowRight size={18} />
               </Link>
               <Link
                 href="/freedom-wall"
-                className="border-2 border-black px-8 py-4 font-bold uppercase tracking-widest hover:bg-slate-100 transition flex items-center justify-center gap-2"
+                className="border-2 border-black px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-slate-100 transition flex items-center justify-center gap-2"
               >
                 Explore Freedom Wall <MessageCircle size={18} />
               </Link>
             </div>
-            <p className="mt-4 text-xs font-mono text-slate-400">
+            <p className="mt-3 md:mt-4 text-[10px] md:text-xs font-mono text-slate-400">
               Takes about 2 minutes · No sign-up required
             </p>
           </div>
 
           {/* Stats Box */}
-          <div className="lg:col-span-4 bg-slate-100 p-8 flex flex-col justify-center text-center border-t lg:border-t-0 gap-6">
-            <div className="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <span className="block text-6xl font-black text-orange-600 mb-2">
+          <div className="lg:col-span-4 bg-slate-100 p-4 md:p-6 lg:p-8 flex flex-col justify-center text-center border-t lg:border-t-0 gap-4 md:gap-6">
+            <div className="border-2 md:border-4 border-black p-4 md:p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <span className="block text-4xl md:text-5xl lg:text-6xl font-black text-orange-600 mb-2">
                 {quizSummary.total}
               </span>
-              <span className="block font-bold uppercase text-sm tracking-widest">
+              <span className="block font-bold uppercase text-xs md:text-sm tracking-widest">
                 Students Matched
               </span>
-              <div className="w-full h-1 bg-slate-200 mt-4 overflow-hidden">
+              <div className="w-full h-1 bg-slate-200 mt-3 md:mt-4 overflow-hidden">
                 <div className="w-3/4 h-full bg-black animate-pulse"></div>
               </div>
             </div>
 
             {/* University Breakdown */}
-            <div className="border-4 border-black p-5 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <h4 className="font-black uppercase text-sm tracking-widest mb-4 text-center border-b-2 border-black pb-2">
+            <div className="border-2 md:border-4 border-black p-4 md:p-5 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              <h4 className="font-black uppercase text-xs md:text-sm tracking-widest mb-3 md:mb-4 text-center border-b-2 border-black pb-2">
                 Match Distribution
               </h4>
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {/* ADMU Bar */}
                 <div>
                   <div className="flex justify-between items-center mb-1">
@@ -187,17 +187,19 @@ export default async function Home() {
         </div>
 
         {/* Why UniSort */}
-        <div className="p-6 md:p-10 border-b-4 border-black">
-          <h3 className="font-sans font-bold text-sm uppercase tracking-[0.2em] mb-8 text-center text-slate-400">
+        <div className="p-4 md:p-6 lg:p-10 border-b-4 border-black">
+          <h3 className="font-sans font-bold text-xs md:text-sm uppercase tracking-[0.2em] mb-6 md:mb-8 text-center text-slate-400">
             Why UniSort?
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="border-r border-slate-200 pr-4 last:border-0">
-              <div className="w-12 h-12 bg-black text-white flex items-center justify-center mb-4 rounded-full">
-                <Target size={24} />
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            <div className="border-r-0 md:border-r border-slate-200 pr-0 md:pr-4 last:border-0">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
+                <Target size={20} className="md:w-6 md:h-6" />
               </div>
-              <h4 className="font-bold text-xl mb-2">Personality Quiz</h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-4">
+              <h4 className="font-bold text-lg md:text-xl mb-2">
+                Personality Quiz
+              </h4>
+              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
                 Answer 10 quick questions to see which university culture fits
                 you best, with instant insights.
               </p>
@@ -209,12 +211,14 @@ export default async function Home() {
               </Link>
             </div>
 
-            <div className="border-r border-slate-200 pr-4 last:border-0">
-              <div className="w-12 h-12 bg-black text-white flex items-center justify-center mb-4 rounded-full">
-                <MessageCircle size={24} />
+            <div className="border-r-0 md:border-r border-slate-200 pr-0 md:pr-4 last:border-0">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
+                <MessageCircle size={20} className="md:w-6 md:h-6" />
               </div>
-              <h4 className="font-bold text-xl mb-2">Freedom Wall</h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-4">
+              <h4 className="font-bold text-lg md:text-xl mb-2">
+                Freedom Wall
+              </h4>
+              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
                 Read and share anonymous stories about student life across
                 campuses. React, comment, and join the conversation.
               </p>
@@ -227,11 +231,13 @@ export default async function Home() {
             </div>
 
             <div className="last:border-0">
-              <div className="w-12 h-12 bg-black text-white flex items-center justify-center mb-4 rounded-full">
-                <BarChart3 size={24} />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
+                <BarChart3 size={20} className="md:w-6 md:h-6" />
               </div>
-              <h4 className="font-bold text-xl mb-2">University Insights</h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-4">
+              <h4 className="font-bold text-lg md:text-xl mb-2">
+                University Insights
+              </h4>
+              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
                 Explore curated overviews, campus culture highlights, and stats
                 to help you decide where you fit.
               </p>
@@ -254,20 +260,20 @@ export default async function Home() {
         </div>
 
         {/* Freedom Wall Posts */}
-        <div className="bg-[#fffdf5] p-6 md:p-12">
-          <div className="flex items-center justify-between mb-8 border-b-2 border-black pb-4">
-            <h3 className="font-black text-3xl uppercase italic">
+        <div className="bg-[#fffdf5] p-4 md:p-6 lg:p-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-6 md:mb-8 border-b-2 border-black pb-3 md:pb-4">
+            <h3 className="font-black text-xl md:text-2xl lg:text-3xl uppercase italic">
               Classifieds & Confessions
             </h3>
             <Link
               href="/freedom-wall"
-              className="text-xs font-bold bg-black text-white px-3 py-1 uppercase hover:bg-slate-800"
+              className="text-[10px] md:text-xs font-bold bg-black text-white px-3 py-1 uppercase hover:bg-slate-800 whitespace-nowrap"
             >
               Post Anonymously
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {recentPosts.length === 0 ? (
               <p className="col-span-4 text-center text-slate-500 py-8">
                 No posts yet. Be the first to share!

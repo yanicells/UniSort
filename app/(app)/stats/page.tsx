@@ -85,11 +85,11 @@ export default async function StatsPage() {
             </section>
 
             {/* Main Chart Section */}
-            <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-8 transform rotate-1">
+            <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 transform rotate-1 overflow-hidden">
               <div className="transform -rotate-1">
                 <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
-                  <BarChart3 className="w-7 h-7" />
-                  <h2 className="text-3xl font-black uppercase tracking-tight font-serif">
+                  <BarChart3 className="w-5 md:w-7 h-5 md:h-7" />
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
                     Overall Match Distribution
                   </h2>
                 </div>
@@ -140,15 +140,17 @@ export default async function StatsPage() {
                 </div>
               }
             >
-              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-8 transform -rotate-1">
+              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 transform -rotate-1 overflow-hidden">
                 <div className="transform rotate-1">
                   <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
-                    <TrendingUp className="w-7 h-7" />
-                    <h2 className="text-3xl font-black uppercase tracking-tight font-serif">
+                    <TrendingUp className="w-5 md:w-7 h-5 md:h-7" />
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
                       Weekly Activity
                     </h2>
                   </div>
-                  <DailyResultsBarChart days={7} />
+                  <div className="overflow-x-auto">
+                    <DailyResultsBarChart days={7} />
+                  </div>
                 </div>
               </div>
             </Suspense>
@@ -198,14 +200,14 @@ function ChartCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6">
-      <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
-        {icon}
-        <h3 className="text-2xl font-black uppercase tracking-tight font-serif">
+    <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-4 md:p-6 overflow-hidden">
+      <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 border-b-2 border-black pb-2 md:pb-3">
+        <div className="shrink-0">{icon}</div>
+        <h3 className="text-lg md:text-xl lg:text-2xl font-black uppercase tracking-tight font-serif break-words">
           {title}
         </h3>
       </div>
-      {children}
+      <div className="overflow-x-auto">{children}</div>
     </div>
   );
 }
