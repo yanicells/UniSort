@@ -92,139 +92,159 @@ export function PostModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">
-            {isReply ? "Reply" : "Create Post"}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+      <div className="w-full max-w-3xl bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[90vh] overflow-hidden flex flex-col">
+        {/* Newspaper Header */}
+        <div className="bg-pink-600 border-b-4 border-black p-4 text-center relative">
+          <h2 className="text-3xl md:text-4xl font-black uppercase text-white tracking-tight italic">
+            {isReply ? "Write a Reply" : "Breaking News!"}
           </h2>
+          <div className="text-xs font-mono font-bold text-pink-200 uppercase tracking-wider mt-1">
+            {isReply
+              ? "Continue the Conversation"
+              : "Submit Your Anonymous Story"}
+          </div>
+
+          {/* Close Button */}
           <button
             type="button"
-            className="text-foreground/60 hover:text-foreground transition-colors"
+            className="absolute top-4 right-4 bg-black text-white hover:bg-white hover:text-black transition-colors p-2 border-2 border-white hover:border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             onClick={onClose}
           >
-            <X size={24} />
+            <X size={20} className="font-bold" />
           </button>
         </div>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-            <FormField
-              control={form.control}
-              name="content"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <TiptapEditor
-                      content={field.value}
-                      onChange={field.onChange}
-                      placeholder={
-                        isReply
-                          ? "Write your reply..."
-                          : "Share your story or question..."
-                      }
-                    />
-                  </FormControl>
-                  <div className="flex justify-between items-center mt-1">
+        {/* Form Container */}
+        <div className="overflow-y-auto p-6 bg-slate-50">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] bg-white mt-2">
+                        <TiptapEditor
+                          content={field.value}
+                          onChange={field.onChange}
+                          placeholder={
+                            isReply
+                              ? "Type your thoughts... be bold, be brave, be anonymous!"
+                              : "Share your confession, rant, or shoutout... what's on your mind?"
+                          }
+                        />
+                      </div>
+                    </FormControl>
+                    <div className="flex justify-between items-center mt-2 text-xs font-mono">
+                      <FormMessage className="text-red-600 font-bold" />
+                      <span className="text-slate-600 font-bold bg-slate-200 px-2 py-1 border border-black">
+                        {stripHtml(field.value).length}/2000
+                      </span>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="tags"
+                render={() => (
+                  <FormItem>
+                    <FormLabel className="text-sm font-black uppercase tracking-wide border-b-2 border-black pb-1 block">
+                      🏷️ Campus Tags{" "}
+                      <span className="text-xs font-normal lowercase">
+                        (pick your squad)
+                      </span>
+                    </FormLabel>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {tagOptions.map((tag) => (
+                        <FormField
+                          key={tag}
+                          control={form.control}
+                          name="tags"
+                          render={({ field }) => {
+                            const isSelected = field.value?.includes(tag);
+                            const tagConfig = {
+                              general: { bg: "#64748b", text: "#ffffff" },
+                              admu: { bg: "#001196", text: "#ffffff" },
+                              dlsu: { bg: "#00703c", text: "#ffffff" },
+                              up: { bg: "#7b1113", text: "#ffffff" },
+                              ust: { bg: "#fdb71a", text: "#000000" },
+                            };
+                            const config =
+                              tagConfig[tag as keyof typeof tagConfig];
+
+                            return (
+                              <FormItem>
+                                <FormControl>
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const checked =
+                                        !field.value?.includes(tag);
+                                      return checked
+                                        ? field.onChange([
+                                            ...(field.value || []),
+                                            tag,
+                                          ])
+                                        : field.onChange(
+                                            (field.value || []).filter(
+                                              (v) => v !== tag
+                                            )
+                                          );
+                                    }}
+                                    className="px-4 py-2 border-2 border-black font-black text-xs uppercase transition-all hover:translate-y-[-2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                                    style={{
+                                      backgroundColor: isSelected
+                                        ? config.bg
+                                        : "#ffffff",
+                                      color: isSelected
+                                        ? config.text
+                                        : "#000000",
+                                    }}
+                                  >
+                                    {isSelected && "✓ "}
+                                    {tag.toUpperCase()}
+                                  </button>
+                                </FormControl>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
                     <FormMessage />
-                    <span className="text-xs text-foreground/60">
-                      {stripHtml(field.value).length}/2000
-                    </span>
-                  </div>
-                </FormItem>
-              )}
-            />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="tags"
-              render={() => (
-                <FormItem>
-                  <FormLabel>
-                    Tags <span className="text-xs text-foreground/60">(Select at least one)</span>
-                  </FormLabel>
-                  <div className="flex flex-wrap gap-2">
-                    {tagOptions.map((tag) => (
-                      <FormField
-                        key={tag}
-                        control={form.control}
-                        name="tags"
-                        render={({ field }) => {
-                          const isSelected = field.value?.includes(tag);
-                          const tagStyles = {
-                            general: isSelected
-                              ? "bg-foreground/10 border-foreground/30"
-                              : "border-border",
-                            admu: isSelected
-                              ? "bg-[#001196]/10 border-[#001196] text-[#001196]"
-                              : "border-border",
-                            dlsu: isSelected
-                              ? "bg-[#00703c]/10 border-[#00703c] text-[#00703c]"
-                              : "border-border",
-                            up: isSelected
-                              ? "bg-[#7b1113]/10 border-[#7b1113] text-[#7b1113]"
-                              : "border-border",
-                            ust: isSelected
-                              ? "bg-[#fdb71a]/10 border-[#fdb71a] text-[#fdb71a]"
-                              : "border-border",
-                          };
-
-                          return (
-                            <FormItem>
-                              <FormControl>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    const checked = !field.value?.includes(tag);
-                                    return checked
-                                      ? field.onChange([
-                                          ...(field.value || []),
-                                          tag,
-                                        ])
-                                      : field.onChange(
-                                          (field.value || []).filter(
-                                            (v) => v !== tag
-                                          )
-                                        );
-                                  }}
-                                  className={`px-4 py-2 rounded-full border-2 font-medium text-sm transition-all hover:scale-105 ${
-                                    tagStyles[tag as keyof typeof tagStyles]
-                                  }`}
-                                >
-                                  {tag.toUpperCase()}
-                                </button>
-                              </FormControl>
-                            </FormItem>
-                          );
-                        }}
+              <div className="space-y-3">
+                <FormLabel className="text-sm font-black uppercase tracking-wide border-b-2 border-black pb-1 block">
+                  📷 Add Photo{" "}
+                  <span className="text-xs font-normal lowercase">
+                    (optional)
+                  </span>
+                </FormLabel>
+                <div className="border-2 border-dashed border-black bg-white p-4">
+                  {uploadedImage ? (
+                    <div className="relative">
+                      <img
+                        src={uploadedImage}
+                        alt="Upload preview"
+                        className="w-full max-h-64 object-cover border-2 border-black"
                       />
-                    ))}
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="space-y-3">
-              <div className="border-2 border-dashed border-border rounded-lg p-4">
-                {uploadedImage ? (
-                  <div className="relative">
-                    <img
-                      src={uploadedImage}
-                      alt="Upload preview"
-                      className="w-full max-h-64 object-cover rounded-md"
-                    />
-                    <button
-                      type="button"
-                      onClick={removeImage}
-                      className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 shadow-lg transition-colors"
-                    >
-                      <X size={18} />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={removeImage}
+                        className="absolute top-2 right-2 bg-black text-white border-2 border-white font-black text-xs uppercase px-3 py-1.5 shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all"
+                      >
+                        ✕ Remove
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center gap-3 py-6">
                       <UploadButton
                         endpoint="imageUploader"
                         onClientUploadComplete={(res) => {
@@ -237,45 +257,45 @@ export function PostModal({
                         }}
                         appearance={{
                           button:
-                            "bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2.5 rounded-md cursor-pointer transition-colors",
+                            "bg-black text-white font-black text-xs uppercase px-6 py-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer",
                           container: "flex",
                           allowedContent: "hidden",
                         }}
                       />
-                      <span className="text-sm text-foreground/60">
-                        Image (4MB)
+                      <span className="text-xs font-bold uppercase tracking-wide">
+                        📏 Max 4MB · 📸 JPG, PNG, WEBP
                       </span>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div className="flex justify-end gap-3 pt-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="lg"
-                onClick={onClose}
-                className="px-6"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                size="lg"
-                className="px-8"
-                disabled={form.formState.isSubmitting}
-              >
-                {form.formState.isSubmitting
-                  ? "Posting..."
-                  : isReply
-                  ? "Post Reply"
-                  : "Post"}
-              </Button>
-            </div>
-          </form>
-        </Form>
+              <div className="flex justify-end gap-4 pt-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  onClick={onClose}
+                  className="px-8 py-3 bg-white text-black border-2 border-black font-black text-xs uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-all"
+                >
+                  ✕ Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="px-8 py-3 bg-black text-white border-2 border-black font-black text-xs uppercase shadow-[2px_2px_0px_0px_rgba(236,72,153,1)] hover:shadow-[4px_4px_0px_0px_rgba(236,72,153,1)] hover:translate-y-[-2px] transition-all hover:bg-pink-600"
+                  disabled={form.formState.isSubmitting}
+                >
+                  {form.formState.isSubmitting
+                    ? "📤 Publishing..."
+                    : isReply
+                    ? "📣 Post Reply"
+                    : "📰 Publish Story"}
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ export type PostComment = {
   id: string;
   content: string;
   tags: string[];
+  parentId?: string | null;
   reactions: {
     like: number;
     love: number;

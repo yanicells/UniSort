@@ -1,16 +1,21 @@
-import { getPostComments } from "@/lib/dal/queries";
-import { CommentItem } from "./comment-item";
+"use client";
 
-export default async function CommentThread({
+import { CommentItem } from "./comment-item";
+import { PostComment } from "./comment-types";
+
+export default function CommentThread({
   parentId,
   postId,
   depth = 0,
+  allComments,
 }: {
   parentId: string;
   postId: string;
   depth?: number;
+  allComments: PostComment[];
 }) {
-  const comments = await getPostComments(parentId);
+  // Filter comments that belong to this parent
+  const comments = allComments.filter((c) => c.parentId === parentId);
 
   if (!comments.length) return null;
 
@@ -29,6 +34,7 @@ export default async function CommentThread({
                 parentId={comment.id}
                 postId={postId}
                 depth={nextDepth}
+                allComments={allComments}
               />
             </div>
           )}

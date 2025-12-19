@@ -1,3 +1,5 @@
+"use client";
+
 import { CommentItem } from "./comment-item";
 import CommentThread from "./comment-thread";
 import { PostComment } from "./comment-types";
@@ -6,9 +8,15 @@ type CommentProps = {
   postId: string;
   comments: PostComment[];
   totalCount?: number;
+  allComments: PostComment[];
 };
 
-export function Comments({ postId, comments, totalCount }: CommentProps) {
+export function Comments({
+  postId,
+  comments,
+  totalCount,
+  allComments,
+}: CommentProps) {
   const displayCount = totalCount ?? comments.length;
 
   if (!comments.length) {
@@ -45,6 +53,7 @@ export function Comments({ postId, comments, totalCount }: CommentProps) {
                   parentId={comment.id}
                   postId={postId}
                   depth={1}
+                  allComments={allComments}
                 />
               </div>
             )}

@@ -1,27 +1,27 @@
-import { notFound } from "next/navigation";
-import {
-  getPostById,
-  getPostComments,
-  getAllNestedComments,
-} from "@/lib/dal/queries";
+"use client";
+
+import { useState } from "react";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Post } from "./post";
 import { Comments } from "./comments";
+import { PostModal } from "./post-modal";
 
 type SinglePostPageProps = {
   postId: string;
+  post: any;
+  comments: any[];
+  allComments: any[];
+  totalCommentCount: number;
 };
 
-export default async function SinglePostPage({ postId }: SinglePostPageProps) {
-  const post = await getPostById(postId);
-
-  if (!post) {
-    return notFound();
-  }
-
-  const comments = await getPostComments(postId);
-  const allNestedComments = await getAllNestedComments(postId);
-  const totalCommentCount = allNestedComments.length;
+export default function SinglePostPage({
+  postId,
+  post,
+  comments,
+  allComments,
+  totalCommentCount,
+}: SinglePostPageProps) {
+  const [showReplyModal, setShowReplyModal] = useState(false);
 
   return (
     <>
@@ -57,6 +57,8 @@ export default async function SinglePostPage({ postId }: SinglePostPageProps) {
               reactions={post.reactions}
               createdAt={post.createdAt}
               commentCount={totalCommentCount}
+              hideCommentCount={true}
+              onReply={() => setShowReplyModal(true)}
             />
 
             {/* Comments Section */}
@@ -64,12 +66,17 @@ export default async function SinglePostPage({ postId }: SinglePostPageProps) {
               <Comments
                 postId={postId}
                 comments={comments}
+                allComments={allComments}
                 totalCount={totalCommentCount}
               />
             </div>
           </div>
         </div>
       </div>
+
+      {showReplyModal && (
+        <PostModal parentId={postId} onClose={() => setShowReplyModal(false)} />
+      )}
     </>
   );
 }

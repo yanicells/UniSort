@@ -81,7 +81,6 @@ function Combobox({
                   {opt.label}
                 </CommandItem>
               ))}
-              )
             </CommandGroup>
           </CommandList>
         </Command>

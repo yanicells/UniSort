@@ -31,6 +31,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
@@ -171,6 +172,8 @@ export function WallClient({ initialPosts }: WallClientProps) {
                   imageUrl={post.imageUrl}
                   commentCount={post.commentCount}
                   onClick={() => router.push(`/freedom-wall/${post.id}`)}
+                  onReply={() => setReplyToPostId(post.id)}
+                  onReactionAdded={refreshPosts}
                 />
               ))
             )}
@@ -203,6 +206,14 @@ export function WallClient({ initialPosts }: WallClientProps) {
       {showCreateModal && (
         <PostModal
           onClose={() => setShowCreateModal(false)}
+          onPostCreated={refreshPosts}
+        />
+      )}
+
+      {replyToPostId && (
+        <PostModal
+          parentId={replyToPostId}
+          onClose={() => setReplyToPostId(null)}
           onPostCreated={refreshPosts}
         />
       )}

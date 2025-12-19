@@ -4,9 +4,10 @@ import DOMPurify from "isomorphic-dompurify";
 
 interface PostContentProps {
   content: string;
+  className?: string;
 }
 
-export function PostContent({ content }: PostContentProps) {
+export function PostContent({ content, className }: PostContentProps) {
   // Sanitize HTML to prevent XSS attacks
   const sanitizedContent = DOMPurify.sanitize(content, {
     ALLOWED_TAGS: [
@@ -34,7 +35,7 @@ export function PostContent({ content }: PostContentProps) {
 
   return (
     <div
-      className="prose prose-sm max-w-none text-foreground"
+      className={className || "prose prose-sm max-w-none text-foreground"}
       dangerouslySetInnerHTML={{ __html: sanitizedContent }}
       style={{
         wordBreak: "break-word",

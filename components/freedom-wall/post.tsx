@@ -24,6 +24,8 @@ interface PostProps {
   commentCount?: number;
   onClick?: () => void;
   onReply?: () => void;
+  hideCommentCount?: boolean;
+  onReactionAdded?: () => void;
 }
 
 export function Post({
@@ -36,6 +38,8 @@ export function Post({
   commentCount = 0,
   onClick,
   onReply,
+  hideCommentCount = false,
+  onReactionAdded,
 }: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -121,26 +125,37 @@ export function Post({
         {/* Footer */}
         <div className="flex items-center justify-between border-t border-slate-100 pt-4">
           <div className="flex gap-4">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowReactionModal(true);
-              }}
-              className="flex items-center gap-1.5 text-slate-500 hover:text-pink-600 transition group"
-            >
-              <Heart size={18} className="group-hover:fill-current" />
-              <span className="text-xs font-bold">{totalReactions}</span>
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (onReply) onReply();
-              }}
-              className="flex items-center gap-1.5 text-slate-500 hover:text-blue-600 transition group"
-            >
-              <MessageCircle size={18} className="group-hover:fill-current" />
-              <span className="text-xs font-bold">{commentCount}</span>
-            </button>
+            <div className="relative">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowReactionModal(true);
+                }}
+                className="flex items-center gap-1.5 text-slate-500 hover:text-pink-600 transition group"
+              >
+                <Heart size={18} className="group-hover:fill-current" />
+                <span className="text-xs font-bold">{totalReactions}</span>
+              </button>
+              {showReactionModal && (
+                <ReactionModal
+                  postId={id}
+                  onClose={() => setShowReactionModal(false)}
+                  onReactionAdded={onReactionAdded}
+                />
+              )}
+            </div>
+            {!hideCommentCount && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onReply) onReply();
+                }}
+                className="flex items-center gap-1.5 text-slate-500 hover:text-blue-600 transition group"
+              >
+                <MessageCircle size={18} className="group-hover:fill-current" />
+                <span className="text-xs font-bold">{commentCount}</span>
+              </button>
+            )}
           </div>
           <div className="flex gap-1.5 items-center">
             {reactions.like > 0 && (
@@ -203,16 +218,21 @@ export function Post({
                 </span>
               </div>
             )}
+            {onReply && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onReply();
+                }}
+                className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group ml-2"
+              >
+                <MessageCircle size={18} className="group-hover:fill-current" />
+                <span className="text-xs font-bold">Reply</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
-
-      {showReactionModal && (
-        <ReactionModal
-          postId={id}
-          onClose={() => setShowReactionModal(false)}
-        />
-      )}
 
       {imageUrl && (
         <ImageLightbox

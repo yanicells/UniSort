@@ -17,13 +17,13 @@ const REACTIONS: { type: ReactionType; emoji: string }[] = [
 type ReactionModalProps = {
   postId: string;
   onClose: () => void;
-  position?: "top" | "bottom";
+  onReactionAdded?: () => void;
 };
 
 export function ReactionModal({
   postId,
   onClose,
-  position = "top",
+  onReactionAdded,
 }: ReactionModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,6 +50,7 @@ export function ReactionModal({
     setIsLoading(true);
     try {
       await handleAddReaction(postId, reaction);
+      onReactionAdded?.();
       onClose();
     } catch (error) {
       console.error("Failed to add reaction:", error);
@@ -59,21 +60,20 @@ export function ReactionModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={onClose}
+      className="absolute bottom-full left-0 mb-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200"
+      onClick={(e) => e.stopPropagation()}
     >
       <div
         ref={modalRef}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-lg p-4"
+        className="bg-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-full px-3 py-2"
       >
-        <div className="flex gap-2">
+        <div className="flex gap-1">
           {REACTIONS.map((reaction) => (
             <button
               key={reaction.type}
               onClick={(e) => handleReactionClick(e, reaction.type)}
               disabled={isLoading}
-              className="text-3xl hover:scale-125 transition-transform hover:drop-shadow-lg disabled:opacity-50 disabled:cursor-not-allowed p-2 hover:bg-slate-100 rounded"
+              className="text-2xl hover:scale-125 transition-transform disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"
               title={reaction.type}
             >
               {reaction.emoji}

@@ -33,9 +33,9 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
     comment.reactions.sad +
     comment.reactions.angry;
 
-  // Calculate sizes based on depth
+  // Only reduce content text size, keep buttons/tags consistent
   const padding = depth === 0 ? "p-4" : "p-3";
-  const textSize =
+  const contentTextSize =
     depth === 0 ? "text-base" : depth === 1 ? "text-sm" : "text-xs";
 
   return (
@@ -53,7 +53,7 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
                 return (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 text-[9px] font-black uppercase text-white"
+                    className="px-2 py-0.5 text-[10px] font-black uppercase text-white"
                     style={{ backgroundColor: config.bgColor }}
                   >
                     #{tag}
@@ -70,7 +70,7 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
         <div className={`${padding} pt-2 pb-2`}>
           <PostContent
             content={comment.content}
-            className={`${textSize} leading-relaxed font-serif text-slate-800`}
+            className={`${contentTextSize} leading-relaxed font-serif text-slate-800`}
           />
         </div>
 
@@ -91,92 +91,93 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
           className={`flex items-center justify-between border-t border-slate-200 ${padding} pt-2`}
         >
           <div className="flex gap-3">
-            <button
-              onClick={() => setShowReactionModal(true)}
-              className="flex items-center gap-1 text-slate-500 hover:text-pink-600 transition group"
-            >
-              <Heart size={14} className="group-hover:fill-current" />
-              <span className="text-[10px] font-bold">{totalReactions}</span>
-            </button>
-            <button
-              onClick={() => setShowReply(true)}
-              className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group"
-            >
-              <MessageCircle size={14} className="group-hover:fill-current" />
-              <span className="text-[10px] font-bold">Reply</span>
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setShowReactionModal(true)}
+                className="flex items-center gap-1 text-slate-500 hover:text-pink-600 transition group"
+              >
+                <Heart size={16} className="group-hover:fill-current" />
+                <span className="text-xs font-bold">{totalReactions}</span>
+              </button>
+              {showReactionModal && (
+                <ReactionModal
+                  postId={comment.id}
+                  onClose={() => setShowReactionModal(false)}
+                />
+              )}
+            </div>
           </div>
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1.5 items-center">
             {comment.reactions.like > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-[10px] border border-blue-300">
+                <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs border border-blue-300">
                   👍
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.like}
                 </span>
               </div>
             )}
             {comment.reactions.love > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center text-[10px] border border-red-300">
+                <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs border border-red-300">
                   ❤️
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.love}
                 </span>
               </div>
             )}
             {comment.reactions.haha > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center text-[10px] border border-yellow-300">
+                <span className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center text-xs border border-yellow-300">
                   😂
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.haha}
                 </span>
               </div>
             )}
             {comment.reactions.wow > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-[10px] border border-purple-300">
+                <span className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs border border-purple-300">
                   😮
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.wow}
                 </span>
               </div>
             )}
             {comment.reactions.sad > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] border border-slate-300">
+                <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs border border-slate-300">
                   😢
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.sad}
                 </span>
               </div>
             )}
             {comment.reactions.angry > 0 && (
               <div className="flex items-center gap-0.5">
-                <span className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center text-[10px] border border-orange-300">
+                <span className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-xs border border-orange-300">
                   😠
                 </span>
-                <span className="text-[10px] font-bold text-slate-600">
+                <span className="text-xs font-bold text-slate-600">
                   {comment.reactions.angry}
                 </span>
               </div>
             )}
+            <button
+              onClick={() => setShowReply(true)}
+              className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group ml-2"
+            >
+              <MessageCircle size={16} className="group-hover:fill-current" />
+              <span className="text-xs font-bold">Reply</span>
+            </button>
           </div>
         </div>
       </div>
-
-      {showReactionModal && (
-        <ReactionModal
-          postId={comment.id}
-          onClose={() => setShowReactionModal(false)}
-        />
-      )}
 
       {showReply && (
         <PostModal parentId={comment.id} onClose={() => setShowReply(false)} />
