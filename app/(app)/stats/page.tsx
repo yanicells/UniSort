@@ -30,36 +30,12 @@ export default async function StatsPage() {
         <div className="max-w-7xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
           {/* Header */}
           <header className="p-6 md:p-12 text-center border-b-4 border-black bg-white">
-            <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-slate-500">
-              Data Analytics Dashboard
-            </p>
             <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
-              STATISTICS
+              UNISORT RESULTS
             </h1>
             <p className="text-xl md:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
               Real-Time Quiz Trends & University Match Analytics
             </p>
-
-            <div className="flex flex-wrap justify-center items-center gap-3 text-sm md:text-base font-bold border-y border-slate-300 py-4 mt-8 max-w-4xl mx-auto">
-              <span className="flex items-center gap-2">
-                <Users className="w-4 h-4" />
-                {summary.total} Total Quizzes
-              </span>
-              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span className="text-[#001196] font-black">
-                {summary.admu} ADMU
-              </span>
-              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span className="text-[#00703c] font-black">
-                {summary.dlsu} DLSU
-              </span>
-              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span className="text-[#7b1113] font-black">{summary.up} UP</span>
-              <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-              <span className="text-[#fdb71a] font-black">
-                {summary.ust} UST
-              </span>
-            </div>
           </header>
 
           {/* Main Content */}
@@ -89,25 +65,21 @@ export default async function StatsPage() {
                   label="ADMU Matches"
                   value={summary.admu}
                   color="#001196"
-                  icon="🦅"
                 />
                 <SummaryCard
                   label="DLSU Matches"
                   value={summary.dlsu}
                   color="#00703c"
-                  icon="🟢"
                 />
                 <SummaryCard
                   label="UP Matches"
                   value={summary.up}
                   color="#7b1113"
-                  icon="⚡"
                 />
                 <SummaryCard
                   label="UST Matches"
                   value={summary.ust}
                   color="#fdb71a"
-                  icon="👑"
                 />
               </div>
             </section>
@@ -180,13 +152,6 @@ export default async function StatsPage() {
                 </div>
               </div>
             </Suspense>
-
-            {/* Footer Banner */}
-            <div className="bg-black text-white px-6 py-4 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] text-center">
-              <p className="font-black uppercase text-lg tracking-wide">
-                🎓 Data refreshes in real-time as students take the quiz! 📈
-              </p>
-            </div>
           </div>
         </div>
       </div>
