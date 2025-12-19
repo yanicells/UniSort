@@ -130,7 +130,7 @@ export default function QuizView({
   );
 
   return (
-    <div className="relative">
+    <div className="relative bg-white shadow-2xl border border-slate-300 p-6 md:p-8">
       {!quizCompleted ? (
         <div className="space-y-8">
           {/* Progress Header */}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
+import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/ToastProvider";
 
@@ -60,7 +60,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Navbar />
+        <NewspaperMasthead />
         <ToastProvider />
         <div className="bg-background pt-16">{children}</div>
         <Footer />
