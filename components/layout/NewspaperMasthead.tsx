@@ -71,7 +71,7 @@ export function NewspaperMasthead() {
             mobileOpen && "lg:opacity-100 opacity-0"
           )}
         >
-          THE CHRONICLE
+          UNISORT
         </Link>
 
         {/* Desktop Navigation */}
@@ -160,7 +160,7 @@ export function NewspaperMasthead() {
                 className="font-serif font-black italic tracking-tighter text-xl"
                 onClick={() => setMobileOpen(false)}
               >
-                THE CHRONICLE
+                UNISORT
               </Link>
               <button
                 aria-label="Close menu"

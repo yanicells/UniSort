@@ -166,12 +166,12 @@ export default function Results({
 
           <div className="bg-yellow-50 border-2 border-black p-4 md:p-6 transform rotate-0 md:rotate-1 shadow-md">
             <h4 className="font-black uppercase text-sm md:text-base lg:text-lg mb-2 text-red-600">
-              Editor's Note
+              Editor&apos;s Note
             </h4>
             <p className="font-serif italic text-xs md:text-sm leading-relaxed">
-              "This result is based on a comprehensive analysis of your
+              &quot;This result is based on a comprehensive analysis of your
               personality traits, study habits, and social preferences. Welcome
-              to your new home."
+              to your new home.&quot;
             </p>
           </div>
         </div>
