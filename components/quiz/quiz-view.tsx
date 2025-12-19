@@ -207,22 +207,22 @@ export default function QuizView({
               </Dialog>
             </div>
 
-            <h1 className="text-xs font-bold font-sans uppercase tracking-[0.2em] text-slate-500 border-b border-slate-200 inline-block pb-1">
+            <h1 className="text-[10px] md:text-xs font-bold font-sans uppercase tracking-[0.2em] text-slate-500 border-b border-slate-200 inline-block pb-1">
               {currentQuestion.section}
             </h1>
 
-            <h2 className="text-3xl md:text-4xl font-black font-serif leading-tight px-4 max-w-3xl mx-auto py-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black font-serif leading-tight px-2 md:px-4 max-w-3xl mx-auto py-2 md:py-4">
               {currentQuestion.question}
             </h2>
           </div>
 
-          <div className="grid gap-3 max-w-2xl mx-auto">
+          <div className="grid gap-2 md:gap-3 max-w-2xl mx-auto">
             {currentQuestion.choices.map((choice) => {
               const isSelected = selectedChoice === choice.text;
               return (
                 <button
                   key={choice.text}
-                  className={`w-full text-left p-4 border-2 transition-all duration-200 group flex items-center gap-4 ${
+                  className={`w-full text-left p-3 md:p-4 border-2 transition-all duration-200 group flex items-center gap-3 md:gap-4 ${
                     isSelected
                       ? "border-black bg-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
                       : "border-slate-300 hover:border-black hover:bg-slate-50 text-slate-800"
@@ -230,7 +230,7 @@ export default function QuizView({
                   onClick={() => setSelectedChoice(choice.text)}
                 >
                   <div
-                    className={`w-6 h-6 border-2 flex items-center justify-center flex-shrink-0 ${
+                    className={`w-5 h-5 md:w-6 md:h-6 border-2 flex items-center justify-center flex-shrink-0 ${
                       isSelected
                         ? "border-white bg-white"
                         : "border-slate-400 group-hover:border-black"
@@ -239,7 +239,7 @@ export default function QuizView({
                     {isSelected && <div className="w-3 h-3 bg-black"></div>}
                   </div>
                   <span
-                    className={`font-serif text-lg ${
+                    className={`font-serif text-sm md:text-base lg:text-lg ${
                       isSelected ? "font-bold" : ""
                     }`}
                   >

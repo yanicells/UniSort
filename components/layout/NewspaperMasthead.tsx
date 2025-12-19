@@ -14,6 +14,7 @@ const navItems = [
 ];
 
 const universities = [
+  { label: "Big 4", href: "/big4" },
   { label: "ADMU", href: "/admu" },
   { label: "DLSU", href: "/dlsu" },
   { label: "UP", href: "/up" },

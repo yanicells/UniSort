@@ -98,12 +98,12 @@ export default function Results({
           Breaking News
         </div>
         <h1
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4 px-2"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-4 px-2"
           style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
         >
           CONGRATULATIONS!
         </h1>
-        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-serif italic text-slate-700 px-4">
+        <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-serif italic text-slate-700 px-4">
           {greeting}
         </h2>
       </section>
@@ -118,15 +118,15 @@ export default function Results({
               fill
               className="object-contain"
             />
-            <div className="absolute bottom-0 left-0 bg-black text-white px-4 py-2 font-bold font-mono text-xl">
+            <div className="absolute bottom-0 left-0 bg-black text-white px-2 md:px-4 py-1 md:py-2 font-bold font-mono text-sm md:text-base lg:text-xl">
               MATCH: {topMatch.percentage}%
             </div>
           </div>
           <div className="prose prose-sm md:prose-lg max-w-none font-serif text-slate-800 leading-relaxed">
-            <h3 className="font-sans font-black text-xl md:text-2xl lg:text-3xl uppercase mb-3 md:mb-4 border-b-2 border-black pb-2">
+            <h3 className="font-sans font-black text-base md:text-xl lg:text-2xl xl:text-3xl uppercase mb-3 md:mb-4 border-b-2 border-black pb-2">
               The Verdict
             </h3>
-            <p className="text-base md:text-lg lg:text-xl">
+            <p className="text-sm md:text-base lg:text-lg xl:text-xl">
               {getFeedbackText(topMatch.uni, topMatch.percentage, true)}
             </p>
           </div>
@@ -134,14 +134,14 @@ export default function Results({
 
         {/* Sidebar - Stats & Quick Facts */}
         <div className="md:col-span-5 space-y-6 md:space-y-8">
-          <div className="bg-slate-50 border-2 border-black p-4">
-            <h4 className="font-black uppercase text-base md:text-lg mb-3 md:mb-4 border-b-2 border-black pb-2">
+          <div className="bg-slate-50 border-2 border-black p-3 md:p-4 overflow-hidden">
+            <h4 className="font-black uppercase text-sm md:text-base lg:text-lg mb-3 md:mb-4 border-b-2 border-black pb-2">
               By The Numbers
             </h4>
-            <div className="h-[300px] w-full mb-6">
+            <div className="h-[200px] sm:h-[250px] md:h-[300px] w-full mb-4 md:mb-6">
               <IndividualScoresPieChart scores={score} />
             </div>
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {sortedScores.map((item) => {
                 const uniKey = item.uni as keyof typeof uniColors;
                 return (
@@ -149,7 +149,7 @@ export default function Results({
                     key={item.uni}
                     className="flex items-center justify-between border-b border-slate-200 pb-1 last:border-0"
                   >
-                    <span className="font-bold uppercase text-sm">
+                    <span className="font-bold uppercase text-xs md:text-sm">
                       {item.uni}
                     </span>
                     <span
@@ -164,11 +164,11 @@ export default function Results({
             </div>
           </div>
 
-          <div className="bg-yellow-50 border-2 border-black p-6 transform rotate-1 shadow-md">
-            <h4 className="font-black uppercase text-lg mb-2 text-red-600">
+          <div className="bg-yellow-50 border-2 border-black p-4 md:p-6 transform rotate-0 md:rotate-1 shadow-md">
+            <h4 className="font-black uppercase text-sm md:text-base lg:text-lg mb-2 text-red-600">
               Editor's Note
             </h4>
-            <p className="font-serif italic text-sm leading-relaxed">
+            <p className="font-serif italic text-xs md:text-sm leading-relaxed">
               "This result is based on a comprehensive analysis of your
               personality traits, study habits, and social preferences. Welcome
               to your new home."
@@ -179,33 +179,33 @@ export default function Results({
 
       {/* Other Headlines - Non-Winners */}
       <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12">
-        <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-          <h3 className="font-black uppercase text-2xl md:text-3xl lg:text-4xl tracking-tight">
+        <div className="flex items-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8">
+          <h3 className="font-black uppercase text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-tight">
             In Other News
           </h3>
           <div className="h-1 flex-1 bg-black"></div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-6">
           {sortedScores.slice(1).map((item) => (
             <div
               key={item.uni}
-              className="flex flex-col h-full border-l-2 border-slate-200 pl-6 hover:border-black transition-colors duration-300"
+              className="flex flex-col h-full border-l-2 border-slate-200 pl-3 md:pl-4 lg:pl-6 hover:border-black transition-colors duration-300"
             >
-              <div className="mb-4">
+              <div className="mb-3 md:mb-4">
                 <span
-                  className="text-5xl font-black block mb-1"
+                  className="text-3xl md:text-4xl lg:text-5xl font-black block mb-1"
                   style={{
                     color: uniColors[item.uni as keyof typeof uniColors],
                   }}
                 >
                   {item.percentage}%
                 </span>
-                <span className="font-bold uppercase text-sm tracking-widest text-slate-500">
+                <span className="font-bold uppercase text-xs md:text-sm tracking-widest text-slate-500">
                   {uniFullNames[item.uni as keyof typeof uniFullNames]}
                 </span>
               </div>
-              <p className="text-sm font-serif text-slate-700 leading-relaxed flex-grow">
+              <p className="text-xs md:text-sm font-serif text-slate-700 leading-relaxed flex-grow">
                 {getFeedbackText(item.uni, item.percentage, false)}
               </p>
             </div>
@@ -216,7 +216,7 @@ export default function Results({
       {/* Action Bar */}
       <section className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center pt-8 md:pt-12 pb-6 md:pb-8 border-t border-slate-200 mt-8 md:mt-12">
         <a
-          className="text-center text-white px-6 md:px-8 py-3 md:py-4 font-black uppercase tracking-widest text-xs md:text-sm hover:opacity-90 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+          className="text-center text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-black uppercase tracking-widest text-[10px] sm:text-xs md:text-sm hover:opacity-90 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
           style={{
             backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
           }}
@@ -225,20 +225,20 @@ export default function Results({
           Explore {topMatch.uni.toUpperCase()} →
         </a>
         <a
-          className="text-center bg-white text-black px-6 md:px-8 py-3 md:py-4 font-black uppercase tracking-widest text-xs md:text-sm border-2 border-black hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
+          className="text-center bg-white text-black px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-black uppercase tracking-widest text-[10px] sm:text-xs md:text-sm border-2 border-black hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
           href="/big4"
         >
           All Universities
         </a>
         <a
-          className="text-center px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
+          className="text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] sm:text-xs md:text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
           href="/quiz"
         >
           Retake Quiz
         </a>
       </section>
 
-      <div className="text-center text-[10px] font-mono text-slate-400 uppercase tracking-widest">
+      <div className="text-center text-[8px] md:text-[10px] font-mono text-slate-400 uppercase tracking-widest">
         UniSort Intelligence Unit • Vol. 1 • Issue 1 •{" "}
         {new Date().getFullYear()}
       </div>

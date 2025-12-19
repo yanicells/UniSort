@@ -76,21 +76,21 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
 
       <div className="max-w-6xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
         {/* Paper Header */}
-        <header className="p-6 md:p-12 text-center border-b-4 border-black relative overflow-hidden">
+        <header className="p-4 md:p-8 lg:p-12 text-center border-b-4 border-black relative overflow-hidden">
           <div
             className="absolute top-0 left-0 w-full h-2"
             style={{ backgroundColor: data.color }}
           ></div>
-          <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-slate-500">
+          <p className="font-sans font-bold text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] uppercase mb-3 md:mb-4 text-slate-500">
             {data.stats.vibe}
           </p>
           <h1
-            className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-none mb-4 break-words"
             style={{ color: data.color }}
           >
             {data.publication}
           </h1>
-          <div className="flex justify-center items-center gap-4 text-sm font-bold border-y border-black py-2 mt-6 max-w-2xl mx-auto">
+          <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-xs md:text-sm font-bold border-y border-black py-2 mt-4 md:mt-6 max-w-2xl mx-auto">
             <span>TUITION: {data.stats.tuition}</span>
             <span className="w-1.5 h-1.5 bg-black rounded-full"></span>
             <span>SURVIVAL: {data.stats.survival}</span>
@@ -121,20 +121,20 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
             )}
 
             <div className="mb-8">
-              <span className="bg-black text-white px-3 py-1 text-xs font-bold uppercase inline-block mb-3 transform -rotate-1">
+              <span className="bg-black text-white px-2 md:px-3 py-1 text-[10px] md:text-xs font-bold uppercase inline-block mb-2 md:mb-3 transform -rotate-1">
                 Cover Story
               </span>
-              <h2 className="text-4xl md:text-6xl font-bold leading-tight mb-6 italic font-serif">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 md:mb-6 italic font-serif">
                 {data.headline}
               </h2>
-              <h3 className="text-xl md:text-2xl text-slate-500 font-sans font-light mb-8 leading-snug">
+              <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-500 font-sans font-light mb-6 md:mb-8 leading-snug">
                 {data.subhead}
               </h3>
             </div>
 
-            <div className="prose prose-lg prose-slate font-serif max-w-none">
+            <div className="prose prose-sm md:prose-lg prose-slate font-serif max-w-none">
               <p
-                className="first-letter:text-6xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:leading-[0.8]"
+                className="first-letter:text-4xl md:first-letter:text-6xl first-letter:font-bold first-letter:float-left first-letter:mr-2 md:first-letter:mr-3 first-letter:leading-[0.8]"
                 style={{ color: data.color }}
               >
                 {data.mainStory.body.charAt(0)}
@@ -142,10 +142,10 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
               <p>{data.mainStory.body.substring(1)}</p>
 
               <div
-                className="my-8 p-6 bg-slate-50 border-l-4"
+                className="my-6 md:my-8 p-4 md:p-6 bg-slate-50 border-l-4"
                 style={{ borderColor: data.color }}
               >
-                <p className="font-bold text-lg italic text-slate-800">
+                <p className="font-bold text-base md:text-lg italic text-slate-800">
                   &ldquo;{data.mainStory.highlight}&rdquo;
                 </p>
               </div>
@@ -175,12 +175,16 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
 
             {/* Who Thrives Here Section */}
             {(data.whoThrives || data.whoStruggles) && (
-              <div className="mt-12 pt-8 border-t-2 border-black">
-                <h3 className="font-black text-2xl uppercase mb-6 flex items-center gap-2">
-                  <Target size={24} style={{ color: data.color }} /> Final
-                  Verdict
+              <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t-2 border-black">
+                <h3 className="font-black text-lg md:text-xl lg:text-2xl uppercase mb-4 md:mb-6 flex items-center gap-2">
+                  <Target
+                    size={20}
+                    className="md:w-6 md:h-6"
+                    style={{ color: data.color }}
+                  />{" "}
+                  Final Verdict
                 </h3>
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-6 md:gap-8">
                   {data.whoThrives && (
                     <div>
                       <h4 className="font-bold text-emerald-600 flex items-center gap-2 mb-2 uppercase text-sm">

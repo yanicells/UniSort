@@ -73,10 +73,10 @@ export function IndividualScoresPieChart({
   return (
     <ChartContainer
       config={chartConfig}
-      className="h-full w-full aspect-square mx-auto"
+      className="h-full w-full aspect-square mx-auto max-w-full"
     >
       <RechartsPrimitive.PieChart
-        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+        margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
       >
         <ChartTooltip
           content={<ChartTooltipContent nameKey="uni" hideLabel />}
@@ -102,14 +102,14 @@ export function IndividualScoresPieChart({
                     <tspan
                       x={viewBox.cx}
                       y={viewBox.cy}
-                      className="fill-foreground text-3xl font-black font-serif"
+                      className="fill-foreground text-xl sm:text-2xl md:text-3xl font-black font-serif"
                     >
                       {totalScore}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
-                      y={(viewBox.cy || 0) + 20}
-                      className="fill-muted-foreground text-xs font-bold uppercase tracking-widest"
+                      y={(viewBox.cy || 0) + 18}
+                      className="fill-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-widest"
                     >
                       Points
                     </tspan>

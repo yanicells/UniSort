@@ -29,22 +29,22 @@ export default async function StatsPage() {
 
         <div className="max-w-7xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
           {/* Header */}
-          <header className="p-6 md:p-12 text-center border-b-4 border-black bg-white">
-            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
+          <header className="p-4 md:p-8 lg:p-12 text-center border-b-4 border-black bg-white">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
               UNISORT RESULTS
             </h1>
-            <p className="text-xl md:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
               Real-Time Quiz Trends & University Match Analytics
             </p>
           </header>
 
           {/* Main Content */}
-          <div className="p-6 md:p-10 space-y-10">
+          <div className="p-4 md:p-6 lg:p-10 space-y-8 md:space-y-10">
             {/* Breaking News Banner */}
-            <div className="bg-red-600 text-white px-6 py-3 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
-              <div className="flex items-center justify-center gap-3">
-                <TrendingUp className="w-5 h-5 animate-pulse" />
-                <p className="font-black uppercase text-sm md:text-base tracking-wide text-center">
+            <div className="bg-red-600 text-white px-4 md:px-6 py-2 md:py-3 border-2 md:border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
+              <div className="flex items-center justify-center gap-2 md:gap-3">
+                <TrendingUp className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
+                <p className="font-black uppercase text-xs md:text-sm lg:text-base tracking-wide text-center">
                   Breaking: {summary.total} Students Discovered Their Perfect
                   University Match!
                 </p>
@@ -54,9 +54,9 @@ export default async function StatsPage() {
 
             {/* Summary Cards */}
             <section className="space-y-4">
-              <div className="flex items-center gap-3 border-b-4 border-black pb-2">
-                <Users className="w-6 h-6" />
-                <h2 className="text-3xl font-black uppercase tracking-tight font-serif">
+              <div className="flex items-center gap-2 md:gap-3 border-b-4 border-black pb-2">
+                <Users className="w-5 h-5 md:w-6 md:h-6" />
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
                   Match Distribution
                 </h2>
               </div>
@@ -85,8 +85,8 @@ export default async function StatsPage() {
             </section>
 
             {/* Main Chart Section */}
-            <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 transform rotate-1 overflow-hidden">
-              <div className="transform -rotate-1">
+            <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 md:transform md:rotate-1 overflow-hidden">
+              <div className="md:transform md:-rotate-1">
                 <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
                   <BarChart3 className="w-5 md:w-7 h-5 md:h-7" />
                   <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
@@ -140,8 +140,8 @@ export default async function StatsPage() {
                 </div>
               }
             >
-              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 transform -rotate-1 overflow-hidden">
-                <div className="transform rotate-1">
+              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 md:transform md:-rotate-1 overflow-hidden">
+                <div className="md:transform md:rotate-1">
                   <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
                     <TrendingUp className="w-5 md:w-7 h-5 md:h-7" />
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">

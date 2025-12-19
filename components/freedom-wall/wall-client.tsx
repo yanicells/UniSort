@@ -114,17 +114,17 @@ export function WallClient({ initialPosts }: WallClientProps) {
 
         <div className="max-w-4xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
           {/* Header */}
-          <header className="p-8 text-center border-b-4 border-black bg-pink-50">
-            <h1 className="text-5xl font-black uppercase tracking-tighter mb-2 italic">
+          <header className="p-4 md:p-6 lg:p-8 text-center border-b-4 border-black bg-pink-50">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter mb-2 italic">
               The Freedom Wall
             </h1>
-            <p className="font-mono text-xs text-pink-600 font-bold uppercase tracking-widest">
+            <p className="font-mono text-[10px] md:text-xs text-pink-600 font-bold uppercase tracking-widest">
               Voice of the Students • Anonymous • Unfiltered
             </p>
           </header>
 
           {/* Controls */}
-          <div className="p-6 border-b-2 border-black bg-slate-100">
+          <div className="p-4 md:p-6 border-b-2 border-black bg-slate-100">
             <div className="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center">
               <div className="flex flex-wrap gap-2 flex-1">
                 <FilterBar
