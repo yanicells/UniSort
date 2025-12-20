@@ -29,8 +29,11 @@ export default async function Home() {
       <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
         <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
           EXTRA! EXTRA! READ ALL ABOUT IT! /// {quizSummary.total} STUDENTS
-          FOUND THEIR MATCH THIS WEEK /// ADMISSIONS SEASON IS HERE /// CHOOSE
-          YOUR FIGHTER
+          FOUND THEIR MATCH /// ADMISSIONS SEASON IS HERE /// BREAKING: IS YOUR
+          CRUSH COMPATIBLE? /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS
+          ACCURATE /// WHICH UNIVERSITY HAS THE BEST FOOD? VOTE NOW ///
+          TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
+          REPORT: SUNNY WITH A CHANCE OF EXAMS /// CHOOSE YOUR FIGHTER
         </div>
       </div>
 

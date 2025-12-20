@@ -22,8 +22,12 @@ export default async function StatsPage() {
         {/* Marquee */}
         <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
-            📊 LIVE DATA UPDATES /// {summary.total} QUIZZES TAKEN /// REAL-TIME
-            ANALYTICS /// UNIVERSITY MATCH TRENDS 📈
+            LIVE DATA UPDATES /// {summary.total} QUIZZES TAKEN /// REAL-TIME
+            ANALYTICS /// UNIVERSITY MATCH TRENDS /// DATA NEVER LIES: SEE
+            WHERE YOU BELONG /// TOP TRENDING CAMPUS: SEE CHART BELOW ///
+            UPDATED EVERY SECOND /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS
+            ACCURATE /// TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
+            REPORT: SUNNY WITH A CHANCE OF EXAMS ///
           </div>
         </div>
 

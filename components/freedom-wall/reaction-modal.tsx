@@ -60,7 +60,7 @@ export function ReactionModal({
 
   return (
     <div
-      className="absolute bottom-full left-0 mb-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200"
+      className="absolute bottom-full right-0 mb-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200"
       onClick={(e) => e.stopPropagation()}
     >
       <div

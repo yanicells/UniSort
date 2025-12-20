@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { ReactionModal } from "./reaction-modal";
+import { ReactionSummaryModal } from "./reaction-summary-modal";
 import { PostContent } from "./PostContent";
 import { ImageLightbox } from "./image-lightbox";
 import { Heart, MessageCircle, MoreHorizontal } from "lucide-react";
@@ -28,6 +29,15 @@ interface PostProps {
   onReactionAdded?: () => void;
 }
 
+const REACTION_EMOJIS: Record<string, string> = {
+  like: "👍",
+  love: "❤️",
+  haha: "😆",
+  wow: "😮",
+  sad: "😢",
+  angry: "😠",
+};
+
 export function Post({
   id,
   content,
@@ -42,6 +52,7 @@ export function Post({
   onReactionAdded,
 }: PostProps) {
   const [showReactionModal, setShowReactionModal] = useState(false);
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const totalReactions =
@@ -62,7 +73,7 @@ export function Post({
   return (
     <>
       <div
-        className="bg-white border-2 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.15)] transition cursor-pointer"
+        className="bg-white border-2 border-black p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.15)] transition cursor-pointer"
         onClick={onClick}
       >
         {/* Header */}
@@ -95,7 +106,7 @@ export function Post({
         </div>
 
         {/* Content */}
-        <div className="mb-6">
+        <div className="mb-4">
           <PostContent
             content={content}
             className="text-lg leading-relaxed font-serif text-slate-800"
@@ -105,7 +116,7 @@ export function Post({
         {/* Image */}
         {imageUrl && (
           <div
-            className="mb-6"
+            className="mb-4"
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -122,19 +133,71 @@ export function Post({
           </div>
         )}
 
-        {/* Footer */}
-        <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-          <div className="flex gap-4">
+        {/* Footer (Facebook Style) */}
+        <div className="flex flex-wrap items-center justify-between border-t border-slate-100 pt-3 mt-2 gap-y-2">
+          {/* LEFT: Reaction Summary & Comments */}
+          <div className="flex items-center gap-3">
+            {/* Reaction Summary (Clickable) */}
+            <div
+              className="flex items-center gap-2 cursor-pointer group"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowSummaryModal(true);
+              }}
+            >
+              {/* Top 3 Emojis */}
+              {topReactions.length > 0 ? (
+                <div className="flex items-center pl-1">
+                  {topReactions.map((type, idx) => (
+                    <div
+                      key={type}
+                      className={`text-[16px] md:text-[18px] leading-none ${
+                        idx > 0 ? "-ml-1" : ""
+                      } z-[${3 - idx}]`}
+                    >
+                      {REACTION_EMOJIS[type]}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
+              {/* Total Count */}
+              <span className="text-xs font-bold text-slate-500 group-hover:underline decoration-slate-400 underline-offset-2">
+                {totalReactions > 0 ? totalReactions : "No reactions"}
+              </span>
+            </div>
+
+            {/* Comment Count */}
+            {!hideCommentCount && commentCount > 0 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onClick) onClick();
+                }}
+                className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group"
+              >
+                <span className="text-slate-300 text-xs mr-1">•</span>
+                <MessageCircle size={16} className="group-hover:fill-current" />
+                <span className="text-xs font-bold hover:underline decoration-slate-400 underline-offset-2">
+                  {commentCount}
+                </span>
+              </button>
+            )}
+          </div>
+
+          {/* RIGHT: Actions */}
+          <div className="flex items-center gap-1">
+            {/* React Trigger */}
             <div className="relative">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowReactionModal(true);
                 }}
-                className="flex items-center gap-1.5 text-slate-500 hover:text-pink-600 transition group"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-slate-100 transition text-slate-600 font-bold text-xs uppercase tracking-wider"
               >
-                <Heart size={18} className="group-hover:fill-current" />
-                <span className="text-xs font-bold">{totalReactions}</span>
+                <Heart size={16} />
+                <span>React</span>
               </button>
               {showReactionModal && (
                 <ReactionModal
@@ -144,95 +207,30 @@ export function Post({
                 />
               )}
             </div>
-            {!hideCommentCount && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (onReply) onReply();
-                }}
-                className="flex items-center gap-1.5 text-slate-500 hover:text-blue-600 transition group"
-              >
-                <MessageCircle size={18} className="group-hover:fill-current" />
-                <span className="text-xs font-bold">{commentCount}</span>
-              </button>
-            )}
-          </div>
-          <div className="flex gap-1.5 items-center">
-            {reactions.like > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs border border-blue-300">
-                  👍
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.like}
-                </span>
-              </div>
-            )}
-            {reactions.love > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center text-xs border border-red-300">
-                  ❤️
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.love}
-                </span>
-              </div>
-            )}
-            {reactions.haha > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-yellow-100 flex items-center justify-center text-xs border border-yellow-300">
-                  😂
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.haha}
-                </span>
-              </div>
-            )}
-            {reactions.wow > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs border border-purple-300">
-                  😮
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.wow}
-                </span>
-              </div>
-            )}
-            {reactions.sad > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-xs border border-slate-300">
-                  😢
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.sad}
-                </span>
-              </div>
-            )}
-            {reactions.angry > 0 && (
-              <div className="flex items-center gap-1">
-                <span className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-xs border border-orange-300">
-                  😠
-                </span>
-                <span className="text-xs font-bold text-slate-600">
-                  {reactions.angry}
-                </span>
-              </div>
-            )}
+
+            {/* Reply Trigger */}
             {onReply && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   onReply();
                 }}
-                className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group ml-2"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-slate-100 transition text-slate-600 font-bold text-xs uppercase tracking-wider"
               >
-                <MessageCircle size={18} className="group-hover:fill-current" />
-                <span className="text-xs font-bold">Reply</span>
+                <MessageCircle size={16} />
+                <span>Reply</span>
               </button>
             )}
           </div>
         </div>
       </div>
+
+      {showSummaryModal && (
+        <ReactionSummaryModal
+          reactions={reactions}
+          onClose={() => setShowSummaryModal(false)}
+        />
+      )}
 
       {imageUrl && (
         <ImageLightbox
