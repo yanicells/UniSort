@@ -68,7 +68,7 @@ export default function SinglePostPage({
           {/* Main Content */}
           <div className="p-4 sm:p-6 space-y-6">
             {/* Back Button */}
-            <Link 
+            <Link
               href="/freedom-wall"
               className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-pink-600 hover:text-pink-700 transition-colors border-b-2 border-transparent hover:border-pink-600 pb-1"
             >

@@ -200,15 +200,15 @@ export function ShareableResultCard({
         }
 
         const url = URL.createObjectURL(blob);
-        
+
         // Detect mobile/tablet devices
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
+
         if (isMobile) {
           // For mobile: Open image in new tab so user can long-press to save to photos
-          const newWindow = window.open(url, '_blank');
+          const newWindow = window.open(url, "_blank");
           if (!newWindow) {
-            alert('Please allow popups to view and save the image');
+            alert("Please allow popups to view and save the image");
           }
           setTimeout(() => URL.revokeObjectURL(url), 1000);
         } else {
