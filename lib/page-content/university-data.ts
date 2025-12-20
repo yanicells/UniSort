@@ -371,7 +371,7 @@ export const universityData: Record<string, UniversityData> = {
     publication: "THE GROWLING TIGERS",
     color: "#F1C40F",
     secondary: "#FFF9C4",
-    headline: "THE TIGER'S DEN",
+    headline: "VERITAS IN CARITATE",
     subhead: "Survival of the Fittest in the Oldest University in Asia",
     intro:
       "The University of Santo Tomas (UST) is a private, Catholic research university in Manila, founded in 1611, making it the oldest university in Asia. Managed by the Order of Preachers (Dominicans), it is located in the heart of the University Belt. UST is widely recognized for its consistent excellence in health sciences, architecture, and accountancy, maintaining a strong reputation for producing topnotchers in national licensure exams.",
