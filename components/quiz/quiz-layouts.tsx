@@ -263,25 +263,26 @@ export function PopTabloidBalanced({
         
         {/* Full Width Progress Header - Hybrid Refined Style */}
         <div className="pb-4 border-b border-black flex items-center gap-3">
-           <span className="text-[9px] sm:text-xs font-bold uppercase tracking-widest text-pink-500 whitespace-nowrap">
+           <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-pink-500 whitespace-nowrap min-w-fit">
              Q{currentQuestionIndex + 1}/{totalQuestions}
            </span>
            
-           <div className="h-1.5 bg-pink-100 flex-1">
+           <div className="h-1.5 md:h-2 bg-pink-100 flex-1 border border-transparent md:border-black/10">
               <div className="h-full bg-pink-500 transition-all duration-300" style={{ width: `${((currentQuestionIndex + 1) / totalQuestions) * 100}%` }}></div>
            </div>
 
-           <div className="md:hidden flex items-center">
+           <div className="flex items-center">
              <InfoDialog 
                currentQuestion={currentQuestion} 
                chartData={chartData} 
                maxScore={maxScore} 
-               triggerClass={`transition-all duration-300 ${
+               triggerClass={`transition-all duration-300 flex items-center justify-center ${
                  selectedChoice 
-                   ? "p-1 bg-pink-500 text-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px]"
-                   : "p-1 text-pink-500 bg-pink-50 border border-pink-200 shadow-sm" 
+                   ? "w-6 h-6 md:w-8 md:h-8 bg-pink-500 text-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px]"
+                   : "w-6 h-6 md:w-8 md:h-8 text-slate-700 bg-white border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-pink-50" 
                }`} 
                hideIcon={false}
+               icon={<Info className="w-3.5 h-3.5 md:w-5 md:h-5" />}
              />
            </div>
         </div>
@@ -291,24 +292,9 @@ export function PopTabloidBalanced({
                 <div className="inline-block bg-pink-50 border border-black px-2 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider text-pink-600">
                     {currentQuestion.section}
                 </div>
-
-                <div className="hidden md:block">
-                     <InfoDialog 
-                       currentQuestion={currentQuestion} 
-                       chartData={chartData} 
-                       maxScore={maxScore} 
-                       triggerClass={`text-xs font-bold uppercase tracking-wider flex items-center gap-1 transition-all duration-300 ${
-                         selectedChoice 
-                           ? "text-pink-600 underline decoration-pink-400 decoration-2 underline-offset-4" 
-                           : "text-slate-800 hover:text-pink-600"
-                       }`} 
-                       triggerText="Why this matters" 
-                       hideIcon
-                     />
-                </div>
             </div>
 
-            <h2 className="text-lg sm:text-xl md:text-3xl font-serif font-bold text-black leading-tight max-w-[90%]">
+            <h2 className="text-lg sm:text-xl md:text-3xl font-serif font-bold text-black leading-tight max-w-[100%]">
                 {currentQuestion.question}
             </h2>
         </div>
