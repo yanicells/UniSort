@@ -44,6 +44,28 @@ export default function AboutPage() {
             </div>
           </section>
 
+          {/* Content Creation Process */}
+          <section className="prose prose-slate max-w-none">
+            <h2 className="font-sans font-black text-2xl md:text-3xl uppercase mb-6 flex items-center gap-3">
+              <span className="bg-black text-white px-3 py-1 text-lg transform rotate-1">PROCESS</span>
+              <span>How It Was Made</span>
+            </h2>
+            <div className="space-y-6 text-justify leading-relaxed font-serif text-slate-800">
+              <p>
+                The journey began with <strong>Research Gathering</strong>, where we tapped into the pulse of student life. We posted questions to Freedom Walls and communities across the Big 4 universities (ADMU, DLSU, UP, UST) to collect raw, unfiltered experiences about culture, academics, and social life. These insights were compiled into comprehensive research documents that served as the foundation for everything that followed.
+              </p>
+              <p>
+                For <strong>Quiz Development</strong>, we fed these research PDFs to AI to identify distinct university characteristics. We generated initial questions based on these patterns and refined them multiple times to strip away generic phrasing. Each question was carefully mapped to personality traits that align with specific campus cultures—like QPI pressure tolerance for ADMU or the fast-paced trimestral life of DLSU.
+              </p>
+              <p>
+                We then built a robust <strong>Scoring System</strong> that moved beyond simple binary results. We developed a percentage-based tier system (from 0% to 100%) to represent nuance. To bring these scores to life, we studied the engaging writing style of 16personalities, iterating heavily to find a direct, personal voice. We crafted detailed descriptions for every compatibility tier, ensuring that whether you matched 5% or 95%, the result felt accurate to the ground-truth research.
+              </p>
+              <p>
+                Finally, during <strong>Refinement</strong>, we meticulously removed AI-sounding phrases and ensured every description was cited back to our initial research. We balanced honesty with appeal, highlighting both the struggles and triumphs of each university. The result is a system built on a key principle: <em>Raw student voices → AI analysis → Human refinement → Research validation.</em>
+              </p>
+            </div>
+          </section>
+
           {/* How to Contribute */}
           <section className="bg-slate-50 border-2 border-black p-6 md:p-8 transform rotate-1">
             <h2 className="font-sans font-black text-xl md:text-2xl uppercase mb-4 border-b-2 border-black pb-2 inline-block">

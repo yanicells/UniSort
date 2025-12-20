@@ -47,10 +47,15 @@ export default function SinglePostPage({
       <NewspaperMasthead />
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         {/* Marquee */}
-        <div className="bg-pink-500 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-700">
+        <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
             CONFESSIONS /// RANTS /// LOVE LETTERS /// LOST & FOUND ///
-            SHOUTOUTS /// ANONYMOUS /// UNCENSORED
+            MINUMULTO PARIN AKO /// ANONYMOUS /// UNCENSORED /// SPOTTED: CUTIE
+            AT THE LIBRARY /// LOOKING FOR STUDY BUDDY /// LATEST CAMPUS TEA
+            SERVED HOT /// SEND YOUR CONFESSIONS NOW! /// ORGANIC ENCOUNTER
+            WHEN?? /// IKULONG NA YAN MGA KURAKOT!!!! /// FLOOD CONTROL
+            WYAA!??!? /// TRILLION PESO MARCH /// YOU&apos;VE NEVER BEEN TO
+            YARDSTICK? /// SHOUTOUTS ///
           </div>
         </div>
 
