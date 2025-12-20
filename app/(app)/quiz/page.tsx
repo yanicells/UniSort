@@ -15,7 +15,7 @@ export default function Quiz() {
       {/* Marquee - similar to TabloidLayout */}
       <div className="bg-[#f4f4f4] py-2 overflow-hidden"></div>
 
-      <div className="max-w-6xl mx-auto mt-8 min-h-[600px] px-4">
+      <div className="max-w-6xl mx-auto mt-2 md:mt-8 min-h-[600px] px-4">
         <div className="">
           <QuizHandler />
         </div>

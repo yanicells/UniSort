@@ -12,6 +12,5 @@ final task
 Frontend
 - and url to use if vercel or yanicells
 
-improve quiz name and quiz mismo
 vercel analytics
 double check all content + readme and about page
