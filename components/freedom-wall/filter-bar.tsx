@@ -47,7 +47,7 @@ function Combobox({
         <button
           role="combobox"
           aria-expanded={open}
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[140px]"
+          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[90px] sm:min-w-[120px] md:min-w-[140px] max-w-[120px] sm:max-w-[160px] md:max-w-none"
         >
           <span className="truncate">
             {options.find((opt) => opt.value === value)?.label || placeholder}
@@ -126,7 +126,7 @@ function MultiSelectCombobox({
         <button
           role="combobox"
           aria-expanded={open}
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[140px]"
+          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 bg-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-xs font-bold uppercase hover:translate-y-0.5 hover:shadow-none transition justify-between min-w-[90px] sm:min-w-[120px] md:min-w-[140px] max-w-[120px] sm:max-w-[160px] md:max-w-none"
         >
           <span className="truncate">{getButtonText()}</span>
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
@@ -196,7 +196,7 @@ export function FilterBar({
   ];
 
   return (
-    <div className="flex flex-wrap gap-2 items-center">
+    <div className="flex flex-wrap gap-2 items-center w-full">
       <MultiSelectCombobox
         selectedValues={selectedUniversities}
         onChange={(values) => setSelectedUniversities(values as University[])}

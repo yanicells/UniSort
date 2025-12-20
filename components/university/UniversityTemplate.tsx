@@ -42,14 +42,14 @@ export function UniversityTemplate({
           className="absolute inset-0 opacity-10"
           style={{ backgroundColor: color }}
         />
-        <div className="relative max-w-6xl mx-auto px-4 md:px-8 text-center space-y-6">
+        <div className="relative max-w-6xl mx-auto px-4 md:px-8 text-center space-y-4 sm:space-y-6">
           <h1
-            className="text-5xl md:text-7xl font-bold tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight"
             style={{ color }}
           >
             {name}
           </h1>
-          <p className="text-2xl md:text-3xl font-medium text-muted-foreground">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-muted-foreground">
             "{slogan}"
           </p>
         </div>
@@ -62,12 +62,12 @@ export function UniversityTemplate({
           style={{ borderTopColor: color }}
         >
           <CardHeader>
-            <CardTitle className="text-2xl" style={{ color }}>
+            <CardTitle className="text-xl sm:text-2xl" style={{ color }}>
               Overview
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-base sm:text-lg leading-relaxed text-muted-foreground">
               {overview}
             </p>
           </CardContent>
@@ -77,7 +77,7 @@ export function UniversityTemplate({
           {/* Culture Card */}
           <Card className="h-full">
             <CardHeader>
-              <CardTitle className="text-xl" style={{ color }}>
+              <CardTitle className="text-lg sm:text-xl" style={{ color }}>
                 Campus Culture
               </CardTitle>
             </CardHeader>
@@ -89,7 +89,7 @@ export function UniversityTemplate({
           {/* Student Life Card */}
           <Card className="h-full">
             <CardHeader>
-              <CardTitle className="text-xl" style={{ color }}>
+              <CardTitle className="text-lg sm:text-xl" style={{ color }}>
                 Student Life
               </CardTitle>
             </CardHeader>
@@ -103,7 +103,7 @@ export function UniversityTemplate({
 
         <section className="text-center pt-8">
           <Link
-            className="inline-block px-8 py-4 text-white rounded-full text-lg font-medium hover:opacity-90 transition-opacity shadow-md"
+            className="inline-block px-6 sm:px-8 py-3 sm:py-4 text-white rounded-full text-base sm:text-lg font-medium hover:opacity-90 transition-opacity shadow-md"
             style={{ backgroundColor: color }}
             href="/quiz"
           >

@@ -69,14 +69,14 @@ export default function Big4Page() {
                 <span className="bg-purple-900 text-white px-3 py-1 text-xs font-bold uppercase inline-block mb-3 transform -rotate-1">
                   Feature Analysis
                 </span>
-                <h2 className="text-4xl font-bold leading-tight mb-6 italic font-serif text-slate-900">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-6 italic font-serif text-slate-900">
                   The Decision Dimensions
                 </h2>
 
                 <div className="space-y-8">
                   {/* 1. Academic Challenge */}
                   <div>
-                    <h3 className="font-bold text-xl uppercase mb-3 border-b-2 border-black inline-block">
+                    <h3 className="font-bold text-base sm:text-lg md:text-xl uppercase mb-3 border-b-2 border-black inline-block">
                       1. Academic Challenge
                     </h3>
                     <p className="mb-4">
@@ -84,8 +84,8 @@ export default function Big4Page() {
                       decide whether you prefer intellectual depth, high-speed
                       efficiency, total independence, or sheer endurance.
                     </p>
-                    <ul className="grid gap-3 text-sm">
-                      <li className="bg-blue-50 p-3 border-l-4 border-blue-800">
+                    <ul className="grid gap-3 text-xs sm:text-sm">
+                      <li className="bg-blue-50 p-2 sm:p-3 border-l-4 border-blue-800">
                         <strong>ADMU (Reflexive Depth):</strong> Education is
                         anchored in a Liberal Arts &ldquo;gauntlet&rdquo;. You
                         are required to take extensive Philosophy and Theology
@@ -114,7 +114,7 @@ export default function Big4Page() {
 
                   {/* 2. Cost */}
                   <div>
-                    <h3 className="font-bold text-xl uppercase mb-3 border-b-2 border-black inline-block">
+                    <h3 className="font-bold text-base sm:text-lg md:text-xl uppercase mb-3 border-b-2 border-black inline-block">
                       2. Cost & Financial Reality
                     </h3>
                     <p className="mb-4">
@@ -140,7 +140,7 @@ export default function Big4Page() {
 
                   {/* 3. Support Systems */}
                   <div>
-                    <h3 className="font-bold text-xl uppercase mb-3 border-b-2 border-black inline-block">
+                    <h3 className="font-bold text-base sm:text-lg md:text-xl uppercase mb-3 border-b-2 border-black inline-block">
                       3. Support Systems
                     </h3>
                     <p className="mb-4">
@@ -172,15 +172,16 @@ export default function Big4Page() {
 
               {/* Comparative Features (Newspaper Style) */}
               <div className="border-t-4 border-black pt-6">
-                <h3 className="font-black text-2xl uppercase mb-6 flex items-center gap-2">
-                  <Landmark size={24} /> The Team Rosters
+                <h3 className="font-black text-xl sm:text-2xl uppercase mb-4 sm:mb-6 flex items-center gap-2">
+                  <Landmark className="w-5 h-5 sm:w-6 sm:h-6" /> The Team
+                  Rosters
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* UP Card */}
                   <div className="border-2 border-red-800 p-4 bg-red-50/50 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-red-900/10 rounded-bl-full -mr-8 -mt-8"></div>
-                    <h4 className="font-black text-red-900 text-xl mb-1 uppercase italic tracking-tighter">
+                    <h4 className="font-black text-red-900 text-base sm:text-lg md:text-xl mb-1 uppercase italic tracking-tighter">
                       UP FIGHTING MAROONS: <br /> UP FIGHT!
                     </h4>
                     <p className="text-xs font-bold uppercase text-red-600 mb-3 border-b border-red-200 pb-2">
@@ -204,7 +205,7 @@ export default function Big4Page() {
                   {/* ADMU Card */}
                   <div className="border-2 border-blue-800 p-4 bg-blue-50/50 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-blue-900/10 rounded-bl-full -mr-8 -mt-8"></div>
-                    <h4 className="font-black text-blue-900 text-xl mb-1 uppercase italic tracking-tighter">
+                    <h4 className="font-black text-blue-900 text-base sm:text-lg md:text-xl mb-1 uppercase italic tracking-tighter">
                       ADMU BLUE EAGLES: <br /> ONE BIG FIGHT!
                     </h4>
                     <p className="text-xs font-bold uppercase text-blue-400 mb-3 border-b border-blue-200 pb-2">
@@ -229,7 +230,7 @@ export default function Big4Page() {
                   {/* DLSU Card */}
                   <div className="border-2 border-green-700 p-4 bg-green-50/50 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-green-900/10 rounded-bl-full -mr-8 -mt-8"></div>
-                    <h4 className="font-black text-green-900 text-xl mb-1 uppercase italic tracking-tighter">
+                    <h4 className="font-black text-green-900 text-base sm:text-lg md:text-xl mb-1 uppercase italic tracking-tighter">
                       DLSU GREEN ARCHERS: <br /> ANIMO LA SALLE!
                     </h4>
                     <p className="text-xs font-bold uppercase text-green-600 mb-3 border-b border-green-200 pb-2">
@@ -254,7 +255,7 @@ export default function Big4Page() {
                   {/* UST Card */}
                   <div className="border-2 border-yellow-500 p-4 bg-yellow-50/50 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-yellow-500/10 rounded-bl-full -mr-8 -mt-8"></div>
-                    <h4 className="font-black text-yellow-700 text-xl mb-1 uppercase italic tracking-tighter">
+                    <h4 className="font-black text-yellow-700 text-base sm:text-lg md:text-xl mb-1 uppercase italic tracking-tighter">
                       UST GROWLING TIGERS: <br /> GO USTE!
                     </h4>
                     <p className="text-xs font-bold uppercase text-yellow-600 mb-3 border-b border-yellow-200 pb-2">
@@ -282,7 +283,7 @@ export default function Big4Page() {
             <div className="lg:col-span-4 bg-[#f8f8f8]">
               {/* What is the Big 4? */}
               <div className="p-6 border-b border-slate-300">
-                <h3 className="font-black text-lg uppercase mb-4 border-b-2 border-black inline-block pb-1">
+                <h3 className="font-black text-base sm:text-lg uppercase mb-4 border-b-2 border-black inline-block pb-1">
                   What is the Big 4?
                 </h3>
                 <p className="text-sm leading-relaxed font-serif text-slate-700">
@@ -443,11 +444,11 @@ export default function Big4Page() {
           </div>
 
           {/* Footer CTA */}
-          <div className="bg-black text-white p-8 text-center border-t-4 border-purple-500">
-            <h2 className="text-3xl font-black italic uppercase mb-2">
+          <div className="bg-black text-white p-4 sm:p-6 md:p-8 text-center border-t-4 border-purple-500">
+            <h2 className="text-2xl sm:text-3xl font-black italic uppercase mb-2">
               NO WRONG CHOICE.
             </h2>
-            <p className="text-sm font-mono opacity-70 max-w-lg mx-auto mb-4">
+            <p className="text-xs sm:text-sm font-mono opacity-70 max-w-lg mx-auto mb-4">
               &ldquo;There is no &apos;best&apos; school, only the school that
               is best for YOU. The Big 4 are all premier institutions, and
               graduating from any of them carries immense weight in the
