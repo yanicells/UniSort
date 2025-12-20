@@ -57,7 +57,10 @@ function Combobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent align={align} className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+      <PopoverContent
+        align={align}
+        className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white"
+      >
         <Command className="border-none">
           <CommandList>
             <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">
@@ -136,7 +139,10 @@ function MultiSelectCombobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent align={align} className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+      <PopoverContent
+        align={align}
+        className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white"
+      >
         <Command className="border-none">
           <CommandList>
             <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">

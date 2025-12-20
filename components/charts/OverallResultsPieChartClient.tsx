@@ -94,14 +94,14 @@ export function OverallResultsPieChartClient({
                       >
                         <tspan
                           x={viewBox.cx}
-                          y={viewBox.cy}
+                          y={viewBox.cy ? viewBox.cy - 5 : 0}
                           className="fill-foreground text-xl sm:text-2xl md:text-3xl font-bold"
                         >
                           {totalResults}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 20}
+                          y={(viewBox.cy || 0) + 21}
                           className="fill-muted-foreground text-xs sm:text-sm"
                         >
                           Total Results

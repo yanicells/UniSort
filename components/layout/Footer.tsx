@@ -13,7 +13,7 @@ export function Footer() {
             UniSort
           </h2>
           <p className="font-mono text-xs md:text-sm font-bold uppercase tracking-widest text-slate-600">
-            The Student's Guide to University Life
+            The Student&apos;s Guide to University Life
           </p>
         </div>
 

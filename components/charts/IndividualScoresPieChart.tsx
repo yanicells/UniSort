@@ -95,20 +95,20 @@ export function IndividualScoresPieChart({
                 return (
                   <text
                     x={viewBox.cx}
-                    y={viewBox.cy}
+                    y={viewBox.cy ? viewBox.cy - 5 : 0}
                     textAnchor="middle"
                     dominantBaseline="middle"
                   >
                     <tspan
                       x={viewBox.cx}
-                      y={viewBox.cy}
+                      y={viewBox.cy ? viewBox.cy - 5 : 0}
                       className="fill-foreground text-xl sm:text-2xl md:text-3xl font-black font-serif"
                     >
                       {totalScore}
                     </tspan>
                     <tspan
                       x={viewBox.cx}
-                      y={(viewBox.cy || 0) + 18}
+                      y={(viewBox.cy || 0) + 22}
                       className="fill-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-widest"
                     >
                       Points

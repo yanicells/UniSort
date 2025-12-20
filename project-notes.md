@@ -68,5 +68,4 @@ implement share
 vercel analytics
 back button for freedom wall single post
 add some page to help me
-check the what happens when no select in quiz
 double check all content

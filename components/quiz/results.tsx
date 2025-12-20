@@ -4,6 +4,7 @@ import { IndividualScoresPieChart } from "@/components/charts";
 import { useMemo } from "react";
 import Image from "next/image";
 import { universityFeedback } from "@/lib/quiz/result-data";
+import { ShareableResultCard } from "./ShareableResultCard";
 
 const uniColors = {
   admu: "#0033A0",
@@ -174,6 +175,14 @@ export default function Results({
               to your new home.&quot;
             </p>
           </div>
+
+          {/* Share Button */}
+          <ShareableResultCard
+            topUniversity={topMatch.uni as "admu" | "dlsu" | "up" | "ust"}
+            percentages={percentages}
+            verdict={getFeedbackText(topMatch.uni, topMatch.percentage, true)}
+            name={name}
+          />
         </div>
       </section>
 
