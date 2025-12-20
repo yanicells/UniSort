@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Post } from "./post";
 import { Comments } from "./comments";
@@ -65,6 +67,15 @@ export default function SinglePostPage({
 
           {/* Main Content */}
           <div className="p-4 sm:p-6 space-y-6">
+            {/* Back Button */}
+            <Link 
+              href="/freedom-wall"
+              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-pink-600 hover:text-pink-700 transition-colors border-b-2 border-transparent hover:border-pink-600 pb-1"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Freedom Wall
+            </Link>
+
             {/* Main Post */}
             <Post
               id={post.id}

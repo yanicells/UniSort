@@ -193,21 +193,34 @@ export function ShareableResultCard({
         },
       });
 
-      // Convert to blob and download
+      // Convert to blob
       canvas.toBlob((blob) => {
         if (!blob) {
           throw new Error("Failed to create image");
         }
 
-        // Download the image
         const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `unisort-result-${topUniversity}.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        
+        // Detect mobile/tablet devices
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+          // For mobile: Open image in new tab so user can long-press to save to photos
+          const newWindow = window.open(url, '_blank');
+          if (!newWindow) {
+            alert('Please allow popups to view and save the image');
+          }
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        } else {
+          // For desktop: Download directly
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `unisort-result-${topUniversity}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
 
         setIsGenerating(false);
       }, "image/png");
