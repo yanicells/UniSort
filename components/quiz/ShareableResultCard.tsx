@@ -306,7 +306,7 @@ export function ShareableResultCard({
             width: "100%",
             height: "100%",
             backgroundColor: "#ffffff",
-            padding: "10px 50px",
+            padding: "0px 50px",
             display: "flex",
             flexDirection: "column",
             fontFamily: "system-ui, -apple-system, sans-serif",
