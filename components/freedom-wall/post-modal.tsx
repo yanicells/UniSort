@@ -290,10 +290,10 @@ export function PostModal({
                   disabled={form.formState.isSubmitting}
                 >
                   {form.formState.isSubmitting
-                    ? "📤 Publishing..."
+                    ? "📤 Posting..."
                     : isReply
                     ? "📣 Post Reply"
-                    : "📰 Publish Story"}
+                    : "📰 Post"}
                 </Button>
               </div>
             </form>

@@ -49,7 +49,7 @@ export const questions = {
           ust: 2,
         },
         {
-          text: "I expect to be cared for as a person (*cura personalis*), with accessible mental health support and guidance.",
+          text: "I expect to be cared for as a person (cura personalis), with accessible mental health support and guidance.",
           admu: 5,
           dlsu: 3,
           up: 1,
@@ -64,7 +64,7 @@ export const questions = {
         },
       ],
       rationale:
-        'UP\'s "CRS" and admin are notoriously difficult/broken. DLSU is viewed as "getting what you pay for" in efficiency. ADMU emphasizes *cura personalis* (care). UST\'s admin is often viewed as repressive or bureaucratic.',
+        'UP\'s "CRS" and admin are notoriously difficult/broken. DLSU is viewed as "getting what you pay for" in efficiency. ADMU emphasizes cura personalis (care). UST\'s admin is often viewed as repressive or bureaucratic.',
     },
     {
       section: "Academic Vibe, Learning Style & Admin Support",
@@ -201,7 +201,7 @@ export const questions = {
     //     },
     //   ],
     //   rationale:
-    //     "UST's 7-7 block sections are defining. UP offers maximum flexibility through CRS. DLSU's trimester demands efficient scheduling. ADMU provides structured balance supporting *cura personalis*.",
+    //     "UST's 7-7 block sections are defining. UP offers maximum flexibility through CRS. DLSU's trimester demands efficient scheduling. ADMU provides structured balance supporting cura personalis.",
     // },
     // {
     //   section: "Schedule, Pace & Structure",
@@ -371,7 +371,7 @@ export const questions = {
     //     },
     //   ],
     //   rationale:
-    //     'ADMU has *Ateneo Gabay* for scholars. DLSU scholars report an inclusive vibe but still need to adapt. UP is the most socioeconomically diverse (despite gentrification). UST\'s "trauma bonding" and middle-class melt pot can integrate students through shared struggle.',
+    //     'ADMU has Ateneo Gabay for scholars. DLSU scholars report an inclusive vibe but still need to adapt. UP is the most socioeconomically diverse (despite gentrification). UST\'s "trauma bonding" and middle-class melt pot can integrate students through shared struggle.',
     // },
     // {
     //   section: "Student Organizations & Networking",

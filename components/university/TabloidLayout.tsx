@@ -65,7 +65,7 @@ interface TabloidLayoutProps {
 
 export function TabloidLayout({ data }: TabloidLayoutProps) {
   return (
-    <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
+    <div className="min-h-screen bg-white md:bg-[#f4f4f4] text-slate-900 font-serif pb-12">
       {/* Marquee */}
       <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
         <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">

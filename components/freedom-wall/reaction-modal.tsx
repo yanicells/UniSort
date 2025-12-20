@@ -73,7 +73,7 @@ export function ReactionModal({
               key={reaction.type}
               onClick={(e) => handleReactionClick(e, reaction.type)}
               disabled={isLoading}
-              className="text-2xl hover:scale-125 transition-transform disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"
+              className="text-2xl hover:scale-125 transition-transform disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-slate-100 rounded-full w-8 h-8 flex items-center justify-center"
               title={reaction.type}
             >
               {reaction.emoji}

@@ -4,6 +4,8 @@ import { useRef, useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 import { Share2 } from "lucide-react";
 import { universityFeedback } from "@/lib/quiz/result-data";
+import { getDeviceInfo } from "@/lib/device-detection";
+import { toast } from "sonner";
 
 const uniColors = {
   admu: "#0033A0",
@@ -38,7 +40,7 @@ interface ShareableResultCardProps {
   name?: string;
 }
 
-// Donut chart component for the card
+// Donut chart component for the card (kept from original)
 function DonutChart({
   percentages,
   topUniversity,
@@ -161,7 +163,7 @@ export function ShareableResultCard({
 
   const handleShare = async () => {
     if (!cardRef.current) {
-      alert("Card not ready. Please try again.");
+      toast.error("Card not ready. Please try again.");
       return;
     }
 
@@ -180,8 +182,8 @@ export function ShareableResultCard({
         foreignObjectRendering: false,
         removeContainer: true,
         imageTimeout: 0,
+        // CRITICAL: Remove all stylesheets to prevent "lab()" parsing errors with Tailwind 4
         onclone: (clonedDoc) => {
-          // Remove all external stylesheets from cloned document to avoid parsing errors
           const styles = clonedDoc.querySelectorAll(
             'link[rel="stylesheet"], style'
           );
@@ -199,75 +201,77 @@ export function ShareableResultCard({
           throw new Error("Failed to create image");
         }
 
-        // Detect devices
-        const userAgent = navigator.userAgent;
-        const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-        const isAndroid = /Android/i.test(userAgent);
-        const isMobile = isIOS || isAndroid;
+        // Detect devices using our utility
+        const { type: deviceType, os } = getDeviceInfo();
 
         // Create file for sharing
         const file = new File([blob], "unisort-result.png", { type: "image/png" });
-
-        // STRATEGY: 
-        // 1. Try Native Share (Web Share API) - Best for iOS/Android
-        // 2. Fallback for Mobile (window.open) - Old method if Share fails/unsupported
-        // 3. Desktop Download - Standard anchor download
-
-        // Try Web Share API first (Best for iOS)
-        if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
-          try {
-            await navigator.share({
-              files: [file],
-              title: "My UniSort Result",
-              text: `I got matched with ${universityName}!`,
-            });
-            setIsGenerating(false);
-            return;
-          } catch (error) {
-             // AbortError is just user cancelling the share sheet
-             if ((error as Error).name !== "AbortError") {
-               console.error("Share failed:", error);
-             } else {
-               setIsGenerating(false);
-               return; 
-             }
-             // If other error, fall through to fallback
-          }
-        }
-
         const url = URL.createObjectURL(blob);
 
-        if (isMobile) {
-          // Fallback for mobile if Web Share failed or not supported
-          // Open image in new tab so user can long-press to save to photos
-          const newWindow = window.open(url, "_blank");
-          if (!newWindow) {
-            alert("Please allow popups to view and save the image");
+        // Mobile Strategy
+        if (deviceType === "mobile" || deviceType === "tablet") {
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+             try {
+               await navigator.share({
+                 files: [file],
+                 title: "My UniSort Result",
+                 text: `I got matched with ${universityName}!`,
+               });
+               setIsGenerating(false);
+               return;
+             } catch (error) {
+               if ((error as Error).name !== "AbortError") {
+                 console.error("Share failed:", error);
+                 // Fallback to new tab/download below
+               } else {
+                 setIsGenerating(false);
+                 return; // User cancelled
+               }
+             }
           }
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          
+          // Fallback if share unavailable or failed
+          if (os === "ios") {
+             const newTab = window.open(url, "_blank");
+             if (newTab) {
+               toast.info("Long press the image to save it");
+             } else {
+               toast.error("Popup blocked. Please allow popups to save.");
+             }
+          } else {
+             // Android/Other fallback
+             triggerDownload(url, "unisort-result.png");
+             toast.info("Downloading image...");
+          }
         } else {
-          // For desktop: Download directly
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `unisort-result-${topUniversity}.png`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
+          // Desktop Strategy
+          triggerDownload(url, `unisort-result-${topUniversity}.png`);
+          toast.success("Image downloaded!");
         }
 
+        // Cleanup
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
         setIsGenerating(false);
       }, "image/png");
     } catch (error) {
       console.error("Error generating image:", error);
-      alert(`Failed to generate image: ${error}`);
+      toast.error("Failed to generate image.");
       setIsGenerating(false);
     }
   };
 
+  const triggerDownload = (url: string, filename: string) => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   return (
     <>
-      {/* Share Button - Visible to users */}
+      {/* Share Button */}
       <button
         onClick={handleShare}
         disabled={isGenerating || !imageLoaded}
@@ -286,7 +290,7 @@ export function ShareableResultCard({
         )}
       </button>
 
-      {/* Hidden Card for Capture - Portrait layout for mobile */}
+      {/* Hidden Card for Capture (Restored original DOM structure and styles) */}
       <div
         ref={cardRef}
         style={{
@@ -497,7 +501,7 @@ export function ShareableResultCard({
   );
 }
 
-// Utility function for programmatic sharing
+// Utility function for programmatic sharing (restored & updated)
 export async function handleShareResult(
   cardRef: React.RefObject<HTMLDivElement>,
   topUniversity: string,
@@ -514,6 +518,16 @@ export async function handleShareResult(
       logging: false,
       useCORS: true,
       allowTaint: true,
+      onclone: (clonedDoc) => {
+        const styles = clonedDoc.querySelectorAll(
+          'link[rel="stylesheet"], style'
+        );
+        styles.forEach((style) => {
+          if (style.parentNode) {
+            style.parentNode.removeChild(style);
+          }
+        });
+      },
     });
 
     const blob = await new Promise<Blob>((resolve) => {

@@ -8,6 +8,7 @@ import { ReactionSummaryModal } from "./reaction-summary-modal";
 import { PostComment } from "./comment-types";
 import { PostContent } from "./PostContent";
 import { ImageLightbox } from "./image-lightbox";
+import { Heart, MessageCircle } from "lucide-react";
 
 type CommentItemProps = {
   comment: PostComment;
@@ -136,13 +137,14 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
           </div>
 
           {/* RIGHT: Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             <div className="relative">
               <button
                 onClick={() => setShowReactionModal(true)}
-                className="text-[10px] font-bold text-slate-500 hover:text-black uppercase tracking-wide"
+                className="flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-100 transition text-slate-500 hover:text-black font-bold text-[10px] uppercase tracking-wide"
               >
-                React
+                <Heart size={14} />
+                <span>React</span>
               </button>
               {showReactionModal && (
                 <ReactionModal
@@ -153,9 +155,10 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
             </div>
             <button
               onClick={() => setShowReply(true)}
-              className="text-[10px] font-bold text-slate-500 hover:text-blue-600 uppercase tracking-wide"
+              className="flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-100 transition text-slate-500 hover:text-blue-600 font-bold text-[10px] uppercase tracking-wide"
             >
-              Reply
+              <MessageCircle size={14} />
+              <span>Reply</span>
             </button>
           </div>
         </div>
