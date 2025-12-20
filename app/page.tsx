@@ -338,6 +338,20 @@ export default async function Home() {
               mentioned. All university names, logos, and trademarks are the
               property of their respective owners.
             </p>
+            <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-center items-center gap-4 text-xs font-mono text-slate-400">
+              <a
+                href="https://github.com/yanicells/UniSort"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-black transition-colors flex items-center gap-2"
+              >
+                <span>GITHUB REPOSITORY</span>
+              </a>
+              <span className="hidden sm:inline">•</span>
+              <Link href="/about" className="hover:text-black transition-colors">
+                ABOUT UNISORT
+              </Link>
+            </div>
           </div>
         </div>
       </div>

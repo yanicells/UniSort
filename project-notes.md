@@ -22,6 +22,4 @@ gemeni 3 for frontend design
 
 improve quiz name and quiz mismo
 vercel analytics
-back button for freedom wall single post
-add some page to help me
-double check all content
+double check all content + readme and about page
