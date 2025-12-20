@@ -94,7 +94,7 @@ export default function Results({
   return (
     <div className="space-y-12 max-w-5xl mx-auto py-8 px-4">
       {/* Hero Section */}
-      <section className="text-center space-y-4 md:space-y-6 border-b-4 md:border-b-8 border-black pb-8 md:pb-12">
+      <section className="text-center space-y-4 md:space-y-6 border-b-4 md:border-b-8 border-black pb-8 md:pb-12 mb-4 md:mb-6">
         <div className="inline-block bg-black text-white px-4 md:px-6 py-2 font-black uppercase tracking-[0.1em] md:tracking-[0.2em] text-xs md:text-sm lg:text-base transform -rotate-2">
           Breaking News
         </div>
@@ -119,13 +119,21 @@ export default function Results({
               fill
               className="object-contain"
             />
-            <div className="absolute bottom-0 left-0 bg-black text-white px-2 md:px-4 py-1 md:py-2 font-bold font-mono text-sm md:text-base lg:text-xl">
+            <div className="absolute bottom-0 left-0 bg-black text-white px-2 md:px-4 py-1 md:py-2 font-bold font-mono text-sm md:text-base lg:text-xl hidden md:block">
               MATCH: {topMatch.percentage}%
             </div>
           </div>
           <div className="prose prose-sm md:prose-lg max-w-none font-serif text-slate-800 leading-relaxed">
-            <h3 className="font-sans font-black text-base md:text-xl lg:text-2xl xl:text-3xl uppercase mb-3 md:mb-4 border-b-2 border-black pb-2">
-              The Verdict
+            <h3 className="font-sans font-black text-base md:text-xl lg:text-2xl xl:text-3xl uppercase mb-3 md:mb-4 border-b-2 border-black pb-2 flex items-center justify-between">
+              <span>The Verdict</span>
+              <span
+                className="md:hidden"
+                style={{
+                  color: uniColors[topMatch.uni as keyof typeof uniColors],
+                }}
+              >
+                Match {topMatch.percentage}%
+              </span>
             </h3>
             <p className="text-sm md:text-base lg:text-lg xl:text-xl">
               {getFeedbackText(topMatch.uni, topMatch.percentage, true)}
