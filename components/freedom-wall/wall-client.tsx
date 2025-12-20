@@ -156,7 +156,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
                 onClick={() => setShowCreateModal(true)}
                 className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-pink-600 transition shadow-[4px_4px_0px_0px_rgba(255,0,255,1)] whitespace-nowrap"
               >
-                <PenTool size={14} /> Submit Post
+                <PenTool size={14} /> Post
               </button>
             </div>
           </div>

@@ -187,83 +187,79 @@ export default async function Home() {
         </div>
 
         {/* Why UniSort */}
-        <div className="p-4 md:p-6 lg:p-10 border-b-4 border-black">
-          <h3 className="font-sans font-bold text-xs md:text-sm uppercase tracking-[0.2em] mb-6 md:mb-8 text-center text-slate-400">
-            Why UniSort?
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            <div className="border-r-0 md:border-r border-slate-200 pr-0 md:pr-4 last:border-0">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
-                <Target size={20} className="md:w-6 md:h-6" />
-              </div>
-              <h4 className="font-bold text-lg md:text-xl mb-2">
-                Personality Quiz
-              </h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
-                Answer 10 quick questions to see which university culture fits
-                you best, with instant insights.
+        <div className="border-b-4 border-black p-8 md:p-12">
+          <div className="flex flex-col md:flex-row items-baseline gap-4 border-b-2 border-black pb-4 mb-6">
+            <h3 className="font-serif font-bold text-4xl italic">
+              The only guide you&apos;ll ever need!
+            </h3>
+            <span className="hidden md:inline-block flex-grow border-b border-black border-dotted h-2"></span>
+            <span className="font-mono text-xs uppercase text-slate-500">
+              Page A4 • Opinion
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-justify font-serif text-sm leading-relaxed">
+            <div className="border-r border-slate-300 pr-0 md:pr-6">
+              <p>
+                <span className="float-left text-5xl font-black mr-2 mt-[-10px] font-sans">
+                  A
+                </span>
+                lgorithms run our lives, so why not let them choose your future?
+                UniSort employs a rigorous personality assessment designed to
+                peer into your soul and match it with a campus culture.
               </p>
-              <Link
-                href="/quiz"
-                className="text-orange-600 font-bold text-xs uppercase hover:underline"
-              >
-                Start the quiz →
+              <Link href="/quiz">
+                <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
+                  <Target size={16} />
+                  <span className="font-bold text-xs uppercase sans-serif">
+                    Take The Quiz
+                  </span>
+                  <ArrowRight size={16} />
+                </div>
               </Link>
             </div>
-
-            <div className="border-r-0 md:border-r border-slate-200 pr-0 md:pr-4 last:border-0">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
-                <MessageCircle size={20} className="md:w-6 md:h-6" />
-              </div>
-              <h4 className="font-bold text-lg md:text-xl mb-2">
-                Freedom Wall
-              </h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
-                Read and share anonymous stories about student life across
-                campuses. React, comment, and join the conversation.
+            <div className="border-r border-slate-300 pr-0 md:pr-6">
+              <p>
+                Beyond the brochures lies the truth. Explore detailed profiles
+                of all Big Four universities—their cultures, quirks, and
+                unfiltered realities. It is raw, it is real, and it is necessary
+                reading for every student.
               </p>
-              <Link
-                href="/freedom-wall"
-                className="text-orange-600 font-bold text-xs uppercase hover:underline"
-              >
-                Browse posts →
+              <Link href="/big4">
+                <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
+                  <MessageCircle size={16} />
+                  <span className="font-bold text-xs uppercase sans-serif">
+                    The Big 4
+                  </span>
+                  <ArrowRight size={16} />
+                </div>
               </Link>
             </div>
-
-            <div className="last:border-0">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white flex items-center justify-center mb-3 md:mb-4 rounded-full">
-                <BarChart3 size={20} className="md:w-6 md:h-6" />
-              </div>
-              <h4 className="font-bold text-lg md:text-xl mb-2">
-                University Insights
-              </h4>
-              <p className="text-sm leading-relaxed font-serif text-slate-600 mb-3 md:mb-4">
-                Explore curated overviews, campus culture highlights, and stats
-                to help you decide where you fit.
+            <div>
+              <p>
+                In an era of misinformation, data is king. We aggregate
+                personality distributions and compatibility scores from every
+                test-taker into digestible visualizations. See where the crowd
+                lands, backed by numbers.
               </p>
-              <div className="flex flex-col gap-2">
-                <Link
-                  href="/big4"
-                  className="text-orange-600 font-bold text-xs uppercase hover:underline"
-                >
-                  Compare the Big 4 →
-                </Link>
-                <Link
-                  href="/admu"
-                  className="text-orange-600 font-bold text-xs uppercase hover:underline"
-                >
-                  Learn about universities →
-                </Link>
-              </div>
+              <Link href="/stats">
+                <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
+                  <BarChart3 size={16} />
+                  <span className="font-bold text-xs uppercase sans-serif">
+                    View Results
+                  </span>
+                  <ArrowRight size={16} />
+                </div>
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Freedom Wall Posts */}
-        <div className="bg-[#fffdf5] p-4 md:p-6 lg:p-12">
+        <div className="p-4 md:p-6 lg:p-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-6 md:mb-8 border-b-2 border-black pb-3 md:pb-4">
             <h3 className="font-black text-xl md:text-2xl lg:text-3xl uppercase italic">
-              Classifieds & Confessions
+              FREEDOM WALL
             </h3>
             <Link
               href="/freedom-wall"

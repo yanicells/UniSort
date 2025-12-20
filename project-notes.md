@@ -62,3 +62,17 @@ Tasks
 - generate prompt to improve the design for the big4 page and each of the uni page, consider all sections
 - revise the home page
 - other frontend improvements
+
+check responsiveness for fonts esp big 4 and unis
+improve quiz name and quiz mismo
+implement share
+improve the why uni part
+vercel analytics
+freedom wall responsive sa filters
+responsive sa mobile post modal
+back button for freedom wall single post
+single post responsive freedom wall header 
+only certain parts have the marquee
+footer fix and add some page to help me
+check the what happens when no select in quiz
+double check all content

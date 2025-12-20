@@ -50,7 +50,7 @@ export const universityData: Record<string, UniversityData> = {
   admu: {
     id: "admu",
     name: "Ateneo de Manila",
-    publication: "THE BLUE EAGLE",
+    publication: "THE BLUE EAGLES",
     color: "#0038A8",
     secondary: "#E1E8F5",
     headline: "THE JESUIT PHILOSOPHER-KING",
@@ -151,7 +151,7 @@ export const universityData: Record<string, UniversityData> = {
   dlsu: {
     id: "dlsu",
     name: "De La Salle",
-    publication: "THE GREEN ARCHER",
+    publication: "THE GREEN ARCHERS",
     color: "#006B3C",
     secondary: "#E8F5E9",
     headline: "THE CORPORATE FORGE",
@@ -261,7 +261,7 @@ export const universityData: Record<string, UniversityData> = {
   up: {
     id: "up",
     name: "U.P. Diliman",
-    publication: "THE FIGHTING MAROON",
+    publication: "THE FIGHTING MAROONS",
     color: "#7B1113",
     secondary: "#FBE9E7",
     headline: "BASTION OF CRITICAL SURVIVAL",
@@ -364,7 +364,7 @@ export const universityData: Record<string, UniversityData> = {
   ust: {
     id: "ust",
     name: "U.S.T.",
-    publication: "THE GROWLING TIGER",
+    publication: "THE GROWLING TIGERS",
     color: "#F1C40F",
     secondary: "#FFF9C4",
     headline: "THE TIGER'S DEN",
