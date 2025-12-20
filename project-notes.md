@@ -63,14 +63,10 @@ Tasks
 - revise the home page
 - other frontend improvements
 
-check responsiveness for fonts esp big 4 and unis
 improve quiz name and quiz mismo
 implement share
 vercel analytics
-freedom wall responsive sa filters
-responsive sa mobile post modal
 back button for freedom wall single post
-single post responsive freedom wall header 
-footer fix and add some page to help me
+add some page to help me
 check the what happens when no select in quiz
 double check all content

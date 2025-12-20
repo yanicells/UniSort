@@ -278,6 +278,11 @@ export default function QuizView({
           </div>
 
           <div className="grid gap-2 md:gap-3 max-w-2xl mx-auto">
+            {selectionMessage && (
+              <p className="text-center text-xs md:text-sm font-bold text-pink-600 bg-pink-50 py-2 border-2 border-pink-600">
+                {selectionMessage}
+              </p>
+            )}
             {currentQuestion.choices.map((choice) => {
               const isSelected = selectedChoice === choice.text;
               return (
@@ -331,12 +336,6 @@ export default function QuizView({
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
-
-          {selectionMessage && (
-            <p className="text-center text-xs md:text-sm font-bold text-pink-600 bg-pink-50 py-2 border-2 border-pink-600">
-              {selectionMessage}
-            </p>
-          )}
         </div>
       ) : (
         <Results score={score} name={username} />
