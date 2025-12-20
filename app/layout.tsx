@@ -63,7 +63,7 @@ export default function RootLayout({
         <NewspaperMasthead />
         <ToastProvider />
         <div className="bg-background pt-16">{children}</div>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

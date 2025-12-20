@@ -34,11 +34,13 @@ function Combobox({
   onChange,
   options,
   placeholder,
+  align = "center",
 }: {
   value: string;
   onChange: (v: string) => void;
   options: { value: string; label: string }[];
   placeholder: string;
+  align?: "start" | "center" | "end";
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -55,7 +57,7 @@ function Combobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+      <PopoverContent align={align} className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
         <Command className="border-none">
           <CommandList>
             <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">
@@ -94,11 +96,13 @@ function MultiSelectCombobox({
   onChange,
   options,
   placeholder,
+  align = "start",
 }: {
   selectedValues: string[];
   onChange: (values: string[]) => void;
   options: { value: string; label: string }[];
   placeholder: string;
+  align?: "start" | "center" | "end";
 }) {
   const [open, setOpen] = useState(false);
 
@@ -132,7 +136,7 @@ function MultiSelectCombobox({
           <ChevronsUpDownIcon className="h-3 w-3 shrink-0" />
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+      <PopoverContent align={align} className="w-[180px] sm:w-[220px] p-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
         <Command className="border-none">
           <CommandList>
             <CommandEmpty className="py-3 text-center text-xs font-bold uppercase text-slate-400">
@@ -202,18 +206,21 @@ export function FilterBar({
         onChange={(values) => setSelectedUniversities(values as University[])}
         options={universityOptions}
         placeholder="Filter by tag"
+        align="start"
       />
       <Combobox
         value={sortBy}
         onChange={(v) => setSortBy(v as SortBy)}
         options={sortOptions}
         placeholder="Latest"
+        align="center"
       />
       <Combobox
         value={timeRange}
         onChange={(v) => setTimeRange(v as TimeRange)}
         options={timeOptions}
         placeholder="All Time"
+        align="end"
       />
     </div>
   );

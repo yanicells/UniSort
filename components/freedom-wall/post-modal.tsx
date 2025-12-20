@@ -92,8 +92,8 @@ export function PostModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-2 sm:p-4">
-      <div className="w-full max-w-3xl bg-white border-2 sm:border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[95vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 sm:p-6 md:p-8">
+      <div className="w-full max-w-4xl bg-white border-2 sm:border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[95vh] overflow-hidden flex flex-col">
         {/* Newspaper Header */}
         <div className="bg-pink-600 border-b-2 sm:border-b-4 border-black p-3 sm:p-4 text-center relative">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-white tracking-tight italic">
