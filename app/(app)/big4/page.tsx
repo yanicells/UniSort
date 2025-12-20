@@ -19,14 +19,13 @@ export default function Big4Page() {
           {/* Header */}
           <header className="p-6 md:p-12 text-center border-b-4 border-black bg-white text-black">
             <p className="font-sans font-bold text-xs tracking-[0.3em] uppercase mb-4 text-slate-500">
-              The University Ecosystem
+              Which One&apos;s For You?
             </p>
             <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
               THE BIG FOUR
             </h1>
             <p className="text-xl md:text-2xl font-serif italic text-slate-700 max-w-2xl mx-auto mt-4">
-              &ldquo;Gatekeepers of Cultural Capital & Architects of the Social
-              Strata&rdquo;
+              &ldquo;The Schools Everyone Compares Themselves To&rdquo;
             </p>
 
             <div className="flex flex-wrap justify-center items-center gap-3 text-sm md:text-base font-bold border-y border-slate-300 py-4 mt-8 max-w-4xl mx-auto">
@@ -127,13 +126,13 @@ export default function Big4Page() {
                         UP: FREE
                       </div>
                       <div className="p-2 border border-yellow-200 bg-yellow-50 text-yellow-900">
-                        UST: ~60k
+                        UST: ~140k
                       </div>
                       <div className="p-2 border border-blue-200 bg-blue-50 text-blue-900">
-                        ADMU: ~80k
+                        ADMU: ~200k
                       </div>
                       <div className="p-2 border border-green-200 bg-green-50 text-green-900">
-                        DLSU: ~90k
+                        DLSU: ~250k
                       </div>
                     </div>
                   </div>
@@ -336,6 +335,14 @@ export default function Big4Page() {
                       hegemony or &ldquo;Kanal&rdquo; humor?
                     </span>
                   </li>
+                  <li className="flex gap-3">
+                    <span className="text-slate-600">4.</span>
+                    <span className="text-slate-700">
+                      <strong>Politics:</strong> Can you handle daily activism
+                      (UP) or prefer institutionalized/safe advocacy
+                      (DLSU/ADMU/UST)?
+                    </span>
+                  </li>
                 </ul>
               </div>
 
@@ -436,6 +443,36 @@ export default function Big4Page() {
                     <span className="text-slate-600">
                       Students are active but suppressed by admin. Activism
                       focuses on internal rights and Catholic social teachings.
+                    </span>
+                  </li>
+                  <li className="text-xs">
+                    <strong className="block text-purple-700 mb-1">
+                      &ldquo;DLSU is easier than other Big 4 schools&rdquo;
+                    </strong>
+                    <span className="text-slate-600">
+                      Trimestral velocity creates unique brutality—what takes a
+                      semester elsewhere compresses into 14 weeks. CCS has
+                      higher mortality rates than most STEM programs.
+                    </span>
+                  </li>
+                  <li className="text-xs">
+                    <strong className="block text-purple-700 mb-1">
+                      &ldquo;All Lasallians speak conyo naturally&rdquo;
+                    </strong>
+                    <span className="text-slate-600">
+                      Only students from exclusive feeder schools (LSGH, Zobel)
+                      speak it natively. The rest code-switch or fake it, and
+                      try-hards get mocked ruthlessly.
+                    </span>
+                  </li>
+                  <li className="text-xs">
+                    <strong className="block text-purple-700 mb-1">
+                      &ldquo;UP is full of NPA/communist militants&rdquo;
+                    </strong>
+                    <span className="text-slate-600">
+                      Most students are apolitical or moderate left. Red-tagging
+                      creates safety fears, but hardcore activists are a vocal
+                      minority, not the majority.
                     </span>
                   </li>
                 </ul>

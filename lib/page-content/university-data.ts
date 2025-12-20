@@ -53,13 +53,13 @@ export const universityData: Record<string, UniversityData> = {
     publication: "THE BLUE EAGLES",
     color: "#0038A8",
     secondary: "#E1E8F5",
-    headline: "THE JESUIT PHILOSOPHER-KING",
+    headline: "LUX IN DOMINO",
     subhead:
       "The Liberal Arts Gauntlet, The Conyo Hegemony & The Radical Moderate",
     intro:
       "Ateneo de Manila University (ADMU) is a private Jesuit research university in Quezon City, founded in 1859. Known for its liberal arts Core Curriculum emphasizing Philosophy and Theology, ADMU is one of the Philippines' premier institutions with strong programs in humanities, social sciences, and business. The university follows the Jesuit tradition of cura personalis (care for the whole person) in its educational approach.",
     stats: {
-      tuition: "₱80k-90k",
+      tuition: "~₱200k",
       vibe: "One Big Fight!",
       survival: "Oral Exams",
     },
@@ -124,6 +124,10 @@ export const universityData: Record<string, UniversityData> = {
         text: "Ateneo will impart a 'Save the Philippines/the world' mentality... but I'm sorry to say I've been hurt by the emotional dishonesty and hypocrisy I found in some people.",
         source: "Reddit, r/ADMU, 2025",
       },
+      {
+        text: "In terms of extracurricular naman, mas solid yung org life natin kaysa sa iba. Sa ibang schools parang magbayad ka lang ng mem fee, member ka na. Unlike sa atin medyo grueling yung app process.",
+        source: "Reddit, r/ADMU, 2025",
+      },
     ],
     survivalTips: [
       {
@@ -154,12 +158,12 @@ export const universityData: Record<string, UniversityData> = {
     publication: "THE GREEN ARCHERS",
     color: "#006B3C",
     secondary: "#E8F5E9",
-    headline: "THE CORPORATE FORGE",
-    subhead: "14 Weeks of Hell: The High-Velocity Trimestral Sprint",
+    headline: "LIVE JESUS IN OUR HEARTS",
+    subhead: "14 Weeks of Struggle: The High-Velocity Trimestral Sprint",
     intro:
       "De La Salle University (DLSU) is a private Catholic research university founded in 1911 by the De La Salle Brothers. Located in the heart of Manila along Taft Avenue, it is a premier institution recognized for its excellence in business, engineering, and computer studies. Operating on a distinct trimestral system, DLSU focuses on producing corporate-ready graduates through a blend of pragmatic education and Lasallian values.",
     stats: {
-      tuition: "₱90k+",
+      tuition: "~₱250k",
       vibe: "Animo La Salle!",
       survival: "No Sleep",
     },
@@ -264,7 +268,7 @@ export const universityData: Record<string, UniversityData> = {
     publication: "THE FIGHTING MAROONS",
     color: "#7B1113",
     secondary: "#FBE9E7",
-    headline: "BASTION OF CRITICAL SURVIVAL",
+    headline: "MATATAPANG, MATATALINO",
     subhead: "Beautiful Decay, Systemic Abandonment, and The Prerog Ritual",
     intro:
       "The University of the Philippines Diliman (UPD) is the flagship campus of the national university system, established in 1949 in Quezon City. As a state university offering free undergraduate tuition, UP is renowned for its academic excellence, research output, and deep-seated history of student activism. Its sprawling 493-hectare campus is the largest and most comprehensive in the UP system.",
@@ -372,7 +376,7 @@ export const universityData: Record<string, UniversityData> = {
     intro:
       "The University of Santo Tomas (UST) is a private, Catholic research university in Manila, founded in 1611, making it the oldest university in Asia. Managed by the Order of Preachers (Dominicans), it is located in the heart of the University Belt. UST is widely recognized for its consistent excellence in health sciences, architecture, and accountancy, maintaining a strong reputation for producing topnotchers in national licensure exams.",
     stats: {
-      tuition: "~₱60k",
+      tuition: "~₱140k",
       vibe: "Go USTe!",
       survival: "Resilience",
     },
