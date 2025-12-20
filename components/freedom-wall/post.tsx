@@ -152,15 +152,15 @@ export function Post({
                     <div
                       key={type}
                       className={`text-[16px] md:text-[18px] leading-none ${
-                        idx > 0 ? "-ml-1" : ""
-                      } z-[${3 - idx}]`}
+                        idx > 0 ? "-ml-2.5" : ""
+                      }`}
+                      style={{ zIndex: 3 - idx, position: "relative" }}
                     >
                       {REACTION_EMOJIS[type]}
                     </div>
                   ))}
                 </div>
               ) : null}
-
               {/* Total Count */}
               <span className="text-xs font-bold text-slate-500 group-hover:underline decoration-slate-400 underline-offset-2">
                 {totalReactions > 0 ? totalReactions : "No reactions"}
@@ -176,7 +176,7 @@ export function Post({
                 }}
                 className="flex items-center gap-1 text-slate-500 hover:text-blue-600 transition group"
               >
-                <span className="text-slate-300 text-xs mr-1">•</span>
+                <span className="text-slate-300 text-xs mr-1"> | </span>
                 <MessageCircle size={16} className="group-hover:fill-current" />
                 <span className="text-xs font-bold hover:underline decoration-slate-400 underline-offset-2">
                   {commentCount}

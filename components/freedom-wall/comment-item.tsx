@@ -121,8 +121,9 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
                   <div
                     key={type}
                     className={`text-[12px] leading-none ${
-                      idx > 0 ? "-ml-1" : ""
-                    } z-[${3 - idx}]`}
+                      idx > 0 ? "-ml-2" : ""
+                    }`}
+                    style={{ zIndex: 3 - idx, position: "relative" }}
                   >
                     {REACTION_EMOJIS[type]}
                   </div>
