@@ -2,13 +2,24 @@ import Link from "next/link";
 import { getQuizSummary, getRecentPosts } from "@/lib/dal/queries";
 import { PostCardSimple } from "@/components/freedom-wall/post-card-simple";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
-import { ArrowRight, MessageCircle, Target, BarChart3 } from "lucide-react";
+import {
+  ArrowRight,
+  MessageCircle,
+  Target,
+  BarChart3,
+  ThumbsUp,
+  MessageSquare,
+  Quote,
+} from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 export default async function Home() {
   const [quizSummary, recentPosts] = await Promise.all([
     getQuizSummary(),
     getRecentPosts(4),
   ]);
+
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
   return (
     <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
@@ -255,46 +266,75 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Freedom Wall Posts */}
-        <div className="p-4 md:p-6 lg:p-12">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mb-6 md:mb-8 border-b-2 border-black pb-3 md:pb-4">
-            <h3 className="font-black text-xl md:text-2xl lg:text-3xl uppercase italic">
+        {/* Freedom Wall */}
+        <div className="p-4 md:p-6 lg:p-12 border-t-2 border-black bg-[#fffdf5] relative overflow-hidden">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-8 md:mb-10 transform -rotate-1">
+            <h3 className="bg-red-600 text-white font-black text-3xl md:text-5xl uppercase px-4 md:px-6 py-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] inline-block border-4 border-black">
               FREEDOM WALL
             </h3>
-            <Link
-              href="/freedom-wall"
-              className="text-[10px] md:text-xs font-bold bg-black text-white px-3 py-1 uppercase hover:bg-slate-800 whitespace-nowrap"
-            >
-              Post Anonymously
-            </Link>
+            <span className="font-black text-xl md:text-2xl uppercase underline decoration-wavy decoration-2 md:pl-4">
+              Spill the tea!
+            </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {recentPosts.length === 0 ? (
-              <p className="col-span-4 text-center text-slate-500 py-8">
-                No posts yet. Be the first to share!
+              <p className="col-span-full text-center text-slate-500 font-serif italic py-8">
+                No secrets on the wall yet...
               </p>
             ) : (
-              recentPosts.map((post) => (
-                <PostCardSimple
+              recentPosts.map((post, index) => (
+                <Link
+                  href={`/freedom-wall/${post.id}`}
                   key={post.id}
-                  id={post.id}
-                  content={post.content}
-                  tags={post.tags}
-                  reactions={post.reactions}
-                  createdAt={new Date(post.createdAt)}
-                />
+                  className={`block transform hover:scale-105 transition-transform duration-300 ${
+                    index % 2 === 0 ? "rotate-1" : "-rotate-1"
+                  }`}
+                >
+                  <div className="bg-white border-4 border-black p-3 md:p-4 h-full shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] transition-shadow flex flex-col">
+                    <div className="bg-yellow-300 inline-block px-2 py-1 font-black text-[10px] md:text-xs uppercase mb-2 md:mb-3 border border-black transform -rotate-2 self-start">
+                      {post.tags[0] || "HOT TAKE"}
+                    </div>
+                    <p className="font-sans font-bold text-base md:text-lg leading-tight mb-3 md:mb-4 uppercase break-words">
+                      &quot;{stripHtml(post.content).slice(0, 60)}...&quot;
+                    </p>
+                    <div className="mt-auto flex justify-between items-center border-t-2 border-black pt-2">
+                      <span className="font-mono text-[10px] md:text-xs font-bold text-red-600">
+                        RATING: ???
+                      </span>
+                      <ThumbsUp size={14} className="md:w-4 md:h-4" />
+                    </div>
+                  </div>
+                </Link>
               ))
             )}
           </div>
-
-          <div className="text-center mt-8">
+          <div className="text-center mt-8 md:mt-12">
             <Link
               href="/freedom-wall"
-              className="font-bold uppercase text-sm border-b-2 border-black hover:text-orange-600 transition"
+              className="inline-block bg-black text-white font-black text-lg md:text-xl uppercase px-6 md:px-8 py-3 md:py-4 hover:bg-orange-600 transform hover:-rotate-2 transition shadow-[6px_6px_0px_0px_#94a3b8]"
             >
-              View All Posts →
+              VIEW ALL POSTS
             </Link>
+          </div>
+        </div>
+
+        {/* Disclaimer Footer */}
+        <div className="border-t border-slate-300 bg-slate-50 py-12 px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="w-16 h-1 bg-black mx-auto mb-6"></div>
+            <h4 className="font-sans font-bold text-sm uppercase tracking-widest mb-4 text-slate-400">
+              Legal Notice
+            </h4>
+            <p className="font-serif text-sm text-slate-500 italic leading-relaxed">
+              UniSort is a personal project created for entertainment and
+              informational purposes only. This website is not affiliated with,
+              endorsed by, sponsored by, or connected to Ateneo de Manila
+              University, De La Salle University, University of the Philippines,
+              University of Santo Tomas, or any other educational institution
+              mentioned. All university names, logos, and trademarks are the
+              property of their respective owners.
+            </p>
           </div>
         </div>
       </div>
