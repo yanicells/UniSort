@@ -20,10 +20,10 @@ const uniFullNames = {
 };
 
 const uniImages = {
-  admu: "/ADMU.png",
-  dlsu: "/DLSU.png",
-  up: "/UP.png",
-  ust: "/UST.PNG",
+  admu: "/ADMU-pic.png",
+  dlsu: "/DLSU-pic.png",
+  up: "/UP-pic.png",
+  ust: "/UST-pic.png",
 };
 
 interface ShareableResultCardProps {

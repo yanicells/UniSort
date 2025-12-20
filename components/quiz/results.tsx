@@ -21,10 +21,10 @@ const uniFullNames = {
 };
 
 const uniImages = {
-  admu: "/ADMU.png",
-  dlsu: "/DLSU.png",
-  up: "/UP.png",
-  ust: "/UST.PNG", // Note the PNG extension case from prompt
+  admu: "/ADMU-pic.png",
+  dlsu: "/DLSU-pic.png",
+  up: "/UP-pic.png",
+  ust: "/UST-pic.png",
 };
 
 export default function Results({
