@@ -194,18 +194,52 @@ export function ShareableResultCard({
       });
 
       // Convert to blob
-      canvas.toBlob((blob) => {
+      canvas.toBlob(async (blob) => {
         if (!blob) {
           throw new Error("Failed to create image");
         }
 
+        // Detect devices
+        const userAgent = navigator.userAgent;
+        const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+        const isAndroid = /Android/i.test(userAgent);
+        const isMobile = isIOS || isAndroid;
+
+        // Create file for sharing
+        const file = new File([blob], "unisort-result.png", { type: "image/png" });
+
+        // STRATEGY: 
+        // 1. Try Native Share (Web Share API) - Best for iOS/Android
+        // 2. Fallback for Mobile (window.open) - Old method if Share fails/unsupported
+        // 3. Desktop Download - Standard anchor download
+
+        // Try Web Share API first (Best for iOS)
+        if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: "My UniSort Result",
+              text: `I got matched with ${universityName}!`,
+            });
+            setIsGenerating(false);
+            return;
+          } catch (error) {
+             // AbortError is just user cancelling the share sheet
+             if ((error as Error).name !== "AbortError") {
+               console.error("Share failed:", error);
+             } else {
+               setIsGenerating(false);
+               return; 
+             }
+             // If other error, fall through to fallback
+          }
+        }
+
         const url = URL.createObjectURL(blob);
 
-        // Detect mobile/tablet devices
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
         if (isMobile) {
-          // For mobile: Open image in new tab so user can long-press to save to photos
+          // Fallback for mobile if Web Share failed or not supported
+          // Open image in new tab so user can long-press to save to photos
           const newWindow = window.open(url, "_blank");
           if (!newWindow) {
             alert("Please allow popups to view and save the image");

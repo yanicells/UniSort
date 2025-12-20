@@ -165,7 +165,7 @@ export default function Results({
             </div>
           </div>
 
-          <div className="bg-yellow-50 border-2 border-black p-4 md:p-6 transform rotate-0 md:rotate-1 shadow-md">
+          {/* <div className="bg-yellow-50 border-2 border-black p-4 md:p-6 transform rotate-0 md:rotate-1 shadow-md">
             <h4 className="font-black uppercase text-sm md:text-base lg:text-lg mb-2 text-red-600">
               Editor&apos;s Note
             </h4>
@@ -174,7 +174,7 @@ export default function Results({
               personality traits, study habits, and social preferences. Welcome
               to your new home.&quot;
             </p>
-          </div>
+          </div> */}
 
           {/* Share Button */}
           <ShareableResultCard
