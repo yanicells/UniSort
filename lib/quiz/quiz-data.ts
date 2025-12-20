@@ -1,7 +1,7 @@
 export const questions = {
   questions: [
     {
-      section: "Academic Vibe, Learning Style & Admin Support",
+      section: "Academic Structure & Admin Support",
       question: "Your ideal learning environment includes:",
       choices: [
         {
@@ -37,7 +37,7 @@ export const questions = {
         "ADMU is famous for oral exams in Philosophy and Theology. DLSU's trimestral system creates fast-paced assessment cycles. UP emphasizes independent learning with minimal guidance. UST focuses on traditional, volume-heavy pedagogy for board exam preparation.",
     },
     {
-      section: "Academic Vibe, Learning Style & Admin Support",
+      section: "Academic Structure & Admin Support",
       question:
         'How much "hand-holding" or administrative support do you expect?',
       choices: [
@@ -67,7 +67,7 @@ export const questions = {
         'UP\'s "CRS" and admin are notoriously difficult/broken. DLSU is viewed as "getting what you pay for" in efficiency. ADMU emphasizes cura personalis (care). UST\'s admin is often viewed as repressive or bureaucratic.',
     },
     {
-      section: "Academic Vibe, Learning Style & Admin Support",
+      section: "Academic Structure & Admin Support",
       question: "When you need to enlist in classes, you prefer:",
       choices: [
         {

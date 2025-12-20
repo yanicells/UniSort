@@ -42,7 +42,7 @@ export default async function Home() {
         <header className="p-4 md:p-8 lg:p-12 text-center border-b-4 border-black relative overflow-hidden bg-white">
           <div className="flex justify-between items-center border-b-2 border-black pb-2 mb-4 md:mb-6">
             <span className="font-sans font-bold text-[10px] md:text-xs tracking-widest uppercase">
-              The Daily Sorting Hat
+              The University Sorting Hat
             </span>
             <span className="font-sans font-bold text-[10px] md:text-xs tracking-widest uppercase">
               PHP 25.00
@@ -86,7 +86,7 @@ export default async function Home() {
               </Link>
             </div>
             <p className="mt-3 md:mt-4 text-[10px] md:text-xs font-mono text-slate-400">
-              Takes about 2 minutes · No sign-up required
+              Takes about 5 minutes · No sign-up required
             </p>
           </div>
 
