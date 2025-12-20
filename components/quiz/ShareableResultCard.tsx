@@ -348,7 +348,7 @@ export function ShareableResultCard({
             style={{
               width: "100%",
               height: "500px",
-              marginBottom: "40px",
+              marginBottom: "15px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -366,7 +366,7 @@ export function ShareableResultCard({
           </div>
 
           {/* The Verdict */}
-          <div style={{ marginBottom: "0px" }}>
+          <div style={{ marginBottom: "20px" }}>
             <h3
               style={{
                 fontWeight: "900",
@@ -393,6 +393,7 @@ export function ShareableResultCard({
                 color: "#1e293b",
                 lineHeight: "1.5",
                 fontSize: "28px",
+                margin: "10px 0 0 0",
               }}
             >
               {verdict}
