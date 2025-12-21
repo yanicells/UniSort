@@ -43,14 +43,14 @@ export const questions = {
       choices: [
         {
           text: "I expect efficient systems. If I pay high tuition, I want aircon, working websites, and clear processes.",
-          admu: 6,
-          dlsu: 12,
+          admu: 8,
+          dlsu: 20,
           up: 0,
           ust: 3,
         },
         {
           text: "I expect to be cared for as a person, with accessible mental health support and guidance.",
-          admu: 17,
+          admu: 20,
           dlsu: 6,
           up: 1,
           ust: 2,
@@ -72,8 +72,8 @@ export const questions = {
       choices: [
         {
           text: "An organized system even if competitive",
-          admu: 9,
-          dlsu: 8,
+          admu: 16,
+          dlsu: 11,
           up: 0,
           ust: 5,
         },
@@ -93,8 +93,8 @@ export const questions = {
         },
         {
           text: "I can handle a chaotic, frustrating system if needed",
-          admu: 6,
-          dlsu: 6,
+          admu: 2,
+          dlsu: 2,
           up: 20,
           ust: 3,
         },
@@ -137,23 +137,23 @@ export const questions = {
       choices: [
         {
           text: "Through intellectual rigor and critical thinking",
-          admu: 14,
-          dlsu: 4,
-          up: 15,
-          ust: 4,
+          admu: 18,
+          dlsu: 2,
+          up: 20,
+          ust: 3,
         },
         {
           text: "Through volume and endurance testing",
-          admu: 2,
-          dlsu: 5,
-          up: 6,
-          ust: 18,
+          admu: 0,
+          dlsu: 4,
+          up: 2,
+          ust: 20,
         },
         {
           text: "Through speed and time management demands",
-          admu: 2,
-          dlsu: 18,
-          up: 2,
+          admu: 1,
+          dlsu: 20,
+          up: 0,
           ust: 6,
         },
         {
@@ -180,9 +180,9 @@ export const questions = {
         },
         {
           text: "Flexible/independent - I choose my own schedule and classmates, even if unpredictable or lonely",
-          admu: 10,
-          dlsu: 7,
-          up: 17,
+          admu: 8,
+          dlsu: 4,
+          up: 20,
           ust: 0,
         },
         {
@@ -210,17 +210,17 @@ export const questions = {
       choices: [
         {
           text: "Graduating on time is essential to me",
-          admu: 8,
-          dlsu: 9,
-          up: 1,
-          ust: 5,
+          admu: 12,
+          dlsu: 15,
+          up: 0,
+          ust: 6,
         },
         {
           text: "I'm okay with delays if it means better learning",
-          admu: 3,
-          dlsu: 4,
-          up: 10,
-          ust: 4,
+          admu: 4,
+          dlsu: 2,
+          up: 20,
+          ust: 3,
         },
         {
           text: "Delays would cause significant stress",
@@ -246,10 +246,10 @@ export const questions = {
         },
         {
           text: '"Chill" and inclusive - I code-switch between conyo and "kanal" humor depending on the crowd',
-          admu: 12,
-          dlsu: 10,
-          up: 6,
-          ust: 18,
+          admu: 8,
+          dlsu: 18,
+          up: 4,
+          ust: 13,
         },
         {
           text: '"Kanal," relatable, grounded humor where being "street-smart" is valued over pretense',
@@ -276,17 +276,17 @@ export const questions = {
       choices: [
         {
           text: "I prefer it; it's the language of global opportunity and academic discourse",
-          admu: 17,
-          dlsu: 15,
-          up: 6,
-          ust: 7,
+          admu: 18,
+          dlsu: 16,
+          up: 4,
+          ust: 6,
         },
         {
           text: "I'm comfortable with it, but I appreciate a campus where code-switching to Filipino is common and natural",
-          admu: 5,
-          dlsu: 10,
-          up: 17,
-          ust: 17,
+          admu: 6,
+          dlsu: 12,
+          up: 18,
+          ust: 18,
         },
         {
           text: "I'm critical of it; it can be an exclusionary barrier and undermines our national language",
@@ -327,10 +327,10 @@ export const questions = {
         },
         {
           text: "Neutral - I can adapt and find my crowd regardless of dominant class culture",
-          admu: 10,
-          dlsu: 8,
-          up: 10,
-          ust: 15,
+          admu: 7,
+          dlsu: 7,
+          up: 7,
+          ust: 7,
         },
       ],
       rationale:
@@ -380,15 +380,15 @@ export const questions = {
       choices: [
         {
           text: "Excites me - I value exclusivity and proving myself",
-          admu: 10,
-          dlsu: 12,
+          admu: 8,
+          dlsu: 10,
           up: 20,
-          ust: 14,
+          ust: 12,
         },
         {
           text: "Intimidates me - I prefer easier, more welcoming entry",
-          admu: 15,
-          dlsu: 7,
+          admu: 18,
+          dlsu: 9,
           up: 0,
           ust: 5,
         },
@@ -410,10 +410,10 @@ export const questions = {
       choices: [
         {
           text: "Professional training ground - highly structured, corporate simulation for resume building",
-          admu: 15,
-          dlsu: 18,
-          up: 1,
-          ust: 5,
+          admu: 16,
+          dlsu: 20,
+          up: 0,
+          ust: 4,
         },
         {
           text: "Political/advocacy platform - service-oriented, expected to take stands on national issues",
@@ -424,8 +424,8 @@ export const questions = {
         },
         {
           text: "Family-like brotherhood/sisterhood - hard to get into, provides lifelong bonds and academic survival support",
-          admu: 15,
-          dlsu: 6,
+          admu: 10,
+          dlsu: 4,
           up: 20,
           ust: 18,
         },
@@ -454,9 +454,9 @@ export const questions = {
         },
         {
           text: "I prefer authentic connections over transactional networking",
-          admu: 14,
-          dlsu: 8,
-          up: 14,
+          admu: 9,
+          dlsu: 4,
+          up: 18,
           ust: 15,
         },
         {
@@ -599,10 +599,10 @@ export const questions = {
         },
         {
           text: "Moderate - I can commute and adapt but prefer some safety and structure",
-          admu: 10,
-          dlsu: 12,
-          up: 12,
-          ust: 14,
+          admu: 8,
+          dlsu: 10,
+          up: 10,
+          ust: 12,
         },
       ],
       rationale:
@@ -650,10 +650,10 @@ export const questions = {
         },
         {
           text: "Harassment (sexual or otherwise) from within the university community (peers, professors)",
-          admu: 14,
-          dlsu: 10,
-          up: 14,
-          ust: 10,
+          admu: 16,
+          dlsu: 8,
+          up: 12,
+          ust: 8,
         },
         {
           text: "Overly repressive security or administration that polices student behavior and expression",
@@ -665,8 +665,8 @@ export const questions = {
         {
           text: "Navigating natural elements like flooding or extreme heat during commutes",
           admu: 2,
-          dlsu: 6,
-          up: 10,
+          dlsu: 5,
+          up: 8,
           ust: 20,
         },
       ],
@@ -718,9 +718,9 @@ export const questions = {
         {
           text: "To become an articulate, well-rounded leader with strong moral compass and philosophical depth",
           admu: 20,
-          dlsu: 8,
-          up: 10,
-          ust: 12,
+          dlsu: 6,
+          up: 8,
+          ust: 10,
         },
         {
           text: "To become a critical, independent thinker unafraid to challenge systems and authority",
@@ -746,43 +746,6 @@ export const questions = {
       ],
       rationale:
         'ADMU\'s "Philosopher-King" (holistic formation via Core Curriculum). UP\'s "Activist-Intellectual" (independent critical thinking). DLSU\'s "Corporate Achiever" (efficiency and professional networking). UST\'s "Resilient Soldier" (survival through volume and endurance). Each university\'s culture primes students for distinct formation.',
-    },
-    {
-      section: "Values, Religion & Personal Growth",
-      question:
-        "How much do you value university prestige, rankings, and school pride?",
-      choices: [
-        {
-          text: "Immensely - I want the social capital of a top-tier institution and will proudly defend my school",
-          admu: 18,
-          dlsu: 14,
-          up: 18,
-          ust: 16,
-        },
-        {
-          text: "Important for program reputation - I value specific strengths of my chosen field over general rankings",
-          admu: 14,
-          dlsu: 18,
-          up: 18,
-          ust: 18,
-        },
-        {
-          text: "Moderate - I'm proud but critical of flaws; I'm skeptical of prestige culture and prefer authentic community",
-          admu: 12,
-          dlsu: 10,
-          up: 14,
-          ust: 10,
-        },
-        {
-          text: "Low priority - I'm here for the degree and personal growth, not the brand name or mascot",
-          admu: 4,
-          dlsu: 4,
-          up: 6,
-          ust: 4,
-        },
-      ],
-      rationale:
-        'ADMU\'s elite reputation is pronounced with strong school pride. DLSU emphasizes program-specific excellence and corporate networking value. UP combines "Iskolar ng Bayan" identity with fierce UAAP pride despite skepticism of elitism. UST has "defensive pride" (students defend school fiercely despite admin issues) and internal prestige through survival. All Big 4 have strong school spirit, but approaches to prestige differ - ADMU/DLSU embrace it, UP critiques it while still proud, UST earns it through endurance.',
     },
     {
       section: "Values, Religion & Personal Growth",
@@ -870,10 +833,10 @@ export const questions = {
         },
         {
           text: "Important but I can navigate less progressive spaces if the student body is tolerant",
-          admu: 12,
-          dlsu: 14,
-          up: 14,
-          ust: 14,
+          admu: 10,
+          dlsu: 12,
+          up: 12,
+          ust: 12,
         },
         {
           text: "Not a major factor in my decision",
