@@ -74,6 +74,33 @@ export default function Results({
   const recommendedUniversity =
     uniFullNames[topMatch.uni as keyof typeof uniFullNames];
 
+  // Logic for Category Champions
+  const categoryChampions = useMemo(() => {
+    if (!breakdown) return [];
+    
+    const categories = Object.keys(breakdown.admu.categories.reduce((acc, curr) => ({ ...acc, [curr.category]: true }), {}));
+    
+    return (categories as any[]).map(catName => {
+      let bestUni = "admu" as University;
+      let maxPercent = -1;
+      
+      (["admu", "dlsu", "up", "ust"] as University[]).forEach(uni => {
+        const cat = breakdown[uni]?.categories.find(c => c.category === catName);
+        if (cat && cat.percentage > maxPercent) {
+          maxPercent = cat.percentage;
+          bestUni = uni;
+        }
+      });
+      
+      return {
+        category: catName,
+        university: bestUni,
+        percentage: maxPercent,
+        status: breakdown[bestUni]?.categories.find(c => c.category === catName)?.status || ""
+      };
+    });
+  }, [breakdown]);
+
   const getFeedbackText = (
     uni: string,
     percentage: number,
@@ -207,6 +234,45 @@ export default function Results({
           />
         </div>
       </section>
+
+      {/* Category Champions Summary */}
+      {breakdown && categoryChampions.length > 0 && (
+        <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12 bg-slate-50/50 p-4 md:p-8">
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8">
+            <h3 className="font-black uppercase text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-tight">
+              Best Fit Per Dimension
+            </h3>
+            <div className="h-1 flex-1 bg-black"></div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {categoryChampions.map((champ) => (
+              <div
+                key={champ.category}
+                className="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center text-center space-y-2 md:space-y-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform"
+              >
+                <div className="text-[10px] md:text-xs font-black uppercase text-slate-500 min-h-[2.5em] flex items-center">
+                  {champ.category}
+                </div>
+                <div 
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-black flex items-center justify-center font-black text-xs md:text-sm text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                  style={{ backgroundColor: uniColors[champ.university as keyof typeof uniColors] }}
+                >
+                  {champ.university.toUpperCase()}
+                </div>
+                <div className="space-y-0.5">
+                  <div className="font-black text-sm md:text-base">
+                    {champ.percentage}%
+                  </div>
+                  <div className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase leading-tight">
+                    {champ.status}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Other Headlines - Non-Winners */}
       <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12">
