@@ -14,5 +14,3 @@ Frontend
 
 vercel analytics
 double check all content + readme and about page
-
-double check the point distributions since its very evenly distributed, so you can't really like pull away with a certain answer
