@@ -42,7 +42,8 @@ export default function QuizView({
       if (saved) {
          try {
            const parsed = JSON.parse(saved);
-           if (parsed && parsed.scores) {
+           // Only restore if the names match
+           if (parsed && parsed.scores && parsed.name === name) {
              setScore(parsed.scores);
              setQuizCompleted(true);
            }
@@ -292,6 +293,7 @@ export default function QuizView({
                 setCurrentQuestionIndex(0);
                 setAnswers(Array(questions.questions.length).fill(null));
                 setScore({ admu: 0, dlsu: 0, up: 0, ust: 0 });
+                onBackAction();
               }}
             />
         </div>

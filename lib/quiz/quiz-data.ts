@@ -790,8 +790,8 @@ export const questions = {
       choices: [
         {
           text: "Non-negotiable. I need absolute freedom to wear what I want and express my identity.",
-          admu: 10,
-          dlsu: 8,
+          admu: 16,
+          dlsu: 12,
           up: 20,
           ust: 0,
         },
