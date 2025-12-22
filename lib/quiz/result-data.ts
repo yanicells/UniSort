@@ -14,58 +14,68 @@ export const universityFeedback: Record<string, UniversityResultData> = {
     ranges: [
       {
         min: 0,
-        max: 5,
-        text: "You completely crumble under Ateneo's QPI system and oral exams terrify you. The conyo social culture would isolate you from day one.",
-      },
-      {
-        min: 5,
-        max: 10,
-        text: "You find the Core Curriculum way too demanding for your style. The elite social codes and networking expectations alienate you.",
-      },
-      {
-        min: 10,
-        max: 15,
-        text: "You get exhausted quickly by the humanities gauntlet and constant requirements. Org culture and hierarchies intimidate you too much.",
-      },
-      {
-        min: 15,
         max: 20,
-        text: "You manage the structured classes decently but social gatekeeping drains your energy. The pressure to fit into elite circles stresses you out.",
+        text: "You completely crumble under QPI pressure and oral exam culture. The conyo bubble would isolate you instantly and drain your energy.",
       },
       {
         min: 20,
-        max: 25,
-        text: "You handle some of the academic rigor but conyo divides frustrate you constantly. You feel caught between different school cultures that don't quite fit.",
-      },
-      {
-        min: 25,
         max: 30,
-        text: "You're confused by SOSE versus SOM dynamics and which path suits you. Katipunan costs and the Loyola Heights lifestyle hurt your wallet.",
+        text: "You find Core Curriculum requirements overwhelming and exhausting. Elite social hierarchies and networking expectations alienate you from the start.",
       },
       {
         min: 30,
         max: 35,
-        text: "You appreciate the guided learning approach and structured academics. You're still adjusting to the elite atmosphere but making progress.",
+        text: "The Philosophy oral exams stress you out way too much. You struggle badly with the articulate generalist expectations and constant reflection.",
       },
       {
         min: 35,
         max: 40,
-        text: "You're getting noticeably better at oral exams each term. Your social navigation skills improve with each semester and org involvement.",
+        text: "You get drained by org professionalism and corporate simulation culture. Katipunan costs and Loyola Heights lifestyle hurt your budget significantly.",
       },
       {
         min: 40,
+        max: 45,
+        text: "You handle structured academics okay but feel pressure constantly. The SOSE versus SOM divide confuses you and elite gatekeeping wears you down.",
+      },
+      {
+        min: 45,
         max: 50,
-        text: "You genuinely connect with cura personalis and the personal growth focus. You actually enjoy theology discussions and Jesuit-guided reflection.",
+        text: "You manage the guided rigor decently but conyo divides frustrate you. Social chameleon behavior exhausts you more than it helps you fit in.",
       },
       {
         min: 50,
+        max: 55,
+        text: "You appreciate cura personalis support when you need it. However, you still feel caught between different social circles that don't quite click.",
+      },
+      {
+        min: 55,
+        max: 60,
+        text: "You're adjusting to the Atenean accent and intellectual discourse style. The green campus sanctuary helps you decompress during heavy academic weeks.",
+      },
+      {
+        min: 60,
         max: 65,
-        text: "You thrive under QPI pressure and use it as motivation. The campus greenery and Katipunan sanctuary help you focus during intense periods.",
+        text: "You're getting better at oral synthesis and defending ideas verbally. Your navigation of the social landscape improves with each semester.",
       },
       {
         min: 65,
+        max: 70,
+        text: "You genuinely appreciate Jesuit formation and guided reflection now. Theology discussions actually engage you instead of feeling like pure requirements.",
+      },
+      {
+        min: 70,
+        max: 80,
+        text: "You thrive under the articulate generalist curriculum and formation. QPI pressure motivates you rather than breaks you down over time.",
+      },
+      {
+        min: 80,
+        max: 90,
+        text: "You excel at oral exams and find them intellectually stimulating. The Katipunan bubble becomes your productive sanctuary during intense academic periods.",
+      },
+      {
+        min: 90,
         max: 101,
-        text: "You excel at oral synthesis and articulating complex ideas under pressure. Jesuit values and Magis mentality resonate deeply with your worldview.",
+        text: "You embody the Atenean Philosopher-King ideal completely. Magis mentality and cura personalis define how you approach growth and leadership naturally.",
       },
     ],
   },
@@ -75,58 +85,68 @@ export const universityFeedback: Record<string, UniversityResultData> = {
     ranges: [
       {
         min: 0,
-        max: 5,
-        text: "You get absolutely crushed by the trimestral sprint and can't keep up. Elevator wars and facility congestion stress you out every single day.",
-      },
-      {
-        min: 5,
-        max: 10,
-        text: "You can't maintain the pace of 14-week terms at all. Taft's safety issues and urban chaos scare you constantly.",
-      },
-      {
-        min: 10,
-        max: 15,
-        text: "You're terrified by CCS mortality rates and dropout statistics. The lack of semester breaks exhausts you with no recovery time.",
-      },
-      {
-        min: 15,
         max: 20,
-        text: "You struggle hard with the corporate pace and competitive environment. Happy Thursday relief isn't enough to offset your weekly stress.",
+        text: "You get absolutely crushed by trimester sprints and can't recover. Fourteen weeks of hell with no semester breaks destroys your work-life balance.",
       },
       {
         min: 20,
-        max: 25,
-        text: "You like the modern facilities and infrastructure. However, green exclusivity and subtle hierarchies feel weird and uncomfortable to you.",
-      },
-      {
-        min: 25,
         max: 30,
-        text: "You genuinely enjoy Agno food and the dining options. The trimestral system still overwhelms you despite small comforts.",
+        text: "You struggle badly with the relentless academic pace and pressure. Elevator wars and facility congestion stress you out every single day.",
       },
       {
         min: 30,
         max: 35,
-        text: "You're slowly improving your time management and efficiency skills. Condo culture and the independent lifestyle work decently for you.",
+        text: "CCS mortality rates and dropout statistics terrify you constantly. The corporate simulation culture feels fake and exhausting to maintain daily.",
       },
       {
         min: 35,
         max: 40,
-        text: "You're catching the work-hard-play-hard rhythm that defines Lasallian life. The pace feels more manageable as you adapt your systems.",
+        text: "You can't keep up with the efficiency demands at all. Taft safety issues and urban chaos drain your mental energy significantly.",
       },
       {
         min: 40,
+        max: 45,
+        text: "You appreciate modern facilities but the pace still overwhelms you. Happy Thursday culture doesn't offset your weekly stress and burnout levels.",
+      },
+      {
+        min: 45,
         max: 50,
-        text: "You find Henry Sy libraries genuinely helpful for your productivity. Animo energy starts building in you through org involvement and events.",
+        text: "You enjoy Agno food and dining convenience genuinely. However, the trimestral grind still pushes you past your comfortable limits regularly.",
       },
       {
         min: 50,
+        max: 55,
+        text: "You're slowly adapting your time management and workflow systems. Condo culture and independent lifestyle start working decently for your needs.",
+      },
+      {
+        min: 55,
+        max: 60,
+        text: "You're catching the work-hard-play-hard Lasallian rhythm gradually. The fourteen-week sprint feels more manageable with each passing term.",
+      },
+      {
+        min: 60,
         max: 65,
-        text: "You've completely locked into the trimestral rhythm and workflow. Corporate simulations and business training feel natural to your skillset.",
+        text: "You find Henry Sy libraries genuinely boost your productivity. Green Archers energy and Animo spirit start building naturally through involvement.",
       },
       {
         min: 65,
+        max: 70,
+        text: "You've locked into the trimestral pace and workflow completely. Corporate simulation training feels natural and aligned with your career goals.",
+      },
+      {
+        min: 70,
+        max: 80,
+        text: "You thrive under efficiency pressure and time management demands. The infrastructure and facilities actively elevate your academic performance consistently.",
+      },
+      {
+        min: 80,
+        max: 90,
+        text: "You dominate the trimester system and turn sprints into wins. Happy Thursday culture and networking opportunities fuel your professional development.",
+      },
+      {
+        min: 90,
         max: 101,
-        text: "You run like a well-oiled efficiency machine. The facilities and infrastructure actively elevate your performance and output.",
+        text: "You run like a perfectly optimized efficiency machine daily. The Corporate Achiever identity and pragmatic hustle define your Lasallian experience naturally.",
       },
     ],
   },
@@ -136,58 +156,68 @@ export const universityFeedback: Record<string, UniversityResultData> = {
     ranges: [
       {
         min: 0,
-        max: 5,
-        text: "You break down completely during CRS enlistment hell. You don't have the raw grit needed to survive terror professors.",
-      },
-      {
-        min: 5,
-        max: 10,
-        text: "You feel deeply humiliated begging professors for prerog slots. Burgis versus scholarship tensions drain you emotionally every day.",
-      },
-      {
-        min: 10,
-        max: 15,
-        text: "You get traumatized by intense org application processes and hazing culture. The level of activism and political engagement completely overwhelms you.",
-      },
-      {
-        min: 15,
         max: 20,
-        text: "You struggle badly with the independent learning requirements. Daily jeepney delays and commute issues ruin your schedule and mood.",
+        text: "You break down completely during CRS hell and enlistment chaos. You lack the raw grit needed to survive terror professors and administrative dysfunction.",
       },
       {
         min: 20,
-        max: 25,
-        text: "You bond okay with Area 2 friends and find some community. The enlistment lottery system still feels deeply unfair to you.",
-      },
-      {
-        min: 25,
         max: 30,
-        text: "You use some diskarte strategies to survive and get by. Red-tagging concerns and political tensions worry you significantly.",
+        text: "You feel deeply humiliated begging for prerog slots repeatedly. Burgis tensions and scholarship dynamics drain you emotionally every single day.",
       },
       {
         min: 30,
         max: 35,
-        text: "You experience trauma bonding with batchmates that actually works for you. Your resilience grows through shared struggles and collective support.",
+        text: "Intense org apps and hazing culture traumatize you badly. The level of activism and political engagement completely overwhelms your comfort zone.",
       },
       {
         min: 35,
         max: 40,
-        text: "You question systems and structures naturally without fear. You handle professor roulette and academic uncertainty without panicking.",
+        text: "You struggle badly with sink-or-swim independent learning expectations. Daily commute delays and jeepney chaos ruin your schedule and mood.",
       },
       {
         min: 40,
+        max: 45,
+        text: "You find some community with Area 2 friends slowly. However, the enlistment lottery system still feels deeply unfair and demoralizing.",
+      },
+      {
+        min: 45,
         max: 50,
-        text: "You participate in Grandstand rallies and activism comfortably. Sink-or-swim culture becomes manageable as your grit develops.",
+        text: "You learn basic diskarte strategies to survive and get by. Red-tagging concerns and political tensions worry you more than you expected.",
       },
       {
         min: 50,
+        max: 55,
+        text: "You experience real trauma bonding with batchmates that works. Your resilience grows through shared struggles and collective survival support.",
+      },
+      {
+        min: 55,
+        max: 60,
+        text: "You question systems naturally without fear or hesitation now. Professor roulette and academic uncertainty don't panic you like before.",
+      },
+      {
+        min: 60,
         max: 65,
-        text: "You feel genuinely motivated by taxpayer duty and public service. Your raw grit and resilience clearly emerge as defining traits.",
+        text: "You participate in Grandstand rallies and activism comfortably. The beautiful ruins aesthetic and open campus culture feel right to you.",
       },
       {
         min: 65,
+        max: 70,
+        text: "You feel genuinely motivated by Iskolar ng Bayan responsibility. Sink-or-swim culture becomes manageable as your grit solidifies completely.",
+      },
+      {
+        min: 70,
+        max: 80,
+        text: "You thrive on terror prof challenges and academic freedom. Taxpayer duty and public service drive your purpose and motivation daily.",
+      },
+      {
+        min: 80,
+        max: 90,
+        text: "You lead org initiatives effectively and embrace leadership naturally. Your diskarte skills and resilience become your greatest competitive advantages.",
+      },
+      {
+        min: 90,
         max: 101,
-        text: "You lead org initiatives effectively and embrace leadership challenges. Your resilience becomes your greatest strength in UP's environment.",
+        text: "You embody the Activist-Intellectual archetype perfectly. Raw grit and critical thinking define your UP identity and worldview completely.",
       },
     ],
   },
@@ -197,58 +227,68 @@ export const universityFeedback: Record<string, UniversityResultData> = {
     ranges: [
       {
         min: 0,
-        max: 5,
-        text: "You get completely destroyed by rigid 7-7 block schedules. Debarment warnings and academic probation terrify you constantly.",
-      },
-      {
-        min: 5,
-        max: 10,
-        text: "You find volume-heavy exams impossible to manage or study for. OSA rules and administrative strictness suffocate your freedom.",
-      },
-      {
-        min: 10,
-        max: 15,
-        text: "You're constantly annoyed by mandatory uniform policies. España floods disrupt your routine and commute regularly.",
-      },
-      {
-        min: 15,
         max: 20,
-        text: "You feel absolutely crushed by FOP/AMV workload requirements. You have zero work-life balance and burnout hits hard.",
+        text: "You get completely destroyed by rigid block schedules daily. Debarment warnings and academic probation terrify you from the very start.",
       },
       {
         min: 20,
-        max: 25,
-        text: "You genuinely love Dapitan food and the affordable dining scene. The brutal 7-7 schedules still feel overwhelming despite this comfort.",
-      },
-      {
-        min: 25,
         max: 30,
-        text: "You get valuable help and support from your blockmates. However, terror professors and volume exams still push you past your limits.",
+        text: "You find volume-heavy exams impossible to manage effectively. OSA rules and administrative strictness suffocate your personal freedom constantly.",
       },
       {
         min: 30,
         max: 35,
-        text: "You find that Paskuhan celebrations redeem some of your academic suffering. The lights and festivities give you something to look forward to.",
+        text: "Mandatory uniform policies annoy you every single day. España floods and Waterworld chaos disrupt your routine and commute regularly.",
       },
       {
         min: 35,
         max: 40,
-        text: "You start experiencing real trauma bonding with your block. Your endurance builds steadily through shared struggles and support.",
+        text: "You feel crushed by FOP and AMV workload demands. You have zero work-life balance and burnout hits you harder than expected.",
       },
       {
         min: 40,
+        max: 45,
+        text: "You genuinely love Dapitan food and affordable dining options. However, brutal schedules and volume still feel overwhelming despite this comfort.",
+      },
+      {
+        min: 45,
         max: 50,
-        text: "You handle Summer Capital quirks and España chaos just fine. Kanal humor and UST memes match your communication style perfectly.",
+        text: "You get valuable support and help from your blockmates. Terror profs and memorization requirements still push you past your limits.",
       },
       {
         min: 50,
+        max: 55,
+        text: "Paskuhan celebrations redeem some of your academic suffering genuinely. The lights and tradition give you something meaningful to anticipate.",
+      },
+      {
+        min: 55,
+        max: 60,
+        text: "You experience real trauma bonding with your block section. Your endurance builds steadily through shared struggles and collective support.",
+      },
+      {
+        min: 60,
         max: 65,
-        text: "You manage volume workload effectively with good systems. Your block loyalty becomes unbreakable through thick and thin.",
+        text: "You handle Summer Capital quirks and España chaos just fine. Kanal humor and relatable UST culture match your style perfectly.",
       },
       {
         min: 65,
+        max: 70,
+        text: "You manage volume workload effectively with solid systems now. Your block loyalty becomes unbreakable through thick and thin.",
+      },
+      {
+        min: 70,
+        max: 80,
+        text: "You thrive under debarment pressure and use it as fuel. Board exam preparation culture and volume training strengthen your endurance.",
+      },
+      {
+        min: 80,
+        max: 90,
+        text: "You dominate the grind and turn suffering into success. USTe rhythm and Thomasian spirit flow naturally through your identity daily.",
+      },
+      {
+        min: 90,
         max: 101,
-        text: "You feel actively motivated by debarment pressure to push harder. USTe rhythm and Go USTe spirit flow naturally through you.",
+        text: "You embody the Resilient Soldier archetype completely. Block loyalty and endurance define your Thomasian experience and character naturally.",
       },
     ],
   },
