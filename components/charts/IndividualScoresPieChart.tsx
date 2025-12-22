@@ -63,7 +63,7 @@ export function IndividualScoresPieChart({
         value: percentages.ust,
         fill: chartConfig.ust.color,
       },
-    ];
+    ].sort((a, b) => b.value - a.value);
   }, [percentages]);
 
   const maxPercentage = useMemo(() => {
@@ -88,6 +88,8 @@ export function IndividualScoresPieChart({
           innerRadius="45%"
           outerRadius="80%"
           strokeWidth={2}
+          startAngle={90}
+          endAngle={-270}
         >
           <RechartsPrimitive.Label
             content={({ viewBox }) => {
