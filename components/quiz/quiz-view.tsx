@@ -5,6 +5,8 @@ import { MAX_SCORES } from "@/lib/quiz/quiz-constants";
 import { useMemo, useState, useEffect } from "react";
 import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
+import { calculateDetailedScores, UniversityDetailedScore } from "@/lib/quiz/scoring";
+import { University } from "@/lib/quiz/quiz-constants";
 import {
   Dialog,
   DialogContent,
@@ -35,6 +37,7 @@ export default function QuizView({
     up: number;
     ust: number;
   }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
+  const [breakdown, setBreakdown] = useState<Record<University, UniversityDetailedScore> | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("uniSortQuizResult");
@@ -43,6 +46,9 @@ export default function QuizView({
          const parsed = JSON.parse(saved);
          if (parsed && parsed.scores) {
            setScore(parsed.scores);
+           if (parsed.breakdown) {
+             setBreakdown(parsed.breakdown);
+           }
            setQuizCompleted(true);
          }
        } catch (e) {
@@ -115,30 +121,24 @@ export default function QuizView({
       if (currentQuestionIndex < questions.questions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       } else {
-        // Quiz completed - calculate final scores
-        const finalScore = { admu: 0, dlsu: 0, up: 0, ust: 0 };
+        const detailedBreakdown = calculateDetailedScores(answers);
+        setBreakdown(detailedBreakdown);
 
-        answers.forEach((answer, index) => {
-          if (answer) {
-            const question = questions.questions[index];
-            const choice = question.choices.find((c) => c.text === answer);
-            if (choice) {
-              finalScore.admu += choice.admu;
-              finalScore.dlsu += choice.dlsu;
-              finalScore.up += choice.up;
-              finalScore.ust += choice.ust;
-            }
-          }
-        });
-
+        // Update total scores state
+        const finalScore = {
+          admu: detailedBreakdown.admu.totalScore,
+          dlsu: detailedBreakdown.dlsu.totalScore,
+          up: detailedBreakdown.up.totalScore,
+          ust: detailedBreakdown.ust.totalScore,
+        };
         setScore(finalScore);
 
-        // Determine top match based on PERCENTAGE relative to MAX SCORE
+        // Determine top match based on PERCENTAGE relative to DYNAMIC MAX SCORE
         const percentages = {
-          admu: finalScore.admu / MAX_SCORES.admu,
-          dlsu: finalScore.dlsu / MAX_SCORES.dlsu,
-          up: finalScore.up / MAX_SCORES.up,
-          ust: finalScore.ust / MAX_SCORES.ust,
+          admu: detailedBreakdown.admu.totalScore / detailedBreakdown.admu.totalMaxScore,
+          dlsu: detailedBreakdown.dlsu.totalScore / detailedBreakdown.dlsu.totalMaxScore,
+          up: detailedBreakdown.up.totalScore / detailedBreakdown.up.totalMaxScore,
+          ust: detailedBreakdown.ust.totalScore / detailedBreakdown.ust.totalMaxScore,
         };
 
         const topMatch = Object.entries(percentages).reduce((a, b) =>
@@ -155,6 +155,7 @@ export default function QuizView({
             JSON.stringify({
               name: username,
               scores: finalScore,
+              breakdown: detailedBreakdown,
               completedAt: new Date().toISOString(),
             })
           );
@@ -281,6 +282,7 @@ export default function QuizView({
         <div className="relative bg-white shadow-2xl border-2 md:border-4 border-black p-4 md:p-6 lg:p-8">
             <Results 
               score={score} 
+              breakdown={breakdown}
               name={username} 
               onRetake={() => {
                 if (typeof window !== "undefined") {

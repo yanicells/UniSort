@@ -5,7 +5,8 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { universityFeedback } from "@/lib/quiz/result-data";
 import { ShareableResultCard } from "./ShareableResultCard";
-import { MAX_SCORES } from "@/lib/quiz/quiz-constants";
+import { MAX_SCORES, University } from "@/lib/quiz/quiz-constants";
+import { UniversityDetailedScore } from "@/lib/quiz/scoring";
 
 const uniColors = {
   admu: "#0033A0",
@@ -30,24 +31,34 @@ const uniImages = {
 
 export default function Results({
   score,
+  breakdown,
   name,
   onRetake,
 }: {
   score: { admu: number; dlsu: number; up: number; ust: number };
+  breakdown?: Record<University, UniversityDetailedScore> | null;
   name: string;
   onRetake: () => void;
 }) {
 
 
-  const percentages = useMemo(
-    () => ({
+  const percentages = useMemo(() => {
+    if (breakdown) {
+      return {
+        admu: breakdown.admu.totalMaxScore > 0 ? Math.round((breakdown.admu.totalScore / breakdown.admu.totalMaxScore) * 100) : 0,
+        dlsu: breakdown.dlsu.totalMaxScore > 0 ? Math.round((breakdown.dlsu.totalScore / breakdown.dlsu.totalMaxScore) * 100) : 0,
+        up: breakdown.up.totalMaxScore > 0 ? Math.round((breakdown.up.totalScore / breakdown.up.totalMaxScore) * 100) : 0,
+        ust: breakdown.ust.totalMaxScore > 0 ? Math.round((breakdown.ust.totalScore / breakdown.ust.totalMaxScore) * 100) : 0,
+      };
+    }
+
+    return {
       admu: Math.round((score.admu / MAX_SCORES.admu) * 100),
       dlsu: Math.round((score.dlsu / MAX_SCORES.dlsu) * 100),
       up: Math.round((score.up / MAX_SCORES.up) * 100),
       ust: Math.round((score.ust / MAX_SCORES.ust) * 100),
-    }),
-    [score]
-  );
+    };
+  }, [score, breakdown]);
 
   const sortedScores = useMemo(() => {
     return [
@@ -232,6 +243,66 @@ export default function Results({
           ))}
         </div>
       </section>
+
+      {/* Category Breakdown Analysis */}
+      {breakdown && breakdown[topMatch.uni as University] && (
+        <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12">
+          <div className="flex items-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8">
+            <h3 className="font-black uppercase text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-tight">
+              Category Analysis
+            </h3>
+            <div className="h-1 flex-1 bg-black"></div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+            {breakdown[topMatch.uni as University].categories.map((cat) => (
+              <div
+                key={cat.category}
+                className="bg-slate-50 border-2 border-black p-4 md:p-6 space-y-3 md:space-y-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-black uppercase text-sm md:text-base">
+                      {cat.category}
+                    </h4>
+                    <span className="text-[10px] md:text-xs font-mono text-slate-500 uppercase">
+                      {cat.status}
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span
+                      className="text-xl md:text-2xl font-black"
+                      style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
+                    >
+                      {cat.percentage}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <div className="h-3 md:h-4 bg-white border border-black overflow-hidden relative">
+                    <div
+                      className="h-full transition-all duration-1000"
+                      style={{
+                        width: `${cat.percentage}%`,
+                        backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between text-[9px] md:text-[10px] font-bold uppercase tracking-tighter text-slate-400">
+                    <span>Baseline</span>
+                    <span>Points: {cat.score} / {cat.maxScore}</span>
+                    <span>Ideal</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 md:mt-8 p-4 bg-yellow-50 border-2 border-black italic font-serif text-xs md:text-sm text-center">
+            &quot;This breakdown shows how well you align with {uniFullNames[topMatch.uni as keyof typeof uniFullNames]} across specific cultural and academic dimensions.&quot;
+          </div>
+        </section>
+      )}
 
       {/* Action Bar */}
       <section className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center pt-8 md:pt-12 pb-6 md:pb-8 border-t border-slate-200 mt-8 md:mt-12">
