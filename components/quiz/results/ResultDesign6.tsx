@@ -57,20 +57,20 @@ export default function ResultDesign6({
     : `${name}, welcome to ${recommendedUniversity}!`;
 
   return (
-    <div className="space-y-16 max-w-6xl mx-auto py-12 px-6 bg-white">
+    <div className="space-y-8 md:space-y-16 max-w-6xl mx-auto py-6 md:py-12 px-4 sm:px-6 bg-white">
       {/* 1. Hero Section */}
-      <section className="text-center space-y-6">
-        <div className="inline-flex items-center gap-2 bg-black text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest">
-           <Star className="w-3 h-3 fill-current" />
+      <section className="text-center space-y-4 md:space-y-6">
+        <div className="inline-flex items-center gap-2 bg-black text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-full font-bold text-[10px] sm:text-xs uppercase tracking-widest">
+           <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
            Official Result
         </div>
         
         <div className="space-y-2">
-           <h1 className="text-xl md:text-2xl font-black uppercase tracking-widest text-slate-500 mb-2">
+           <h1 className="text-sm sm:text-lg md:text-2xl font-black uppercase tracking-widest text-slate-500 mb-2">
              Congratulations! Welcome to
            </h1>
            <p 
-             className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none"
+             className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-none px-2"
              style={{ color: uniColors[topMatch.uni as keyof typeof uniColors]}}
            >
              {recommendedUniversity}
@@ -79,16 +79,16 @@ export default function ResultDesign6({
       </section>
 
       {/* 2. Main Result Card */}
-      <section className="grid lg:grid-cols-12 gap-8 items-start">
+      <section className="grid lg:grid-cols-12 gap-4 md:gap-8 items-start">
         {/* Main Visual */}
         <div 
-          className="lg:col-span-7 rounded-3xl p-8 border-2"
+          className="lg:col-span-7 rounded-2xl md:rounded-3xl p-4 sm:p-6 md:p-8 border-2"
           style={{ 
             backgroundColor: uniLightColors[topMatch.uni as keyof typeof uniLightColors],
             borderColor: uniColors[topMatch.uni as keyof typeof uniColors] + "20" // 20% opacity border
           }}
         >
-          <div className="relative aspect-[4/3] w-full mb-8">
+          <div className="relative aspect-[4/3] w-full mb-4">
             <Image
               src={uniImages[topMatch.uni as keyof typeof uniImages]}
               alt={recommendedUniversity}
@@ -97,29 +97,29 @@ export default function ResultDesign6({
             />
           </div>
           
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 border-b-2 border-black/5 pb-6 mb-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex items-center gap-3 md:gap-4 border-b-2 border-black/5 pb-4 md:pb-6 mb-4 md:mb-6">
                {/* Verdict Header - No Background */}
                <div>
-                  <h2 className="text-2xl font-black uppercase">The Verdict</h2>
-                  <div className="h-1 w-12 rounded-full mt-1" style={{ backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors]}} />
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-black uppercase">The Verdict</h2>
+                  <div className="h-1 w-8 sm:w-12 rounded-full mt-1" style={{ backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors]}} />
                </div>
-               <div className="ml-auto text-5xl font-black" style={{ color: uniColors[topMatch.uni as keyof typeof uniColors]}}>
+               <div className="ml-auto text-2xl sm:text-3xl md:text-4xl font-black" style={{ color: uniColors[topMatch.uni as keyof typeof uniColors]}}>
                   {topMatch.percentage}%
                </div>
             </div>
             
-            <p className="text-lg md:text-xl text-slate-900 leading-relaxed font-serif font-medium">
+            <p className="text-sm sm:text-base md:text-lg text-slate-900 leading-relaxed font-serif font-medium">
               {getFeedbackText(topMatch.uni, topMatch.percentage, true)}
             </p>
           </div>
         </div>
 
         {/* Sidebar Stats */}
-        <div className="lg:col-span-5 space-y-8">
-          <div className="bg-white rounded-3xl border-2 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-             <h3 className="flex items-center gap-2 font-black uppercase text-lg mb-6">
-                <BarChart3 className="w-5 h-5" />
+        <div className="lg:col-span-5 space-y-4 md:space-y-8">
+          <div className="bg-white rounded-2xl md:rounded-3xl border-2 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+             <h3 className="flex items-center gap-2 font-black uppercase text-base sm:text-lg mb-4 md:mb-6">
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
                 By The Numbers
              </h3>
              <div className="aspect-square w-full sm:w-3/4 mx-auto mb-6">
@@ -162,78 +162,108 @@ export default function ResultDesign6({
 
       {/* 3. IMPROVED: Best Fit Per Dimension */}
       {breakdown && categoryChampions.length > 0 && (
-        <section className="py-12 border-t border-slate-200">
-           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+        <section className="py-8 md:py-12 border-t border-slate-200">
+           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-4 mb-6 md:mb-10">
               <div className="space-y-1">
-                 <h2 className="text-3xl font-black uppercase tracking-tight flex items-center gap-3">
-                    <Award className="w-8 h-8" />
+                 <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight flex items-center gap-2 md:gap-3">
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
                     Best Fit Per Dimension
                  </h2>
-                 <p className="text-slate-500">Which university claimed the top spot in each category?</p>
+                 <p className="text-sm md:text-base text-slate-500">Which university claimed the top spot in each category?</p>
               </div>
            </div>
 
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
               {categoryChampions.map((champ) => (
                  <div 
                     key={champ.category}
-                    className="relative group bg-white rounded-2xl p-6 border-2 transition-all hover:-translate-y-1 hover:shadow-lg"
+                    className="relative group bg-white rounded-xl md:rounded-2xl p-4 sm:p-6 border-2 transition-all hover:-translate-y-1 hover:shadow-lg"
                     style={{ 
                        borderColor: uniColors[champ.university as keyof typeof uniColors],
                        backgroundColor: uniLightColors[champ.university as keyof typeof uniLightColors]
                     }}
                  >
-                    <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                       <Award className="w-12 h-12" />
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                       <Award className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
                     </div>
                     
-                    <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 bg-white/50 inline-block px-2 py-1 rounded-md">
+                    <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 mb-3 md:mb-4 bg-white/50 inline-block px-2 py-1 rounded-md">
                        {champ.category}
                     </div>
                     
-                    <div className="flex items-end gap-3 mb-2">
-                       <div className="text-4xl font-black" style={{ color: uniColors[champ.university as keyof typeof uniColors] }}>
+                    <div className="flex items-end gap-2 md:gap-3 mb-2">
+                       <div className="text-2xl sm:text-3xl md:text-4xl font-black" style={{ color: uniColors[champ.university as keyof typeof uniColors] }}>
                           {champ.percentage}%
                        </div>
                     </div>
                     
-                    <div className="font-black text-lg uppercase mb-1">
+                    <div className="font-black text-sm sm:text-base md:text-lg uppercase mb-1 leading-tight">
                        {uniFullNames[champ.university as keyof typeof uniFullNames]}
                     </div>
                     
-                    <div className="text-xs font-medium text-slate-600 uppercase tracking-tight">
+                    <div className="text-[10px] sm:text-xs font-medium text-slate-600 uppercase tracking-tight">
                        {champ.status}
                     </div>
                  </div>
               ))}
+           </div>
+           
+           {/* Magazine-style Action Buttons */}
+           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 w-full">
+                <a
+                  className="group relative overflow-hidden text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm transition-all border-2 hover:opacity-90"
+                  style={{
+                    backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
+                    borderColor: uniColors[topMatch.uni as keyof typeof uniColors],
+                    color: 'white',
+                  }}
+                  href={`/${topMatch.uni}`}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
+                    Explore {topMatch.uni.toUpperCase()}
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </span>
+                </a>
+                <a
+                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all"
+                  href="/big4"
+                >
+                  All Universities
+                </a>
+                <button
+                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm text-slate-600 hover:text-black transition-colors underline decoration-2 underline-offset-4"
+                  onClick={onRetake}
+                >
+                  Retake Quiz
+                </button>
            </div>
         </section>
       )}
 
       {/* 4. IMPROVED: Detailed Alignment Analysis */}
       {breakdown && (
-         <section className="py-12 border-t border-slate-200">
-            <div className="mb-10">
-               <h2 className="text-3xl font-black uppercase tracking-tight flex items-center gap-3 mb-2">
-                  <TrendingUp className="w-8 h-8" />
+         <section className="py-8 md:py-12 border-t border-slate-200">
+            <div className="mb-6 md:mb-10">
+               <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight flex items-center gap-2 md:gap-3 mb-2">
+                  <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
                   Detailed Alignment Analysis
                </h2>
-               <p className="text-slate-500 max-w-2xl">
+               <p className="text-sm md:text-base text-slate-500 max-w-2xl">
                   A comprehensive breakdown of your compatibility scores across all dimensions for every university.
                </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div className="grid lg:grid-cols-2 gap-4 md:gap-8">
                {sortedScores.map((item) => {
                   const uni = item.uni as University;
                   const uniData = breakdown[uni];
                   if (!uniData) return null;
                   
                   return (
-                     <div key={uni} className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
-                           <div className="flex items-center gap-4">
-                              <div className="w-12 h-12 relative">
+                     <div key={uni} className="bg-white rounded-xl md:rounded-2xl border border-slate-200 p-4 sm:p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="flex items-center justify-between mb-6 md:mb-8 pb-3 md:pb-4 border-b border-slate-100">
+                           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 relative flex-shrink-0">
                                  <Image 
                                     src={uniImages[uni]} 
                                     alt={uni} 
@@ -241,32 +271,32 @@ export default function ResultDesign6({
                                     className="object-contain" 
                                  />
                               </div>
-                              <div>
-                                 <h4 className="font-black text-xl uppercase leading-none mb-1">{uniFullNames[uni]}</h4>
-                                 <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Overall Match</div>
+                              <div className="min-w-0">
+                                 <h4 className="font-black text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight mb-1">{uniFullNames[uni]}</h4>
+                                 <div className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Overall Match</div>
                               </div>
                            </div>
-                           <div className="text-3xl font-black" style={{ color: uniColors[uni] }}>
+                           <div className="text-2xl sm:text-3xl font-black flex-shrink-0" style={{ color: uniColors[uni] }}>
                               {item.percentage}%
                            </div>
                         </div>
 
-                         <div className="mb-8 p-4 bg-slate-50 rounded-xl border border-slate-100">
-                             <p className="text-sm font-serif italic text-slate-600 leading-relaxed">
+                         <div className="mb-6 md:mb-8 p-3 sm:p-4 bg-slate-50 rounded-lg md:rounded-xl border border-slate-100">
+                             <p className="text-xs sm:text-sm font-serif italic text-slate-600 leading-relaxed">
                                  &quot;{getFeedbackText(uni, item.percentage, false)}&quot;
                              </p>
                          </div>
 
-                        <div className="space-y-5">
+                        <div className="space-y-4 md:space-y-5">
                            {uniData.categories.map((cat) => (
-                              <div key={cat.category} className="space-y-2">
-                                 <div className="flex justify-between items-end text-sm">
-                                    <span className="font-bold text-slate-700">{cat.category}</span>
-                                    <div className="flex items-center gap-2">
-                                       <span className="text-[10px] font-bold uppercase text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">
+                              <div key={cat.category} className="space-y-1.5 md:space-y-2">
+                                 <div className="flex justify-between items-end text-xs sm:text-sm gap-2">
+                                    <span className="font-bold text-slate-700 leading-tight">{cat.category}</span>
+                                    <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                                       <span className="text-[9px] sm:text-[10px] font-bold uppercase text-slate-400 bg-slate-100 px-1 sm:px-1.5 py-0.5 rounded">
                                           {cat.status}
                                        </span>
-                                       <span className="font-mono font-bold">{cat.percentage}%</span>
+                                       <span className="font-mono font-bold text-xs sm:text-sm">{cat.percentage}%</span>
                                     </div>
                                  </div>
                                  <div className="h-2.5 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -289,61 +319,16 @@ export default function ResultDesign6({
 
          </section>
       )}
-      
-      {/* 5. Footer Actions (Copied from Design 1) */}
-      <section className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center pt-8 md:pt-12 pb-6 md:pb-8 border-t border-slate-200 mt-8 md:mt-12">
-        <a
-          className="text-center text-white px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-black uppercase tracking-widest text-[10px] sm:text-xs md:text-sm hover:opacity-90 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
-          style={{
-            backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
-          }}
-          href={`/${topMatch.uni}`}
-        >
-          Explore {topMatch.uni.toUpperCase()} →
-        </a>
-        <a
-          className="text-center bg-white text-black px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-black uppercase tracking-widest text-[10px] sm:text-xs md:text-sm border-2 border-black hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)]"
-          href="/big4"
-        >
-          All Universities
-        </a>
-        <button
-          className="text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] sm:text-xs md:text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
-          onClick={onRetake}
-        >
-          Retake Quiz
-        </button>
-      </section>
 
       {/* Technical Note (Moved Here) */}
-      <div className="max-w-3xl mx-auto px-6 py-8 bg-slate-50 border-4 border-slate-200 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] transform -rotate-1 rounded-2xl mb-12">
-        <h4 className="font-black uppercase text-sm md:text-base mb-3 text-slate-900 tracking-widest border-b-2 border-slate-200 pb-2 inline-block">
-          Technical Note: Precision Matching
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-slate-50 border-2 sm:border-4 border-slate-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.05)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] transform -rotate-1 rounded-xl sm:rounded-2xl mb-8 md:mb-12">
+        <h4 className="font-black uppercase text-xs sm:text-sm md:text-base mb-2 sm:mb-3 text-slate-900 tracking-widest border-b-2 border-slate-200 pb-2 inline-block">
+          Disclosure
         </h4>
-        <p className="font-serif italic text-sm md:text-base leading-relaxed text-slate-600">
-          &quot;These breakdowns are calculated by analyzing your specific responses against the cultural markers, academic structures, and social values of each institution. Your alignment is measured relative to the maximum possible points available in each category based on your unique quiz path.&quot;
+        <p className="font-serif italic text-xs sm:text-sm md:text-base leading-relaxed text-slate-600">
+          &quot;These breakdowns are calculated by analyzing your specific responses against the cultural markers, academic structures, and social values of each institution. UniSort is an independent project and is not officially affiliated with Ateneo de Manila University, De La Salle University, University of the Philippines, or University of Santo Tomas.&quot;
         </p>
       </div>
-
-      {/* Disclaimer */}
-      <footer className="max-w-4xl mx-auto mt-16 pb-12 text-center space-y-4">
-        <div className="flex items-center justify-center gap-2 mb-4 opacity-50">
-          <div className="h-px w-8 bg-slate-300"></div>
-          <Star className="w-3 h-3 text-slate-300 fill-current" />
-          <div className="h-px w-8 bg-slate-300"></div>
-        </div>
-        <div className="text-[10px] md:text-xs font-medium text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          <p>
-            This quiz is a specialized tool designed to match students with the distinct cultural and academic environments of the Big 4 universities in the Philippines.
-          </p>
-          <p className="mt-2 text-slate-300">
-            UniSort is an independent project and is not officially affiliated with Ateneo de Manila University, De La Salle University, University of the Philippines, or University of Santo Tomas.
-          </p>
-        </div>
-        <div className="text-[10px] font-bold uppercase tracking-widest text-slate-300">
-          UniSort Edition © {new Date().getFullYear()}
-        </div>
-      </footer>
     </div>
   );
 }
