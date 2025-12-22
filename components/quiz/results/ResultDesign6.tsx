@@ -66,7 +66,7 @@ export default function ResultDesign6({
         </div>
         
         <div className="space-y-2">
-           <h1 className="text-sm sm:text-lg md:text-2xl font-black uppercase tracking-widest text-slate-500 mb-2">
+           <h1 className="text-xs sm:text-sm md:text-base font-black uppercase tracking-widest text-slate-500 mb-2">
              Congratulations! Welcome to
            </h1>
            <p 
@@ -117,27 +117,27 @@ export default function ResultDesign6({
 
         {/* Sidebar Stats */}
         <div className="lg:col-span-5 space-y-4 md:space-y-8">
-          <div className="bg-white rounded-2xl md:rounded-3xl border-2 border-black p-4 sm:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-             <h3 className="flex items-center gap-2 font-black uppercase text-base sm:text-lg mb-4 md:mb-6">
+          <div className="bg-white rounded-2xl md:rounded-3xl border-2 border-black p-3 sm:p-4 md:p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+             <h3 className="flex items-center gap-2 font-black uppercase text-sm sm:text-base md:text-lg mb-3 md:mb-4">
                 <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
                 By The Numbers
              </h3>
-             <div className="aspect-square w-full sm:w-3/4 mx-auto mb-6">
+             <div className="aspect-square w-3/4 sm:w-10/11 mx-auto mb-0 md:mb-4">
                 <IndividualScoresPieChart percentages={percentages} />
              </div>
-             <div className="space-y-3">
+             <div className="space-y-1.5 md:space-y-2">
                 {sortedScores.map((item, i) => (
                    <div key={item.uni} className="space-y-1">
-                      <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
-                        <div className="flex items-center gap-3">
-                           <div className="font-bold text-slate-400 w-4">{i + 1}</div>
-                           <div className="font-bold uppercase">{item.uni}</div>
+                      <div className="flex justify-between items-center p-1.5 sm:p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                           <div className="font-bold text-slate-400 w-3 sm:w-4 text-xs sm:text-sm">{i + 1}</div>
+                           <div className="font-bold uppercase text-xs sm:text-sm">{item.uni}</div>
                         </div>
-                        <div className="font-mono font-bold" style={{ color: uniColors[item.uni as keyof typeof uniColors] }}>
+                        <div className="font-mono font-bold text-xs sm:text-sm" style={{ color: uniColors[item.uni as keyof typeof uniColors] }}>
                            {item.percentage}%
                         </div>
                       </div>
-                      <div className="h-1 bg-slate-100 rounded-full overflow-hidden mx-2">
+                      <div className="h-1 bg-slate-100 rounded-full overflow-hidden mx-1 sm:mx-2">
                          <div 
                            className="h-full rounded-full transition-all duration-500"
                            style={{ 
@@ -211,7 +211,7 @@ export default function ResultDesign6({
            {/* Magazine-style Action Buttons */}
            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 w-full">
                 <a
-                  className="group relative overflow-hidden text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm transition-all border-2 hover:opacity-90"
+                  className="group relative overflow-hidden text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm transition-all border-2 hover:opacity-90 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-0.5 hover:-translate-y-0.5"
                   style={{
                     backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
                     borderColor: uniColors[topMatch.uni as keyof typeof uniColors],
@@ -220,18 +220,18 @@ export default function ResultDesign6({
                   href={`/${topMatch.uni}`}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
-                    Explore {topMatch.uni.toUpperCase()}
+                    About {topMatch.uni.toUpperCase()}
                     <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </span>
                 </a>
                 <a
-                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all"
+                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm bg-white text-black border-2 border-black hover:bg-black hover:text-white transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-0.5 hover:-translate-y-0.5"
                   href="/big4"
                 >
-                  All Universities
+                  The Big 4
                 </a>
                 <button
-                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm text-slate-600 hover:text-black transition-colors underline decoration-2 underline-offset-4"
+                  className="group text-center py-3 px-6 sm:py-4 sm:px-8 font-bold uppercase tracking-wider text-xs sm:text-sm text-slate-600 hover:text-black transition-colors underline decoration-2 underline-offset-4 w-full md:w-auto"
                   onClick={onRetake}
                 >
                   Retake Quiz
@@ -283,7 +283,7 @@ export default function ResultDesign6({
 
                          <div className="mb-6 md:mb-8 p-3 sm:p-4 bg-slate-50 rounded-lg md:rounded-xl border border-slate-100">
                              <p className="text-xs sm:text-sm font-serif italic text-slate-600 leading-relaxed">
-                                 &quot;{getFeedbackText(uni, item.percentage, false)}&quot;
+                                 {getFeedbackText(uni, item.percentage, false)}
                              </p>
                          </div>
 
