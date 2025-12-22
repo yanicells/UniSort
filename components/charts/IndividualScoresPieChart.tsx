@@ -11,7 +11,7 @@ import * as RechartsPrimitive from "recharts";
 import { useMemo } from "react";
 
 interface IndividualScoresPieChartProps {
-  scores: {
+  percentages: {
     admu: number;
     dlsu: number;
     up: number;
@@ -39,36 +39,36 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function IndividualScoresPieChart({
-  scores,
+  percentages,
 }: IndividualScoresPieChartProps) {
   const chartData = useMemo(() => {
     return [
       {
         uni: "admu",
-        score: scores.admu,
+        value: percentages.admu,
         fill: chartConfig.admu.color,
       },
       {
         uni: "dlsu",
-        score: scores.dlsu,
+        value: percentages.dlsu,
         fill: chartConfig.dlsu.color,
       },
       {
         uni: "up",
-        score: scores.up,
+        value: percentages.up,
         fill: chartConfig.up.color,
       },
       {
         uni: "ust",
-        score: scores.ust,
+        value: percentages.ust,
         fill: chartConfig.ust.color,
       },
     ];
-  }, [scores]);
+  }, [percentages]);
 
-  const totalScore = useMemo(() => {
-    return scores.admu + scores.dlsu + scores.up + scores.ust;
-  }, [scores]);
+  const maxPercentage = useMemo(() => {
+    return Math.max(...Object.values(percentages));
+  }, [percentages]);
 
   return (
     <ChartContainer
@@ -79,11 +79,11 @@ export function IndividualScoresPieChart({
         margin={{ top: 5, right: 5, bottom: 5, left: 5 }}
       >
         <ChartTooltip
-          content={<ChartTooltipContent nameKey="uni" hideLabel />}
+          content={<ChartTooltipContent nameKey="uni" hideLabel formatter={(value) => `${value}%`} />}
         />
         <RechartsPrimitive.Pie
           data={chartData}
-          dataKey="score"
+          dataKey="value"
           nameKey="uni"
           innerRadius="45%"
           outerRadius="80%"
@@ -104,14 +104,14 @@ export function IndividualScoresPieChart({
                       y={viewBox.cy ? viewBox.cy - 5 : 0}
                       className="fill-foreground text-xl sm:text-2xl md:text-3xl font-black font-serif"
                     >
-                      {totalScore}
+                      {maxPercentage}%
                     </tspan>
                     <tspan
                       x={viewBox.cx}
                       y={(viewBox.cy || 0) + 22}
                       className="fill-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-widest"
                     >
-                      Points
+                      Match
                     </tspan>
                   </text>
                 );

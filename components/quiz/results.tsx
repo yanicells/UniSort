@@ -189,7 +189,7 @@ export default function Results({
               By The Numbers
             </h4>
             <div className="h-[200px] sm:h-[250px] md:h-[300px] w-full mb-4 md:mb-6">
-              <IndividualScoresPieChart scores={score} />
+              <IndividualScoresPieChart percentages={percentages} />
             </div>
             <div className="space-y-2 md:space-y-3">
               {sortedScores.map((item) => {
