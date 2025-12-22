@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { universityFeedback } from "@/lib/quiz/result-data";
 import { ShareableResultCard } from "./ShareableResultCard";
+import { MAX_SCORES } from "@/lib/quiz/quiz-constants";
 
 const uniColors = {
   admu: "#0033A0",
@@ -30,20 +31,22 @@ const uniImages = {
 export default function Results({
   score,
   name,
+  onRetake,
 }: {
   score: { admu: number; dlsu: number; up: number; ust: number };
   name: string;
+  onRetake: () => void;
 }) {
-  const totalScore = score.admu + score.dlsu + score.up + score.ust;
+
 
   const percentages = useMemo(
     () => ({
-      admu: Math.round((score.admu / totalScore) * 100),
-      dlsu: Math.round((score.dlsu / totalScore) * 100),
-      up: Math.round((score.up / totalScore) * 100),
-      ust: Math.round((score.ust / totalScore) * 100),
+      admu: Math.round((score.admu / MAX_SCORES.admu) * 100),
+      dlsu: Math.round((score.dlsu / MAX_SCORES.dlsu) * 100),
+      up: Math.round((score.up / MAX_SCORES.up) * 100),
+      ust: Math.round((score.ust / MAX_SCORES.ust) * 100),
     }),
-    [score, totalScore]
+    [score]
   );
 
   const sortedScores = useMemo(() => {
@@ -52,7 +55,7 @@ export default function Results({
       { uni: "dlsu", score: score.dlsu, percentage: percentages.dlsu },
       { uni: "up", score: score.up, percentage: percentages.up },
       { uni: "ust", score: score.ust, percentage: percentages.ust },
-    ].sort((a, b) => b.score - a.score);
+    ].sort((a, b) => b.percentage - a.percentage);
   }, [score, percentages]);
 
   const topMatch = sortedScores[0];
@@ -247,12 +250,12 @@ export default function Results({
         >
           All Universities
         </a>
-        <a
+        <button
           className="text-center px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-bold uppercase tracking-widest text-[10px] sm:text-xs md:text-sm text-slate-500 hover:text-black transition-colors underline decoration-2 underline-offset-4"
-          href="/quiz"
+          onClick={onRetake}
         >
           Retake Quiz
-        </a>
+        </button>
       </section>
 
       <div className="text-center text-[8px] md:text-[10px] font-mono text-slate-400 uppercase tracking-widest">

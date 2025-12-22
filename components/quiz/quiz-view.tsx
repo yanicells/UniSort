@@ -1,6 +1,7 @@
 "use client";
 
 import { questions } from "@/lib/quiz/quiz-data";
+import { MAX_SCORES } from "@/lib/quiz/quiz-constants";
 import { useMemo, useState } from "react";
 import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
@@ -35,6 +36,23 @@ export default function QuizView({
     ust: number;
   }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
 
+  useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("uniSortQuizResult");
+      if (saved) {
+         try {
+           const parsed = JSON.parse(saved);
+           if (parsed && parsed.scores) {
+             setScore(parsed.scores);
+             setQuizCompleted(true);
+           }
+         } catch (e) {
+           console.error("Failed to parse saved quiz result", e);
+         }
+      }
+    }
+  });
+
   // Calculate current running score for the chart
   const currentScore = useMemo(() => {
     const tempScore = { admu: 0, dlsu: 0, up: 0, ust: 0 };
@@ -62,10 +80,25 @@ export default function QuizView({
   );
 
   const chartData = [
-    { label: "ADMU", value: currentScore.admu, color: "bg-[#001196]" },
-    { label: "DLSU", value: currentScore.dlsu, color: "bg-[#00703c]" },
-    { label: "UP", value: currentScore.up, color: "bg-[#7b1113]" },
-    { label: "UST", value: currentScore.ust, color: "bg-[#fdb71a]" },
+    {
+      label: "ADMU",
+      value: currentScore.admu,
+      max: MAX_SCORES.admu,
+      color: "bg-[#001196]",
+    },
+    {
+      label: "DLSU",
+      value: currentScore.dlsu,
+      max: MAX_SCORES.dlsu,
+      color: "bg-[#00703c]",
+    },
+    { label: "UP", value: currentScore.up, max: MAX_SCORES.up, color: "bg-[#7b1113]" },
+    {
+      label: "UST",
+      value: currentScore.ust,
+      max: MAX_SCORES.ust,
+      color: "bg-[#fdb71a]",
+    },
   ];
 
   // Get the current selected choice from answers array
@@ -102,13 +135,33 @@ export default function QuizView({
 
         setScore(finalScore);
 
-        // Determine top match
-        const topMatch = Object.entries(finalScore).reduce((a, b) =>
+        // Determine top match based on PERCENTAGE relative to MAX SCORE
+        const percentages = {
+          admu: finalScore.admu / MAX_SCORES.admu,
+          dlsu: finalScore.dlsu / MAX_SCORES.dlsu,
+          up: finalScore.up / MAX_SCORES.up,
+          ust: finalScore.ust / MAX_SCORES.ust,
+        };
+
+        const topMatch = Object.entries(percentages).reduce((a, b) =>
           b[1] > a[1] ? b : a
         )[0] as "admu" | "dlsu" | "up" | "ust";
 
         // Save to database
         saveQuizResultAction({ name: username, topMatch, scores: finalScore });
+        
+        // Save to local storage for persistence
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            "uniSortQuizResult",
+            JSON.stringify({
+              name: username,
+              scores: finalScore,
+              completedAt: new Date().toISOString(),
+            })
+          );
+        }
+
         setQuizCompleted(true);
       }
     } else {
@@ -148,10 +201,9 @@ export default function QuizView({
                </div>
 
                <div className="flex items-center">
-                 <InfoDialog 
+                   <InfoDialog 
                    currentQuestion={currentQuestion} 
                    chartData={chartData} 
-                   maxScore={maxScore} 
                    triggerClass={`transition-all duration-300 flex items-center justify-center ${
                      selectedChoice 
                        ? "w-6 h-6 md:w-8 md:h-8 bg-pink-500 text-white border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-1px] hover:translate-y-[-1px]"
@@ -229,7 +281,19 @@ export default function QuizView({
         </div>
       ) : (
         <div className="relative bg-white shadow-2xl border-2 md:border-4 border-black p-4 md:p-6 lg:p-8">
-            <Results score={score} name={username} />
+            <Results 
+              score={score} 
+              name={username} 
+              onRetake={() => {
+                if (typeof window !== "undefined") {
+                  localStorage.removeItem("uniSortQuizResult");
+                }
+                setQuizCompleted(false);
+                setCurrentQuestionIndex(0);
+                setAnswers(Array(questions.questions.length).fill(null));
+                setScore({ admu: 0, dlsu: 0, up: 0, ust: 0 });
+              }}
+            />
         </div>
       )}
     </div>
@@ -255,13 +319,13 @@ type QuizQuestion = {
 type ChartDataItem = {
   label: string;
   value: number;
+  max: number;
   color: string;
 };
 
 function InfoDialog({ 
     currentQuestion, 
     chartData, 
-    maxScore, 
     triggerClass, 
     triggerText,
     icon,
@@ -272,7 +336,6 @@ function InfoDialog({
 }: { 
     currentQuestion: QuizQuestion;
     chartData: ChartDataItem[];
-    maxScore: number; 
     triggerClass: string;
     triggerText?: string;
     icon?: React.ReactNode;
@@ -318,12 +381,12 @@ function InfoDialog({
                         <div
                         className={`h-full ${item.color} transition-all duration-500`}
                         style={{
-                            width: `${(item.value / maxScore) * 100}%`,
+                            width: `${Math.min((item.value / item.max) * 100, 100)}%`,
                         }}
                         />
                     </div>
                     <span className="w-10 md:w-12 text-xs md:text-sm font-bold text-right text-black">
-                        {Math.round((item.value / maxScore) * 100)}%
+                        {Math.round((item.value / item.max) * 100)}%
                     </span>
                     </div>
                 ))}
