@@ -245,61 +245,88 @@ export default function Results({
       </section>
 
       {/* Category Breakdown Analysis */}
-      {breakdown && breakdown[topMatch.uni as University] && (
+      {breakdown && (
         <section className="border-t-2 md:border-t-4 border-black pt-8 md:pt-12">
           <div className="flex items-center gap-2 md:gap-3 lg:gap-4 mb-6 md:mb-8">
             <h3 className="font-black uppercase text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-tight">
-              Category Analysis
+              Detailed Alignment Analysis
             </h3>
             <div className="h-1 flex-1 bg-black"></div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-            {breakdown[topMatch.uni as University].categories.map((cat) => (
-              <div
-                key={cat.category}
-                className="bg-slate-50 border-2 border-black p-4 md:p-6 space-y-3 md:space-y-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-black uppercase text-sm md:text-base">
-                      {cat.category}
-                    </h4>
-                    <span className="text-[10px] md:text-xs font-mono text-slate-500 uppercase">
-                      {cat.status}
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    <span
-                      className="text-xl md:text-2xl font-black"
-                      style={{ color: uniColors[topMatch.uni as keyof typeof uniColors] }}
-                    >
-                      {cat.percentage}%
-                    </span>
-                  </div>
-                </div>
+          <div className="space-y-12 md:space-y-16">
+            {sortedScores.map((item) => {
+              const uniKey = item.uni as University;
+              const uniBreakdown = breakdown[uniKey];
+              if (!uniBreakdown) return null;
 
-                <div className="space-y-1.5">
-                  <div className="h-3 md:h-4 bg-white border border-black overflow-hidden relative">
-                    <div
-                      className="h-full transition-all duration-1000"
-                      style={{
-                        width: `${cat.percentage}%`,
-                        backgroundColor: uniColors[topMatch.uni as keyof typeof uniColors],
-                      }}
-                    />
+              return (
+                <div key={uniKey} className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <h4 className="font-black uppercase text-lg md:text-xl lg:text-2xl" style={{ color: uniColors[uniKey] }}>
+                      {uniFullNames[uniKey]}
+                    </h4>
+                    <div className="flex-1 h-[2px] bg-slate-200"></div>
+                    <div className="bg-black text-white px-3 py-1 font-mono font-bold text-sm">
+                      TOTAL MATCH: {item.percentage}%
+                    </div>
                   </div>
-                  <div className="flex justify-between text-[9px] md:text-[10px] font-bold uppercase tracking-tighter text-slate-400">
-                    <span>Baseline</span>
-                    <span>Points: {cat.score} / {cat.maxScore}</span>
-                    <span>Ideal</span>
+
+                  <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
+                    {uniBreakdown.categories.map((cat) => (
+                      <div
+                        key={cat.category}
+                        className="bg-white border-2 border-black p-4 md:p-5 space-y-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.05)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-300"
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h5 className="font-black uppercase text-xs md:text-sm">
+                              {cat.category}
+                            </h5>
+                            <span className="text-[9px] md:text-[10px] font-mono text-slate-500 uppercase">
+                              {cat.status}
+                            </span>
+                          </div>
+                          <div className="text-right">
+                            <span
+                              className="text-lg md:text-xl font-black"
+                              style={{ color: uniColors[uniKey] }}
+                            >
+                              {cat.percentage}%
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <div className="h-2.5 md:h-3 bg-slate-100 border border-black/10 overflow-hidden relative">
+                            <div
+                              className="h-full transition-all duration-1000"
+                              style={{
+                                width: `${cat.percentage}%`,
+                                backgroundColor: uniColors[uniKey],
+                              }}
+                            />
+                          </div>
+                          <div className="flex justify-between text-[8px] md:text-[9px] font-bold uppercase tracking-tighter text-slate-400">
+                            <span>Compatibility</span>
+                            <span>{cat.score} / {cat.maxScore} pts</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-          <div className="mt-6 md:mt-8 p-4 bg-yellow-50 border-2 border-black italic font-serif text-xs md:text-sm text-center">
-            &quot;This breakdown shows how well you align with {uniFullNames[topMatch.uni as keyof typeof uniFullNames]} across specific cultural and academic dimensions.&quot;
+          
+          <div className="mt-12 p-6 bg-slate-900 text-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
+            <h4 className="font-black uppercase text-sm md:text-base mb-2 text-rose-500">
+              Technical Note: Precision Matching
+            </h4>
+            <p className="font-serif italic text-xs md:text-sm leading-relaxed opacity-90">
+              &quot;These breakdowns are calculated by analyzing your specific responses against the cultural markers, academic structures, and social values of each institution. Your alignment is measured relative to the maximum possible points available in each category based on your unique quiz path.&quot;
+            </p>
           </div>
         </section>
       )}
