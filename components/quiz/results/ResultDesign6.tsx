@@ -173,36 +173,77 @@ export default function ResultDesign6({
               </div>
            </div>
 
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-12">
+           {/* OPTION 3: Vibrant Pop Art */}
+           {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-12 md:mb-16">
               {categoryChampions.map((champ) => (
                  <div 
-                    key={champ.category}
-                    className="relative group bg-white rounded-xl md:rounded-2xl p-4 sm:p-6 border-2 transition-all hover:-translate-y-1 hover:shadow-lg"
-                    style={{ 
-                       borderColor: uniColors[champ.university as keyof typeof uniColors],
-                       backgroundColor: uniLightColors[champ.university as keyof typeof uniLightColors]
-                    }}
+                    key={champ.category} 
+                    className="relative overflow-hidden p-4 sm:p-6 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] sm:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_0px_rgba(0,0,0,1)] sm:hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+                    style={{ backgroundColor: uniColors[champ.university as keyof typeof uniColors] }}
                  >
-                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                       <Award className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
+                    <div className="absolute -right-3 -top-3 sm:-right-4 sm:-top-4 text-white/20 rotate-12">
+                       <Award className="w-16 h-16 sm:w-24 sm:h-24" />
                     </div>
                     
-                    <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 mb-3 md:mb-4 bg-white/50 inline-block px-2 py-1 rounded-md">
-                       {champ.category}
-                    </div>
-                    
-                    <div className="flex items-end gap-2 md:gap-3 mb-2">
-                       <div className="text-2xl sm:text-3xl md:text-4xl font-black" style={{ color: uniColors[champ.university as keyof typeof uniColors] }}>
+                    <div className="relative z-10 text-white">
+                       <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-80 mb-2 sm:mb-3 border-b border-white/20 pb-1 sm:pb-2 inline-block">
+                          {champ.category}
+                       </div>
+                       
+                       <div className="text-3xl sm:text-5xl font-black mb-1 sm:mb-2 tracking-tighter">
                           {champ.percentage}%
+                       </div>
+                       
+                       <div className="font-bold uppercase text-xs sm:text-sm leading-tight opacity-90 mb-3 sm:mb-4 min-h-[2.5em] sm:h-10 flex items-start">
+                          {uniFullNames[champ.university as keyof typeof uniFullNames]}
+                       </div>
+                       
+                       <div className="bg-black/20 text-[9px] sm:text-[10px] uppercase tracking-wide inline-block px-1.5 py-1 sm:px-2 sm:py-1.5 rounded font-bold backdrop-blur-sm">
+                          {champ.status}
+                       </div>
+                    </div>
+                 </div>
+              ))}
+           </div> */}
+           
+           {/* OPTION 8: Swiss + Pop */}
+           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 md:mb-12">
+              {categoryChampions.map((champ) => (
+                 <div 
+                    key={champ.category} 
+                    className="bg-slate-50 border-2 border-black flex flex-col h-full relative overflow-hidden transition-all hover:-translate-x-1 hover:-translate-y-1 shadow-[3px_3px_0px_0px_#000] sm:shadow-[4px_4px_0px_0px_#000] hover:shadow-[7px_7px_0px_0px_#000] sm:hover:shadow-[8px_8px_0px_0px_#000]"
+                 >
+                    <div 
+                        className="text-white px-2 py-1.5 sm:px-4 sm:py-2 text-[9px] sm:text-[10px] uppercase font-bold tracking-widest flex justify-between items-center relative z-10"
+                        style={{ backgroundColor: uniColors[champ.university as keyof typeof uniColors] }}
+                    >
+                       <span>{champ.category}</span>
+                    </div>
+                    
+                    <div 
+                        className="absolute -right-4 bottom-16 rotate-12 opacity-10 pointer-events-none z-20" 
+                        style={{ color: uniColors[champ.university as keyof typeof uniColors] }}
+                    >
+                        <Award className="w-24 h-24 sm:w-32 sm:h-32" />
+                    </div>
+                    
+                    <div className="p-3 sm:p-6 flex-grow flex flex-col items-start justify-center text-left bg-white border-b-2 border-black border-dashed relative z-10">
+                       <div 
+                          className="text-3xl sm:text-5xl font-black mb-1 sm:mb-2 tracking-tighter" 
+                          style={{ color: uniColors[champ.university as keyof typeof uniColors] }}
+                       >
+                          {champ.percentage}%
+                       </div>
+                       <div className="text-[10px] sm:text-xs font-bold uppercase tracking-tight text-slate-900 border-t-2 border-slate-100 pt-1.5 sm:pt-2 w-full mt-1.5 sm:mt-2 leading-tight">
+                          {uniFullNames[champ.university as keyof typeof uniFullNames]}
                        </div>
                     </div>
                     
-                    <div className="font-black text-sm sm:text-base md:text-lg uppercase mb-1 leading-tight">
-                       {uniFullNames[champ.university as keyof typeof uniFullNames]}
-                    </div>
-                    
-                    <div className="text-[10px] sm:text-xs font-medium text-slate-600 uppercase tracking-tight">
-                       {champ.status}
+                    <div className="px-2 py-2 sm:px-4 sm:py-3 bg-slate-50 text-center flex items-center justify-center gap-1.5 sm:gap-2 relative z-10">
+                       <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full" style={{ backgroundColor: uniColors[champ.university as keyof typeof uniColors] }} />
+                       <div className="text-[9px] sm:text-[10px] font-mono uppercase text-slate-600">
+                          {champ.status}
+                       </div>
                     </div>
                  </div>
               ))}
