@@ -2,7 +2,7 @@
 
 import { questions } from "@/lib/quiz/quiz-data";
 import { MAX_SCORES } from "@/lib/quiz/quiz-constants";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Results from "./results";
 import { saveQuizResultAction } from "@/lib/actions/quiz-actions";
 import {
@@ -36,23 +36,20 @@ export default function QuizView({
     ust: number;
   }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
 
-  useState(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("uniSortQuizResult");
-      if (saved) {
-         try {
-           const parsed = JSON.parse(saved);
-           // Only restore if the names match
-           if (parsed && parsed.scores && parsed.name === name) {
-             setScore(parsed.scores);
-             setQuizCompleted(true);
-           }
-         } catch (e) {
-           console.error("Failed to parse saved quiz result", e);
+  useEffect(() => {
+    const saved = localStorage.getItem("uniSortQuizResult");
+    if (saved) {
+       try {
+         const parsed = JSON.parse(saved);
+         if (parsed && parsed.scores) {
+           setScore(parsed.scores);
+           setQuizCompleted(true);
          }
-      }
+       } catch (e) {
+         console.error("Failed to parse saved quiz result", e);
+       }
     }
-  });
+  }, []);
 
   // Calculate current running score for the chart
   const currentScore = useMemo(() => {

@@ -2,10 +2,29 @@
 
 import QuizView from "./quiz-view";
 import GetName from "./get-name";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function QuizHandler() {
   const [nameEntered, setNameEntered] = useState("");
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    const saved = localStorage.getItem("uniSortQuizResult");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.name) {
+          setNameEntered(parsed.name);
+        }
+      } catch (e) {
+        console.error("Failed to parse saved quiz result", e);
+      }
+    }
+  }, []);
+
+  if (!isMounted) return null; // Avoid rendering anything until mounted to prevent mismatch
 
   return (
     <div>
