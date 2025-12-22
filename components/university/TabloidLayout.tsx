@@ -85,7 +85,7 @@ export function TabloidLayout({ data }: TabloidLayoutProps) {
             {data.stats.vibe}
           </p>
           <h1
-            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-none mb-4 break-words"
+            className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none mb-4 break-words"
             style={{ color: data.color }}
           >
             {data.publication}
