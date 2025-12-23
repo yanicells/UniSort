@@ -29,6 +29,7 @@ export const metadata = {
     canonical: "https://unisort.ycells.com/stats",
   },
 };
+export const dynamic = "force-dynamic";
 
 export default async function StatsPage() {
   const summary = await getQuizSummary();
