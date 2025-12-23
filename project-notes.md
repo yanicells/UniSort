@@ -1,9 +1,4 @@
 Unisort (quick)
-Can ask AI to help with assets, like headers, etc
 Maybe I can integrate the AI chatbot here, to ask questions about universities, and personalities, etc.
 
-Tasks
-- SEO optimization
-
 vercel analytics
-double check all content + readme and about page

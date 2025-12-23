@@ -4,6 +4,7 @@ import "./globals.css";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/ToastProvider";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -98,6 +99,7 @@ export default function RootLayout({
         <ToastProvider />
         <div className="bg-background pt-16">{children}</div>
         {/* <Footer /> */}
+        <Analytics />
       </body>
     </html>
   );
