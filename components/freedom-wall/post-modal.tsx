@@ -92,14 +92,17 @@ export function PostModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 p-0 sm:p-6 md:p-8">
-      {/* Mobile: slides up from bottom with 80vh max. Desktop: centered modal */}
-      <div className="w-full sm:max-w-4xl bg-white border-t-2 sm:border-2 md:border-4 border-black shadow-[0px_-4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[80vh] sm:max-h-[90vh] overflow-hidden flex flex-col rounded-t-2xl sm:rounded-none">
+    <div 
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 p-0 sm:p-6 md:p-8"
+      onClick={onClose}
+    >
+      {/* Mobile: slides up from bottom with 70vh max. Desktop: centered modal */}
+      <div 
+        className="w-full sm:max-w-4xl bg-white border-t-2 sm:border-2 md:border-4 border-black shadow-[0px_-4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[70vh] sm:max-h-[90vh] overflow-hidden flex flex-col rounded-t-2xl sm:rounded-none"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Newspaper Header - more compact on mobile */}
         <div className="bg-pink-600 border-b-2 sm:border-b-4 border-black p-2 sm:p-4 text-center relative shrink-0">
-          {/* Mobile drag indicator */}
-          <div className="sm:hidden w-10 h-1 bg-pink-300 rounded-full mx-auto mb-2" />
-          
           <h2 className="text-xl sm:text-3xl md:text-4xl font-black uppercase text-white tracking-tight italic">
             {isReply ? "Write a Reply" : "Breaking News!"}
           </h2>
