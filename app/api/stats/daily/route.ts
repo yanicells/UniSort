@@ -1,7 +1,9 @@
-import { getDailyResultsCounts } from "@/lib/dal/queries";
 import { NextRequest, NextResponse } from "next/server";
+import { getDailyResultsCounts } from "@/lib/dal/queries";
 
+// Disable all caching
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET(request: NextRequest) {
   try {
@@ -17,7 +19,13 @@ export async function GET(request: NextRequest) {
 
     const data = await getDailyResultsCounts(days, filter || "all");
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+      },
+    });
   } catch (error) {
     console.error("Error fetching daily results:", error);
     return NextResponse.json(

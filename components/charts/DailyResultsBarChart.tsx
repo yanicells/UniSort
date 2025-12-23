@@ -56,7 +56,8 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `/api/stats/daily?days=${days}&filter=${filter}`
+          `/api/stats/daily?days=${days}&filter=${filter}&_t=${Date.now()}`,
+          { cache: "no-store" }
         );
         const result = await response.json();
         setData(result);
