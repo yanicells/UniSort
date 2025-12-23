@@ -49,6 +49,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const isFirstRender = useRef(true);
   const router = useRouter();
 
   const loadMorePosts = useCallback(async () => {
@@ -79,8 +80,11 @@ export function WallClient({ initialPosts }: WallClientProps) {
     setIsLoading(false);
   }, [page, sortBy, timeRange, selectedUniversities]);
 
-  const refreshPosts = useCallback(async () => {
+  const refreshPosts = useCallback(async (withSkeleton: boolean = false) => {
     setIsLoading(true);
+    if (withSkeleton) {
+      setPosts([]);
+    }
     const params = new URLSearchParams({
       page: "1",
       limit: POSTS_PER_PAGE.toString(),
@@ -112,8 +116,12 @@ export function WallClient({ initialPosts }: WallClientProps) {
   }, [hasMore, isLoading, loadMorePosts]);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     // reset and fetch first page on filters change
-    refreshPosts();
+    refreshPosts(true);
   }, [refreshPosts]);
 
   return (

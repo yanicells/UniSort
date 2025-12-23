@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { handleAddReaction } from "@/lib/actions/reaction-actions";
 
 type ReactionType = "like" | "love" | "haha" | "wow" | "sad" | "angry";
@@ -26,7 +26,7 @@ export function ReactionModal({
   onReactionAdded,
 }: ReactionModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -47,14 +47,12 @@ export function ReactionModal({
     reaction: ReactionType
   ) => {
     e.stopPropagation();
-    setIsLoading(true);
+    onClose();
     try {
       await handleAddReaction(postId, reaction);
       onReactionAdded?.();
-      onClose();
     } catch (error) {
       console.error("Failed to add reaction:", error);
-      setIsLoading(false);
     }
   };
 
@@ -72,7 +70,6 @@ export function ReactionModal({
             <button
               key={reaction.type}
               onClick={(e) => handleReactionClick(e, reaction.type)}
-              disabled={isLoading}
               className="text-2xl hover:scale-125 transition-transform disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-slate-100 rounded-full w-8 h-8 flex items-center justify-center"
               title={reaction.type}
             >
