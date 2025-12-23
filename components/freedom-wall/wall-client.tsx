@@ -29,13 +29,9 @@ type PostData = {
   commentCount?: number;
 };
 
-interface WallClientProps {
-  initialPosts: PostData[];
-}
-
 const POSTS_PER_PAGE = 10;
 
-export function WallClient({ initialPosts }: WallClientProps) {
+export function WallClient() {
   const [selectedUniversities, setSelectedUniversities] = useState<
     WallUniversity[]
   >([]);
@@ -43,74 +39,98 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  
-  // Derive posts from initialPosts to sync with server data
-  const [posts, setPosts] = useState(() => initialPosts ?? []);
-  const [page, setPage] = useState(2);
-  const [hasMore, setHasMore] = useState((initialPosts ?? []).length >= POSTS_PER_PAGE);
+  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const isFirstRender = useRef(true);
-  const prevInitialPostsRef = useRef(initialPosts);
+  const isMounted = useRef(false);
   const router = useRouter();
 
-  // Sync posts when navigating back (initialPosts reference changes)
-  if (prevInitialPostsRef.current !== initialPosts) {
-    setPosts(initialPosts ?? []);
-    setPage(2);
-    setHasMore((initialPosts ?? []).length >= POSTS_PER_PAGE);
-    prevInitialPostsRef.current = initialPosts;
-  }
+  // Fetch posts from API - always fresh, no caching issues
+  const fetchPosts = useCallback(async (pageNum: number, append: boolean = false) => {
+    try {
+      const params = new URLSearchParams({
+        page: pageNum.toString(),
+        limit: POSTS_PER_PAGE.toString(),
+        sortBy,
+        timeRange,
+      });
+      selectedUniversities.forEach((u) => params.append("university", u));
+      
+      // Add cache-busting timestamp to prevent browser caching
+      params.append("_t", Date.now().toString());
+      
+      const res = await fetch(`/api/posts?${params.toString()}`, {
+        cache: "no-store",
+      });
+      
+      if (!res.ok) {
+        throw new Error("Failed to fetch posts");
+      }
+      
+      const data = await res.json();
+      const newPosts = data.posts || [];
 
-  const loadMorePosts = useCallback(async () => {
-    setIsLoading(true);
-    const params = new URLSearchParams({
-      page: page.toString(),
-      limit: POSTS_PER_PAGE.toString(),
-      sortBy,
-      timeRange,
-    });
-    selectedUniversities.forEach((u) => params.append("university", u));
-    const res = await fetch(`/api/posts?${params.toString()}`);
-    const data = await res.json();
-    const newPosts = data.posts || [];
-
-    setPosts((prev) => {
-      // Prevent duplicates by filtering out posts that already exist
-      const existingIds = new Set(prev.map((p) => p.id));
-      const uniqueNewPosts = newPosts.filter(
-        (p: { id: string }) => !existingIds.has(p.id)
-      );
-      return [...prev, ...uniqueNewPosts];
-    });
-    setPage((prev) => prev + 1);
-    if (newPosts.length < POSTS_PER_PAGE) {
-      setHasMore(false);
+      if (append) {
+        setPosts((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id));
+          const uniqueNewPosts = newPosts.filter(
+            (p: PostData) => !existingIds.has(p.id)
+          );
+          return [...prev, ...uniqueNewPosts];
+        });
+      } else {
+        setPosts(newPosts);
+      }
+      
+      setHasMore(newPosts.length >= POSTS_PER_PAGE);
+      return newPosts;
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      return [];
     }
-    setIsLoading(false);
-  }, [page, sortBy, timeRange, selectedUniversities]);
-
-  const refreshPosts = useCallback(async (withSkeleton: boolean = false) => {
-    setIsLoading(true);
-    if (withSkeleton) {
-      setPosts([]);
-    }
-    const params = new URLSearchParams({
-      page: "1",
-      limit: POSTS_PER_PAGE.toString(),
-      sortBy,
-      timeRange,
-    });
-    selectedUniversities.forEach((u) => params.append("university", u));
-    const res = await fetch(`/api/posts?${params.toString()}`);
-    const data = await res.json();
-    setPosts(data.posts || []);
-    setPage(2);
-    setHasMore((data.posts || []).length >= POSTS_PER_PAGE);
-    setIsLoading(false);
   }, [sortBy, timeRange, selectedUniversities]);
 
+  // Initial load
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      setIsLoading(true);
+      fetchPosts(1).finally(() => setIsLoading(false));
+    }
+  }, [fetchPosts]);
+
+  // Refresh when filters change
+  useEffect(() => {
+    if (isMounted.current) {
+      setIsLoading(true);
+      setPage(1);
+      fetchPosts(1).finally(() => setIsLoading(false));
+    }
+  }, [selectedUniversities, sortBy, timeRange, fetchPosts]);
+
+  // Load more posts
+  const loadMorePosts = useCallback(async () => {
+    if (isLoading || !hasMore) return;
+    
+    setIsLoading(true);
+    const nextPage = page + 1;
+    await fetchPosts(nextPage, true);
+    setPage(nextPage);
+    setIsLoading(false);
+  }, [page, isLoading, hasMore, fetchPosts]);
+
+  // Refresh posts (called after creating post or adding reaction)
+  const refreshPosts = useCallback(async () => {
+    setIsLoading(true);
+    setPage(1);
+    await fetchPosts(1);
+    setIsLoading(false);
+  }, [fetchPosts]);
+
+  // Intersection observer for infinite scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -125,17 +145,6 @@ export function WallClient({ initialPosts }: WallClientProps) {
     }
     return () => observer.disconnect();
   }, [hasMore, isLoading, loadMorePosts]);
-
-  // Refresh posts when filters change
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    // reset and fetch first page on filters change
-    refreshPosts(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedUniversities, sortBy, timeRange]);
 
   return (
     <>
@@ -215,7 +224,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
 
           {/* Load More */}
           <div ref={loadMoreRef} className="p-8 text-center">
-            {isLoading && (
+            {isLoading && posts.length > 0 && (
               <div className="text-xs font-bold uppercase tracking-widest text-slate-400 animate-pulse">
                 Loading more confessions...
               </div>
@@ -225,7 +234,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
                 You&apos;ve reached the end!
               </p>
             )}
-            {hasMore && !isLoading && (
+            {hasMore && !isLoading && posts.length > 0 && (
               <button
                 onClick={loadMorePosts}
                 className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-black border-b border-transparent hover:border-black transition"

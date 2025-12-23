@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { handleAddReaction } from "@/lib/actions/reaction-actions";
 
 type ReactionType = "like" | "love" | "haha" | "wow" | "sad" | "angry";
@@ -27,8 +26,6 @@ export function ReactionModal({
   onReactionAdded,
 }: ReactionModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,8 +49,7 @@ export function ReactionModal({
     onClose();
     try {
       await handleAddReaction(postId, reaction);
-      // Force router to refresh and fetch latest data
-      router.refresh();
+      // Call the refresh callback to refetch posts
       onReactionAdded?.();
     } catch (error) {
       console.error("Failed to add reaction:", error);

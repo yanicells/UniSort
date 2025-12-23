@@ -2,7 +2,6 @@
 
 import { createPost as createPostQuery } from "@/lib/dal/queries";
 import { deletePost as deletePostQuery } from "@/lib/dal/queries";
-import { revalidatePath } from "next/cache";
 
 export async function createPostAction(data: {
   content: string;
@@ -12,7 +11,7 @@ export async function createPostAction(data: {
 }) {
   try {
     const newPost = await createPostQuery(data);
-    revalidatePath("/freedom-wall");
+    // No revalidatePath - client handles its own refresh
     return { success: true, post: newPost };
   } catch (error) {
     console.error("Error creating post:", error);
@@ -23,7 +22,7 @@ export async function createPostAction(data: {
 export async function deletePostAction(postId: string) {
   try {
     await deletePostQuery(postId);
-    revalidatePath("/freedom-wall");
+    // No revalidatePath - client handles its own refresh
     return { success: true };
   } catch (error) {
     console.error("Error deleting post:", error);

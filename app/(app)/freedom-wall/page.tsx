@@ -1,8 +1,7 @@
-import { getWallPosts } from "@/lib/dal/queries";
 import { WallClient } from "@/components/freedom-wall/wall-client";
 
-// Revalidate every 10 seconds - allows instant page loads with background refetching
-export const revalidate = 10;
+// Force dynamic to ensure fresh data - the client will handle all data fetching
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title:
@@ -36,10 +35,7 @@ export const metadata = {
   },
 };
 
-export default async function FreedomWall() {
-  const posts = await getWallPosts({ page: 1, limit: 10 });
-
-  return (
-    <WallClient initialPosts={posts} />
-  );
+export default function FreedomWall() {
+  // Don't fetch on server - let client handle all data fetching for consistency
+  return <WallClient />;
 }
