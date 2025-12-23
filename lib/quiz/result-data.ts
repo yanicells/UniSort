@@ -35,7 +35,7 @@ export const universityFeedback: Record<string, UniversityResultData> = {
       {
         min: 44,
         max: 48,
-        text: "You appreciate support when stressed but feel socially isolated. Different Ateneo circles don't click and the bubble feels suffocating often.",
+        text: "You're starting to find your footing but still feel socially isolated. Support systems help when stressed though different Ateneo circles don't fully click yet.",
       },
       {
         min: 48,
@@ -106,7 +106,7 @@ export const universityFeedback: Record<string, UniversityResultData> = {
       {
         min: 44,
         max: 48,
-        text: "You're slowly adapting but efficiency pressure stresses you out. Condo culture helps slightly but the fourteen-week sprint still overwhelms you regularly.",
+        text: "You're beginning to find your rhythm but efficiency pressure still stresses you. Condo culture and modern infrastructure provide some relief during the fourteen-week sprint.",
       },
       {
         min: 48,
@@ -177,7 +177,7 @@ export const universityFeedback: Record<string, UniversityResultData> = {
       {
         min: 44,
         max: 48,
-        text: "You experience some trauma bonding but administrative chaos stresses you. Your resilience grows slowly but the dysfunction still drains your energy consistently.",
+        text: "You're developing resilience through trauma bonding but administrative chaos still stresses you. Basic diskarte starts clicking though the dysfunction remains draining.",
       },
       {
         min: 48,
@@ -248,7 +248,7 @@ export const universityFeedback: Record<string, UniversityResultData> = {
       {
         min: 44,
         max: 48,
-        text: "Paskuhan celebrations help but academic suffering still drains you. You're building endurance slowly but volume workload challenges you beyond comfort consistently.",
+        text: "You're building endurance slowly and blockmate bonds strengthen. Paskuhan celebrations provide relief though volume workload still challenges you beyond comfort.",
       },
       {
         min: 48,
