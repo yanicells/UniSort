@@ -30,7 +30,8 @@ export const metadata = {
     canonical: "https://unisort.ycells.com/stats",
   },
 };
-export const dynamic = "force-dynamic";
+// Revalidate every 30 seconds - stats don't need to be perfectly real-time
+export const revalidate = 30;
 
 export default async function StatsPage() {
   const summary = await getQuizSummary();

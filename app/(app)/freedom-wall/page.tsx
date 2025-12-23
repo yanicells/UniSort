@@ -1,7 +1,8 @@
 import { getWallPosts } from "@/lib/dal/queries";
 import { WallClient } from "@/components/freedom-wall/wall-client";
 
-export const dynamic = "force-dynamic";
+// Revalidate every 10 seconds - allows instant page loads with background refetching
+export const revalidate = 10;
 
 export const metadata = {
   title:
