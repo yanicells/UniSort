@@ -8,11 +8,13 @@ export default function CommentThread({
   postId,
   depth = 0,
   allComments,
+  onCommentAdded,
 }: {
   parentId: string;
   postId: string;
   depth?: number;
   allComments: PostComment[];
+  onCommentAdded?: () => void;
 }) {
   // Filter comments that belong to this parent
   const comments = allComments.filter((c) => c.parentId === parentId);
@@ -27,7 +29,12 @@ export default function CommentThread({
     <ul className="space-y-3">
       {comments.map((comment) => (
         <li key={comment.id}>
-          <CommentItem comment={comment} postId={postId} depth={nextDepth} />
+          <CommentItem 
+            comment={comment} 
+            postId={postId} 
+            depth={nextDepth} 
+            onReactionAdded={onCommentAdded}
+          />
           {comment.id && nextDepth < maxDepth && (
             <div className="ml-8 mt-3 pl-4 border-l-2 border-slate-300">
               <CommentThread
@@ -35,6 +42,7 @@ export default function CommentThread({
                 postId={postId}
                 depth={nextDepth}
                 allComments={allComments}
+                onCommentAdded={onCommentAdded}
               />
             </div>
           )}

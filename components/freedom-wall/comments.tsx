@@ -9,6 +9,7 @@ type CommentProps = {
   comments: PostComment[];
   totalCount?: number;
   allComments: PostComment[];
+  onCommentAdded?: () => void;
 };
 
 export function Comments({
@@ -16,6 +17,7 @@ export function Comments({
   comments,
   totalCount,
   allComments,
+  onCommentAdded,
 }: CommentProps) {
   const displayCount = totalCount ?? comments.length;
 
@@ -46,7 +48,12 @@ export function Comments({
       <ul className="space-y-4">
         {comments.map((comment) => (
           <li key={comment.id}>
-            <CommentItem comment={comment} postId={postId} depth={0} />
+            <CommentItem 
+              comment={comment} 
+              postId={postId} 
+              depth={0} 
+              onReactionAdded={onCommentAdded}
+            />
             {comment.id && (
               <div className="ml-8 mt-3 pl-4 border-l-2 border-slate-300">
                 <CommentThread
@@ -54,6 +61,7 @@ export function Comments({
                   postId={postId}
                   depth={1}
                   allComments={allComments}
+                  onCommentAdded={onCommentAdded}
                 />
               </div>
             )}

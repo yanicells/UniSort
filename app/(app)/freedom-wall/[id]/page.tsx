@@ -1,10 +1,9 @@
 import SinglePostPage from "@/components/freedom-wall/single-post-page";
-import {
-  getPostById,
-  getPostComments,
-  getAllNestedComments,
-} from "@/lib/dal/queries";
+import { getPostById } from "@/lib/dal/queries";
 import { Metadata } from "next";
+
+// Force dynamic - client will fetch fresh data
+export const dynamic = "force-dynamic";
 
 // Helper to strip HTML tags
 const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
@@ -66,18 +65,7 @@ export default async function PostPage({
   params: Promise<{ id: string }>;
 }) {
   const paramsResolved = await params;
-  const post = await getPostById(paramsResolved.id);
-  const comments = await getPostComments(paramsResolved.id);
-  const allNestedComments = await getAllNestedComments(paramsResolved.id);
-  const totalCommentCount = allNestedComments.length;
-
-  return (
-    <SinglePostPage
-      postId={paramsResolved.id}
-      post={post}
-      comments={comments}
-      allComments={allNestedComments}
-      totalCommentCount={totalCommentCount}
-    />
-  );
+  
+  // Only pass postId - client will fetch all data
+  return <SinglePostPage postId={paramsResolved.id} />;
 }

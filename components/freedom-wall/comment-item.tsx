@@ -14,6 +14,7 @@ type CommentItemProps = {
   comment: PostComment;
   postId: string;
   depth?: number;
+  onReactionAdded?: () => void;
 };
 
 const REACTION_EMOJIS: Record<string, string> = {
@@ -25,7 +26,7 @@ const REACTION_EMOJIS: Record<string, string> = {
   angry: "😠",
 };
 
-export function CommentItem({ comment, depth = 0 }: CommentItemProps) {
+export function CommentItem({ comment, postId, depth = 0, onReactionAdded }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const [showReactionModal, setShowReactionModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
@@ -150,6 +151,7 @@ export function CommentItem({ comment, depth = 0 }: CommentItemProps) {
                 <ReactionModal
                   postId={comment.id}
                   onClose={() => setShowReactionModal(false)}
+                  onReactionAdded={onReactionAdded}
                 />
               )}
             </div>
@@ -172,7 +174,11 @@ export function CommentItem({ comment, depth = 0 }: CommentItemProps) {
       )}
 
       {showReply && (
-        <PostModal parentId={comment.id} onClose={() => setShowReply(false)} />
+        <PostModal 
+          parentId={comment.id} 
+          onClose={() => setShowReply(false)} 
+          onPostCreated={onReactionAdded}
+        />
       )}
 
       {comment.imageUrl && (
