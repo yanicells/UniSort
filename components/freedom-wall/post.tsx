@@ -65,8 +65,8 @@ export function Post({
 
   // Get top 3 reactions
   const topReactions = Object.entries(reactions)
-    .filter(([_, count]) => count > 0)
-    .sort(([_, a], [__, b]) => b - a)
+    .filter(([, count]) => count > 0)
+    .sort(([, a], [, b]) => b - a)
     .slice(0, 3)
     .map(([type]) => type);
 

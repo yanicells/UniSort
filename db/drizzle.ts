@@ -21,6 +21,7 @@ function getDatabase() {
 
 export const db = new Proxy({} as NeonHttpDatabase, {
   get(_, prop) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (getDatabase() as any)[prop];
   },
 });

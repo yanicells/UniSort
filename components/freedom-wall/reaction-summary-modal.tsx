@@ -40,8 +40,8 @@ export function ReactionSummaryModal({
   }, [onClose]);
 
   const sortedReactions = (Object.entries(reactions) as [ReactionType, number][])
-    .filter(([_, count]) => count > 0)
-    .sort(([_, a], [__, b]) => b - a);
+    .filter(([, count]) => count > 0)
+    .sort(([, a], [, b]) => b - a);
 
   return (
     <div className="fixed inset-0 w-screen h-screen z-[100] flex items-center justify-center bg-black/50 p-4 animate-in fade-in duration-200">

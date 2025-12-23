@@ -25,7 +25,7 @@ const REACTION_EMOJIS: Record<string, string> = {
   angry: "😠",
 };
 
-export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
+export function CommentItem({ comment, depth = 0 }: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const [showReactionModal, setShowReactionModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
@@ -46,8 +46,8 @@ export function CommentItem({ comment, postId, depth = 0 }: CommentItemProps) {
 
   // Get top 3 reactions
   const topReactions = Object.entries(comment.reactions)
-    .filter(([_, count]) => count > 0)
-    .sort(([_, a], [__, b]) => b - a)
+    .filter(([, count]) => count > 0)
+    .sort(([, a], [, b]) => b - a)
     .slice(0, 3)
     .map(([type]) => type);
 

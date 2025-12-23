@@ -9,8 +9,8 @@ export default function QuizHandler() {
 
   const [isMounted, setIsMounted] = useState(false);
 
+  // Hydrate from localStorage on mount - this pattern is acceptable for client-side hydration
   useEffect(() => {
-    setIsMounted(true);
     const saved = localStorage.getItem("uniSortQuizResult");
     if (saved) {
       try {
@@ -22,6 +22,7 @@ export default function QuizHandler() {
         console.error("Failed to parse saved quiz result", e);
       }
     }
+    setIsMounted(true);
   }, []);
 
   if (!isMounted) return null; // Avoid rendering anything until mounted to prevent mismatch

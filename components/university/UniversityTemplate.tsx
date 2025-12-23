@@ -50,7 +50,7 @@ export function UniversityTemplate({
             {name}
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-muted-foreground">
-            "{slogan}"
+            &quot;{slogan}&quot;
           </p>
         </div>
       </section>

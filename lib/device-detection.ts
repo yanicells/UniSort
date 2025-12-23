@@ -11,7 +11,8 @@ export function getDeviceInfo(): DeviceInfo {
     return { type: "desktop", os: "unknown", isTouch: false };
   }
 
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera || '';
   const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
   // iOS detection

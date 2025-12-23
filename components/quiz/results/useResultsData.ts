@@ -48,7 +48,7 @@ export function useResultsData({
     
     const categories = Object.keys(breakdown.admu.categories.reduce((acc, curr) => ({ ...acc, [curr.category]: true }), {}));
     
-    return (categories as any[]).map(catName => {
+    return (categories as string[]).map(catName => {
       let bestUni = "admu" as University;
       let maxPercent = -1;
       

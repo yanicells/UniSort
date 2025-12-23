@@ -6,7 +6,7 @@ import { FilterBar } from "./filter-bar";
 import { useRouter } from "next/navigation";
 import { PostModal } from "./post-modal";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
-import { PenTool } from "lucide-react";
+import { PenTool, Loader2 } from "lucide-react";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
@@ -36,11 +36,6 @@ interface WallClientProps {
 const POSTS_PER_PAGE = 10;
 
 export function WallClient({ initialPosts }: WallClientProps) {
-  const initialList = initialPosts ?? [];
-  const [posts, setPosts] = useState(initialList);
-  const [page, setPage] = useState(2); // initial page already loaded
-  const [hasMore, setHasMore] = useState(initialList.length >= POSTS_PER_PAGE);
-  const [isLoading, setIsLoading] = useState(false);
   const [selectedUniversities, setSelectedUniversities] = useState<
     WallUniversity[]
   >([]);
@@ -48,9 +43,25 @@ export function WallClient({ initialPosts }: WallClientProps) {
   const [timeRange, setTimeRange] = useState<WallTime>("all");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Derive posts from initialPosts to sync with server data
+  const [posts, setPosts] = useState(() => initialPosts ?? []);
+  const [page, setPage] = useState(2);
+  const [hasMore, setHasMore] = useState((initialPosts ?? []).length >= POSTS_PER_PAGE);
+  
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const isFirstRender = useRef(true);
+  const prevInitialPostsRef = useRef(initialPosts);
   const router = useRouter();
+
+  // Sync posts when navigating back (initialPosts reference changes)
+  if (prevInitialPostsRef.current !== initialPosts) {
+    setPosts(initialPosts ?? []);
+    setPage(2);
+    setHasMore((initialPosts ?? []).length >= POSTS_PER_PAGE);
+    prevInitialPostsRef.current = initialPosts;
+  }
 
   const loadMorePosts = useCallback(async () => {
     setIsLoading(true);
@@ -115,6 +126,7 @@ export function WallClient({ initialPosts }: WallClientProps) {
     return () => observer.disconnect();
   }, [hasMore, isLoading, loadMorePosts]);
 
+  // Refresh posts when filters change
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -122,7 +134,8 @@ export function WallClient({ initialPosts }: WallClientProps) {
     }
     // reset and fetch first page on filters change
     refreshPosts(true);
-  }, [refreshPosts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedUniversities, sortBy, timeRange]);
 
   return (
     <>
@@ -174,13 +187,8 @@ export function WallClient({ initialPosts }: WallClientProps) {
           {/* Posts Feed */}
           <div className="p-6 space-y-6 bg-slate-50">
             {posts.length === 0 && isLoading ? (
-              <div className="space-y-6">
-                {[...Array(3)].map((_, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white border-2 border-black p-6 animate-pulse h-48"
-                  />
-                ))}
+              <div className="flex justify-center items-center py-20">
+                <Loader2 className="w-10 h-10 animate-spin text-pink-600" />
               </div>
             ) : posts.length === 0 ? (
               <div className="text-center text-slate-500 py-12 font-serif text-lg">

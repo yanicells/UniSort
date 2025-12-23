@@ -38,13 +38,18 @@ export default function QuizView({
     ust: number;
   }>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
   const [breakdown, setBreakdown] = useState<Record<University, UniversityDetailedScore> | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
 
+  // Hydrate from localStorage once after mount
   useEffect(() => {
+    if (isHydrated) return;
+    
     const saved = localStorage.getItem("uniSortQuizResult");
     if (saved) {
        try {
          const parsed = JSON.parse(saved);
          if (parsed && parsed.scores) {
+           // Use functional updates to avoid dependency issues
            setScore(parsed.scores);
            if (parsed.breakdown) {
              setBreakdown(parsed.breakdown);
@@ -55,6 +60,8 @@ export default function QuizView({
          console.error("Failed to parse saved quiz result", e);
        }
     }
+    setIsHydrated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Calculate current running score for the chart

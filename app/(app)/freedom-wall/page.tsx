@@ -1,6 +1,8 @@
 import { getWallPosts } from "@/lib/dal/queries";
 import { WallClient } from "@/components/freedom-wall/wall-client";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title:
     "Freedom Wall – Anonymous University Confessions Philippines | ADMU DLSU UP UST",

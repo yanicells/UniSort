@@ -68,10 +68,10 @@ export function AverageScoresBarChartClient({
         />
         <ChartTooltip 
             content={<ChartTooltipContent hideLabel />} 
-            formatter={(value: any, name: any, item: any) => [`${value}% Match`, item.payload.uni]}
+            formatter={(value: number | string, _name: string, item: { payload?: { uni: string } }) => [`${value}% Match`, item.payload?.uni ?? '']}
         />
         <Bar dataKey="normalized" radius={[8, 8, 0, 0]}>
-             <LabelList dataKey="normalized" position="top" formatter={(value: any) => `${value}%`} style={{ fontSize: 12, fontWeight: 'bold' }} />
+             <LabelList dataKey="normalized" position="top" formatter={(value: number | string) => `${value}%`} style={{ fontSize: 12, fontWeight: 'bold' }} />
         </Bar>
       </BarChart>
     </ChartContainer>
