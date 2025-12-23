@@ -92,14 +92,18 @@ export function PostModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 sm:p-6 md:p-8">
-      <div className="w-full max-w-4xl bg-white border-2 sm:border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[95vh] overflow-hidden flex flex-col">
-        {/* Newspaper Header */}
-        <div className="bg-pink-600 border-b-2 sm:border-b-4 border-black p-3 sm:p-4 text-center relative">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase text-white tracking-tight italic">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 p-0 sm:p-6 md:p-8">
+      {/* Mobile: slides up from bottom with 80vh max. Desktop: centered modal */}
+      <div className="w-full sm:max-w-4xl bg-white border-t-2 sm:border-2 md:border-4 border-black shadow-[0px_-4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[80vh] sm:max-h-[90vh] overflow-hidden flex flex-col rounded-t-2xl sm:rounded-none">
+        {/* Newspaper Header - more compact on mobile */}
+        <div className="bg-pink-600 border-b-2 sm:border-b-4 border-black p-2 sm:p-4 text-center relative shrink-0">
+          {/* Mobile drag indicator */}
+          <div className="sm:hidden w-10 h-1 bg-pink-300 rounded-full mx-auto mb-2" />
+          
+          <h2 className="text-xl sm:text-3xl md:text-4xl font-black uppercase text-white tracking-tight italic">
             {isReply ? "Write a Reply" : "Breaking News!"}
           </h2>
-          <div className="text-[10px] sm:text-xs font-mono font-bold text-pink-200 uppercase tracking-wider mt-1">
+          <div className="text-[9px] sm:text-xs font-mono font-bold text-pink-200 uppercase tracking-wider mt-0.5 sm:mt-1">
             {isReply
               ? "Continue the Conversation"
               : "Submit Your Anonymous Story"}
@@ -108,15 +112,15 @@ export function PostModal({
           {/* Close Button */}
           <button
             type="button"
-            className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black text-white hover:bg-white hover:text-black transition-colors p-1.5 sm:p-2 border-2 border-white hover:border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black text-white hover:bg-white hover:text-black transition-colors p-1 sm:p-2 border-2 border-white hover:border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
             onClick={onClose}
           >
-            <X size={16} className="sm:w-5 sm:h-5 font-bold" />
+            <X size={14} className="sm:w-5 sm:h-5 font-bold" />
           </button>
         </div>
 
         {/* Form Container */}
-        <div className="overflow-y-auto p-4 sm:p-6 bg-slate-50">
+        <div className="overflow-y-auto p-3 sm:p-6 bg-slate-50 flex-1">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
