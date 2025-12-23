@@ -2,9 +2,30 @@ import QuizHandler from "@/components/quiz/quiz";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 
 export const metadata = {
-  title: "Take the Quiz - UniSort",
+  title: "Big 4 University Fit Quiz – Ateneo, La Salle, UP, UST | Free Quiz",
   description:
-    "Take our 2-minute personality quiz to find your perfect university match among ADMU, DLSU, UP, and UST.",
+    "Take a free 5-minute personality quiz to see which Big 4 university in the Philippines fits you best: Ateneo de Manila University (ADMU), De La Salle University (DLSU), University of the Philippines (UP), or University of Santo Tomas (UST). Find your perfect university match based on culture fit.",
+  keywords: [
+    "big 4 university quiz",
+    "which university fits me best",
+    "university personality quiz philippines",
+    "ADMU DLSU UP UST quiz",
+    "college match quiz philippines",
+    "best university for me quiz",
+    "ph university quiz based on personality",
+    "university culture fit philippines",
+    "Ateneo vs La Salle vs UP vs UST quiz",
+  ],
+  openGraph: {
+    title: "Which Big 4 University Fits You? Take the Free Quiz",
+    description:
+      "Free personality quiz to find your perfect Big 4 university match in the Philippines. Compare ADMU, DLSU, UP, and UST.",
+    type: "website",
+    url: "https://unisort.ycells.com/quiz",
+  },
+  alternates: {
+    canonical: "https://unisort.ycells.com/quiz",
+  },
 };
 
 export default function Quiz() {

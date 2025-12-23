@@ -3,9 +3,36 @@ import { universityData } from "@/lib/page-content/university-data";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 
 export const metadata = {
-  title: "Ateneo de Manila University (ADMU) - UniSort",
+  title:
+    "Ateneo de Manila University (ADMU) Review | Student Culture, Pros & Cons",
   description:
-    "Learn about ADMU's campus culture, academic programs, and student life. Discover if Ateneo is right for you.",
+    "Complete guide to Ateneo de Manila University (ADMU). Learn about Blue Eagles student culture, Jesuit education, Katipunan campus life, pros and cons. Is Ateneo worth it? Compare ADMU vs La Salle, ADMU vs UP. Discover what it's really like studying at Ateneo.",
+  keywords: [
+    "Ateneo de Manila University",
+    "ADMU",
+    "Blue Eagles",
+    "Katipunan",
+    "Ateneo student culture",
+    "ADMU pros and cons",
+    "is Ateneo worth it",
+    "Ateneo review",
+    "Jesuit education philippines",
+    "conyo school",
+    "Ateneo vs La Salle",
+    "Ateneo vs UP",
+    "what's it like studying in Ateneo",
+    "one big fight",
+  ],
+  openGraph: {
+    title: "Ateneo de Manila University (ADMU) – Student Life & Culture Review",
+    description:
+      "Everything you need to know about studying at Ateneo de Manila University. Student culture, academic experience, pros and cons.",
+    type: "website",
+    url: "https://unisort.ycells.com/admu",
+  },
+  alternates: {
+    canonical: "https://unisort.ycells.com/admu",
+  },
 };
 
 export default function ADMU() {

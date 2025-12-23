@@ -12,6 +12,10 @@ import {
   Quote,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import {
+  getOrganizationSchema,
+  getWebSiteSchema,
+} from "@/lib/seo/structured-data";
 
 export default async function Home() {
   const [quizSummary, recentPosts] = await Promise.all([
@@ -21,8 +25,20 @@ export default async function Home() {
 
   const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
+  // JSON-LD structured data
+  const organizationSchema = getOrganizationSchema();
+  const websiteSchema = getWebSiteSchema();
+
   return (
     <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([organizationSchema, websiteSchema]),
+        }}
+      />
+
       <NewspaperMasthead />
 
       {/* Marquee */}

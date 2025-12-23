@@ -1,5 +1,25 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-Sitemap: https://unisort.com/sitemap.xml
+
+# Block admin routes
+Disallow: /admin/
+Disallow: /login/
+
+# Block API routes from indexing
+Disallow: /api/
+
+# Allow specific important routes
+Allow: /quiz
+Allow: /freedom-wall
+Allow: /big4
+Allow: /admu
+Allow: /dlsu
+Allow: /up
+Allow: /ust
+Allow: /stats
+
+# Sitemap location
+Sitemap: https://unisort.ycells.com/sitemap.xml
 
 
