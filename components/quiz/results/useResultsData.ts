@@ -13,15 +13,17 @@ export function useResultsData({
   name: string;
 }) {
   const percentages = useMemo(() => {
+    // Use normalized percentages from breakdown if available
     if (breakdown) {
       return {
-        admu: breakdown.admu.totalMaxScore > 0 ? Math.round((breakdown.admu.totalScore / breakdown.admu.totalMaxScore) * 100) : 0,
-        dlsu: breakdown.dlsu.totalMaxScore > 0 ? Math.round((breakdown.dlsu.totalScore / breakdown.dlsu.totalMaxScore) * 100) : 0,
-        up: breakdown.up.totalMaxScore > 0 ? Math.round((breakdown.up.totalScore / breakdown.up.totalMaxScore) * 100) : 0,
-        ust: breakdown.ust.totalMaxScore > 0 ? Math.round((breakdown.ust.totalScore / breakdown.ust.totalMaxScore) * 100) : 0,
+        admu: breakdown.admu.normalizedPercentage || 0,
+        dlsu: breakdown.dlsu.normalizedPercentage || 0,
+        up: breakdown.up.normalizedPercentage || 0,
+        ust: breakdown.ust.normalizedPercentage || 0,
       };
     }
 
+    // Fallback to old calculation (for backward compatibility)
     return {
       admu: Math.round((score.admu / MAX_SCORES.admu) * 100),
       dlsu: Math.round((score.dlsu / MAX_SCORES.dlsu) * 100),
@@ -50,10 +52,11 @@ export function useResultsData({
       let bestUni = "admu" as University;
       let maxPercent = -1;
       
+      // Use normalized percentages for comparison
       (["admu", "dlsu", "up", "ust"] as University[]).forEach(uni => {
         const cat = breakdown[uni]?.categories.find(c => c.category === catName);
-        if (cat && cat.percentage > maxPercent) {
-          maxPercent = cat.percentage;
+        if (cat && cat.normalizedPercentage > maxPercent) {
+          maxPercent = cat.normalizedPercentage;
           bestUni = uni;
         }
       });
