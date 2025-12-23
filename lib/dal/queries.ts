@@ -324,6 +324,24 @@ export async function getOverallResultsDistribution(): Promise<
   }));
 }
 
+export async function getAverageUniversityScores() {
+  const result = await db
+    .select({
+      admu: sql<number>`avg((${quizResults.scores}->>'admu')::int)`,
+      dlsu: sql<number>`avg((${quizResults.scores}->>'dlsu')::int)`,
+      up: sql<number>`avg((${quizResults.scores}->>'up')::int)`,
+      ust: sql<number>`avg((${quizResults.scores}->>'ust')::int)`,
+    })
+    .from(quizResults);
+
+  return {
+    admu: result[0]?.admu ? Number(result[0].admu) : 0,
+    dlsu: result[0]?.dlsu ? Number(result[0].dlsu) : 0,
+    up: result[0]?.up ? Number(result[0].up) : 0,
+    ust: result[0]?.ust ? Number(result[0].ust) : 0,
+  };
+}
+
 export async function getDailyResultsCounts(
   days: number,
   filterUni?: "admu" | "dlsu" | "up" | "ust" | "all"

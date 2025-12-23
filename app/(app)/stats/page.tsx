@@ -1,6 +1,7 @@
 import { DailyResultsBarChart } from "@/components/charts/DailyResultsBarChart";
 import { OverallResultsPieChart } from "@/components/charts/OverallResultsPieChart";
 import { OverallResultsBarChart } from "@/components/charts/OverallResultsBarChart";
+import { AverageScoresBarChart } from "@/components/charts/AverageScoresBarChart";
 import { Suspense } from "react";
 import { getQuizSummary } from "@/lib/dal/queries";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
@@ -65,7 +66,7 @@ export default async function StatsPage() {
           {/* Main Content */}
           <div className="p-4 md:p-6 lg:p-10 space-y-8 md:space-y-10">
             {/* Breaking News Banner */}
-            <div className="bg-red-600 text-white px-4 md:px-6 py-2 md:py-3 border-2 md:border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
+            <div className="bg-red-600 text-white px-4 md:px-6 py-2 md:py-3 border-2 md:border-4 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transform -rotate-1">
               <div className="flex items-center justify-center gap-2 md:gap-3">
                 <TrendingUp className="w-4 h-4 md:w-5 md:h-5 animate-pulse" />
                 <p className="font-black uppercase text-xs md:text-sm lg:text-base tracking-wide text-center">
@@ -109,8 +110,8 @@ export default async function StatsPage() {
             </section>
 
             {/* Main Chart Section */}
-            <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 md:transform md:rotate-1 overflow-hidden">
-              <div className="md:transform md:-rotate-1">
+            <div className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 overflow-hidden">
+              <div>
                 <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
                   <BarChart3 className="w-5 md:w-7 h-5 md:h-7" />
                   <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
@@ -119,6 +120,21 @@ export default async function StatsPage() {
                 </div>
                 <div className="overflow-hidden">
                   <OverallResultsBarChart />
+                </div>
+              </div>
+            </div>
+
+            {/* Average Scores Chart Section */}
+            <div className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 overflow-hidden">
+              <div>
+                <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
+                  <BarChart3 className="w-5 md:w-7 h-5 md:h-7" />
+                  <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
+                    Average Score Distribution
+                  </h2>
+                </div>
+                <div className="overflow-hidden">
+                  <AverageScoresBarChart />
                 </div>
               </div>
             </div>
@@ -164,8 +180,8 @@ export default async function StatsPage() {
                 </div>
               }
             >
-              <div className="bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 md:transform md:-rotate-1 overflow-hidden">
-                <div className="md:transform md:rotate-1">
+              <div className="bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-4 md:p-8 overflow-hidden">
+                <div>
                   <div className="flex items-center gap-3 mb-6 border-b-2 border-black pb-3">
                     <TrendingUp className="w-5 md:w-7 h-5 md:h-7" />
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight font-serif">
@@ -197,7 +213,7 @@ function SummaryCard({
   icon?: string;
 }) {
   return (
-    <div className="bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-all">
+    <div className="bg-white border-4 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-4 hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-all">
       <div className="text-center space-y-2">
         {icon && <div className="text-3xl">{icon}</div>}
         <p
@@ -224,7 +240,7 @@ function ChartCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-4 md:p-6 overflow-hidden">
+    <div className="bg-white border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-4 md:p-6 overflow-hidden">
       <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6 border-b-2 border-black pb-2 md:pb-3">
         <div className="shrink-0">{icon}</div>
         <h3 className="text-lg md:text-xl lg:text-2xl font-black uppercase tracking-tight font-serif break-words">
