@@ -48,8 +48,11 @@ export default async function Home() {
               PHP 25.00
             </span>
           </div>
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
-            UNI SORT
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-black uppercase tracking-tighter leading-none mb-4">
+            UNI <span className="text-[#001196]">S</span>
+            <span className="text-[#00703c]">O</span>
+            <span className="text-[#7b1113]">R</span>
+            <span className="text-[#fdb71a]">T</span>
           </h1>
           <div className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[10px] md:text-xs font-bold border-y border-black py-2 mt-4 max-w-lg mx-auto font-sans">
             <span>PERSONALITY QUIZ</span>
@@ -213,7 +216,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-justify font-serif text-sm leading-relaxed">
-            <div className="border-r border-slate-300 pr-0 md:pr-6">
+            <div className="border-b md:border-b-0 md:border-r border-slate-300 pb-8 md:pb-0 pr-0 md:pr-6">
               <p>
                 <span className="float-left text-5xl font-black mr-2 mt-[-10px] font-sans">
                   A
@@ -232,7 +235,7 @@ export default async function Home() {
                 </div>
               </Link>
             </div>
-            <div className="border-r border-slate-300 pr-0 md:pr-6">
+            <div className="border-b md:border-b-0 md:border-r border-slate-300 pb-8 md:pb-0 pr-0 md:pr-6">
               <p>
                 Beyond the brochures lies the truth. Explore detailed profiles
                 of all Big Four universities—their cultures, quirks, and
