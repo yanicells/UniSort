@@ -18,8 +18,7 @@ export default function AboutPage() {
             About UniSort
           </h1>
           <p className="font-serif text-lg italic text-slate-600 max-w-2xl mx-auto">
-            &quot;The story behind the algorithm that knows you better than you
-            know yourself.&quot;
+            &quot;The story behind the university sorting hat.&quot;
           </p>
         </div>
 
@@ -108,7 +107,7 @@ export default function AboutPage() {
           {/* How to Contribute */}
           <section className="bg-slate-50 border-2 border-black p-6 md:p-8 transform rotate-1">
             <h2 className="font-sans font-black text-xl md:text-2xl uppercase mb-4 border-b-2 border-black pb-2 inline-block">
-              Join The Editorial Team
+              Contribute to UniSort
             </h2>
             <p className="font-serif text-slate-700 mb-6">
               This project is open-source and community-driven. We need your

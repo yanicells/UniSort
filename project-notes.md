@@ -5,12 +5,5 @@ Maybe I can integrate the AI chatbot here, to ask questions about universities, 
 Tasks
 - SEO optimization
 
-tasks:
-final task
- - finalize name of the website
-
-Frontend
-- and url to use if vercel or yanicells
-
 vercel analytics
 double check all content + readme and about page

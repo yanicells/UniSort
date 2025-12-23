@@ -330,7 +330,7 @@ export default async function Home() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="w-16 h-1 bg-black mx-auto mb-6"></div>
             <h4 className="font-sans font-bold text-sm uppercase tracking-widest mb-4 text-slate-400">
-              Legal Notice
+              Disclosure
             </h4>
             <p className="font-serif text-sm text-slate-500 italic leading-relaxed">
               UniSort is a personal project created for entertainment and
