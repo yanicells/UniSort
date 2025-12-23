@@ -23,6 +23,7 @@ export default function QuizHandler() {
       }
     }
     setIsMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isMounted) return null; // Avoid rendering anything until mounted to prevent mismatch
