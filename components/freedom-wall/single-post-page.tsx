@@ -38,17 +38,27 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
   const [totalCommentCount, setTotalCommentCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchPostData = useCallback(async () => {
+  const MAX_RETRIES = 2;
+
+  const fetchPostData = useCallback(async (retry: number = 0): Promise<void> => {
     try {
+      setError(null);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+      
       const res = await fetch(`/api/posts/${postId}?_t=${Date.now()}`, {
         cache: "no-store",
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
       
       if (!res.ok) {
         if (res.status === 404) {
           setError("Post not found");
         } else {
-          setError("Failed to load post");
+          throw new Error(`HTTP ${res.status}`);
         }
         return;
       }
@@ -60,8 +70,16 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
       setTotalCommentCount(data.totalCommentCount || 0);
       setError(null);
     } catch (err) {
-      console.error("Error fetching post:", err);
-      setError("Failed to load post");
+      console.error(`Error fetching post (attempt ${retry + 1}):`, err);
+      
+      // Retry with exponential backoff
+      if (retry < MAX_RETRIES) {
+        const delay = Math.pow(2, retry) * 500;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return fetchPostData(retry + 1);
+      }
+      
+      setError("Failed to load post. Please try again.");
     }
   }, [postId]);
 

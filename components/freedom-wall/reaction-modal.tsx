@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { handleAddReaction } from "@/lib/actions/reaction-actions";
 
 type ReactionType = "like" | "love" | "haha" | "wow" | "sad" | "angry";
@@ -26,6 +26,7 @@ export function ReactionModal({
   onReactionAdded,
 }: ReactionModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,13 +47,26 @@ export function ReactionModal({
     reaction: ReactionType
   ) => {
     e.stopPropagation();
+    
+    // Prevent double-clicks
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     onClose();
+    
     try {
-      await handleAddReaction(postId, reaction);
-      // Call the refresh callback to refetch posts
-      onReactionAdded?.();
+      const result = await handleAddReaction(postId, reaction);
+      
+      if (result.success) {
+        // Call the refresh callback to refetch posts
+        onReactionAdded?.();
+      } else {
+        console.error("Failed to add reaction:", result.error);
+      }
     } catch (error) {
       console.error("Failed to add reaction:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -70,6 +84,7 @@ export function ReactionModal({
             <button
               key={reaction.type}
               onClick={(e) => handleReactionClick(e, reaction.type)}
+              disabled={isSubmitting}
               className="text-2xl hover:scale-125 transition-transform disabled:opacity-50 disabled:cursor-not-allowed p-1 hover:bg-slate-100 rounded-full w-8 h-8 flex items-center justify-center"
               title={reaction.type}
             >
