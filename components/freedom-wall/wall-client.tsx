@@ -134,15 +134,28 @@ export function WallClient() {
     }
   }, [selectedUniversities, sortBy, timeRange, fetchPosts]);
 
-  // Load more posts
+  // Load more posts - use ref to prevent race conditions
+  const fetchingMore = useRef(false);
+  
   const loadMorePosts = useCallback(async () => {
-    if (isLoading || !hasMore) return;
+    // Prevent multiple simultaneous requests
+    if (isLoading || !hasMore || fetchingMore.current) return;
     
+    fetchingMore.current = true;
     setIsLoading(true);
-    const nextPage = page + 1;
-    await fetchPosts(nextPage, true);
-    setPage(nextPage);
-    setIsLoading(false);
+    
+    try {
+      const nextPage = page + 1;
+      const newPosts = await fetchPosts(nextPage, true);
+      
+      // Only increment page if we got results
+      if (newPosts && newPosts.length > 0) {
+        setPage(nextPage);
+      }
+    } finally {
+      setIsLoading(false);
+      fetchingMore.current = false;
+    }
   }, [page, isLoading, hasMore, fetchPosts]);
 
   // Refresh posts (called after creating post or adding reaction)
@@ -157,11 +170,11 @@ export function WallClient() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isLoading) {
+        if (entries[0].isIntersecting && hasMore && !isLoading && !fetchingMore.current) {
           loadMorePosts();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: "100px" }
     );
     if (loadMoreRef.current) {
       observer.observe(loadMoreRef.current);

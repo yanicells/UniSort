@@ -102,9 +102,13 @@ type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
-// Helper function to count all nested comments recursively
-async function getCommentCountForPost(postId: string): Promise<number> {
-  // Get all comments (at any level) that are descendants of this post
+// Efficient batch function to get comment counts for multiple posts
+async function getCommentCountsForPosts(postIds: string[]): Promise<Map<string, number>> {
+  if (postIds.length === 0) {
+    return new Map();
+  }
+
+  // Get all comments (at any level) that are descendants of any of these posts
   const allComments = await db
     .select({ id: posts.id, parentId: posts.parentId })
     .from(posts)
@@ -131,7 +135,13 @@ async function getCommentCountForPost(postId: string): Promise<number> {
     return count;
   }
 
-  return countDescendants(postId);
+  // Calculate counts for all requested posts
+  const counts = new Map<string, number>();
+  postIds.forEach((postId) => {
+    counts.set(postId, countDescendants(postId));
+  });
+
+  return counts;
 }
 
 export async function getWallPosts({
@@ -210,13 +220,15 @@ export async function getWallPosts({
     .limit(sortBy === "most-discussed" ? limit * 3 : limit) // Fetch more for sorting
     .offset(offset);
 
+  // Get comment counts for all posts in a single batch query
+  const postIds = result.map((post) => post.id);
+  const commentCounts = await getCommentCountsForPosts(postIds);
+
   // Add comment counts to each post
-  const postsWithCommentCounts = await Promise.all(
-    result.map(async (post) => ({
-      ...post,
-      commentCount: await getCommentCountForPost(post.id),
-    }))
-  );
+  const postsWithCommentCounts = result.map((post) => ({
+    ...post,
+    commentCount: commentCounts.get(post.id) || 0,
+  }));
 
   // Sort by comment count if needed and limit again
   if (sortBy === "most-discussed") {
