@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PostModal } from "./post-modal";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { PenTool, Loader2 } from "lucide-react";
@@ -32,12 +32,29 @@ type PostData = {
 const POSTS_PER_PAGE = 10;
 const MAX_RETRIES = 2;
 
+// Valid options for type checking
+const VALID_SORTS: WallSort[] = ["latest", "most-liked", "most-discussed"];
+const VALID_TIMES: WallTime[] = ["all", "week", "month"];
+const VALID_UNIVERSITIES: WallUniversity[] = ["general", "admu", "dlsu", "up", "ust"];
+
 export function WallClient() {
-  const [selectedUniversities, setSelectedUniversities] = useState<
-    WallUniversity[]
-  >([]);
-  const [sortBy, setSortBy] = useState<WallSort>("latest");
-  const [timeRange, setTimeRange] = useState<WallTime>("all");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
+  // Initialize state from URL params
+  const [selectedUniversities, setSelectedUniversities] = useState<WallUniversity[]>(() => {
+    const unis = searchParams.getAll("u");
+    return unis.filter((u): u is WallUniversity => VALID_UNIVERSITIES.includes(u as WallUniversity));
+  });
+  const [sortBy, setSortBy] = useState<WallSort>(() => {
+    const sort = searchParams.get("sort");
+    return VALID_SORTS.includes(sort as WallSort) ? (sort as WallSort) : "latest";
+  });
+  const [timeRange, setTimeRange] = useState<WallTime>(() => {
+    const time = searchParams.get("time");
+    return VALID_TIMES.includes(time as WallTime) ? (time as WallTime) : "all";
+  });
+  
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [replyToPostId, setReplyToPostId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +66,32 @@ export function WallClient() {
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const isMounted = useRef(false);
   const retryCount = useRef(0);
-  const router = useRouter();
+  const isInitialMount = useRef(true);
+
+  // Update URL when filters change (but not on initial mount)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    
+    const params = new URLSearchParams();
+    
+    if (sortBy !== "latest") {
+      params.set("sort", sortBy);
+    }
+    if (timeRange !== "all") {
+      params.set("time", timeRange);
+    }
+    selectedUniversities.forEach((u) => params.append("u", u));
+    
+    const queryString = params.toString();
+    const newUrl = queryString ? `/freedom-wall?${queryString}` : "/freedom-wall";
+    
+    // Use replace to avoid creating history entries for filter changes
+    router.replace(newUrl, { scroll: false });
+  }, [sortBy, timeRange, selectedUniversities, router]);
+
 
 
   // Fetch posts from API with retry logic

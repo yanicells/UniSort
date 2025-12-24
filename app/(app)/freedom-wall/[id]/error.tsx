@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
-import Link from "next/link";
 
 export default function SinglePostError({
   error,
@@ -11,6 +11,8 @@ export default function SinglePostError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const router = useRouter();
+  
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("Single Post Error:", error);
@@ -52,12 +54,12 @@ export default function SinglePostError({
                 >
                   Try Again
                 </button>
-                <Link
-                  href="/freedom-wall"
-                  className="px-6 py-2 border-2 border-black font-bold uppercase text-xs tracking-widest hover:bg-slate-100 transition text-center"
+                <button
+                  onClick={() => router.back()}
+                  className="px-6 py-2 border-2 border-black font-bold uppercase text-xs tracking-widest hover:bg-slate-100 transition"
                 >
                   Back to Wall
-                </Link>
+                </button>
               </div>
             </div>
           </div>

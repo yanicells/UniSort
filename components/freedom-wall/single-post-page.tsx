@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
@@ -37,6 +38,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
   const [allComments, setAllComments] = useState<PostComment[]>([]);
   const [totalCommentCount, setTotalCommentCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const MAX_RETRIES = 2;
 
@@ -132,13 +134,13 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
             </header>
             <div className="p-6 text-center">
               <p className="text-xl font-bold text-slate-600 mb-4">{error || "Post not found"}</p>
-              <Link
-                href="/freedom-wall"
+              <button
+                onClick={() => router.back()}
                 className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-pink-600 hover:text-pink-700"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Freedom Wall
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -177,13 +179,13 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
           {/* Main Content */}
           <div className="p-4 sm:p-6 space-y-6">
             {/* Back Button */}
-            <Link
-              href="/freedom-wall"
+            <button
+              onClick={() => router.back()}
               className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-pink-600 hover:text-pink-700 transition-colors border-b-2 border-transparent hover:border-pink-600 pb-1"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Freedom Wall
-            </Link>
+            </button>
 
             {/* Main Post */}
             <Post
