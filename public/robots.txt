@@ -18,6 +18,7 @@ Allow: /dlsu
 Allow: /up
 Allow: /ust
 Allow: /stats
+Allow: /about
 
 # Sitemap location
 Sitemap: https://unisort.ycells.com/sitemap.xml
