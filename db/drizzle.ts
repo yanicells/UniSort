@@ -1,9 +1,10 @@
 import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import { NeonHttpDatabase } from "drizzle-orm/neon-http";
 
 let dbInstance: NeonHttpDatabase | null = null;
 
-function getDatabase() {
+function getDatabase(): NeonHttpDatabase {
   if (!dbInstance) {
     const databaseUrl = process.env.DATABASE_URL;
 
@@ -13,7 +14,9 @@ function getDatabase() {
       );
     }
 
-    dbInstance = drizzle(databaseUrl);
+    // Create neon client 
+    const sql = neon(databaseUrl);
+    dbInstance = drizzle(sql);
   }
 
   return dbInstance;
@@ -21,7 +24,8 @@ function getDatabase() {
 
 export const db = new Proxy({} as NeonHttpDatabase, {
   get(_, prop) {
+    const database = getDatabase();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (getDatabase() as any)[prop];
+    return (database as any)[prop];
   },
 });

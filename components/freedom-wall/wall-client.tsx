@@ -30,6 +30,7 @@ type PostData = {
 };
 
 const POSTS_PER_PAGE = 10;
+const MAX_RETRIES = 2;
 
 export function WallClient() {
   const [selectedUniversities, setSelectedUniversities] = useState<
@@ -43,14 +44,19 @@ export function WallClient() {
   const [posts, setPosts] = useState<PostData[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const isMounted = useRef(false);
+  const retryCount = useRef(0);
   const router = useRouter();
 
-  // Fetch posts from API - always fresh, no caching issues
-  const fetchPosts = useCallback(async (pageNum: number, append: boolean = false) => {
+
+  // Fetch posts from API with retry logic
+  const fetchPosts = useCallback(async (pageNum: number, append: boolean = false, retry: number = 0): Promise<PostData[]> => {
     try {
+      setError(null);
+      
       const params = new URLSearchParams({
         page: pageNum.toString(),
         limit: POSTS_PER_PAGE.toString(),
@@ -62,12 +68,18 @@ export function WallClient() {
       // Add cache-busting timestamp to prevent browser caching
       params.append("_t", Date.now().toString());
       
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+      
       const res = await fetch(`/api/posts?${params.toString()}`, {
         cache: "no-store",
+        signal: controller.signal,
       });
       
+      clearTimeout(timeoutId);
+      
       if (!res.ok) {
-        throw new Error("Failed to fetch posts");
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
       }
       
       const data = await res.json();
@@ -86,9 +98,20 @@ export function WallClient() {
       }
       
       setHasMore(newPosts.length >= POSTS_PER_PAGE);
+      retryCount.current = 0; // Reset retry count on success
       return newPosts;
-    } catch (error) {
-      console.error("Error fetching posts:", error);
+    } catch (err) {
+      console.error(`Error fetching posts (attempt ${retry + 1}):`, err);
+      
+      // Retry with exponential backoff
+      if (retry < MAX_RETRIES) {
+        const delay = Math.pow(2, retry) * 500; // 500ms, 1000ms, 2000ms
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return fetchPosts(pageNum, append, retry + 1);
+      }
+      
+      // Max retries reached
+      setError("Unable to load posts. Please try again.");
       return [];
     }
   }, [sortBy, timeRange, selectedUniversities]);
@@ -195,7 +218,23 @@ export function WallClient() {
 
           {/* Posts Feed */}
           <div className="p-6 space-y-6 bg-slate-50">
-            {posts.length === 0 && isLoading ? (
+            {error ? (
+              <div className="text-center py-12">
+                <div className="bg-red-50 border-2 border-red-500 p-6 max-w-md mx-auto">
+                  <p className="text-sm text-red-600 font-bold mb-4">{error}</p>
+                  <button
+                    onClick={() => {
+                      setError(null);
+                      setIsLoading(true);
+                      fetchPosts(1).finally(() => setIsLoading(false));
+                    }}
+                    className="px-6 py-2 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-pink-600 transition"
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </div>
+            ) : posts.length === 0 && isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <Loader2 className="w-10 h-10 animate-spin text-pink-600" />
               </div>
