@@ -4,7 +4,12 @@ import "./globals.css";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/ToastProvider";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
+import {
+  getOrganizationSchema,
+  getWebSiteSchema,
+  injectStructuredData,
+} from "@/lib/seo/structured-data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -88,6 +93,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: injectStructuredData([
+              getOrganizationSchema(),
+              getWebSiteSchema(),
+            ]),
+          }}
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <a
           href="#main-content"
