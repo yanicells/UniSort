@@ -92,7 +92,7 @@ export async function getRecentPosts(limit = 4) {
   const recent = await db
     .select()
     .from(posts)
-    .where(eq(posts.isDeleted, false))
+    .where(and(eq(posts.isDeleted, false), isNull(posts.parentId)))
     .orderBy(desc(posts.createdAt))
     .limit(limit);
   return recent;

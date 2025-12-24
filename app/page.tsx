@@ -1,27 +1,21 @@
 import Link from "next/link";
-import { getQuizSummary, getRecentPosts } from "@/lib/dal/queries";
-import { PostCardSimple } from "@/components/freedom-wall/post-card-simple";
+import { getRecentPosts } from "@/lib/dal/queries";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
+import { HomeStats } from "@/components/home/home-stats";
 import {
   ArrowRight,
   MessageCircle,
   Target,
   BarChart3,
   ThumbsUp,
-  MessageSquare,
-  Quote,
 } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
 import {
   getOrganizationSchema,
   getWebSiteSchema,
 } from "@/lib/seo/structured-data";
 
 export default async function Home() {
-  const [quizSummary, recentPosts] = await Promise.all([
-    getQuizSummary(),
-    getRecentPosts(4),
-  ]);
+  const recentPosts = await getRecentPosts(4);
 
   const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
 
@@ -44,8 +38,7 @@ export default async function Home() {
       {/* Marquee */}
       <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
         <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
-          EXTRA! EXTRA! READ ALL ABOUT IT! /// {quizSummary.total} STUDENTS
-          FOUND THEIR MATCH /// ADMISSIONS SEASON IS HERE /// BREAKING: IS YOUR
+          EXTRA! EXTRA! READ ALL ABOUT IT! /// ADMISSIONS SEASON IS HERE /// BREAKING: IS YOUR
           CRUSH COMPATIBLE? /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS
           ACCURATE /// WHICH UNIVERSITY HAS THE BEST FOOD? VOTE NOW ///
           TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
@@ -109,114 +102,8 @@ export default async function Home() {
             </p>
           </div>
 
-          {/* Stats Box */}
-          <div className="lg:col-span-4 bg-slate-100 p-4 md:p-6 lg:p-8 flex flex-col justify-center text-center border-t lg:border-t-0 gap-4 md:gap-6">
-            <div className="border-2 md:border-4 border-black p-4 md:p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <span className="block text-4xl md:text-5xl lg:text-6xl font-black text-orange-600 mb-2">
-                {quizSummary.total}
-              </span>
-              <span className="block font-bold uppercase text-xs md:text-sm tracking-widest">
-                Students Matched
-              </span>
-              <div className="w-full h-1 bg-slate-200 mt-3 md:mt-4 overflow-hidden">
-                <div className="w-3/4 h-full bg-black animate-pulse"></div>
-              </div>
-            </div>
-
-            {/* University Breakdown */}
-            <div className="border-2 md:border-4 border-black p-4 md:p-5 bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
-              <h4 className="font-black uppercase text-xs md:text-sm tracking-widest mb-3 md:mb-4 text-center border-b-2 border-black pb-2">
-                Match Distribution
-              </h4>
-              <div className="space-y-2 md:space-y-3">
-                {/* ADMU Bar */}
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-black text-xs text-[#001196]">
-                      ADMU
-                    </span>
-                    <span className="font-black text-xs text-[#001196]">
-                      {quizSummary.admu}
-                    </span>
-                  </div>
-                  <div className="h-3 bg-slate-200 border border-slate-300">
-                    <div
-                      className="h-full bg-[#001196] transition-all duration-500"
-                      style={{
-                        width: `${
-                          (quizSummary.admu / quizSummary.total) * 100
-                        }%`,
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* DLSU Bar */}
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-black text-xs text-[#00703c]">
-                      DLSU
-                    </span>
-                    <span className="font-black text-xs text-[#00703c]">
-                      {quizSummary.dlsu}
-                    </span>
-                  </div>
-                  <div className="h-3 bg-slate-200 border border-slate-300">
-                    <div
-                      className="h-full bg-[#00703c] transition-all duration-500"
-                      style={{
-                        width: `${
-                          (quizSummary.dlsu / quizSummary.total) * 100
-                        }%`,
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* UP Bar */}
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-black text-xs text-[#7b1113]">
-                      UP
-                    </span>
-                    <span className="font-black text-xs text-[#7b1113]">
-                      {quizSummary.up}
-                    </span>
-                  </div>
-                  <div className="h-3 bg-slate-200 border border-slate-300">
-                    <div
-                      className="h-full bg-[#7b1113] transition-all duration-500"
-                      style={{
-                        width: `${(quizSummary.up / quizSummary.total) * 100}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* UST Bar */}
-                <div>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-black text-xs text-[#fdb71a]">
-                      UST
-                    </span>
-                    <span className="font-black text-xs text-[#fdb71a]">
-                      {quizSummary.ust}
-                    </span>
-                  </div>
-                  <div className="h-3 bg-slate-200 border border-slate-300">
-                    <div
-                      className="h-full bg-[#fdb71a] transition-all duration-500"
-                      style={{
-                        width: `${
-                          (quizSummary.ust / quizSummary.total) * 100
-                        }%`,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Stats Box - Client Component */}
+          <HomeStats />
         </div>
 
         {/* Why UniSort */}
