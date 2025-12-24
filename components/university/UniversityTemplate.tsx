@@ -26,7 +26,7 @@ export function UniversityTemplate({
     "@type": "EducationalOrganization",
     name,
     description: overview,
-    url: `https://unisort.com/${code.toLowerCase()}`,
+    url: `https://unisort.ycells.com/${code.toLowerCase()}`,
   };
 
   return (
