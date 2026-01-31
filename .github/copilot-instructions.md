@@ -2,176 +2,128 @@
 
 ## Project Overview
 
-UniSort is a Next.js 16 app helping students discover their university fit through an interactive quiz, freedom wall, and university information pages. Core features: personality-based university sorting (ADMU, DLSU, UP, UST), anonymous freedom wall with rich text posting, and data analytics.
+Next.js 16 app (App Router) helping Filipino students discover their Big 4 university fit (ADMU, DLSU, UP, UST) through a personality quiz, anonymous freedom wall, and university info pages. Uses **Bun** as package manager.
 
-**Tech Stack**: Next.js 16 (App Router), TypeScript (strict mode), Drizzle ORM + Neon PostgreSQL, Better Auth, shadcn/ui, Tiptap rich text editor, UploadThing for images, Recharts for analytics.
+**Stack**: TypeScript (strict), Drizzle ORM + Neon PostgreSQL, Better Auth (GitHub OAuth), shadcn/ui, Tiptap editor, UploadThing, Recharts.
 
-## Architecture
+## Critical Architecture Patterns
 
-### Route Structure
+### Data Access Layer (DAL) - MANDATORY
 
-- `app/(app)/*` - Main app routes (freedom wall, quiz, stats, university pages)
-- `app/(admin)/*` - Admin routes (login, post management) - requires role-based auth
-- `app/api/*` - API routes:
-  - `api/auth/[...all]` - Better Auth catch-all route
-  - `api/posts` - Post data endpoints
-  - `api/stats/daily` - Analytics data
-  - `api/uploadthing` - Image upload handler
-
-### Data Layer Pattern
-
-All database queries go through **Data Access Layer (DAL)** at `lib/dal/queries.ts` - never query database directly in components or pages. Server actions in `lib/actions/*` handle mutations and call `revalidatePath()` for cache invalidation.
+**ALL database queries go through `lib/dal/queries.ts`** - never import `db` directly in components/pages.
 
 ```typescript
-// ✅ Correct: Use DAL
+// ✅ Correct
 import { getPosts } from "@/lib/dal/queries";
-const posts = await getPosts();
 
-// ❌ Incorrect: Direct db access in components
+// ❌ Never do this
 import { db } from "@/db/drizzle";
 ```
 
-### Database Schema (`db/schema.ts`)
+### Server Actions Pattern
 
-- **posts** table: Supports nested comments via self-referencing `parentId`, stores HTML content (from Tiptap), reactions as JSONB, soft-deletes via `isDeleted`
-- **quizResults**: Stores per-university scores and top match. Universities enum: `["admu", "dlsu", "up", "ust"]`
-- **Auth tables** (user, session, account, verification): Managed by Better Auth with Drizzle adapter
-- **Important**: User table has `role` field (default: "user", admin: "admin") for access control
-
-### Better Auth Configuration
-
-Better Auth setup in [lib/auth.ts](lib/auth.ts) with critical configurations:
-
-- Uses Drizzle adapter with Neon PostgreSQL
-- GitHub OAuth provider (only auth method)
-- `cookieCache.enabled: false` - **Critical**: Prevents stale session data in production
-- Custom `role` field on user for admin features
-- Next.js cookies plugin for server component auth
-
-**Auth Helpers**: Use [lib/auth-helper.ts](lib/auth-helper.ts) functions (`getCurrentSession()`, `isAdmin()`, `requireAdmin()`) instead of direct auth calls.
-
-### Rich Text Handling
-
-Posts use **Tiptap editor** with HTML output. Always:
-
-1. Use `<TiptapEditor>` component for input (in `components/editor/`)
-2. Use `<PostContent>` for display (sanitizes with `isomorphic-dompurify`)
-3. Validate by stripping HTML tags before checking length (see form validation pattern in `freedom-wall-form.tsx`)
-
-### SSR/Client Boundaries
-
-- **Critical**: Tiptap requires `immediatelyRender: false` in `useEditor()` config for SSR
-- PostContent uses `isomorphic-dompurify` (not `dompurify`) for server-side sanitization
-- Freedom wall: Server fetches data, passes to client component for interactions
-
-### Event Handling Pattern
-
-For clickable cards with nested buttons (reaction modal, images):
+All mutations use server actions in `lib/actions/*` with retry logic:
 
 ```typescript
-// Container: onClick for navigation
+// Always return this shape
+return { success: true, data: result };
+return { success: false, error: "message" };
+```
+
+See `lib/actions/post-actions.ts` for exponential backoff pattern (MAX_RETRIES = 2).
+
+### Auth Helpers - Use These, Not Direct Auth
+
+```typescript
+import { getCurrentSession, isAdmin, requireAdmin } from "@/lib/auth-helper";
+// requireAdmin() auto-redirects unauthorized users
+```
+
+**Critical**: `cookieCache.enabled: false` in `lib/auth.ts` prevents stale sessions.
+
+## Key Domain Knowledge
+
+### Posts & Comments
+
+Posts table uses self-referencing `parentId` for nested comments (unlimited depth). Schema in `db/schema.ts`:
+- `content`: HTML from Tiptap
+- `reactions`: JSONB `{ like, love, haha, wow, sad, angry }`
+- `tags`: Array `["general", "admu", "dlsu", "up", "ust"]`
+- `isDeleted`: Soft delete flag
+
+### Quiz Scoring
+
+Quiz logic in `lib/quiz/`:
+- `quiz-data.ts`: 30+ questions with per-university point values (0-20 range)
+- `scoring.ts`: Calculates normalized percentages against dynamic max scores
+- `quiz-constants.ts`: Pre-calculated MAX_SCORES/MIN_SCORES per university
+
+### University Colors (CSS Variables)
+
+```css
+--admu-blue: #001196;  --chart-1
+--dlsu-green: #00703c; --chart-2
+--up-maroon: #7b1113;  --chart-3
+--ust-gold: #fdb71a;   --chart-4
+```
+
+## SSR/Client Boundary Rules
+
+1. **Server Components by default** - only add `"use client"` when needed
+2. **Tiptap SSR fix**: Always use `immediatelyRender: false` in `useEditor()`
+3. **Hydration pattern** for client components:
+   ```typescript
+   const [mounted, setMounted] = useState(false);
+   useEffect(() => setMounted(true), []);
+   if (!mounted) return null;
+   ```
+4. **PostContent** uses dynamic `dompurify` import for client-only sanitization
+
+## Event Handling in Clickable Cards
+
+```typescript
+// Container handles navigation
 <div onClick={() => router.push(`/post/${id}`)}>
-
-  // Nested interactions: stopPropagation
-  <button onClick={(e) => {
-    e.stopPropagation();
-    handleReaction();
-  }}>
+  // Nested buttons must stopPropagation
+  <button onClick={(e) => { e.stopPropagation(); handleReaction(); }}>
 ```
 
-See `components/freedom-wall/post.tsx` and `reaction-modal.tsx` for reference.
-
-## Development Workflows
-
-### Package Manager
-
-**Project uses Bun** - all commands use `bun` instead of npm/yarn/pnpm.
-
-### Database
+## Commands
 
 ```bash
-bun run db:push      # Push schema changes to Neon
-bun run db:studio    # Open Drizzle Studio UI
+bun dev           # Dev server
+bun run db:push   # Push schema to Neon
+bun run db:studio # Drizzle Studio GUI
 ```
-
-See [drizzle.config.ts](drizzle.config.ts) for database configuration. Schema defined in [db/schema.ts](db/schema.ts), migrations output to `./migrations`.
-
-### Running Dev Server
-
-```bash
-bun dev              # Start Next.js dev server (port 3000)
-bun build            # Production build
-bun start            # Start production server
-bun lint             # Run ESLint
-```
-
-### Environment Variables Required
-
-- `DATABASE_URL` - Neon PostgreSQL connection string
-- `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` - Better Auth GitHub OAuth
-- `UPLOADTHING_TOKEN` - Image upload service (for freedom wall image uploads)
-- `BETTER_AUTH_SECRET` - Better Auth session encryption key
-
-## Code Conventions
-
-### Component Patterns
-
-1. **Server Components by Default**: Only add `"use client"` when needed (hooks, event handlers)
-2. **Form Handling**: React Hook Form + Zod schemas, shadcn/ui form components
-3. **Styling**: Tailwind classes, no CSS modules. Use `cn()` utility for conditional classes
-4. **Icons**: Use `lucide-react` package
-5. **University Colors**: CSS variables for each school in [globals.css](app/globals.css):
-   - `--admu-blue: #001196`
-   - `--dlsu-green: #00703c`
-   - `--up-maroon: #7b1113`
-   - `--ust-gold: #fdb71a`
-   - Also available as `--chart-1` through `--chart-4` for Recharts
-
-### Server Actions
-
-- Must be `"use server"` functions
-- Always return `{ success: boolean, error?: string }` shape
-- Call `revalidatePath()` after mutations
-- See `lib/actions/post-actions.ts` pattern
-
-### TypeScript Patterns
-
-- Strict mode enabled - no implicit any
-- Use Zod for runtime validation + type inference
-- Database types auto-generated from schema via Drizzle
-
-### Freedom Wall Specifics
-
-- Posts support tags: `["general", "admu", "dlsu", "up", "ust"]`
-- Reactions stored as JSONB: `{ like, love, haha, wow, sad, angry }`
-- Comments are posts with `parentId` set (no depth limit)
-- Images handled via UploadThing, optional per post
-
-## Key Files for Context
-
-- `db/schema.ts` - Complete data model
-- `lib/dal/queries.ts` - All database queries
-- `components/freedom-wall/` - Freedom wall feature components
-- `components/quiz/` - Quiz implementation
-- `lib/auth.ts` - Better Auth configuration
-- `app/globals.css` - Tiptap/prose styling (lines 116+)
 
 ## Common Tasks
 
-### Adding New Database Table
-
+### Add Database Table
 1. Define in `db/schema.ts` with relations
 2. Add queries to `lib/dal/queries.ts`
-3. Create server actions in `lib/actions/`
+3. Create server action in `lib/actions/`
 4. Run `bun run db:push`
 
-### Adding New Form
+### Add Freedom Wall Feature
+1. Update `components/freedom-wall/post.tsx` for UI
+2. Add DAL query if new data needed
+3. Create server action for mutations
+4. Update `WallClient` for filtering/state
 
-1. Define Zod schema with validation
-2. Use shadcn/ui form components
-3. For rich text: use `<TiptapEditor>`, validate by stripping HTML
-4. Create server action with `revalidatePath()`
+### Modify Quiz Questions
+1. Edit `lib/quiz/quiz-data.ts` (each choice needs scores for all 4 universities)
+2. Run `scripts/calculate-max-scores.ts`
+3. Update `lib/quiz/quiz-constants.ts` with new max/min values
 
-### Admin Features
+## Key File Reference
 
-Check user role via `lib/auth-helper.ts` helpers. Admin routes in `app/(admin)/` directory.
+| Purpose | Location |
+|---------|----------|
+| Database schema | `db/schema.ts` |
+| All DB queries | `lib/dal/queries.ts` |
+| Auth config | `lib/auth.ts`, `lib/auth-helper.ts` |
+| Quiz logic | `lib/quiz/scoring.ts`, `lib/quiz/quiz-data.ts` |
+| Freedom wall | `components/freedom-wall/` |
+| Rich text editor | `components/editor/TiptapEditor.tsx` |
+| University content | `lib/page-content/university-data.ts` |
+| Global styles | `app/globals.css` |
