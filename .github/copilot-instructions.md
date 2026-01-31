@@ -46,6 +46,7 @@ import { getCurrentSession, isAdmin, requireAdmin } from "@/lib/auth-helper";
 ### Posts & Comments
 
 Posts table uses self-referencing `parentId` for nested comments (unlimited depth). Schema in `db/schema.ts`:
+
 - `content`: HTML from Tiptap
 - `reactions`: JSONB `{ like, love, haha, wow, sad, angry }`
 - `tags`: Array `["general", "admu", "dlsu", "up", "ust"]`
@@ -54,6 +55,7 @@ Posts table uses self-referencing `parentId` for nested comments (unlimited dept
 ### Quiz Scoring
 
 Quiz logic in `lib/quiz/`:
+
 - `quiz-data.ts`: 30+ questions with per-university point values (0-20 range)
 - `scoring.ts`: Calculates normalized percentages against dynamic max scores
 - `quiz-constants.ts`: Pre-calculated MAX_SCORES/MIN_SCORES per university
@@ -99,31 +101,34 @@ bun run db:studio # Drizzle Studio GUI
 ## Common Tasks
 
 ### Add Database Table
+
 1. Define in `db/schema.ts` with relations
 2. Add queries to `lib/dal/queries.ts`
 3. Create server action in `lib/actions/`
 4. Run `bun run db:push`
 
 ### Add Freedom Wall Feature
+
 1. Update `components/freedom-wall/post.tsx` for UI
 2. Add DAL query if new data needed
 3. Create server action for mutations
 4. Update `WallClient` for filtering/state
 
 ### Modify Quiz Questions
+
 1. Edit `lib/quiz/quiz-data.ts` (each choice needs scores for all 4 universities)
 2. Run `scripts/calculate-max-scores.ts`
 3. Update `lib/quiz/quiz-constants.ts` with new max/min values
 
 ## Key File Reference
 
-| Purpose | Location |
-|---------|----------|
-| Database schema | `db/schema.ts` |
-| All DB queries | `lib/dal/queries.ts` |
-| Auth config | `lib/auth.ts`, `lib/auth-helper.ts` |
-| Quiz logic | `lib/quiz/scoring.ts`, `lib/quiz/quiz-data.ts` |
-| Freedom wall | `components/freedom-wall/` |
-| Rich text editor | `components/editor/TiptapEditor.tsx` |
-| University content | `lib/page-content/university-data.ts` |
-| Global styles | `app/globals.css` |
+| Purpose            | Location                                       |
+| ------------------ | ---------------------------------------------- |
+| Database schema    | `db/schema.ts`                                 |
+| All DB queries     | `lib/dal/queries.ts`                           |
+| Auth config        | `lib/auth.ts`, `lib/auth-helper.ts`            |
+| Quiz logic         | `lib/quiz/scoring.ts`, `lib/quiz/quiz-data.ts` |
+| Freedom wall       | `components/freedom-wall/`                     |
+| Rich text editor   | `components/editor/TiptapEditor.tsx`           |
+| University content | `lib/page-content/university-data.ts`          |
+| Global styles      | `app/globals.css`                              |
