@@ -1,27 +1,14 @@
 import { TabloidLayout } from "@/components/university/TabloidLayout";
 import { universityData } from "@/lib/page-content/university-data";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
+import { UNIVERSITY_KEYWORDS } from "@/lib/seo/metadata";
 
 export const metadata = {
   title:
     "University of Santo Tomas (UST) Review | Block System & Thomasian Life",
   description:
     "Complete guide to University of Santo Tomas (UST). Learn about Growling Tigers culture, block section experience, España campus, Paskuhan, pros and cons. Is UST worth it? Compare UST vs DLSU. Discover what it's really like studying at UST.",
-  keywords: [
-    "University of Santo Tomas",
-    "UST",
-    "Growling Tigers",
-    "España",
-    "UST student life",
-    "UST block schedule",
-    "UST block sections",
-    "Thomasian life",
-    "UST pros and cons",
-    "Paskuhan",
-    "DLSU vs UST",
-    "what's it like studying in UST",
-    "go uste",
-  ],
+  keywords: UNIVERSITY_KEYWORDS.ust,
   openGraph: {
     title: "University of Santo Tomas (UST) – Block Life & Thomasian Culture",
     description:

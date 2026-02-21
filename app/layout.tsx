@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
-import { Footer } from "@/components/layout/Footer";
 import { ToastProvider } from "@/components/ui/ToastProvider";
 import { Analytics } from "@vercel/analytics/next";
 import {
@@ -10,6 +9,12 @@ import {
   getWebSiteSchema,
   injectStructuredData,
 } from "@/lib/seo/structured-data";
+import {
+  DEFAULT_KEYWORDS,
+  BIG4_COMPARISON_KEYWORDS,
+  QUIZ_KEYWORDS,
+  FREEDOM_WALL_KEYWORDS,
+} from "@/lib/seo/metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,22 +36,12 @@ export const metadata: Metadata = {
   description:
     "Free personality quiz and comparison guide for Big 4 universities in the Philippines. Find your perfect match between Ateneo de Manila University (ADMU), De La Salle University (DLSU), University of the Philippines (UP), and University of Santo Tomas (UST). Explore student culture, honest reviews, and freedom wall confessions.",
   keywords: [
-    "big 4 universities philippines",
-    "university quiz philippines",
+    ...DEFAULT_KEYWORDS,
+    ...QUIZ_KEYWORDS,
+    ...BIG4_COMPARISON_KEYWORDS,
+    ...FREEDOM_WALL_KEYWORDS,
     "which university is for me philippines",
-    "ADMU DLSU UP UST comparison",
-    "Ateneo de Manila University",
-    "De La Salle University",
-    "University of the Philippines",
-    "University of Santo Tomas",
-    "college finder philippines",
-    "university comparison philippines",
-    "best university for me quiz",
     "big 4 university fit quiz",
-    "Ateneo vs La Salle",
-    "UP vs Ateneo",
-    "DLSU vs UST",
-    "university culture fit philippines",
     "student culture big 4",
     "freedom wall philippines",
   ],

@@ -2,29 +2,22 @@ import { Suspense } from "react";
 import { WallClient } from "@/components/freedom-wall/wall-client";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Loader2 } from "lucide-react";
+import { FREEDOM_WALL_KEYWORDS } from "@/lib/seo/metadata";
+import type { Metadata } from "next";
 
 // Force dynamic to ensure fresh data - the client will handle all data fetching
 export const dynamic = "force-dynamic";
 
-export const metadata = {
+export const metadata: Metadata = {
   title:
     "Freedom Wall – Anonymous University Confessions Philippines | ADMU DLSU UP UST",
   description:
     "Read and share anonymous posts about Big 4 university life in the Philippines. Real student experiences, confessions, and stories from Ateneo (ADMU), La Salle (DLSU), UP Diliman, and UST freedom walls. Join the conversation anonymously.",
   keywords: [
+    ...FREEDOM_WALL_KEYWORDS,
     "freedom wall philippines",
     "university confessions",
-    "ADMU freedom wall",
-    "ADMU confessions",
-    "DLSU freedom wall",
-    "La Salle confessions",
-    "UP freedom wall",
-    "UP Diliman confessions",
-    "UST freedom wall",
-    "UST confessions",
     "college anonymous confession site",
-    "university freedom wall",
-    "student stories philippines",
   ],
   openGraph: {
     title: "Freedom Wall – Anonymous Big 4 University Confessions",

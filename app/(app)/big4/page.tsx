@@ -2,27 +2,15 @@ import Link from "next/link";
 import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Landmark, Users, HelpCircle } from "lucide-react";
 import { getFAQSchema } from "@/lib/seo/structured-data";
+import { BIG4_COMPARISON_KEYWORDS } from "@/lib/seo/metadata";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title:
     "Big 4 Universities Philippines Comparison | ADMU vs DLSU vs UP vs UST",
   description:
     "Complete comparison of Big 4 universities in the Philippines. Compare Ateneo de Manila University (ADMU), De La Salle University (DLSU), University of the Philippines (UP), and University of Santo Tomas (UST) culture, costs, academics, and student life. Find your perfect fit among the Big Four schools.",
-  keywords: [
-    "big 4 universities philippines",
-    "ADMU DLSU UP UST comparison",
-    "Ateneo vs La Salle vs UP vs UST",
-    "big 4 schools philippines",
-    "compare big 4 universities",
-    "ADMU vs DLSU",
-    "UP vs Ateneo",
-    "DLSU vs UST",
-    "which is better ateneo or la salle",
-    "which is better up or ateneo",
-    "student culture ADMU DLSU UP UST",
-    "katipunan vs taft vs diliman vs espana",
-    "choose between ateneo la salle up ust",
-  ],
+  keywords: [...BIG4_COMPARISON_KEYWORDS, "big 4 universities philippines"],
   openGraph: {
     title: "Big 4 Universities Philippines – Complete Comparison Guide",
     description:
@@ -39,16 +27,21 @@ export default function Big4Page() {
   // FAQ schema for "How to Choose" section
   const faqSchema = getFAQSchema([
     {
-      question: "How do I choose between Big 4 universities in the Philippines?",
-      answer: "Consider 5 key factors: Financial reality (free UP vs 80-90k tuition ADMU/DLSU), support structure (cura personalis at ADMU vs systemic abandonment at UP), academic tempo (trimester sprints at DLSU vs volume endurance at UST), cultural vibe (conyo hegemony vs kanal humor), and political environment (daily activism at UP vs institutionalized advocacy at DLSU/ADMU/UST).",
+      question:
+        "How do I choose between Big 4 universities in the Philippines?",
+      answer:
+        "Consider 5 key factors: Financial reality (free UP vs 80-90k tuition ADMU/DLSU), support structure (cura personalis at ADMU vs systemic abandonment at UP), academic tempo (trimester sprints at DLSU vs volume endurance at UST), cultural vibe (conyo hegemony vs kanal humor), and political environment (daily activism at UP vs institutionalized advocacy at DLSU/ADMU/UST).",
     },
     {
-      question: "What are the main differences between ADMU, DLSU, UP, and UST?",
-      answer: "ADMU focuses on reflexive depth with Jesuit Liberal Arts. DLSU emphasizes trimestral velocity and professional networking. UP prioritizes independent survival and academic freedom. UST offers volume-heavy traditional pedagogy with block system support.",
+      question:
+        "What are the main differences between ADMU, DLSU, UP, and UST?",
+      answer:
+        "ADMU focuses on reflexive depth with Jesuit Liberal Arts. DLSU emphasizes trimestral velocity and professional networking. UP prioritizes independent survival and academic freedom. UST offers volume-heavy traditional pedagogy with block system support.",
     },
     {
       question: "Which Big 4 university is best for me?",
-      answer: "There is no 'best' school, only the school that is best for YOU. Take the UniSort personality quiz to find which Big 4 university matches your learning style, values, and cultural preferences.",
+      answer:
+        "There is no 'best' school, only the school that is best for YOU. Take the UniSort personality quiz to find which Big 4 university matches your learning style, values, and cultural preferences.",
     },
   ]);
 

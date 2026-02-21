@@ -11,6 +11,16 @@ export const SEO_CONFIG = {
 export const DEFAULT_KEYWORDS = [
   "university quiz Philippines",
   "big 4 universities philippines",
+  "big 4 ph",
+  "best uni philippines",
+  "best uni ph",
+  "best school ph",
+  "college in manila",
+  "top university philippines",
+  "which school fits me",
+  "what school fits me",
+  "anong school para sakin",
+  "anong university para sakin",
   "ADMU",
   "DLSU",
   "UP",
@@ -52,6 +62,11 @@ export const UNIVERSITY_KEYWORDS = {
     "Ateneo vs UP",
     "what's it like studying in Ateneo",
     "one big fight",
+    "admu or dlsu",
+    "ateneo tuition",
+    "ateneo campus life",
+    "ateneo worth it",
+    "admu student life",
   ],
   dlsu: [
     "De La Salle University",
@@ -68,6 +83,11 @@ export const UNIVERSITY_KEYWORDS = {
     "DLSU vs UST",
     "what's it like studying in La Salle",
     "animo la salle",
+    "dlsu or ateneo",
+    "dlsu tuition",
+    "la salle campus life",
+    "dlsu student life",
+    "is dlsu worth it",
   ],
   up: [
     "University of the Philippines",
@@ -84,6 +104,11 @@ export const UNIVERSITY_KEYWORDS = {
     "UP Diliman experience",
     "what's it like studying in UP Diliman",
     "up fight",
+    "up or ateneo",
+    "up diliman tuition",
+    "up student life",
+    "is up worth it",
+    "up campus culture",
   ],
   ust: [
     "University of Santo Tomas",
@@ -99,8 +124,34 @@ export const UNIVERSITY_KEYWORDS = {
     "DLSU vs UST",
     "what's it like studying in UST",
     "go uste",
+    "ust or dlsu",
+    "ust tuition",
+    "ust student life",
+    "is ust worth it",
+    "thomasian culture",
   ],
 } as const;
+
+export const BIG4_COMPARISON_KEYWORDS = [
+  "ADMU DLSU UP UST comparison",
+  "Ateneo vs La Salle vs UP vs UST",
+  "big 4 schools philippines",
+  "compare big 4 universities",
+  "ADMU vs DLSU",
+  "UP vs Ateneo",
+  "DLSU vs UST",
+  "which is better ateneo or la salle",
+  "which is better up or ateneo",
+  "student culture ADMU DLSU UP UST",
+  "katipunan vs taft vs diliman vs espana",
+  "choose between ateneo la salle up ust",
+  "admu or dlsu",
+  "up or ust",
+  "which big 4 is best",
+  "best university in philippines for me",
+  "which uni is right for me",
+  "college comparison philippines",
+];
 
 export const FREEDOM_WALL_KEYWORDS = [
   "university freedom wall Philippines",
@@ -115,6 +166,11 @@ export const FREEDOM_WALL_KEYWORDS = [
   "UST freedom wall",
   "UST confessions",
   "student stories philippines",
+  "college rant philippines",
+  "student tea philippines",
+  "anonymous college stories",
+  "big 4 confessions",
+  "freedom wall big 4",
 ];
 
 export const QUIZ_KEYWORDS = [
@@ -126,6 +182,26 @@ export const QUIZ_KEYWORDS = [
   "best university for me quiz",
   "ph university quiz based on personality",
   "university culture fit philippines",
+  "what school should i go to philippines",
+  "what college should i take quiz",
+  "quick university quiz",
+  "5 minute university quiz",
+  "college personality test philippines",
+  "anong university para sakin quiz",
+  "school fit test philippines",
+];
+
+export const STATS_KEYWORDS = [
+  "big 4 university stats",
+  "university match statistics",
+  "ADMU DLSU UP UST trends",
+  "quiz results philippines",
+  "university comparison data",
+  "big 4 quiz results",
+  "most matched university philippines",
+  "admu dlsu up ust percentages",
+  "which university do people match with",
+  "live quiz stats philippines",
 ];
 
 /**
