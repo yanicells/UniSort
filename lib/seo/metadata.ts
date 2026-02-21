@@ -19,8 +19,18 @@ export const DEFAULT_KEYWORDS = [
   "top university philippines",
   "which school fits me",
   "what school fits me",
+  "what uni fits me",
+  "which uni should i choose",
+  "what university should i choose",
+  "college choice philippines",
+  "best college for me philippines",
+  "where should i study philippines",
+  "ph college finder",
+  "uni finder philippines",
   "anong school para sakin",
   "anong university para sakin",
+  "san magandang college",
+  "anong college para sakin",
   "ADMU",
   "DLSU",
   "UP",
@@ -67,6 +77,11 @@ export const UNIVERSITY_KEYWORDS = {
     "ateneo campus life",
     "ateneo worth it",
     "admu student life",
+    "admu requirements",
+    "admu entrance exam",
+    "ateneo admissions",
+    "ateneo courses",
+    "admu culture",
   ],
   dlsu: [
     "De La Salle University",
@@ -88,6 +103,11 @@ export const UNIVERSITY_KEYWORDS = {
     "la salle campus life",
     "dlsu student life",
     "is dlsu worth it",
+    "dlsu requirements",
+    "dlsu entrance exam",
+    "dlsu admissions",
+    "dlsu courses",
+    "taft student life",
   ],
   up: [
     "University of the Philippines",
@@ -109,6 +129,11 @@ export const UNIVERSITY_KEYWORDS = {
     "up student life",
     "is up worth it",
     "up campus culture",
+    "upcat tips",
+    "up admissions",
+    "up courses",
+    "up requirements",
+    "life in up diliman",
   ],
   ust: [
     "University of Santo Tomas",
@@ -129,6 +154,11 @@ export const UNIVERSITY_KEYWORDS = {
     "ust student life",
     "is ust worth it",
     "thomasian culture",
+    "ustet tips",
+    "ust admissions",
+    "ust courses",
+    "ust requirements",
+    "espana student life",
   ],
 } as const;
 
@@ -151,6 +181,14 @@ export const BIG4_COMPARISON_KEYWORDS = [
   "best university in philippines for me",
   "which uni is right for me",
   "college comparison philippines",
+  "admu dlsu up ust",
+  "admu vs up vs dlsu",
+  "which big 4 school should i choose",
+  "best big 4 university philippines",
+  "big 4 ranking philippines",
+  "difference between admu dlsu up ust",
+  "big 4 tuition comparison",
+  "big 4 campus culture",
 ];
 
 export const FREEDOM_WALL_KEYWORDS = [
@@ -171,6 +209,11 @@ export const FREEDOM_WALL_KEYWORDS = [
   "anonymous college stories",
   "big 4 confessions",
   "freedom wall big 4",
+  "college chika philippines",
+  "student confession page philippines",
+  "anonymous campus confessions",
+  "big 4 student stories",
+  "university rant page",
 ];
 
 export const QUIZ_KEYWORDS = [
@@ -189,6 +232,14 @@ export const QUIZ_KEYWORDS = [
   "college personality test philippines",
   "anong university para sakin quiz",
   "school fit test philippines",
+  "what uni should i go to",
+  "what college is right for me",
+  "which big 4 fits me",
+  "best college quiz philippines",
+  "college compatibility quiz",
+  "course and school fit quiz",
+  "anong school para sakin quiz",
+  "university test philippines",
 ];
 
 export const STATS_KEYWORDS = [
@@ -202,6 +253,11 @@ export const STATS_KEYWORDS = [
   "admu dlsu up ust percentages",
   "which university do people match with",
   "live quiz stats philippines",
+  "big 4 match rate",
+  "admu dlsu up ust match results",
+  "university fit distribution",
+  "quiz trend philippines",
+  "most popular big 4 match",
 ];
 
 /**
