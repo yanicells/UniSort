@@ -22,6 +22,18 @@ export const DEFAULT_KEYWORDS = [
   "which university is for me",
   "college finder philippines",
   "university comparison philippines",
+  "big4 ph",
+  "big4 philippines",
+  "best ph university",
+  "best ph uni",
+  "best ph university for me",
+  "big 4 university fit quiz",
+  "Ateneo vs La Salle",
+  "UP vs Ateneo",
+  "DLSU vs UST",
+  "university culture fit philippines",
+  "student culture big 4",
+  "freedom wall philippines",
 ];
 
 export const UNIVERSITY_KEYWORDS = {
