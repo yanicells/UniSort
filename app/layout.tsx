@@ -79,6 +79,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://unisort.ycells.com",
   },
+  verification: {
+    google: "eVLb2lTbuAz4-4MAUUSPkp9ZQe0rHc00MWOyB2LQccg",
+  },
 };
 
 export default function RootLayout({
