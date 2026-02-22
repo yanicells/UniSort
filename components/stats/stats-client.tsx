@@ -71,7 +71,7 @@ export default function StatsClient() {
           <div className="max-w-7xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
             <header className="p-4 md:p-8 lg:p-12 text-center border-b-4 border-black bg-white">
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
-                UNISORT RESULTS
+                UniSort Results
               </h1>
             </header>
             <div className="flex justify-center items-center py-20">
