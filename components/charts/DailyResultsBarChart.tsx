@@ -56,8 +56,7 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
       setIsLoading(true);
       try {
         const response = await fetch(
-          `/api/stats/daily?days=${days}&filter=${filter}&_t=${Date.now()}`,
-          { cache: "no-store" }
+          `/api/stats/daily?days=${days}&filter=${filter}`,
         );
         const result = await response.json();
         setData(result);
@@ -80,7 +79,7 @@ export function DailyResultsBarChart({ days = 30 }: DailyResultsBarChartProps) {
     ust: "UST",
   };
 
-  const duration = days >= 30 ? 'Monthly' : days >= 7 ? 'Weekly' : 'Daily';
+  const duration = days >= 30 ? "Monthly" : days >= 7 ? "Weekly" : "Daily";
 
   const chartTitle = `${duration} Results Trends - ${filterLabels[filter]}`;
 

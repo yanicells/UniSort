@@ -94,12 +94,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Link
                 href="/quiz"
+                prefetch={false}
                 className="bg-black text-white px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-orange-600 transition flex items-center justify-center gap-2"
               >
                 Take the Quiz <ArrowRight size={18} />
               </Link>
               <Link
                 href="/freedom-wall"
+                prefetch={false}
                 className="border-2 border-black px-6 md:px-8 py-3 md:py-4 font-bold uppercase tracking-widest text-xs md:text-sm hover:bg-slate-100 transition flex items-center justify-center gap-2"
               >
                 Explore Freedom Wall <MessageCircle size={18} />
@@ -136,7 +138,7 @@ export default function Home() {
                 UniSort employs a rigorous personality assessment designed to
                 peer into your soul and match it with a campus culture.
               </p>
-              <Link href="/quiz">
+              <Link href="/quiz" prefetch={false}>
                 <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
                   <Target size={16} />
                   <span className="font-bold text-xs uppercase sans-serif">
@@ -153,7 +155,7 @@ export default function Home() {
                 unfiltered realities. It is raw, it is real, and it is necessary
                 reading for every student.
               </p>
-              <Link href="/big4">
+              <Link href="/big4" prefetch={false}>
                 <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
                   <MessageCircle size={16} />
                   <span className="font-bold text-xs uppercase sans-serif">
@@ -170,7 +172,7 @@ export default function Home() {
                 test-taker into digestible visualizations. See where the crowd
                 lands, backed by numbers.
               </p>
-              <Link href="/stats">
+              <Link href="/stats" prefetch={false}>
                 <div className="mt-4 flex items-center gap-2 cursor-pointer hover:underline">
                   <BarChart3 size={16} />
                   <span className="font-bold text-xs uppercase sans-serif">
@@ -198,6 +200,7 @@ export default function Home() {
             {featuredPosts.map((post, index) => (
               <Link
                 href="/freedom-wall"
+                prefetch={false}
                 key={index}
                 className={`block transform hover:scale-105 transition-transform duration-300 ${
                   index % 2 === 0 ? "rotate-1" : "-rotate-1"
@@ -224,6 +227,7 @@ export default function Home() {
           <div className="text-center mt-8 md:mt-12">
             <Link
               href="/freedom-wall"
+              prefetch={false}
               className="inline-block bg-black text-white font-black text-lg md:text-xl uppercase px-6 md:px-8 py-3 md:py-4 hover:bg-orange-600 transform hover:-rotate-2 transition shadow-[6px_6px_0px_0px_#94a3b8]"
             >
               VIEW ALL POSTS
@@ -259,6 +263,7 @@ export default function Home() {
               <span className="hidden sm:inline">•</span>
               <Link
                 href="/about"
+                prefetch={false}
                 className="hover:text-black transition-colors"
               >
                 ABOUT UNISORT

@@ -339,7 +339,7 @@ export default function ResultDesign6({
         </section>
       )}
 
-      {/* 4. IMPROVED: Detailed Alignment Analysis */}
+      {/* Detailed Alignment Analysis */}
       {breakdown && (
         <section className="py-8 md:py-12 border-t border-slate-200">
           <div className="mb-6 md:mb-10">
@@ -371,6 +371,7 @@ export default function ResultDesign6({
                           src={uniImages[uni]}
                           alt={uni}
                           fill
+                          unoptimized
                           loading="lazy"
                           fetchPriority="low"
                           className="object-contain"

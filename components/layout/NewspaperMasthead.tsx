@@ -66,9 +66,10 @@ export function NewspaperMasthead() {
         {/* Logo/Title */}
         <Link
           href="/"
+          prefetch={false}
           className={cn(
             "font-serif font-black italic tracking-tighter text-xl transition-opacity",
-            mobileOpen && "lg:opacity-100 opacity-0"
+            mobileOpen && "lg:opacity-100 opacity-0",
           )}
         >
           UNISORT
@@ -80,11 +81,12 @@ export function NewspaperMasthead() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className={cn(
                 "px-4 py-1.5 rounded-sm font-bold text-xs uppercase tracking-wider transition-all border",
                 isActive(item.href)
                   ? "bg-orange-600 text-white border-orange-600 transform -skew-x-6"
-                  : "bg-transparent text-slate-400 border-transparent hover:text-white hover:border-slate-600"
+                  : "bg-transparent text-slate-400 border-transparent hover:text-white hover:border-slate-600",
               )}
             >
               {item.label}
@@ -99,14 +101,14 @@ export function NewspaperMasthead() {
                 "px-4 py-1.5 rounded-sm font-bold text-xs uppercase tracking-wider transition-all border inline-flex items-center gap-1",
                 desktopUniOpen || universities.some((u) => pathname === u.href)
                   ? "bg-orange-600 text-white border-orange-600 transform -skew-x-6"
-                  : "bg-transparent text-slate-400 border-transparent hover:text-white hover:border-slate-600"
+                  : "bg-transparent text-slate-400 border-transparent hover:text-white hover:border-slate-600",
               )}
             >
               Universities
               <ChevronDown
                 className={cn(
                   "h-4 w-4 transition-transform",
-                  desktopUniOpen && "rotate-180"
+                  desktopUniOpen && "rotate-180",
                 )}
               />
             </button>
@@ -117,12 +119,13 @@ export function NewspaperMasthead() {
                   <Link
                     key={uni.href}
                     href={uni.href}
+                    prefetch={false}
                     onClick={() => setDesktopUniOpen(false)}
                     className={cn(
                       "block px-4 py-2 text-sm uppercase font-bold tracking-wider transition-colors",
                       pathname === uni.href
                         ? "bg-slate-700 text-white"
-                        : "text-slate-400 hover:bg-slate-700 hover:text-white"
+                        : "text-slate-400 hover:bg-slate-700 hover:text-white",
                     )}
                   >
                     {uni.label}
@@ -157,6 +160,7 @@ export function NewspaperMasthead() {
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700">
               <Link
                 href="/"
+                prefetch={false}
                 className="font-serif font-black italic tracking-tighter text-xl"
                 onClick={() => setMobileOpen(false)}
               >
@@ -176,11 +180,12 @@ export function NewspaperMasthead() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={false}
                   className={cn(
                     "block rounded-md px-3 py-2 text-sm font-bold uppercase tracking-wider",
                     isActive(item.href)
                       ? "bg-slate-800 text-white"
-                      : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                      : "text-slate-400 hover:bg-slate-800 hover:text-white",
                   )}
                   onClick={() => setMobileOpen(false)}
                 >
@@ -198,7 +203,7 @@ export function NewspaperMasthead() {
                   <ChevronDown
                     className={cn(
                       "h-4 w-4 transition-transform",
-                      mobileUniOpen && "rotate-180"
+                      mobileUniOpen && "rotate-180",
                     )}
                   />
                 </button>
@@ -209,11 +214,12 @@ export function NewspaperMasthead() {
                       <Link
                         key={uni.href}
                         href={uni.href}
+                        prefetch={false}
                         className={cn(
                           "block rounded-md px-3 py-2 text-sm uppercase font-bold tracking-wider",
                           pathname === uni.href
                             ? "bg-slate-800 text-white"
-                            : "text-slate-500 hover:bg-slate-800 hover:text-white"
+                            : "text-slate-500 hover:bg-slate-800 hover:text-white",
                         )}
                         onClick={() => setMobileOpen(false)}
                       >

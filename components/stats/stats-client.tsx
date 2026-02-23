@@ -29,20 +29,29 @@ type AverageScoresData = {
 
 export default function StatsClient() {
   const [isLoading, setIsLoading] = useState(true);
-  const [summary, setSummary] = useState<StatsSummary>({ total: 0, admu: 0, dlsu: 0, up: 0, ust: 0 });
+  const [summary, setSummary] = useState<StatsSummary>({
+    total: 0,
+    admu: 0,
+    dlsu: 0,
+    up: 0,
+    ust: 0,
+  });
   const [distribution, setDistribution] = useState<DistributionData>([]);
-  const [averageScores, setAverageScores] = useState<AverageScoresData>({ admu: 0, dlsu: 0, up: 0, ust: 0 });
+  const [averageScores, setAverageScores] = useState<AverageScoresData>({
+    admu: 0,
+    dlsu: 0,
+    up: 0,
+    ust: 0,
+  });
 
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch(`/api/stats?_t=${Date.now()}`, {
-        cache: "no-store",
-      });
-      
+      const res = await fetch("/api/stats");
+
       if (!res.ok) {
         throw new Error("Failed to fetch stats");
       }
-      
+
       const data = await res.json();
       setSummary(data.summary);
       setDistribution(data.distribution);
@@ -87,14 +96,12 @@ export default function StatsClient() {
         {/* Marquee */}
         <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
-            LIVE DATA UPDATES /// {summary.total} QUIZZES TAKEN /// REAL-TIME
-            ANALYTICS /// UNIVERSITY MATCH TRENDS /// DATA NEVER LIES: SEE
-            WHERE YOU BELONG /// TOP TRENDING CAMPUS: SEE CHART BELOW ///
-            UPDATED EVERY SECOND /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS
-            ACCURATE /// TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
+            LIVE DATA UPDATES /// 5k+ QUIZZES TAKEN /// REAL-TIME ANALYTICS ///
+            UNIVERSITY MATCH TRENDS /// DATA NEVER LIES: SEE WHERE YOU BELONG /// TOP TRENDING CAMPUS: SEE CHART BELOW /// UPDATED EVERY SECOND /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS ACCURATE ///
+            TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
             REPORT: SUNNY WITH A CHANCE OF EXAMS ///
           </div>
-        </div>
+      </div>
 
         <div className="max-w-7xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
           {/* Header */}
