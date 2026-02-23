@@ -210,58 +210,28 @@ export function ShareableResultCard({
       }
 
       // Detect devices using our utility
-      const { type: deviceType, os } = getDeviceInfo();
+      const { type: deviceType } = getDeviceInfo();
 
-      // Create file for sharing
-      const file = new File([blob], "unisort-result.png", {
-        type: "image/png",
-      });
-      const url = URL.createObjectURL(blob);
-
-      // Mobile Strategy
+      // Mobile/Tablet: open image in new tab so user can long-press to save
       if (deviceType === "mobile" || deviceType === "tablet") {
-        if (
-          navigator.share &&
-          navigator.canShare &&
-          navigator.canShare({ files: [file] })
-        ) {
-          try {
-            await navigator.share({
-              files: [file],
-              title: "My UniSort Result",
-              text: `I got matched with ${universityName}!`,
-            });
-            return;
-          } catch (error) {
-            if ((error as Error).name === "AbortError") {
-              return; // User cancelled
-            }
-            console.error("Share failed:", error);
-            // Fallback to new tab/download below
-          }
-        }
-
-        // Fallback if share unavailable or failed
-        if (os === "ios") {
-          const newTab = window.open(url, "_blank");
-          if (newTab) {
-            toast.info("Long press the image to save it");
-          } else {
-            toast.error("Popup blocked. Please allow popups to save.");
-          }
+        const dataUrl = canvas.toDataURL("image/png");
+        const newTab = window.open("", "_blank");
+        if (newTab) {
+          newTab.document.write(
+            `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>UniSort Result</title><style>body{margin:0;display:flex;justify-content:center;align-items:start;background:#f1f5f9;min-height:100vh}img{max-width:100%;height:auto}</style></head><body><img src="${dataUrl}" alt="UniSort Result Card"/></body></html>`,
+          );
+          newTab.document.close();
+          toast.info("Long press the image to save it");
         } else {
-          // Android/Other fallback
-          triggerDownload(url, "unisort-result.png");
-          toast.info("Downloading image...");
+          toast.error("Popup blocked. Please allow popups to save.");
         }
       } else {
-        // Desktop Strategy
+        // Desktop: download file directly
+        const url = URL.createObjectURL(blob);
         triggerDownload(url, `unisort-result-${topUniversity}.png`);
         toast.success("Image downloaded!");
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
       }
-
-      // Cleanup
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch (error) {
       console.error("Error generating image:", error);
       toast.error("Failed to generate image.");
