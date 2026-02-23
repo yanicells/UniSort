@@ -1,5 +1,4 @@
 import QuizHandler from "@/components/quiz/quiz";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { QUIZ_KEYWORDS } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
 
@@ -23,7 +22,6 @@ export const metadata: Metadata = {
 export default function Quiz() {
   return (
     <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
-      <NewspaperMasthead />
 
       {/* Marquee - similar to TabloidLayout */}
       <div className="bg-[#f4f4f4] py-2 overflow-hidden"></div>

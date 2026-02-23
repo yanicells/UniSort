@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Landmark, Users, HelpCircle } from "lucide-react";
 import { getFAQSchema } from "@/lib/seo/structured-data";
 import { BIG4_COMPARISON_KEYWORDS } from "@/lib/seo/metadata";
@@ -55,13 +54,16 @@ export default function Big4Page() {
         }}
       />
 
-      <NewspaperMasthead />
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         {/* Marquee */}
         <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
             THE BATTLE FOR MANILA /// UAAP RIVALRIES INTENSIFY /// TUITION HIKES
-            LOOMING /// CHOOSE YOUR FIGHTER
+            LOOMING /// CHOOSE YOUR FIGHTER // / ADMU VS DLSU VS UP VS UST ///
+            WHO WINS THE BIG 4? /// TAKE THE QUIZ AT UNISORT.YCELLS.COM /// THE
+            BIG 4 REALITY /// BEST IN PH /// CULTURE WARS /// STUDENT LIFE ///
+            HONEST REVIEWS /// FREEDOM WALL CONFESSIONS /// GO GET &apos;EM,
+            FUTURE ISKO, BLUE EAGLE, ARCHER, OR THOMASIAN
           </div>
         </div>
 

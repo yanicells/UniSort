@@ -5,7 +5,6 @@ import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PostModal } from "./post-modal";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { PenTool, Loader2 } from "lucide-react";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
@@ -226,7 +225,6 @@ export function WallClient() {
 
   return (
     <>
-      <NewspaperMasthead />
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         {/* Marquee */}
         <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">

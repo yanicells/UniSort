@@ -1,6 +1,5 @@
 import { TabloidLayout } from "@/components/university/TabloidLayout";
 import { universityData } from "@/lib/page-content/university-data";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { UNIVERSITY_KEYWORDS } from "@/lib/seo/metadata";
 
 export const metadata = {
@@ -25,7 +24,6 @@ export const metadata = {
 export default function UP() {
   return (
     <>
-      <NewspaperMasthead />
       <TabloidLayout data={universityData.up} />
     </>
   );

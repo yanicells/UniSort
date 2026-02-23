@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getRecentPosts } from "@/lib/dal/queries";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { HomeStats } from "@/components/home/home-stats";
 import {
   ArrowRight,
@@ -32,8 +31,6 @@ export default async function Home() {
           __html: JSON.stringify([organizationSchema, websiteSchema]),
         }}
       />
-
-      <NewspaperMasthead />
 
       {/* Marquee */}
       <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">

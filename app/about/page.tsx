@@ -1,11 +1,9 @@
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import Link from "next/link";
 import { Github } from "lucide-react";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
-      <NewspaperMasthead />
 
       {/* Main Content "Pop-out" */}
       <div className="max-w-4xl mx-auto bg-white shadow-xl min-h-screen border-x border-slate-300 mt-8 mb-12">

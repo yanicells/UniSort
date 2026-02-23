@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Post } from "./post";
 import { Comments } from "./comments";
 import { PostModal } from "./post-modal";
@@ -99,7 +98,6 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
   if (isLoading) {
     return (
       <>
-        <NewspaperMasthead />
         <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
           <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">
             <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
@@ -124,7 +122,6 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
   if (error || !post) {
     return (
       <>
-        <NewspaperMasthead />
         <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
           <div className="max-w-4xl mx-auto bg-white shadow-2xl min-h-screen border-x border-slate-300">
             <header className="p-4 sm:p-6 md:p-8 text-center border-b-4 border-black bg-pink-50">
@@ -150,7 +147,6 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
 
   return (
     <>
-      <NewspaperMasthead />
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         {/* Marquee */}
         <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">

@@ -5,7 +5,6 @@ import { DailyResultsBarChart } from "@/components/charts/DailyResultsBarChart";
 import { OverallResultsPieChartClient } from "@/components/charts/OverallResultsPieChartClient";
 import { OverallResultsBarChartClient } from "@/components/charts/OverallResultsBarChartClient";
 import { AverageScoresBarChartClient } from "@/components/charts/AverageScoresBarChartClient";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { BarChart3, PieChart, TrendingUp, Users, Loader2 } from "lucide-react";
 
 type StatsSummary = {
@@ -61,7 +60,6 @@ export default function StatsClient() {
   if (isLoading) {
     return (
       <>
-        <NewspaperMasthead />
         <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
           <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
             <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
@@ -85,8 +83,6 @@ export default function StatsClient() {
 
   return (
     <>
-      <NewspaperMasthead />
-
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         {/* Marquee */}
         <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">

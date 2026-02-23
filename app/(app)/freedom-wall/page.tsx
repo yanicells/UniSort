@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { WallClient } from "@/components/freedom-wall/wall-client";
-import { NewspaperMasthead } from "@/components/layout/NewspaperMasthead";
 import { Loader2 } from "lucide-react";
 import { FREEDOM_WALL_KEYWORDS } from "@/lib/seo/metadata";
 import type { Metadata } from "next";
@@ -35,7 +34,6 @@ export const metadata: Metadata = {
 function WallLoading() {
   return (
     <>
-      <NewspaperMasthead />
       <div className="min-h-screen bg-[#f4f4f4] text-slate-900 font-serif pb-12">
         <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
