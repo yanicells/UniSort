@@ -11,25 +11,23 @@ type QuizSummary = {
 };
 
 export function HomeStats() {
-  const [summary, setSummary] = useState<QuizSummary>({ 
-    total: 0, 
-    admu: 0, 
-    dlsu: 0, 
-    up: 0, 
-    ust: 0 
+  const [summary, setSummary] = useState<QuizSummary>({
+    total: 0,
+    admu: 0,
+    dlsu: 0,
+    up: 0,
+    ust: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchStats = useCallback(async () => {
     try {
-      const res = await fetch(`/api/stats?_t=${Date.now()}`, {
-        cache: "no-store",
-      });
-      
+      const res = await fetch("/api/stats");
+
       if (!res.ok) {
         throw new Error("Failed to fetch stats");
       }
-      
+
       const data = await res.json();
       setSummary(data.summary);
     } catch (error) {
@@ -71,9 +69,7 @@ export function HomeStats() {
           {/* ADMU Bar */}
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="font-black text-xs text-[#001196]">
-                ADMU
-              </span>
+              <span className="font-black text-xs text-[#001196]">ADMU</span>
               <span className="font-black text-xs text-[#001196]">
                 {isLoading ? "..." : summary.admu}
               </span>
@@ -91,9 +87,7 @@ export function HomeStats() {
           {/* DLSU Bar */}
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="font-black text-xs text-[#00703c]">
-                DLSU
-              </span>
+              <span className="font-black text-xs text-[#00703c]">DLSU</span>
               <span className="font-black text-xs text-[#00703c]">
                 {isLoading ? "..." : summary.dlsu}
               </span>
@@ -111,9 +105,7 @@ export function HomeStats() {
           {/* UP Bar */}
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="font-black text-xs text-[#7b1113]">
-                UP
-              </span>
+              <span className="font-black text-xs text-[#7b1113]">UP</span>
               <span className="font-black text-xs text-[#7b1113]">
                 {isLoading ? "..." : summary.up}
               </span>
@@ -131,9 +123,7 @@ export function HomeStats() {
           {/* UST Bar */}
           <div>
             <div className="flex justify-between items-center mb-1">
-              <span className="font-black text-xs text-[#fdb71a]">
-                UST
-              </span>
+              <span className="font-black text-xs text-[#fdb71a]">UST</span>
               <span className="font-black text-xs text-[#fdb71a]">
                 {isLoading ? "..." : summary.ust}
               </span>

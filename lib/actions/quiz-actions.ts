@@ -16,6 +16,7 @@ export async function saveQuizResultAction(data: {
   try {
     const result = await saveQuizResult(data);
     revalidatePath("/stats");
+    revalidatePath("/api/stats");
     return { success: true, data: result };
   } catch (error) {
     console.error("Failed to save quiz result:", error);

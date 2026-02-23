@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getRecentPosts } from "@/lib/dal/queries";
 import { HomeStats } from "@/components/home/home-stats";
 import {
   ArrowRight,
@@ -13,11 +12,23 @@ import {
   getWebSiteSchema,
 } from "@/lib/seo/structured-data";
 
-export default async function Home() {
-  const recentPosts = await getRecentPosts(4);
+// ISR: regenerate homepage at most every 60 seconds
+export const revalidate = 60;
 
-  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, "").trim();
+const featuredPosts = [
+  { tag: "DLSU", text: "guys ang hirap talaga ng trimester system" },
+  {
+    tag: "ADMU",
+    text: "not me getting ADMU when i'm studying in its sister school huhu TOTGA malala",
+  },
+  { tag: "GENERAL", text: "lf jowa sa admu/dlsu try lng 1 month" },
+  {
+    tag: "GENERAL",
+    text: "guys worth it ba talaga mag-Big 4? Or is it all just hype?",
+  },
+];
 
+export default function Home() {
   // JSON-LD structured data
   const organizationSchema = getOrganizationSchema();
   const websiteSchema = getWebSiteSchema();
@@ -184,36 +195,31 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {recentPosts.length === 0 ? (
-              <p className="col-span-full text-center text-slate-500 font-serif italic py-8">
-                No secrets on the wall yet...
-              </p>
-            ) : (
-              recentPosts.map((post, index) => (
-                <Link
-                  href={`/freedom-wall/${post.id}`}
-                  key={post.id}
-                  className={`block transform hover:scale-105 transition-transform duration-300 ${
-                    index % 2 === 0 ? "rotate-1" : "-rotate-1"
-                  }`}
-                >
-                  <div className="bg-white border-4 border-black p-3 md:p-4 h-full shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] transition-shadow flex flex-col">
-                    <div className="bg-yellow-300 inline-block px-2 py-1 font-black text-[10px] md:text-xs uppercase mb-2 md:mb-3 border border-black transform -rotate-2 self-start">
-                      {post.tags[0] || "HOT TAKE"}
-                    </div>
-                    <p className="font-sans font-bold text-base md:text-lg leading-tight mb-3 md:mb-4 uppercase break-words">
-                      &quot;{stripHtml(post.content).slice(0, 60)}...&quot;
-                    </p>
-                    <div className="mt-auto flex justify-between items-center border-t-2 border-black pt-2">
-                      <span className="font-mono text-[10px] md:text-xs font-bold text-red-600">
-                        RATING: ???
-                      </span>
-                      <ThumbsUp size={14} className="md:w-4 md:h-4" />
-                    </div>
+            {featuredPosts.map((post, index) => (
+              <Link
+                href="/freedom-wall"
+                key={index}
+                className={`block transform hover:scale-105 transition-transform duration-300 ${
+                  index % 2 === 0 ? "rotate-1" : "-rotate-1"
+                }`}
+              >
+                <div className="bg-white border-4 border-black p-3 md:p-4 h-full shadow-[6px_6px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] transition-shadow flex flex-col">
+                  <div className="bg-yellow-300 inline-block px-2 py-1 font-black text-[10px] md:text-xs uppercase mb-2 md:mb-3 border border-black transform -rotate-2 self-start">
+                    {post.tag}
                   </div>
-                </Link>
-              ))
-            )}
+                  <p className="font-sans font-bold text-base md:text-lg leading-tight mb-3 md:mb-4 uppercase break-words">
+                    &quot;{post.text.slice(0, 60)}
+                    {post.text.length > 60 ? "..." : ""}&quot;
+                  </p>
+                  <div className="mt-auto flex justify-between items-center border-t-2 border-black pt-2">
+                    <span className="font-mono text-[10px] md:text-xs font-bold text-red-600">
+                      RATING: ???
+                    </span>
+                    <ThumbsUp size={14} className="md:w-4 md:h-4" />
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
           <div className="text-center mt-8 md:mt-12">
             <Link
