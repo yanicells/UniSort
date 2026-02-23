@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { Share2 } from "lucide-react";
 import { universityFeedback } from "@/lib/quiz/result-data";
@@ -109,7 +109,7 @@ const getFeedbackText = (uni: string, percentage: number) => {
   if (!data) return "";
 
   const range = data.ranges.find(
-    (r) => percentage >= r.min && percentage < r.max
+    (r) => percentage >= r.min && percentage < r.max,
   );
 
   // Fallback for edge cases
@@ -129,8 +129,6 @@ export function ShareableResultCard({
 }: ShareableResultCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const imageRef = useRef<HTMLImageElement | null>(null);
 
   const topPercentage = percentages[topUniversity];
   const universityName = uniFullNames[topUniversity];
@@ -146,20 +144,21 @@ export function ShareableResultCard({
     { uni: "dlsu", percentage: percentages.dlsu },
   ].sort((a, b) => b.percentage - a.percentage);
 
-  // Preload the image
-  useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = uniImages[topUniversity];
-    img.onload = () => {
-      imageRef.current = img;
-      setImageLoaded(true);
-    };
-    img.onerror = () => {
-      console.error("Failed to load image");
-      setImageLoaded(true); // Still enable button
-    };
-  }, [topUniversity]);
+  const loadTopImageOnDemand = async () => {
+    await new Promise<void>((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = uniImages[topUniversity];
+
+      if (img.complete) {
+        resolve();
+        return;
+      }
+
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error("Failed to load image"));
+    });
+  };
 
   const handleShare = async () => {
     if (!cardRef.current) {
@@ -170,6 +169,12 @@ export function ShareableResultCard({
     setIsGenerating(true);
 
     try {
+      try {
+        await loadTopImageOnDemand();
+      } catch (error) {
+        console.error("Failed to preload image on demand:", error);
+      }
+
       // Wait a bit for any rendering to settle
       await new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -185,7 +190,7 @@ export function ShareableResultCard({
         // CRITICAL: Remove all stylesheets to prevent "lab()" parsing errors with Tailwind 4
         onclone: (clonedDoc) => {
           const styles = clonedDoc.querySelectorAll(
-            'link[rel="stylesheet"], style'
+            'link[rel="stylesheet"], style',
           );
           styles.forEach((style) => {
             if (style.parentNode) {
@@ -205,43 +210,49 @@ export function ShareableResultCard({
         const { type: deviceType, os } = getDeviceInfo();
 
         // Create file for sharing
-        const file = new File([blob], "unisort-result.png", { type: "image/png" });
+        const file = new File([blob], "unisort-result.png", {
+          type: "image/png",
+        });
         const url = URL.createObjectURL(blob);
 
         // Mobile Strategy
         if (deviceType === "mobile" || deviceType === "tablet") {
-          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-             try {
-               await navigator.share({
-                 files: [file],
-                 title: "My UniSort Result",
-                 text: `I got matched with ${universityName}!`,
-               });
-               setIsGenerating(false);
-               return;
-             } catch (error) {
-               if ((error as Error).name !== "AbortError") {
-                 console.error("Share failed:", error);
-                 // Fallback to new tab/download below
-               } else {
-                 setIsGenerating(false);
-                 return; // User cancelled
-               }
-             }
+          if (
+            navigator.share &&
+            navigator.canShare &&
+            navigator.canShare({ files: [file] })
+          ) {
+            try {
+              await navigator.share({
+                files: [file],
+                title: "My UniSort Result",
+                text: `I got matched with ${universityName}!`,
+              });
+              setIsGenerating(false);
+              return;
+            } catch (error) {
+              if ((error as Error).name !== "AbortError") {
+                console.error("Share failed:", error);
+                // Fallback to new tab/download below
+              } else {
+                setIsGenerating(false);
+                return; // User cancelled
+              }
+            }
           }
-          
+
           // Fallback if share unavailable or failed
           if (os === "ios") {
-             const newTab = window.open(url, "_blank");
-             if (newTab) {
-               toast.info("Long press the image to save it");
-             } else {
-               toast.error("Popup blocked. Please allow popups to save.");
-             }
+            const newTab = window.open(url, "_blank");
+            if (newTab) {
+              toast.info("Long press the image to save it");
+            } else {
+              toast.error("Popup blocked. Please allow popups to save.");
+            }
           } else {
-             // Android/Other fallback
-             triggerDownload(url, "unisort-result.png");
-             toast.info("Downloading image...");
+            // Android/Other fallback
+            triggerDownload(url, "unisort-result.png");
+            toast.info("Downloading image...");
           }
         } else {
           // Desktop Strategy
@@ -274,7 +285,7 @@ export function ShareableResultCard({
       {/* Share Button */}
       <button
         onClick={handleShare}
-        disabled={isGenerating || !imageLoaded}
+        disabled={isGenerating}
         className="w-full flex items-center justify-center gap-2 bg-black text-white px-4 md:px-6 py-3 md:py-4 font-black uppercase tracking-widest text-xs md:text-sm hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md border-2 border-black"
       >
         {isGenerating ? (
@@ -506,7 +517,7 @@ export function ShareableResultCard({
 export async function handleShareResult(
   cardRef: React.RefObject<HTMLDivElement>,
   topUniversity: string,
-  universityName: string
+  universityName: string,
 ): Promise<boolean> {
   if (!cardRef.current) return false;
 
@@ -521,7 +532,7 @@ export async function handleShareResult(
       allowTaint: true,
       onclone: (clonedDoc) => {
         const styles = clonedDoc.querySelectorAll(
-          'link[rel="stylesheet"], style'
+          'link[rel="stylesheet"], style',
         );
         styles.forEach((style) => {
           if (style.parentNode) {
