@@ -38,11 +38,11 @@ export default async function Home() {
       {/* Marquee */}
       <div className="bg-black text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-slate-800">
         <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
-          EXTRA! EXTRA! READ ALL ABOUT IT! /// ADMISSIONS SEASON IS HERE /// BREAKING: IS YOUR
-          CRUSH COMPATIBLE? /// STUDY: 9 OUT OF 10 STUDENTS AGREE UNISORT IS
-          ACCURATE /// WHICH UNIVERSITY HAS THE BEST FOOD? VOTE NOW ///
-          TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE /// WEATHER
-          REPORT: SUNNY WITH A CHANCE OF EXAMS /// CHOOSE YOUR FIGHTER
+          EXTRA! EXTRA! READ ALL ABOUT IT! /// ADMISSIONS SEASON IS HERE ///
+          BREAKING: IS YOUR CRUSH COMPATIBLE? /// STUDY: 9 OUT OF 10 STUDENTS
+          AGREE UNISORT IS ACCURATE /// WHICH UNIVERSITY HAS THE BEST FOOD? VOTE
+          NOW /// TRENDING: #UPFIGHT #ONEBIGFIGHT #ANIMOLASALLE #GOUSTE ///
+          WEATHER REPORT: SUNNY WITH A CHANCE OF EXAMS /// CHOOSE YOUR FIGHTER
         </div>
       </div>
 
@@ -109,7 +109,7 @@ export default async function Home() {
         {/* Why UniSort */}
         <div className="border-b-4 border-black p-8 md:p-12">
           <div className="flex flex-col md:flex-row items-baseline gap-4 border-b-2 border-black pb-4 mb-6">
-            <h3 className="font-serif font-bold text-4xl italic">
+            <h3 className="font-serif font-bold text-3xl md:text-4xl italic">
               The only guide you&apos;ll ever need!
             </h3>
             <span className="hidden md:inline-block flex-grow border-b border-black border-dotted h-2"></span>
@@ -118,7 +118,7 @@ export default async function Home() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-justify font-serif text-sm leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-justify font-serif text-base md:text-sm leading-relaxed">
             <div className="border-b md:border-b-0 md:border-r border-slate-300 pb-8 md:pb-0 pr-0 md:pr-6">
               <p>
                 <span className="float-left text-5xl font-black mr-2 mt-[-10px] font-sans">
@@ -254,7 +254,10 @@ export default async function Home() {
                 <span>GITHUB REPOSITORY</span>
               </a>
               <span className="hidden sm:inline">•</span>
-              <Link href="/about" className="hover:text-black transition-colors">
+              <Link
+                href="/about"
+                className="hover:text-black transition-colors"
+              >
                 ABOUT UNISORT
               </Link>
             </div>
