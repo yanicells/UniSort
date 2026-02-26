@@ -50,7 +50,7 @@ export function HomeStats() {
     <div className="lg:col-span-4 bg-slate-100 p-4 md:p-6 lg:p-8 flex flex-col justify-center text-center border-t lg:border-t-0 gap-4 md:gap-6">
       <div className="border-2 md:border-4 border-black p-4 md:p-6 bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
         <span className="block text-4xl md:text-5xl lg:text-6xl font-black text-orange-600 mb-2">
-          {isLoading ? "..." : summary.total}
+          {isLoading ? "..." : summary.total.toLocaleString("en-US")}
         </span>
         <span className="block font-bold uppercase text-xs md:text-sm tracking-widest">
           Students Matched

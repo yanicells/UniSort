@@ -143,7 +143,7 @@ export default function Big4Page() {
                         courses that culminate in oral exams.
                       </li>
                       <li className="bg-green-50 p-3 border-l-4 border-green-700">
-                        <strong>DLSU (Trimestral Velocity):</strong> The
+                        <strong>DLSU (Trimestral Intensity):</strong> The
                         academic year is a &ldquo;sprint&rdquo; divided into
                         three 14-week terms. With zero room for procrastination,
                         the challenge is elite time management.
