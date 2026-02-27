@@ -200,6 +200,9 @@ export function ShareableResultCard({
         },
       });
 
+      // Generate data URL for Android fallback (must be done before toBlob)
+      const dataUrl = canvas.toDataURL("image/png");
+
       // Convert to blob
       canvas.toBlob(async (blob) => {
         if (!blob) {
@@ -243,14 +246,28 @@ export function ShareableResultCard({
 
           // Fallback if share unavailable or failed
           if (os === "ios") {
+            // iOS: open blob URL directly (works well natively)
             const newTab = window.open(url, "_blank");
             if (newTab) {
               toast.info("Long press the image to save it");
             } else {
               toast.error("Popup blocked. Please allow popups to save.");
             }
+          } else if (os === "android") {
+            // Android: open an HTML page with proper viewport so image fills screen
+            // Uses data URL (not blob URL) for the img src to avoid cross-origin issues
+            const htmlContent = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>UniSort Result</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh}img{width:100%;max-width:100%;height:auto;display:block}</style></head><body><img src="${dataUrl}" alt="UniSort Result"></body></html>`;
+            const htmlBlob = new Blob([htmlContent], { type: "text/html" });
+            const htmlUrl = URL.createObjectURL(htmlBlob);
+            const newTab = window.open(htmlUrl, "_blank");
+            if (newTab) {
+              toast.info("Long press the image to save it.");
+            } else {
+              toast.error("Popup blocked. Please allow popups to save.");
+            }
+            setTimeout(() => URL.revokeObjectURL(htmlUrl), 5000);
           } else {
-            // Android/Other fallback
+            // Other mobile OS fallback
             triggerDownload(url, "unisort-result.png");
             toast.info("Downloading image...");
           }
