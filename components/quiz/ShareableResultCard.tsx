@@ -209,71 +209,24 @@ export function ShareableResultCard({
           throw new Error("Failed to create image");
         }
 
-        // Detect devices using our utility
-        const { type: deviceType, os } = getDeviceInfo();
-
-        // Create file for sharing
-        const file = new File([blob], "unisort-result.png", {
-          type: "image/png",
-        });
+        // Detect device type
+        const { type: deviceType } = getDeviceInfo();
         const url = URL.createObjectURL(blob);
 
-        // Mobile Strategy
+        // Mobile Strategy: open image in a new tab with proper viewport
         if (deviceType === "mobile" || deviceType === "tablet") {
-          if (os === "android") {
-            // Android: open an HTML page with proper viewport so image fills screen
-            // Uses data URL (not blob URL) for the img src to avoid cross-origin issues
-            const htmlContent = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>UniSort Result</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh}img{width:100%;max-width:100%;height:auto;display:block}</style></head><body><img src="${dataUrl}" alt="UniSort Result"></body></html>`;
-            const htmlBlob = new Blob([htmlContent], { type: "text/html" });
-            const htmlUrl = URL.createObjectURL(htmlBlob);
-            const newTab = window.open(htmlUrl, "_blank");
-            if (newTab) {
-              toast.info("Long press the image to save it.");
-            } else {
-              toast.error("Popup blocked. Please allow popups to save.");
-            }
-            setTimeout(() => URL.revokeObjectURL(htmlUrl), 5000);
+          // Opens an HTML page so the image fills the screen and users can long press to save
+          // Uses data URL (not blob URL) for the img src to avoid cross-origin issues
+          const htmlContent = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>UniSort Result</title><style>*{margin:0;padding:0;box-sizing:border-box}body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh}img{width:100%;max-width:100%;height:auto;display:block}</style></head><body><img src="${dataUrl}" alt="UniSort Result"></body></html>`;
+          const htmlBlob = new Blob([htmlContent], { type: "text/html" });
+          const htmlUrl = URL.createObjectURL(htmlBlob);
+          const newTab = window.open(htmlUrl, "_blank");
+          if (newTab) {
+            toast.info("Long press the image to save it.");
           } else {
-            // iOS and other mobile: try navigator.share first
-            if (
-              navigator.share &&
-              navigator.canShare &&
-              navigator.canShare({ files: [file] })
-            ) {
-              try {
-                await navigator.share({
-                  files: [file],
-                  title: "My UniSort Result",
-                  text: `I got matched with ${universityName}!`,
-                });
-                setIsGenerating(false);
-                return;
-              } catch (error) {
-                if ((error as Error).name !== "AbortError") {
-                  console.error("Share failed:", error);
-                  // Fallback below
-                } else {
-                  setIsGenerating(false);
-                  return; // User cancelled
-                }
-              }
-            }
-
-            // Fallback if share unavailable or failed
-            if (os === "ios") {
-              // iOS: open blob URL directly (works well natively)
-              const newTab = window.open(url, "_blank");
-              if (newTab) {
-                toast.info("Long press the image to save it");
-              } else {
-                toast.error("Popup blocked. Please allow popups to save.");
-              }
-            } else {
-              // Other mobile OS fallback
-              triggerDownload(url, "unisort-result.png");
-              toast.info("Downloading image...");
-            }
+            toast.error("Popup blocked. Please allow popups to save.");
           }
+          setTimeout(() => URL.revokeObjectURL(htmlUrl), 5000);
         } else {
           // Desktop Strategy
           triggerDownload(url, `unisort-result-${topUniversity}.png`);
