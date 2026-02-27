@@ -97,4 +97,4 @@ We welcome contributions! Whether it's correcting university trivia, adding new 
 
 ## Note
 
-UniSort is a personal project created for entertainment and informational purposes only. This website is not affiliated with, endorsed by, sponsored by, or connected to Ateneo de Manila University, De La Salle University, University of the Philippines, University of Santo Tomas, or any other educational institution mentioned. All university names, logos, and trademarks are the property of their respective owners.
+UniSort is a personal project created for entertainment and informational purposes only. University descriptions intentionally include both strengths and drawbacks, drawn from real student voices — not every experience will resonate, and that's okay. This website is not affiliated with, endorsed by, sponsored by, or connected to Ateneo de Manila University, De La Salle University, University of the Philippines, University of Santo Tomas, or any other educational institution mentioned. All university names, logos, and trademarks are the property of their respective owners.
