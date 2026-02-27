@@ -244,12 +244,15 @@ export default function Home() {
             </h4>
             <p className="font-serif text-sm text-slate-500 italic leading-relaxed">
               UniSort is a personal project created for entertainment and
-              informational purposes only. This website is not affiliated with,
-              endorsed by, sponsored by, or connected to Ateneo de Manila
-              University, De La Salle University, University of the Philippines,
-              University of Santo Tomas, or any other educational institution
-              mentioned. All university names, logos, and trademarks are the
-              property of their respective owners.
+              informational purposes only. University descriptions intentionally
+              include both strengths and drawbacks, drawn from real student
+              voices — not every experience will resonate, and that&apos;s
+              okay. This website is not affiliated with, endorsed by, sponsored
+              by, or connected to Ateneo de Manila University, De La Salle
+              University, University of the Philippines, University of Santo
+              Tomas, or any other educational institution mentioned. All
+              university names, logos, and trademarks are the property of their
+              respective owners.
             </p>
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-center items-center gap-4 text-xs font-mono text-slate-400">
               <a

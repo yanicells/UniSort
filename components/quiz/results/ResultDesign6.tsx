@@ -445,10 +445,12 @@ export default function ResultDesign6({
         <p className="font-serif italic text-xs sm:text-sm md:text-base leading-relaxed text-slate-600">
           &quot;These breakdowns are calculated by analyzing your specific
           responses against the cultural markers, academic structures, and
-          social values of each institution. UniSort is an independent project
-          and is not officially affiliated with Ateneo de Manila University, De
-          La Salle University, University of the Philippines, or University of
-          Santo Tomas.&quot;
+          social values of each institution. University descriptions
+          intentionally include both strengths and drawbacks, drawn from real
+          student voices — not every experience will resonate, and that&apos;s
+          okay. UniSort is an independent project and is not officially
+          affiliated with Ateneo de Manila University, De La Salle University,
+          University of the Philippines, or University of Santo Tomas.&quot;
         </p>
       </div>
     </div>
