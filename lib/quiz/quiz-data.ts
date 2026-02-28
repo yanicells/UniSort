@@ -620,7 +620,7 @@ export const questions = {
           ust: 0,
         },
         {
-          text: "It's an adventure. I'm willing to wade or ride a boat if needed.",
+          text: "It's an adventure. A little flooding won't stop me from showing up.",
           admu: 0,
           dlsu: 5,
           up: 3,
@@ -803,11 +803,11 @@ export const questions = {
           ust: 20,
         },
         {
-          text: 'I prefer looking polished or "corporate ready," so a smart casual vibe or dress code is fine.',
+          text: 'I prefer looking polished or "corporate ready," so a smart casual vibe or a loosely polished campus norm suits me fine.',
           admu: 12,
           dlsu: 14,
-          up: 2,
-          ust: 8,
+          up: 8,
+          ust: 2,
         },
       ],
       rationale:
