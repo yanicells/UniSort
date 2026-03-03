@@ -109,10 +109,18 @@ export function WallClient() {
       parallel: false, // Load pages sequentially
     });
 
-  // Flatten all pages into a single posts array
+  // Flatten all pages into a single posts array, deduplicating by ID
+  // (posts can shift between pages during revalidation)
   const posts = useMemo(() => {
     if (!data) return [];
-    return data.flatMap((page) => page.posts);
+    const seen = new Set<string>();
+    return data
+      .flatMap((page) => page.posts)
+      .filter((post) => {
+        if (seen.has(post.id)) return false;
+        seen.add(post.id);
+        return true;
+      });
   }, [data]);
 
   // Determine if there are more posts to load
