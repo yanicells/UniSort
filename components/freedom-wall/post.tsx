@@ -26,7 +26,7 @@ interface PostProps {
   onClick?: () => void;
   onReply?: () => void;
   hideCommentCount?: boolean;
-  onReactionAdded?: () => void;
+  onReactionAdded?: (postId: string, reaction: string) => void;
 }
 
 const REACTION_EMOJIS: Record<string, string> = {
@@ -203,7 +203,9 @@ export function Post({
                 <ReactionModal
                   postId={id}
                   onClose={() => setShowReactionModal(false)}
-                  onReactionAdded={onReactionAdded}
+                  onReactionAdded={(reaction: string) =>
+                    onReactionAdded?.(id, reaction)
+                  }
                 />
               )}
             </div>

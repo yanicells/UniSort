@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
+import useSWR from "swr";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Post } from "./post";
 import { Comments } from "./comments";
 import { PostModal } from "./post-modal";
 import type { PostComment } from "./comment-types";
+import { fetcher, wallSwrConfig } from "@/lib/swr";
+import { useState } from "react";
 
 type PostData = {
   id: string;
@@ -25,75 +27,100 @@ type PostData = {
   createdAt: Date | string;
 };
 
+type SinglePostResponse = {
+  post: PostData;
+  comments: PostComment[];
+  allComments: PostComment[];
+  totalCommentCount: number;
+};
+
 type SinglePostPageProps = {
   postId: string;
 };
 
 export default function SinglePostPage({ postId }: SinglePostPageProps) {
   const [showReplyModal, setShowReplyModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [post, setPost] = useState<PostData | null>(null);
-  const [comments, setComments] = useState<PostComment[]>([]);
-  const [allComments, setAllComments] = useState<PostComment[]>([]);
-  const [totalCommentCount, setTotalCommentCount] = useState(0);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const MAX_RETRIES = 2;
+  const { data, error, isLoading, mutate } = useSWR<SinglePostResponse>(
+    `/api/posts/${postId}`,
+    fetcher,
+    wallSwrConfig,
+  );
 
-  const fetchPostData = useCallback(async (retry: number = 0): Promise<void> => {
-    try {
-      setError(null);
-      
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
-      
-      const res = await fetch(`/api/posts/${postId}?_t=${Date.now()}`, {
-        cache: "no-store",
-        signal: controller.signal,
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!res.ok) {
-        if (res.status === 404) {
-          setError("Post not found");
-        } else {
-          throw new Error(`HTTP ${res.status}`);
-        }
-        return;
-      }
-      
-      const data = await res.json();
-      setPost(data.post);
-      setComments(data.comments || []);
-      setAllComments(data.allComments || []);
-      setTotalCommentCount(data.totalCommentCount || 0);
-      setError(null);
-    } catch (err) {
-      console.error(`Error fetching post (attempt ${retry + 1}):`, err);
-      
-      // Retry with exponential backoff
-      if (retry < MAX_RETRIES) {
-        const delay = Math.pow(2, retry) * 500;
-        await new Promise(resolve => setTimeout(resolve, delay));
-        return fetchPostData(retry + 1);
-      }
-      
-      setError("Failed to load post. Please try again.");
-    }
-  }, [postId]);
+  const post = data?.post ?? null;
+  const comments = data?.comments ?? [];
+  const allComments = data?.allComments ?? [];
+  const totalCommentCount = data?.totalCommentCount ?? 0;
 
-  // Initial load
-  useEffect(() => {
-    setIsLoading(true);
-    fetchPostData().finally(() => setIsLoading(false));
-  }, [fetchPostData]);
+  /**
+   * Optimistic reaction update for the main post.
+   * Updates cached data in-place without refetching.
+   */
+  const handleReactionUpdate = useCallback(
+    (targetPostId: string, reaction: string) => {
+      mutate(
+        (currentData) => {
+          if (!currentData) return currentData;
 
-  // Refresh function for after reactions/comments
-  const refreshPost = useCallback(async () => {
-    await fetchPostData();
-  }, [fetchPostData]);
+          // Update the main post
+          if (currentData.post.id === targetPostId) {
+            return {
+              ...currentData,
+              post: {
+                ...currentData.post,
+                reactions: {
+                  ...currentData.post.reactions,
+                  [reaction]:
+                    (currentData.post.reactions[
+                      reaction as keyof typeof currentData.post.reactions
+                    ] || 0) + 1,
+                },
+              },
+            };
+          }
+
+          // Update a comment's reactions
+          return {
+            ...currentData,
+            comments: currentData.comments.map((c) =>
+              c.id === targetPostId
+                ? {
+                    ...c,
+                    reactions: {
+                      ...c.reactions,
+                      [reaction]:
+                        (c.reactions[reaction as keyof typeof c.reactions] ||
+                          0) + 1,
+                    },
+                  }
+                : c,
+            ),
+            allComments: currentData.allComments.map((c) =>
+              c.id === targetPostId
+                ? {
+                    ...c,
+                    reactions: {
+                      ...c.reactions,
+                      [reaction]:
+                        (c.reactions[reaction as keyof typeof c.reactions] ||
+                          0) + 1,
+                    },
+                  }
+                : c,
+            ),
+          };
+        },
+        { revalidate: false },
+      );
+    },
+    [mutate],
+  );
+
+  /** Revalidate after adding a comment */
+  const handleCommentAdded = useCallback(() => {
+    mutate();
+  }, [mutate]);
 
   if (isLoading) {
     return (
@@ -130,7 +157,11 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
               </h1>
             </header>
             <div className="p-6 text-center">
-              <p className="text-xl font-bold text-slate-600 mb-4">{error || "Post not found"}</p>
+              <p className="text-xl font-bold text-slate-600 mb-4">
+                {error
+                  ? "Failed to load post. Please try again."
+                  : "Post not found"}
+              </p>
               <button
                 onClick={() => router.back()}
                 className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-pink-600 hover:text-pink-700"
@@ -151,7 +182,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
         {/* Marquee */}
         <div className="bg-pink-600 text-white py-2 overflow-hidden whitespace-nowrap border-b-2 border-pink-800">
           <div className="animate-marquee inline-block font-mono text-xs md:text-sm font-bold tracking-widest">
-            CONFESSIONS /// RANTS /// LOVE LETTERS /// LOST & FOUND ///
+            CONFESSIONS /// RANTS /// LOVE LETTERS /// LOST &amp; FOUND ///
             MINUMULTO PARIN AKO /// ANONYMOUS /// UNCENSORED /// SPOTTED: CUTIE
             AT THE LIBRARY /// LOOKING FOR STUDY BUDDY /// LATEST CAMPUS TEA
             SERVED HOT /// SEND YOUR CONFESSIONS NOW! /// ORGANIC ENCOUNTER
@@ -198,7 +229,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
               commentCount={totalCommentCount}
               hideCommentCount={true}
               onReply={() => setShowReplyModal(true)}
-              onReactionAdded={refreshPost}
+              onReactionAdded={handleReactionUpdate}
             />
 
             {/* Comments Section */}
@@ -208,7 +239,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
                 comments={comments}
                 allComments={allComments}
                 totalCount={totalCommentCount}
-                onCommentAdded={refreshPost}
+                onCommentAdded={handleCommentAdded}
               />
             </div>
           </div>
@@ -219,7 +250,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
         <PostModal
           parentId={postId}
           onClose={() => setShowReplyModal(false)}
-          onPostCreated={refreshPost}
+          onPostCreated={handleCommentAdded}
         />
       )}
     </>

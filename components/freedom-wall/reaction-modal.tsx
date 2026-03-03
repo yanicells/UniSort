@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import { handleAddReaction } from "@/lib/actions/reaction-actions";
 
 type ReactionType = "like" | "love" | "haha" | "wow" | "sad" | "angry";
 
@@ -17,7 +16,7 @@ const REACTIONS: { type: ReactionType; emoji: string }[] = [
 type ReactionModalProps = {
   postId: string;
   onClose: () => void;
-  onReactionAdded?: () => void;
+  onReactionAdded?: (reaction: string) => void;
 };
 
 export function ReactionModal({
@@ -44,27 +43,29 @@ export function ReactionModal({
 
   const handleReactionClick = async (
     e: React.MouseEvent,
-    reaction: ReactionType
+    reaction: ReactionType,
   ) => {
     e.stopPropagation();
-    
+
     // Prevent double-clicks
     if (isSubmitting) return;
-    
+
     setIsSubmitting(true);
     onClose();
-    
+
+    // Optimistic update — notify parent immediately
+    onReactionAdded?.(reaction);
+
+    // Fire API call in background
     try {
-      const result = await handleAddReaction(postId, reaction);
-      
-      if (result.success) {
-        // Call the refresh callback to refetch posts
-        onReactionAdded?.();
-      } else {
-        console.error("Failed to add reaction:", result.error);
-      }
+      await fetch(`/api/posts/${postId}/reactions`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ reaction }),
+      });
     } catch (error) {
       console.error("Failed to add reaction:", error);
+      // On failure, next SWR revalidation will correct the count
     } finally {
       setIsSubmitting(false);
     }

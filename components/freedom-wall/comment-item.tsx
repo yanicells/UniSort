@@ -12,9 +12,8 @@ import { Heart, MessageCircle } from "lucide-react";
 
 type CommentItemProps = {
   comment: PostComment;
-  postId: string;
   depth?: number;
-  onReactionAdded?: () => void;
+  onReactionAdded?: (postId: string, reaction: string) => void;
 };
 
 const REACTION_EMOJIS: Record<string, string> = {
@@ -26,7 +25,11 @@ const REACTION_EMOJIS: Record<string, string> = {
   angry: "😠",
 };
 
-export function CommentItem({ comment, postId, depth = 0, onReactionAdded }: CommentItemProps) {
+export function CommentItem({
+  comment,
+  depth = 0,
+  onReactionAdded,
+}: CommentItemProps) {
   const [showReply, setShowReply] = useState(false);
   const [showReactionModal, setShowReactionModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
@@ -151,7 +154,9 @@ export function CommentItem({ comment, postId, depth = 0, onReactionAdded }: Com
                 <ReactionModal
                   postId={comment.id}
                   onClose={() => setShowReactionModal(false)}
-                  onReactionAdded={onReactionAdded}
+                  onReactionAdded={(reaction: string) =>
+                    onReactionAdded?.(comment.id, reaction)
+                  }
                 />
               )}
             </div>
@@ -174,10 +179,10 @@ export function CommentItem({ comment, postId, depth = 0, onReactionAdded }: Com
       )}
 
       {showReply && (
-        <PostModal 
-          parentId={comment.id} 
-          onClose={() => setShowReply(false)} 
-          onPostCreated={onReactionAdded}
+        <PostModal
+          parentId={comment.id}
+          onClose={() => setShowReply(false)}
+          onPostCreated={() => onReactionAdded?.(comment.id, "")}
         />
       )}
 

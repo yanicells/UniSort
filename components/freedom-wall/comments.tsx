@@ -48,11 +48,10 @@ export function Comments({
       <ul className="space-y-4">
         {comments.map((comment) => (
           <li key={comment.id}>
-            <CommentItem 
-              comment={comment} 
-              postId={postId} 
-              depth={0} 
-              onReactionAdded={onCommentAdded}
+            <CommentItem
+              comment={comment}
+              depth={0}
+              onReactionAdded={() => onCommentAdded?.()}
             />
             {comment.id && (
               <div className="ml-8 mt-3 pl-4 border-l-2 border-slate-300">

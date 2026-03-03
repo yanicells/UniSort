@@ -29,11 +29,10 @@ export default function CommentThread({
     <ul className="space-y-3">
       {comments.map((comment) => (
         <li key={comment.id}>
-          <CommentItem 
-            comment={comment} 
-            postId={postId} 
-            depth={nextDepth} 
-            onReactionAdded={onCommentAdded}
+          <CommentItem
+            comment={comment}
+            depth={nextDepth}
+            onReactionAdded={() => onCommentAdded?.()}
           />
           {comment.id && nextDepth < maxDepth && (
             <div className="ml-8 mt-3 pl-4 border-l-2 border-slate-300">
