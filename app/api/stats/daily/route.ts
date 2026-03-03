@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDailyResultsCounts } from "@/lib/dal/queries";
 
-// Disable all caching
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// ISR: cache daily stats for up to 2 minutes
+export const revalidate = 120;
 
 export async function GET(request: NextRequest) {
   try {
@@ -21,16 +20,14 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(data, {
       headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0",
+        "Cache-Control": "public, s-maxage=120, stale-while-revalidate=240",
       },
     });
   } catch (error) {
     console.error("Error fetching daily results:", error);
     return NextResponse.json(
       { error: "Failed to fetch daily results" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

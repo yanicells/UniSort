@@ -5,8 +5,8 @@ import {
   getAverageUniversityScores,
 } from "@/lib/dal/queries";
 
-// ISR: cache stats response for up to 60 seconds
-export const revalidate = 60;
+// ISR: cache stats response for up to 2 minutes
+export const revalidate = 120;
 
 export async function GET() {
   try {
@@ -24,7 +24,7 @@ export async function GET() {
       },
       {
         headers: {
-          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+          "Cache-Control": "public, s-maxage=120, stale-while-revalidate=240",
         },
       },
     );

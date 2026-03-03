@@ -13,7 +13,7 @@ import {
 } from "@/lib/seo/structured-data";
 
 // ISR: regenerate homepage at most every 60 seconds
-export const revalidate = 60;
+export const revalidate = 120;
 
 const featuredPosts = [
   { tag: "DLSU", text: "guys ang hirap talaga ng trimester system" },
@@ -246,13 +246,12 @@ export default function Home() {
               UniSort is a personal project created for entertainment and
               informational purposes only. University descriptions intentionally
               include both strengths and drawbacks, drawn from real student
-              voices — not every experience will resonate, and that&apos;s
-              okay. This website is not affiliated with, endorsed by, sponsored
-              by, or connected to Ateneo de Manila University, De La Salle
-              University, University of the Philippines, University of Santo
-              Tomas, or any other educational institution mentioned. All
-              university names, logos, and trademarks are the property of their
-              respective owners.
+              voices — not every experience will resonate, and that&apos;s okay.
+              This website is not affiliated with, endorsed by, sponsored by, or
+              connected to Ateneo de Manila University, De La Salle University,
+              University of the Philippines, University of Santo Tomas, or any
+              other educational institution mentioned. All university names,
+              logos, and trademarks are the property of their respective owners.
             </p>
             <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-center items-center gap-4 text-xs font-mono text-slate-400">
               <a
