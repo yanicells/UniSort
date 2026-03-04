@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { Post } from "./post";
@@ -41,6 +41,7 @@ type SinglePostPageProps = {
 export default function SinglePostPage({ postId }: SinglePostPageProps) {
   const [showReplyModal, setShowReplyModal] = useState(false);
   const router = useRouter();
+  const { mutate: globalMutate } = useSWRConfig();
 
   const { data, error, isLoading, mutate } = useSWR<SinglePostResponse>(
     `/api/posts/${postId}`,
@@ -113,8 +114,38 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
         },
         { revalidate: false },
       );
+
+      // Also sync the reaction to the wall's infinite scroll cache
+      // so going back shows the updated count immediately
+      globalMutate(
+        (key: unknown) =>
+          typeof key === "string" && key.startsWith("/api/posts?"),
+        (
+          currentData:
+            | {
+                posts: Array<{ id: string; reactions: Record<string, number> }>;
+              }
+            | undefined,
+        ) => {
+          if (!currentData?.posts) return currentData;
+          return {
+            ...currentData,
+            posts: currentData.posts.map((p) => {
+              if (p.id !== targetPostId) return p;
+              return {
+                ...p,
+                reactions: {
+                  ...p.reactions,
+                  [reaction]: (p.reactions[reaction] || 0) + 1,
+                },
+              };
+            }),
+          };
+        },
+        { revalidate: false },
+      );
     },
-    [mutate],
+    [mutate, globalMutate],
   );
 
   /** Revalidate after adding a comment */
