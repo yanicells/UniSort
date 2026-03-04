@@ -116,21 +116,26 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
       );
 
       // Also sync the reaction to the wall's infinite scroll cache
-      // so going back shows the updated count immediately
+      // useSWRInfinite stores keys with "$inf$" prefix, data is an array of pages
       globalMutate(
         (key: unknown) =>
-          typeof key === "string" && key.startsWith("/api/posts?"),
+          typeof key === "string" &&
+          key.startsWith("$inf$") &&
+          key.includes("/api/posts?"),
         (
           currentData:
-            | {
-                posts: Array<{ id: string; reactions: Record<string, number> }>;
-              }
+            | Array<{
+                posts: Array<{
+                  id: string;
+                  reactions: Record<string, number>;
+                }>;
+              }>
             | undefined,
         ) => {
-          if (!currentData?.posts) return currentData;
-          return {
-            ...currentData,
-            posts: currentData.posts.map((p) => {
+          if (!Array.isArray(currentData)) return currentData;
+          return currentData.map((page) => ({
+            ...page,
+            posts: page.posts.map((p) => {
               if (p.id !== targetPostId) return p;
               return {
                 ...p,
@@ -140,7 +145,7 @@ export default function SinglePostPage({ postId }: SinglePostPageProps) {
                 },
               };
             }),
-          };
+          }));
         },
         { revalidate: false },
       );
