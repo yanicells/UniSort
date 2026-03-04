@@ -1,6 +1,6 @@
 # UniSort
 
-**UniSort** is an interactive, newspaper-themed web application designed to help students find their perfect university match among the Philippines' "Big Four" universities: Ateneo de Manila University (ADMU), De La Salle University (DLSU), University of the Philippines (UP), and University of Santo Tomas (UST).
+**UniSort** is an interactive, web application designed to help students find their perfect university match among the Philippines' "Big Four" universities: Ateneo de Manila University (ADMU), De La Salle University (DLSU), University of the Philippines (UP), and University of Santo Tomas (UST).
 
 > _"The Daily Sorting Hat: Find Your Fit, Own Your Story"_
 
