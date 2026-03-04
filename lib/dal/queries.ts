@@ -99,11 +99,13 @@ export async function getRecentPosts(limit = 4) {
 }
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
-type WallSort = "latest" | "most-liked" | "most-discussed";
+type WallSort = "latest" | "oldest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
 // Efficient batch function to get comment counts for multiple posts
-async function getCommentCountsForPosts(postIds: string[]): Promise<Map<string, number>> {
+async function getCommentCountsForPosts(
+  postIds: string[],
+): Promise<Map<string, number>> {
   if (postIds.length === 0) {
     return new Map();
   }
@@ -162,13 +164,13 @@ export async function getWallPosts({
   const conditions = [eq(posts.isDeleted, false), isNull(posts.parentId)];
 
   const safeUniversities = universities.filter((u) =>
-    ["general", "admu", "dlsu", "up", "ust"].includes(u)
+    ["general", "admu", "dlsu", "up", "ust"].includes(u),
   ) as WallUniversity[];
 
   if (safeUniversities.length > 0) {
     const arrayLiteral = safeUniversities.map((u) => `'${u}'`).join(",");
     conditions.push(
-      sql`${posts.tags} && ${sql.raw(`ARRAY[${arrayLiteral}]::text[]`)}`
+      sql`${posts.tags} && ${sql.raw(`ARRAY[${arrayLiteral}]::text[]`)}`,
     );
   }
 
@@ -194,13 +196,18 @@ export async function getWallPosts({
     case "most-liked":
       orderExpression = desc(reactionsTotal);
       break;
-    case "most-discussed":
-      // For most-discussed, we'll need to sort after calculating counts
-      orderExpression = desc(posts.createdAt);
+    case "oldest":
+      orderExpression = sql`${posts.createdAt} ASC`;
       break;
+    case "most-discussed":
     default:
       orderExpression = desc(posts.createdAt);
   }
+
+  // For "most-discussed", we need ALL matching posts so we can sort by
+  // recursive comment count (which includes nested replies) and then
+  // paginate in JS. For other sorts, normal SQL limit/offset works.
+  const isMostDiscussed = sortBy === "most-discussed";
 
   const result = await db
     .select({
@@ -217,23 +224,22 @@ export async function getWallPosts({
     .from(posts)
     .where(and(...conditions))
     .orderBy(orderExpression, desc(posts.createdAt))
-    .limit(sortBy === "most-discussed" ? limit * 3 : limit) // Fetch more for sorting
-    .offset(offset);
+    .limit(isMostDiscussed ? 500 : limit)
+    .offset(isMostDiscussed ? 0 : offset);
 
-  // Get comment counts for all posts in a single batch query
+  // Get comment counts (recursive, all descendants) for all posts
   const postIds = result.map((post) => post.id);
   const commentCounts = await getCommentCountsForPosts(postIds);
 
-  // Add comment counts to each post
   const postsWithCommentCounts = result.map((post) => ({
     ...post,
     commentCount: commentCounts.get(post.id) || 0,
   }));
 
-  // Sort by comment count if needed and limit again
-  if (sortBy === "most-discussed") {
+  // For "most-discussed": sort by total comment count, then paginate in JS
+  if (isMostDiscussed) {
     postsWithCommentCounts.sort((a, b) => b.commentCount - a.commentCount);
-    return postsWithCommentCounts.slice(0, limit);
+    return postsWithCommentCounts.slice(offset, offset + limit);
   }
 
   return postsWithCommentCounts;
@@ -307,7 +313,7 @@ export async function getQuizSummary() {
       acc[row.uni] = row.count;
       return acc;
     },
-    {}
+    {},
   );
 
   return {
@@ -356,13 +362,13 @@ export async function getAverageUniversityScores() {
 
 export async function getDailyResultsCounts(
   days: number,
-  filterUni?: "admu" | "dlsu" | "up" | "ust" | "all"
+  filterUni?: "admu" | "dlsu" | "up" | "ust" | "all",
 ): Promise<
   { date: string; admu: number; dlsu: number; up: number; ust: number }[]
 > {
   const whereConditions = [
     sql`${quizResults.createdAt} >= NOW() - INTERVAL '${sql.raw(
-      days.toString()
+      days.toString(),
     )} days'`,
   ];
 

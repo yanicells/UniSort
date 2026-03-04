@@ -15,7 +15,7 @@ import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type University = "general" | "admu" | "dlsu" | "up" | "ust";
-type SortBy = "latest" | "most-liked" | "most-discussed";
+type SortBy = "latest" | "oldest" | "most-liked" | "most-discussed";
 type TimeRange = "all" | "week" | "month";
 
 interface FilterBarProps {
@@ -79,7 +79,7 @@ function Combobox({
                   <CheckIcon
                     className={cn(
                       "mr-2 h-3 w-3",
-                      value === opt.value ? "opacity-100" : "opacity-0"
+                      value === opt.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {opt.label}
@@ -161,7 +161,7 @@ function MultiSelectCombobox({
                       "mr-2 flex h-4 w-4 items-center justify-center border-2 border-black",
                       selectedValues.includes(opt.value)
                         ? "bg-black text-white"
-                        : "bg-white [&_svg]:invisible"
+                        : "bg-white [&_svg]:invisible",
                     )}
                   >
                     <CheckIcon className="h-4 w-4" />
@@ -195,6 +195,7 @@ export function FilterBar({
 
   const sortOptions = [
     { value: "latest", label: "Latest" },
+    { value: "oldest", label: "Oldest" },
     { value: "most-liked", label: "Most Liked" },
     { value: "most-discussed", label: "Most Discussed" },
   ];

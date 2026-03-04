@@ -10,7 +10,7 @@ import { PenTool, Loader2 } from "lucide-react";
 import { fetcher, wallSwrConfig } from "@/lib/swr";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
-type WallSort = "latest" | "most-liked" | "most-discussed";
+type WallSort = "latest" | "oldest" | "most-liked" | "most-discussed";
 type WallTime = "all" | "week" | "month";
 
 type Reactions = {
@@ -39,7 +39,12 @@ type PostsResponse = {
 const POSTS_PER_PAGE = 10;
 
 // Valid options for type checking
-const VALID_SORTS: WallSort[] = ["latest", "most-liked", "most-discussed"];
+const VALID_SORTS: WallSort[] = [
+  "latest",
+  "oldest",
+  "most-liked",
+  "most-discussed",
+];
 const VALID_TIMES: WallTime[] = ["all", "week", "month"];
 const VALID_UNIVERSITIES: WallUniversity[] = [
   "general",
