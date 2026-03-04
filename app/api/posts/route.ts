@@ -18,6 +18,7 @@ export async function GET(request: Request) {
     )[];
     const sortBy = (searchParams.get("sortBy") || "latest") as
       | "latest"
+      | "oldest"
       | "most-liked"
       | "most-discussed";
     const timeRange = (searchParams.get("timeRange") || "all") as
