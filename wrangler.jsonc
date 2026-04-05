@@ -14,5 +14,11 @@
       "binding": "WORKER_SELF_REFERENCE",
       "service": "unisort"
     }
-  ]
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  }
 }
