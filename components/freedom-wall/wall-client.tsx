@@ -6,8 +6,9 @@ import { Post } from "./post";
 import { FilterBar } from "./filter-bar";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PostModal } from "./post-modal";
-import { PenTool, Loader2 } from "lucide-react";
+import { PenTool } from "lucide-react";
 import { fetcher, wallSwrConfig } from "@/lib/swr";
+import { PostSkeleton, PostSkeletonList } from "./post-skeleton";
 
 type WallUniversity = "general" | "admu" | "dlsu" | "up" | "ust";
 type WallSort = "latest" | "oldest" | "most-liked" | "most-discussed";
@@ -287,9 +288,7 @@ export function WallClient() {
                 </div>
               </div>
             ) : posts.length === 0 && isLoading ? (
-              <div className="flex justify-center items-center py-20">
-                <Loader2 className="w-10 h-10 animate-spin text-pink-600" />
-              </div>
+              <PostSkeletonList count={4} />
             ) : posts.length === 0 ? (
               <div className="text-center text-slate-500 py-12 font-serif text-lg">
                 No posts yet. Be the first to share!
@@ -314,10 +313,13 @@ export function WallClient() {
           </div>
 
           {/* Load More */}
-          <div ref={loadMoreRef} className="p-8 text-center">
+          <div ref={loadMoreRef} className="px-6 pb-8 text-center">
             {(isLoadingMore || isValidating) && posts.length > 0 && (
-              <div className="text-xs font-bold uppercase tracking-widest text-slate-400 animate-pulse">
-                Loading more confessions...
+              <div className="space-y-6 text-left">
+                <PostSkeleton />
+                <div className="text-center text-xs font-bold uppercase tracking-widest text-slate-400 animate-pulse pt-2">
+                  Loading more confessions...
+                </div>
               </div>
             )}
             {!hasMore && posts.length > 0 && (
