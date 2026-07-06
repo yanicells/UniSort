@@ -1,0 +1,77 @@
+{
+  "totals": {
+    "MIN": {
+      "admu": 93,
+      "dlsu": 88,
+      "up": 59,
+      "ust": 92
+    },
+    "MAX": {
+      "admu": 502,
+      "dlsu": 531,
+      "up": 576,
+      "ust": 497
+    }
+  },
+  "categoryMAX": {
+    "admu": {
+      "Academic Experience": 113,
+      "Social & Cultural Fit": 120,
+      "Campus Life": 140,
+      "Values & Identity": 129
+    },
+    "dlsu": {
+      "Academic Experience": 124,
+      "Social & Cultural Fit": 122,
+      "Campus Life": 169,
+      "Values & Identity": 116
+    },
+    "up": {
+      "Academic Experience": 140,
+      "Social & Cultural Fit": 136,
+      "Campus Life": 164,
+      "Values & Identity": 136
+    },
+    "ust": {
+      "Academic Experience": 102,
+      "Social & Cultural Fit": 121,
+      "Campus Life": 149,
+      "Values & Identity": 125
+    }
+  },
+  "categoryMIN": {
+    "admu": {
+      "Academic Experience": 15,
+      "Social & Cultural Fit": 21,
+      "Campus Life": 32,
+      "Values & Identity": 25
+    },
+    "dlsu": {
+      "Academic Experience": 11,
+      "Social & Cultural Fit": 19,
+      "Campus Life": 27,
+      "Values & Identity": 31
+    },
+    "up": {
+      "Academic Experience": 2,
+      "Social & Cultural Fit": 14,
+      "Campus Life": 29,
+      "Values & Identity": 14
+    },
+    "ust": {
+      "Academic Experience": 13,
+      "Social & Cultural Fit": 33,
+      "Campus Life": 30,
+      "Values & Identity": 16
+    }
+  },
+  "normalization": "normalized_pct = round((raw - MIN)/(MAX - MIN)*100)",
+  "tiers": {
+    "Perfect Match": ">=85",
+    "Strong Alignment": ">=70",
+    "Good Fit": ">=50",
+    "Moderate Interest": ">=30",
+    "Low Compatibility": "<30"
+  },
+  "topMatchRule": "argmax over universities of raw_score/max_possible_score (percentage of own max, NOT raw max)"
+}
